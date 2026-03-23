@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ioy41xka5ra0"]
+
+[ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/arena.tscn" id="1_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://cd0plyvsyqfcl" path="res://scenes/player.tscn" id="2_lnu2h"]
+
+[node name="game" type="Node2D" unique_id=632939941]
+
+[node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("1_yqjtg")]
+position = Vector2(-594, 622)
+
+[node name="Player" parent="." unique_id=1401691669 instance=ExtResource("2_lnu2h")]
+position = Vector2(617, 306)
+scale = Vector2(0.6, 0.6)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=330250361]
+offset = Vector2(0, -300)
+zoom = Vector2(0.5, 0.5)
