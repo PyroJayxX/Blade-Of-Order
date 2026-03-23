@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/arena.tscn" id="1_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://cd0plyvsyqfcl" path="res://scenes/player.tscn" id="2_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/touchControls.tscn" id="3_lnu2h"]
 
 [node name="game" type="Node2D" unique_id=632939941]
 
@@ -15,3 +16,13 @@ scale = Vector2(0.6, 0.6)
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=330250361]
 offset = Vector2(0, -300)
 zoom = Vector2(0.5, 0.5)
+
+[node name="Control" type="Control" parent="." unique_id=2072395279]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -283.0
+offset_top = -14.0
+offset_right = -144.0
+offset_bottom = 139.0
+
+[node name="TouchControls" parent="Control" unique_id=1019859329 instance=ExtResource("3_lnu2h")]
