@@ -28,23 +28,27 @@ window/stretch/aspect="expand"
 
 [input]
 
-move_left={
+moveRight={
 "deadzone": 0.2,
 "events": []
 }
-move_right={
+moveLeft={
 "deadzone": 0.2,
 "events": []
 }
-jump={
+Slash={
 "deadzone": 0.2,
 "events": []
 }
-dash={
+Dash={
 "deadzone": 0.2,
 "events": []
 }
-attack={
+Jump={
+"deadzone": 0.2,
+"events": []
+}
+Dodge={
 "deadzone": 0.2,
 "events": []
 }

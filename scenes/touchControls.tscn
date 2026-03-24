@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://d21scx72jcmc3"]
 
+[ext_resource type="Script" uid="uid://bgru3frysudqb" path="res://scripts/touch_controls.gd" id="1_6jjp2"]
 [ext_resource type="Texture2D" uid="uid://cgolksvcdcnjg" path="res://assets/touchControls/Left.png" id="1_w4sk7"]
 [ext_resource type="Texture2D" uid="uid://bvi5plvexg6wx" path="res://assets/touchControls/Right.png" id="2_6jjp2"]
 [ext_resource type="Texture2D" uid="uid://djmkwb2i3wvj7" path="res://assets/touchControls/Slash.png" id="3_0u434"]
@@ -8,38 +9,40 @@
 [ext_resource type="Texture2D" uid="uid://di4fcqiwcvjw8" path="res://assets/touchControls/Dodge.png" id="6_ho3od"]
 
 [node name="TouchControls" type="CanvasLayer" unique_id=1019859329]
+script = ExtResource("1_6jjp2")
 
 [node name="Left" type="TouchScreenButton" parent="." unique_id=1218380171]
 position = Vector2(40, 608)
 scale = Vector2(0.8, 0.8)
 texture_normal = ExtResource("1_w4sk7")
-action = "move_left"
+action = "moveLeft"
 
 [node name="Right" type="TouchScreenButton" parent="." unique_id=510147450]
 position = Vector2(154, 609)
 scale = Vector2(0.8, 0.8)
 texture_normal = ExtResource("2_6jjp2")
-action = "move_right"
+action = "moveRight"
 
 [node name="Slash" type="TouchScreenButton" parent="." unique_id=1872927727]
 position = Vector2(1169, 546)
 scale = Vector2(0.8, 0.8)
 texture_normal = ExtResource("3_0u434")
-action = "attack"
+action = "Slash"
 
 [node name="Dash" type="TouchScreenButton" parent="." unique_id=632857424]
 position = Vector2(1099, 616)
 scale = Vector2(0.8, 0.8)
 texture_normal = ExtResource("4_gc2f5")
-action = "dash"
+action = "Dash"
 
 [node name="Jump" type="TouchScreenButton" parent="." unique_id=241412203]
 position = Vector2(1099, 476)
 scale = Vector2(0.8, 0.8)
 texture_normal = ExtResource("5_16dv8")
-action = "jump"
+action = "Jump"
 
 [node name="Dodge" type="TouchScreenButton" parent="." unique_id=628384736]
 position = Vector2(1029, 547)
 scale = Vector2(0.8, 0.8)
 texture_normal = ExtResource("6_ho3od")
+action = "Dodge"
