@@ -6,6 +6,10 @@ const DASH_SPEED = 800.0
 const DASH_DURATION = 0.12
 const ATTACK_DURATION = 0.16
 
+@export var wrap_enabled: bool = true
+@export var wrap_left_x: float = 750.0
+@export var wrap_right_x: float = 5500.0	
+
 const MOVE_LEFT_ACTIONS: Array[StringName] = [&"moveleft", &"moveLeft", &"ui_left"]
 const MOVE_RIGHT_ACTIONS: Array[StringName] = [&"moveright", &"moveRight", &"ui_right"]
 const JUMP_ACTIONS: Array[StringName] = [&"jump", &"Jump", &"ui_accept"]
@@ -19,6 +23,10 @@ var is_dashing: bool = false
 var _attack_timer: float = 0.0
 var _dash_timer: float = 0.0
 var _facing: float = 1.0
+@onready var _visual_root: Node2D = $CharacterContainer
+
+func _ready() -> void:
+	_update_visual_facing()
 
 func _physics_process(delta: float) -> void:
 	_update_action_timers(delta)
@@ -41,6 +49,7 @@ func _physics_process(delta: float) -> void:
 	var direction: float = _get_move_axis()
 	if absf(direction) > 0.01:
 		_facing = signf(direction)
+		_update_visual_facing()
 
 	if is_dashing:
 		velocity.x = DASH_SPEED * _facing
@@ -50,6 +59,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+	_apply_horizontal_wrap()
 
 func perform_slash() -> void:
 	is_attacking = true
@@ -92,3 +102,20 @@ func _just_pressed(actions: Array[StringName]) -> bool:
 		if InputMap.has_action(action_name) and Input.is_action_just_pressed(action_name):
 			return true
 	return false
+
+func _update_visual_facing() -> void:
+	var current_scale: Vector2 = _visual_root.scale
+	current_scale.x = absf(current_scale.x) * _facing
+	_visual_root.scale = current_scale
+
+func _apply_horizontal_wrap() -> void:
+	if not wrap_enabled:
+		return
+
+	var span: float = wrap_right_x - wrap_left_x
+	if span <= 0.0:
+		return
+
+	if global_position.x < wrap_left_x or global_position.x > wrap_right_x:
+		var wrapped_x: float = wrap_left_x + fposmod(global_position.x - wrap_left_x, span)
+		global_position.x = wrapped_x
