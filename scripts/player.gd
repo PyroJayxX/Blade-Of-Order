@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const JUMP_VELOCITY = -800.0
 const DASH_SPEED = 800.0
 const DASH_DURATION = 0.12
 const ATTACK_DURATION = 0.16
@@ -9,6 +9,10 @@ const ATTACK_DURATION = 0.16
 @export var wrap_enabled: bool = true
 @export var wrap_left_x: float = 750.0
 @export var wrap_right_x: float = 5500.0	
+@export var max_air_jumps: int = 1
+@export var gravity_scale: float = 2.2
+@export var fall_gravity_multiplier: float = 1.2
+@export var max_fall_speed: float = 1600.0
 
 const MOVE_LEFT_ACTIONS: Array[StringName] = [&"moveleft", &"moveLeft", &"ui_left"]
 const MOVE_RIGHT_ACTIONS: Array[StringName] = [&"moveright", &"moveRight", &"ui_right"]
@@ -23,6 +27,7 @@ var is_dashing: bool = false
 var _attack_timer: float = 0.0
 var _dash_timer: float = 0.0
 var _facing: float = 1.0
+var _air_jumps_used: int = 0
 @onready var _visual_root: Node2D = $CharacterContainer
 
 func _ready() -> void:
@@ -32,10 +37,19 @@ func _physics_process(delta: float) -> void:
 	_update_action_timers(delta)
 
 	if not is_on_floor() and not is_dashing:
-		velocity.y += gravity * delta
+		var applied_gravity: float = gravity * gravity_scale
+		if velocity.y > 0.0:
+			applied_gravity *= fall_gravity_multiplier
+		velocity.y = minf(velocity.y + applied_gravity * delta, max_fall_speed)
+	else:
+		_air_jumps_used = 0
 
-	if _just_pressed(JUMP_ACTIONS) and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	if _just_pressed(JUMP_ACTIONS):
+		if is_on_floor():
+			velocity.y = JUMP_VELOCITY
+		elif _air_jumps_used < max_air_jumps:
+			_air_jumps_used += 1
+			velocity.y = JUMP_VELOCITY
 
 	if _just_pressed(SLASH_ACTIONS) and not is_attacking and not is_dashing:
 		perform_slash()
