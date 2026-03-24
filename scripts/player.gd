@@ -8,7 +8,7 @@ const ATTACK_DURATION = 0.16
 
 @export var wrap_enabled: bool = true
 @export var wrap_left_x: float = 750.0
-@export var wrap_right_x: float = 5500.0	
+@export var wrap_right_x: float = 5540.0	
 @export var max_air_jumps: int = 1
 @export var gravity_scale: float = 2.2
 @export var fall_gravity_multiplier: float = 1.2

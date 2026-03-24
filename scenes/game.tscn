@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/arena.tscn" id="1_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://cd0plyvsyqfcl" path="res://scenes/player.tscn" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/touchControls.tscn" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://b6sy41opg4xdm" path="res://scenes/bosses/lvl1_bubble.tscn" id="4_lbhrr"]
 
 [node name="game" type="Node2D" unique_id=632939941]
 
@@ -26,3 +27,7 @@ offset_right = -144.0
 offset_bottom = 139.0
 
 [node name="TouchControls" parent="Control" unique_id=1019859329 instance=ExtResource("3_lnu2h")]
+
+[node name="lvl1_bubble" parent="." unique_id=1029836507 instance=ExtResource("4_lbhrr")]
+position = Vector2(2995, -69)
+scale = Vector2(8, 8)

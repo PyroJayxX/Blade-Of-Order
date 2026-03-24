@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b6sy41opg4xdm"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_yq4lb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ac34n"]
+radius = 46.818798
+
+[node name="Node2D" type="CharacterBody2D" unique_id=1029836507]
+scale = Vector2(100, 100)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1938050514]
+modulate = Color(0, 0.14941186, 0.23200592, 0.3254902)
+position = Vector2(7.6293945e-06, -3.8146973e-06)
+scale = Vector2(96.33959, 96.33959)
+mesh = SubResource("SphereMesh_yq4lb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=49306990]
+shape = SubResource("CircleShape2D_ac34n")
