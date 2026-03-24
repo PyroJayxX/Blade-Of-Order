@@ -19,8 +19,6 @@ height = 472.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1401691669]
 script = ExtResource("1_3v2ag")
-collision_layer = 2
-collision_mask = 1
 
 [node name="CharacterContainer" type="Node2D" parent="." unique_id=1171156702]
 
@@ -32,29 +30,29 @@ rotation = 1.7715092
 texture = ExtResource("1_d2wvv")
 
 [node name="LeftLeg" type="Sprite2D" parent="CharacterContainer/Body" unique_id=620507285]
-position = Vector2(52, 251)
+position = Vector2(56, 260)
 texture = ExtResource("2_3v2ag")
 
 [node name="LeftCalf" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1093830721]
-position = Vector2(35, 137)
+position = Vector2(39, 140)
 texture = ExtResource("3_jej6c")
 
 [node name="RightCalf" type="Sprite2D" parent="CharacterContainer/Body" unique_id=230602902]
-position = Vector2(-27, 132)
+position = Vector2(-34, 142)
 texture = ExtResource("4_f1ej7")
 
 [node name="RightLeg" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1168770055]
-position = Vector2(-36, 248)
+position = Vector2(-40, 257)
 texture = ExtResource("5_oprun")
 
 [node name="LeftHand" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1432632113]
-position = Vector2(84.487785, 104.86209)
+position = Vector2(88.17775, 103.343414)
 rotation = 1.1466814
 scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("6_a8ls1")
 
 [node name="LeftBicep" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1410523466]
-position = Vector2(50.840187, 1.8136749)
+position = Vector2(57.43357, 4.456154)
 rotation = -0.13439035
 scale = Vector2(0.89999986, 0.89999986)
 texture = ExtResource("7_qfm1y")
@@ -64,11 +62,11 @@ position = Vector2(6, 7)
 texture = ExtResource("8_fulsm")
 
 [node name="RightBicep" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1827724224]
-position = Vector2(-60, 6)
+position = Vector2(-62, 8)
 texture = ExtResource("9_4r5pv")
 
 [node name="RightHand" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1667615556]
-position = Vector2(-54, 115)
+position = Vector2(-55, 118)
 rotation = -1.8151424
 texture = ExtResource("10_60mlk")
 
@@ -91,7 +89,7 @@ position = Vector2(-47, 168)
 rest = Transform2D(1, 0, 0, 1, -47, 168)
 
 [node name="LegR" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/CalfR" unique_id=1040043454]
-position = Vector2(-13, 116)
+position = Vector2(-17, 125)
 rest = Transform2D(1, 0, 0, 1, -13, 116)
 
 [node name="RTLegR" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/CalfR/LegR" unique_id=2105540113]
@@ -99,15 +97,15 @@ position = Vector2(18, -43)
 remote_path = NodePath("../../../../../../Body/RightLeg")
 
 [node name="RTCalfR" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/CalfR" unique_id=1342661307]
-position = Vector2(14, -43)
+position = Vector2(7, -33)
 remote_path = NodePath("../../../../../Body/RightCalf")
 
 [node name="CalfL" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso" unique_id=657251947]
-position = Vector2(44, 168)
+position = Vector2(48, 171)
 rest = Transform2D(1, 0, 0, 1, 44, 168)
 
 [node name="LegL" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/CalfL" unique_id=308073086]
-position = Vector2(-9, 115)
+position = Vector2(-9, 121)
 rest = Transform2D(1, 0, 0, 1, -9, 115)
 
 [node name="RTLegL" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/CalfL/LegL" unique_id=675377046]
@@ -119,37 +117,38 @@ position = Vector2(-15, -38)
 remote_path = NodePath("../../../../../Body/LeftCalf")
 
 [node name="ArmR" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso" unique_id=694205396]
-position = Vector2(-76, -35)
+position = Vector2(-70, -46)
 rest = Transform2D(1, 0, 0, 1, -76, -35)
 
 [node name="BicepsR" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/ArmR" unique_id=100042922]
-position = Vector2(10, 34)
+position = Vector2(-7, 79)
 rest = Transform2D(1, 0, 0, 1, 10, 34)
 
 [node name="ForearmR" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/ArmR/BicepsR" unique_id=175215747]
-position = Vector2(-10, 122)
+position = Vector2(20, 106)
 rest = Transform2D(1, 0, 0, 1, -10, 122)
 
 [node name="RTArmR" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/ArmR/BicepsR/ForearmR" unique_id=1307533649]
-position = Vector2(16, -13)
+position = Vector2(-4, -28)
 rotation = -1.8151424
 remote_path = NodePath("../../../../../../../Body/RightHand")
 
 [node name="RTBicepsR" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/ArmR/BicepsR" unique_id=131903315]
+position = Vector2(9, -32)
 remote_path = NodePath("../../../../../../Body/RightBicep")
 
 [node name="ArmL" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso" unique_id=1812042999]
-position = Vector2(39, -30)
+position = Vector2(40, -21)
 rotation = -0.13439035
 rest = Transform2D(0.9909832, -0.13398619, 0.13398619, 0.9909832, 39, -30)
 
 [node name="BicepL" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/ArmL" unique_id=2108917116]
-position = Vector2(6, 93)
+position = Vector2(12.39477, 87.44924)
 rotation = 0.23212878
 rest = Transform2D(0.97317886, 0.23004973, -0.23004973, 0.97317886, 6, 93)
 
 [node name="ForearmL" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/ArmL/BicepL" unique_id=1859601455]
-position = Vector2(47.652306, 66.830055)
+position = Vector2(44.356693, 62.97209)
 rest = Transform2D(1, 0, 0, 1, 47.652306, 66.830055)
 
 [node name="RTHandL" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/ArmL/BicepL/ForearmL" unique_id=158843421]
@@ -186,5 +185,6 @@ rotation = 1.7715092
 remote_path = NodePath("../../../Body/Sword")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1880111445]
+visible = false
 position = Vector2(10, 81)
 shape = SubResource("CapsuleShape2D_d2wvv")

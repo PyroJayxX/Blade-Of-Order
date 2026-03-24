@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b6sy41opg4xdm"]
 
-[ext_resource type="Script" path="res://scripts/lvl1_bubble.gd" id="1_o6wqv"]
+[ext_resource type="Script" uid="uid://f7enwscw1p4t" path="res://scripts/lvl1_bubble.gd" id="1_o6wqv"]
+[ext_resource type="Texture2D" uid="uid://cb0cxq6x40vly" path="res://scenes/bosses/bubble_eye.png" id="2_d8eeg"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_yq4lb"]
 
@@ -10,14 +11,51 @@ radius = 46.818798
 [node name="Node2D" type="CharacterBody2D" unique_id=1029836507]
 scale = Vector2(100, 100)
 script = ExtResource("1_o6wqv")
-collision_layer = 4
-collision_mask = 1
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1938050514]
-modulate = Color(0, 0.14941186, 0.23200592, 0.3254902)
+modulate = Color(0, 0, 0, 0.8980392)
 position = Vector2(7.6293945e-06, -3.8146973e-06)
-scale = Vector2(96.33959, 96.33959)
+scale = Vector2(96.339584, 96.339584)
 mesh = SubResource("SphereMesh_yq4lb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=49306990]
+visible = false
 shape = SubResource("CircleShape2D_ac34n")
+
+[node name="Eyes" type="Node2D" parent="." unique_id=206707048]
+
+[node name="EyeL" type="Sprite2D" parent="Eyes" unique_id=329504457]
+position = Vector2(19.519999, 1.5699999)
+rotation = -0.31415924
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_d8eeg")
+
+[node name="EyeR" type="Sprite2D" parent="Eyes" unique_id=1238144096]
+position = Vector2(-19.47, 1.5699999)
+rotation = 0.31415924
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_d8eeg")
+
+[node name="Eyebone" type="Node2D" parent="." unique_id=2037728920]
+
+[node name="Spine" type="Skeleton2D" parent="Eyebone" unique_id=525459818]
+
+[node name="EyeboneL" type="Bone2D" parent="Eyebone/Spine" unique_id=2020401295]
+position = Vector2(17.3, 1.5699999)
+rest = Transform2D(1, 0, 0, 1, 16.23, 1.5699999)
+
+[node name="EyeboneLT" type="RemoteTransform2D" parent="Eyebone/Spine/EyeboneL" unique_id=1219474142]
+position = Vector2(2.22, -5.1688403e-08)
+rotation = -0.31415927
+scale = Vector2(0.1, 0.1)
+remote_path = NodePath("../../../../Eyes/EyeL")
+
+[node name="EyeboneR" type="Bone2D" parent="Eyebone/Spine" unique_id=1654397534]
+position = Vector2(-16.93, 1.5699999)
+rest = Transform2D(1, 0, 0, 1, -16.93, 1.5699999)
+
+[node name="EyeboneRT" type="RemoteTransform2D" parent="Eyebone/Spine/EyeboneR" unique_id=1563854418]
+position = Vector2(-2.54, -5.9138983e-08)
+rotation = 0.31415927
+scale = Vector2(0.1, 0.1)
+remote_path = NodePath("../../../../Eyes/EyeR")
