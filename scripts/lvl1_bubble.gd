@@ -3,6 +3,8 @@ extends CharacterBody2D
 enum BossState {
 	IDLE,
 	CHASE,
+	HURT,
+	STUNNED,
 	ATTACK
 }
 
@@ -14,11 +16,24 @@ enum BossState {
 @export var keep_y_position: bool = true
 @export var contact_buffer: float = 80.0
 @export var retreat_speed_multiplier: float = 0.6
+@export var max_eye_distance: float = 20.0 #
 
 var _state: BossState = BossState.IDLE
 var _target: Node2D
 var _home_y: float = 0.0
 var _desired_personal_space: float = 0.0
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
+@onready var eyes_pivot: Node2D = $EyesPivot
+
+func _process(_delta: float) -> void:
+	if _target != null and is_instance_valid(_target):
+		if _state == BossState.CHASE or _state == BossState.ATTACK:
+			var target_vector = _target.global_position - global_position
+			eyes_pivot.position = target_vector.limit_length(max_eye_distance)
+			eyes_pivot.global_rotation = 0
+		elif _state == BossState.IDLE:
+			eyes_pivot.position = Vector2.ZERO
+			eyes_pivot.global_rotation = 0
 
 func _ready() -> void:
 	_home_y = global_position.y
@@ -135,13 +150,47 @@ func _set_state(new_state: BossState) -> void:
 	_state = new_state
 	print("Bubble Boss state -> ", _state_to_text(_state))
 
+	if anim_player != null:
+		match _state:
+			BossState.IDLE:
+				anim_player.play("idle")
+			BossState.CHASE:
+				anim_player.play("chase")
+			BossState.ATTACK:
+				anim_player.play("attack")
+			BossState.HURT:
+				anim_player.play("hurt")
+			BossState.STUNNED:
+				anim_player.play("stunned")
+
 func _state_to_text(state: BossState) -> String:
 	match state:
 		BossState.IDLE:
 			return "IDLE"
 		BossState.CHASE:
 			return "CHASE"
+		BossState.HURT:
+			return "HURT"
+		BossState.STUNNED:
+			return "STUNNED"
 		BossState.ATTACK:
 			return "ATTACK"
 		_:
 			return "UNKNOWN"
+			
+func take_damage(amount: int, causes_stun: bool = false) -> void:
+	if causes_stun:
+		_set_state(BossState.STUNNED)
+	else:
+		_set_state(BossState.HURT)
+		await anim_player.animation_finished
+		_set_state(BossState.CHASE)
+		
+func _unhandled_input(event: InputEvent) -> void:
+	# Press 'H' on your keyboard to instantly hurt the boss
+	if event is InputEventKey and event.pressed and event.keycode == KEY_H:
+		take_damage(10, false)
+		
+	# Press 'K' on your keyboard to test the Stunned animation!
+	if event is InputEventKey and event.pressed and event.keycode == KEY_K:
+		take_damage(10, true)
