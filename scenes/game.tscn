@@ -5,16 +5,25 @@
 [ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/touchControls.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b6sy41opg4xdm" path="res://scenes/bosses/lvl1_bubble.tscn" id="4_lbhrr"]
 
+[sub_resource type="Animation" id="Animation_lbhrr"]
+resource_name = "Walk"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iywne"]
+_data = {
+&"Walk": SubResource("Animation_lbhrr")
+}
+
 [node name="game" type="Node2D" unique_id=632939941]
 
 [node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("1_yqjtg")]
 position = Vector2(-594, 622)
 
 [node name="Player" parent="." unique_id=1401691669 instance=ExtResource("2_lnu2h")]
-position = Vector2(695, 292)
+position = Vector2(595, 352)
 scale = Vector2(0.6, 0.6)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=330250361]
+position = Vector2(5.9604645e-07, -5.9604645e-07)
 offset = Vector2(0, -300)
 zoom = Vector2(0.5, 0.5)
 
@@ -31,3 +40,6 @@ offset_bottom = 139.0
 [node name="Node2D" parent="." unique_id=1029836507 instance=ExtResource("4_lbhrr")]
 position = Vector2(3306, -125.000046)
 scale = Vector2(10, 10)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=759719720]
+libraries/ = SubResource("AnimationLibrary_iywne")
