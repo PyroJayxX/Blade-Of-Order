@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
-const SPEED = 300.0
+const SPEED = 600.0
 const JUMP_VELOCITY = -800.0
 const DASH_SPEED = 800.0
-const DASH_DURATION = 0.12
-const ATTACK_DURATION = 0.16
+const DASH_DURATION = 0.6
+const ATTACK_DURATION = 0.3
 
 @export var wrap_enabled: bool = true
 @export var wrap_left_x: float = 750.0
@@ -79,13 +79,13 @@ func _physics_process(delta: float) -> void:
 
 func _update_animation(direction: float) -> void:
 	if is_attacking:
-		if anim.current_animation != "slash":
-			anim.play("slash")
+		if anim.current_animation != "Slash":
+			anim.play("Slash")
 		return
 
 	if is_dashing:
-		if anim.current_animation != "dash":
-			anim.play("dash")
+		if anim.current_animation != "Dash":
+			anim.play("Dash")
 		return
 
 	if not is_on_floor():
@@ -93,8 +93,8 @@ func _update_animation(direction: float) -> void:
 			if anim.current_animation != "Jump":
 				anim.play("Jump")
 		else:
-			if anim.current_animation != "fall":
-				anim.play("fall")
+			if anim.current_animation != "Fall":
+				anim.play("Fall")
 		return
 
 	if absf(direction) > 0.01:
@@ -111,7 +111,7 @@ func perform_slash() -> void:
 
 func perform_dash() -> void:
 	is_dashing = true
-	_dash_timer = DASH_DURATION * 3.0
+	_dash_timer = DASH_DURATION
 	velocity.x = DASH_SPEED * _facing
 	print("Dash Initiated")
 
