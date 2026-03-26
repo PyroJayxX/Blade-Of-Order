@@ -29,6 +29,7 @@ var _dash_timer: float = 0.0
 var _facing: float = 1.0
 var _air_jumps_used: int = 0
 @onready var _visual_root: Node2D = $CharacterContainer
+@onready var anim: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
 	_update_visual_facing()
@@ -74,6 +75,34 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	_apply_horizontal_wrap()
+	_update_animation(direction)
+
+func _update_animation(direction: float) -> void:
+	if is_attacking:
+		if anim.current_animation != "slash":
+			anim.play("slash")
+		return
+
+	if is_dashing:
+		if anim.current_animation != "dash":
+			anim.play("dash")
+		return
+
+	if not is_on_floor():
+		if velocity.y < 0:
+			if anim.current_animation != "Jump":
+				anim.play("Jump")
+		else:
+			if anim.current_animation != "fall":
+				anim.play("fall")
+		return
+
+	if absf(direction) > 0.01:
+		if anim.current_animation != "Run":
+			anim.play("Run")
+	else:
+		if anim.current_animation != "Idle":
+			anim.play("Idle")
 
 func perform_slash() -> void:
 	is_attacking = true
@@ -118,9 +147,7 @@ func _just_pressed(actions: Array[StringName]) -> bool:
 	return false
 
 func _update_visual_facing() -> void:
-	var current_scale: Vector2 = _visual_root.scale
-	current_scale.x = absf(current_scale.x) * _facing
-	_visual_root.scale = current_scale
+	_visual_root.scale.x = _facing
 
 func _apply_horizontal_wrap() -> void:
 	if not wrap_enabled:
