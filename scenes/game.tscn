@@ -8,6 +8,14 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/sealing_modal.tscn" id="5_rpq23"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_health_bars.tscn" id="6_6ifkb"]
 
+[sub_resource type="Gradient" id="Gradient_u5sy4"]
+offsets = PackedFloat32Array(0.27108434, 1)
+colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gee14"]
+gradient = SubResource("Gradient_u5sy4")
+fill_to = Vector2(0, 1)
+
 [sub_resource type="Animation" id="Animation_lbhrr"]
 resource_name = "Walk"
 
@@ -18,6 +26,16 @@ _data = {
 
 [node name="game" type="Node2D" unique_id=632939941]
 script = ExtResource("1_hv20u")
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=486301402]
+scroll_offset = Vector2(190, -329)
+
+[node name="TextureRect" type="TextureRect" parent="Parallax2D" unique_id=451475660]
+offset_left = -923.0
+offset_top = -528.0
+offset_right = 6854.0
+offset_bottom = 1097.0
+texture = SubResource("GradientTexture2D_gee14")
 
 [node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("1_yqjtg")]
 position = Vector2(-594, 622)
