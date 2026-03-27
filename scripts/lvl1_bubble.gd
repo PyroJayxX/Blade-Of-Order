@@ -185,12 +185,25 @@ func take_damage(amount: int, causes_stun: bool = false) -> void:
 		_set_state(BossState.HURT)
 		await anim_player.animation_finished
 		_set_state(BossState.CHASE)
+
+func on_stun_started_mock() -> void:
+	_set_state(BossState.STUNNED)
+	print("Stun puzzle opened (mock hook).")
+
+func on_stun_modal_closed_mock() -> void:
+	if _state == BossState.STUNNED:
+		_set_state(BossState.CHASE)
+	print("Stun puzzle closed (mock hook).")
+
+func on_sealing_success_mock() -> void:
+	print("Sealing success (mock hook). TODO: apply real sealing outcome.")
+	_set_state(BossState.IDLE)
+
+func on_resonance_surge_mock() -> void:
+	print("Resonance Surge (mock hook). TODO: restore boss HP to full.")
+	_set_state(BossState.CHASE)
 		
 func _unhandled_input(event: InputEvent) -> void:
 	# Press 'H' on your keyboard to instantly hurt the boss
 	if event is InputEventKey and event.pressed and event.keycode == KEY_H:
 		take_damage(10, false)
-		
-	# Press 'K' on your keyboard to test the Stunned animation!
-	if event is InputEventKey and event.pressed and event.keycode == KEY_K:
-		take_damage(10, true)

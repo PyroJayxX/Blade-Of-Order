@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://ioy41xka5ra0"]
 
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_hv20u"]
 [ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/arena.tscn" id="1_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://cd0plyvsyqfcl" path="res://scenes/player.tscn" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/touchControls.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b6sy41opg4xdm" path="res://scenes/bosses/lvl1_bubble.tscn" id="4_lbhrr"]
+[ext_resource type="PackedScene" path="res://scenes/ui/sealing_modal.tscn" id="5_rpq23"]
 
 [sub_resource type="Animation" id="Animation_lbhrr"]
 resource_name = "Walk"
@@ -14,6 +16,7 @@ _data = {
 }
 
 [node name="game" type="Node2D" unique_id=632939941]
+script = ExtResource("1_hv20u")
 
 [node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("1_yqjtg")]
 position = Vector2(-594, 622)
@@ -37,9 +40,11 @@ offset_bottom = 139.0
 
 [node name="TouchControls" parent="Control" unique_id=1019859329 instance=ExtResource("3_lnu2h")]
 
-[node name="Node2D" parent="." unique_id=1029836507 instance=ExtResource("4_lbhrr")]
+[node name="BubbleBoss" parent="." unique_id=1029836507 instance=ExtResource("4_lbhrr")]
 position = Vector2(3306, -125.000046)
 scale = Vector2(10, 10)
+
+[node name="SealingModal" parent="." instance=ExtResource("5_rpq23")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=759719720]
 libraries/ = SubResource("AnimationLibrary_iywne")
