@@ -2432,75 +2432,75 @@ script = ExtResource("1_3v2ag")
 [node name="Body" type="Node2D" parent="CharacterContainer" unique_id=1104642081]
 
 [node name="Sword" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1443200463]
-position = Vector2(3.201889, -112.29564)
-rotation = 2.141092
-scale = Vector2(1.0000001, 1.0000001)
+position = Vector2(-147.8698, -110.724915)
+rotation = 2.2155046
+scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("1_d2wvv")
 
 [node name="LeftBicep2" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1410523466]
-position = Vector2(104.084114, -138.88293)
-rotation = -1.1846327
-scale = Vector2(0.9998774, 0.9998774)
+position = Vector2(57.106327, -107.602905)
+rotation = -0.28037706
+scale = Vector2(0.99999785, 0.99999785)
 texture = ExtResource("7_qfm1y")
 offset = Vector2(-1.4810104, 40.06997)
 
 [node name="LeftHand" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1432632113]
-position = Vector2(188.10204, -106.90099)
-rotation = -1.9699582
-scale = Vector2(0.9998362, 0.9998362)
+position = Vector2(83.369705, -20.893757)
+rotation = -0.30900106
+scale = Vector2(0.9999971, 0.9999971)
 texture = ExtResource("6_a8ls1")
 offset = Vector2(58.530922, -1.2113838)
 
 [node name="LeftCalf" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1093830721]
-position = Vector2(5.164731, -62.10329)
-rotation = 1.3965338
-scale = Vector2(0.99991405, 0.99991405)
+position = Vector2(27.232609, 13.985207)
+rotation = 0.7625273
+scale = Vector2(0.99999624, 0.99999624)
 texture = ExtResource("3_jej6c")
 offset = Vector2(10, 42)
 
 [node name="LeftLeg" type="Sprite2D" parent="CharacterContainer/Body" unique_id=620507285]
-position = Vector2(-93.9689, -14.192829)
-rotation = 1.3399423
-scale = Vector2(0.9999137, 0.9999137)
+position = Vector2(-24.584106, 111.56618)
+rotation = 1.1224774
+scale = Vector2(0.99999785, 0.99999785)
 texture = ExtResource("2_3v2ag")
 offset = Vector2(-2, 63)
 
 [node name="RightCalf" type="Sprite2D" parent="CharacterContainer/Body" unique_id=230602902]
-position = Vector2(-28.306255, -97.344536)
-rotation = -1.3189286
-scale = Vector2(0.99989325, 0.99989325)
+position = Vector2(-20.861382, 7.175293)
+rotation = -1.0983757
+scale = Vector2(0.99999136, 0.99999136)
 texture = ExtResource("4_f1ej7")
 offset = Vector2(-12.819983, 48.616127)
 
 [node name="RightLeg" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1168770055]
-position = Vector2(68.40251, -47.275978)
-rotation = 0.7876407
-scale = Vector2(0.99988484, 0.99988484)
+position = Vector2(62.556816, 77.193665)
+rotation = -0.6718226
+scale = Vector2(0.9999831, 0.9999831)
 texture = ExtResource("5_oprun")
 offset = Vector2(4.4092064, 63.995102)
 
 [node name="Torso" type="Sprite2D" parent="CharacterContainer/Body" unique_id=9258829]
-position = Vector2(42.472446, -137.94434)
-rotation = 0.7127518
+position = Vector2(9.399048, -68.60271)
+rotation = 0.042675424
 texture = ExtResource("8_fulsm")
 
 [node name="Head" type="Sprite2D" parent="CharacterContainer/Body" unique_id=580261433]
-position = Vector2(102.16227, -236.16016)
-rotation = 0.16395034
-scale = Vector2(0.99989825, 0.99989825)
+position = Vector2(9.109673, -185.6642)
+rotation = -0.11881398
+scale = Vector2(0.9999876, 0.9999876)
 texture = ExtResource("11_i4ail")
 
 [node name="RightBicep" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1827724224]
-position = Vector2(25.748043, -211.87761)
-rotation = 1.4394356
-scale = Vector2(0.9998989, 0.9998989)
+position = Vector2(-49.625595, -116.16415)
+rotation = 0.37565386
+scale = Vector2(0.9999998, 0.9999998)
 texture = ExtResource("9_4r5pv")
 offset = Vector2(-1.2719955, 44.680428)
 
 [node name="RightHand" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1667615556]
-position = Vector2(-69.73929, -205.49747)
-rotation = -0.404283
-scale = Vector2(0.999889, 0.999889)
+position = Vector2(-90.41719, -29.58442)
+rotation = -2.7118459
+scale = Vector2(0.9999997, 0.9999997)
 texture = ExtResource("10_60mlk")
 offset = Vector2(-57.092598, -2.5900192)
 flip_v = true
@@ -2528,12 +2528,12 @@ remote_path = NodePath("../../../../Body/Torso")
 [node name="LegR" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip" unique_id=718199993]
 visible = false
 position = Vector2(-28, 19)
-rotation = -0.110009484
+rotation = -0.11000948
 scale = Vector2(0.9999912, 0.9999912)
 rest = Transform2D(0.9512774, 0.30831015, -0.30831015, 0.9512774, -28.000816, 18.999847)
 auto_calculate_length_and_angle = false
 length = 130.99
-bone_angle = 109.99997
+bone_angle = 109.99996
 metadata/_local_pose_override_enabled_ = true
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Hip/LegR" unique_id=1230947270]
@@ -2561,7 +2561,7 @@ position = Vector2(-15.356031, 112.0901)
 rest = Transform2D(0.08287839, 0.9965684, -0.9965684, 0.08287839, -13.278915, 115.03007)
 auto_calculate_length_and_angle = false
 length = 16.085
-bone_angle = 11.338996
+bone_angle = 11.338995
 metadata/_local_pose_override_enabled_ = true
 
 [node name="LegL" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip" unique_id=1051273871]
@@ -2602,7 +2602,7 @@ position = Vector2(-14, 111)
 rest = Transform2D(0.08287791, 0.9965613, -0.9965613, 0.08287791, -13.288673, 115.1145)
 auto_calculate_length_and_angle = false
 length = 16.03
-bone_angle = 11.338996
+bone_angle = 11.338995
 metadata/_local_pose_override_enabled_ = true
 
 [node name="ArmR" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip" unique_id=2036382550]
@@ -2661,7 +2661,7 @@ scale = Vector2(0.99999756, 0.99999756)
 rest = Transform2D(0.99823505, -0.05951911, 0.05951911, 0.99823505, 20.000473, 87.002686)
 auto_calculate_length_and_angle = false
 length = 90.853
-bone_angle = 70.31897
+bone_angle = 70.31896
 metadata/_local_pose_override_enabled_ = true
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Hip/ArmL/ForeArmL" unique_id=625957650]
@@ -2676,7 +2676,7 @@ position = Vector2(31.221176, 85.733536)
 rest = Transform2D(0.9039198, -0.42768636, 0.42768636, 0.9039198, 30.597778, 85.54554)
 auto_calculate_length_and_angle = false
 length = 11.152
-bone_angle = 95.63997
+bone_angle = 95.63996
 metadata/_local_pose_override_enabled_ = true
 
 [node name="Head" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip" unique_id=275044691]
@@ -2761,8 +2761,7 @@ position = Vector2(147.04623, 69.479546)
 position = Vector2(-67.67251, -112.99749)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1880111445]
-visible = false
-position = Vector2(10, 81)
+position = Vector2(10, -27)
 shape = SubResource("CapsuleShape2D_d2wvv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=265384387]
