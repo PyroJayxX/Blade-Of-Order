@@ -31,10 +31,10 @@ script = ExtResource("1_hv20u")
 scroll_offset = Vector2(190, -329)
 
 [node name="TextureRect" type="TextureRect" parent="Parallax2D" unique_id=451475660]
-offset_left = -923.0
-offset_top = -528.0
-offset_right = 6854.0
-offset_bottom = 1097.0
+offset_left = -1020.0
+offset_top = -689.0
+offset_right = 6757.0
+offset_bottom = 1282.0
 texture = SubResource("GradientTexture2D_gee14")
 
 [node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("1_yqjtg")]
