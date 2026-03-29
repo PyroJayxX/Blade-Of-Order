@@ -28,7 +28,7 @@ var _attack_timer: float = 0.0
 var _dash_timer: float = 0.0
 var _facing: float = 1.0
 var _air_jumps_used: int = 0
-@onready var _visual_root: Node2D = $CharacterContainer
+@onready var _visual_root: Node2D = $CharacterContainer/Body
 @onready var anim: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
