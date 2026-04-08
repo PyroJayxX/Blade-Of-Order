@@ -1,0 +1,161 @@
+[gd_scene format=3 uid="uid://c6pnmy21s1kis"]
+
+[ext_resource type="Texture2D" uid="uid://br3rkacgcqa77" path="res://assets/player_new/GREEN SWORD.png" id="1_125um"]
+[ext_resource type="Texture2D" uid="uid://c6ugccdap7hi3" path="res://assets/player_new/LEG BACK.png" id="2_eqpxn"]
+[ext_resource type="Texture2D" uid="uid://5yiosubfhy1c" path="res://assets/player_new/ARM BACK.png" id="3_o7akt"]
+[ext_resource type="Texture2D" uid="uid://cq24f0nlsb25x" path="res://assets/player_new/SHOULDER BACK.png" id="4_exm4t"]
+[ext_resource type="Texture2D" uid="uid://cnmf1ekef1jun" path="res://assets/player_new/TORSO.png" id="5_3ippq"]
+[ext_resource type="Texture2D" uid="uid://biq6ekxo7nkqh" path="res://assets/player_new/SHOULDER FRONT.png" id="6_h1jqw"]
+[ext_resource type="Texture2D" uid="uid://diqjqobngqiru" path="res://assets/player_new/LEG FRONT.png" id="7_6kkqa"]
+[ext_resource type="Texture2D" uid="uid://qtpofcgcpqw3" path="res://assets/player_new/ARM FRONT.png" id="8_k8vl7"]
+[ext_resource type="Texture2D" uid="uid://c3bllp75rn7pp" path="res://assets/player_new/FEET BACK.png" id="9_b5fe0"]
+[ext_resource type="Texture2D" uid="uid://dvsnf4j7vy4us" path="res://assets/player_new/FEET FRONT 1.png" id="10_ra8dv"]
+[ext_resource type="Texture2D" uid="uid://c5ke8ms707hqd" path="res://assets/player_new/HEAD.png" id="11_c1e3l"]
+
+[sub_resource type="Gradient" id="Gradient_nbh2b"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7404g"]
+gradient = SubResource("Gradient_nbh2b")
+
+[node name="Animation" type="Node2D" unique_id=1686309358]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1891861513]
+offset_left = -11009.0
+offset_top = -8751.0
+offset_right = 4665.0
+offset_bottom = 6428.0
+texture = SubResource("GradientTexture1D_7404g")
+
+[node name="CharacterContainer" type="Node2D" parent="." unique_id=1152748627]
+
+[node name="Body" type="Node2D" parent="CharacterContainer" unique_id=1571213036]
+
+[node name="GreenSword" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1382137808]
+position = Vector2(-775, -292.99997)
+rotation = 1.7453293
+texture = ExtResource("1_125um")
+
+[node name="LegBack" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1229783751]
+position = Vector2(456, 1686)
+texture = ExtResource("2_eqpxn")
+
+[node name="ArmBack" type="Sprite2D" parent="CharacterContainer/Body" unique_id=422261146]
+position = Vector2(712, 759)
+texture = ExtResource("3_o7akt")
+
+[node name="ShoulderBack" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1083019851]
+position = Vector2(350, 0)
+texture = ExtResource("4_exm4t")
+
+[node name="Torso" type="Sprite2D" parent="CharacterContainer/Body" unique_id=277874685]
+texture = ExtResource("5_3ippq")
+
+[node name="ShoulderFront" type="Sprite2D" parent="CharacterContainer/Body" unique_id=717673647]
+position = Vector2(-607, -244)
+texture = ExtResource("6_h1jqw")
+
+[node name="LegFront" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1514605262]
+position = Vector2(-170, 1500)
+texture = ExtResource("7_6kkqa")
+
+[node name="ArmFront" type="Sprite2D" parent="CharacterContainer/Body" unique_id=124897133]
+position = Vector2(-1044, 574)
+texture = ExtResource("8_k8vl7")
+
+[node name="FeetBack" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1334718208]
+position = Vector2(582, 2543)
+texture = ExtResource("9_b5fe0")
+
+[node name="FeetFront1" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1163953118]
+position = Vector2(-585, 2543)
+texture = ExtResource("10_ra8dv")
+
+[node name="Head" type="Sprite2D" parent="CharacterContainer/Body" unique_id=904475010]
+position = Vector2(228, -1028)
+texture = ExtResource("11_c1e3l")
+
+[node name="Bones" type="Node2D" parent="CharacterContainer" unique_id=1295945824]
+
+[node name="Skeleton2D" type="Skeleton2D" parent="CharacterContainer/Bones" unique_id=729776497]
+
+[node name="Torso" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D" unique_id=967351943]
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+
+[node name="LegBack" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso" unique_id=890838729]
+position = Vector2(503, 2019)
+rest = Transform2D(1, 0, 0, 1, 503, 2019)
+
+[node name="FeetBack" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/LegBack" unique_id=1765593407]
+position = Vector2(79, 1152)
+rest = Transform2D(1, 0, 0, 1, 79, 1152)
+
+[node name="RT_FeedBack" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/LegBack/FeetBack" unique_id=41960870]
+position = Vector2(0, -628)
+remote_path = NodePath("../../../../../../Body/FeetBack")
+
+[node name="RT_LegBack" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/LegBack" unique_id=1761919467]
+remote_path = NodePath("../../../../../Body/LegBack")
+
+[node name="LegFront" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso" unique_id=1144658198]
+position = Vector2(-492, 1980)
+rest = Transform2D(1, 0, 0, 1, -492, 1980)
+
+[node name="FeetFront" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/LegFront" unique_id=1849133018]
+position = Vector2(-227, 1340)
+rest = Transform2D(1, 0, 0, 1, -227, 1340)
+
+[node name="RT_FeetFront" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/LegFront/FeetFront" unique_id=1373755692]
+position = Vector2(227, -1340)
+remote_path = NodePath("../../../../../../Body/FeetFront1")
+
+[node name="RT_LegFront" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/LegFront" unique_id=1735983144]
+remote_path = NodePath("../../../../../Body/LegFront")
+
+[node name="ShoulderBack" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso" unique_id=830875587]
+position = Vector2(524, -453)
+rest = Transform2D(1, 0, 0, 1, 524, -453)
+
+[node name="BicepBack" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/ShoulderBack" unique_id=723731603]
+position = Vector2(-68, 753)
+rest = Transform2D(1, 0, 0, 1, -68, 753)
+
+[node name="ArmBack" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/ShoulderBack/BicepBack" unique_id=512705568]
+position = Vector2(512, 718)
+rest = Transform2D(1, 0, 0, 1, 512, 718)
+
+[node name="RT_ArmBack" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/ShoulderBack/BicepBack" unique_id=1108249905]
+position = Vector2(445, 595)
+remote_path = NodePath("../../../../../../Body/ArmBack")
+
+[node name="RT_ShoulderBack" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/ShoulderBack" unique_id=940555847]
+remote_path = NodePath("../../../../../Body/ShoulderBack")
+
+[node name="ShoulderFront" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso" unique_id=1194638046]
+position = Vector2(-400, -634)
+rest = Transform2D(1, 0, 0, 1, -400, -634)
+
+[node name="BicepFront" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/ShoulderFront" unique_id=517297715]
+position = Vector2(-556, 820)
+rest = Transform2D(1, 0, 0, 1, -556, 820)
+
+[node name="RT_ArmFront" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/ShoulderFront/BicepFront" unique_id=186485283]
+position = Vector2(-62, 709)
+remote_path = NodePath("../../../../../../Body/ArmFront")
+
+[node name="ArmFront" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/ShoulderFront/BicepFront" unique_id=281724976]
+position = Vector2(-62, 709)
+rest = Transform2D(1, 0, 0, 1, -62, 709)
+
+[node name="RT_ShoulderFront" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/ShoulderFront" unique_id=1006028680]
+position = Vector2(-556, 820)
+remote_path = NodePath("../../../../../Body/ShoulderFront")
+
+[node name="Head" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso" unique_id=1509219713]
+position = Vector2(228, -1028)
+rest = Transform2D(1, 0, 0, 1, 228, -1028)
+
+[node name="RT_Head" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/Head" unique_id=1614174091]
+remote_path = NodePath("../../../../../Body/Head")
+
+[node name="RT_Torso" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Torso" unique_id=1863863883]
+remote_path = NodePath("../../../../Body/Torso")
