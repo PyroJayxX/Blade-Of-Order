@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://c5ke8ms707hqd" path="res://assets/player_new/HEAD.png" id="11_c1e3l"]
 
 [sub_resource type="Gradient" id="Gradient_nbh2b"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_7404g"]
 gradient = SubResource("Gradient_nbh2b")
@@ -111,13 +112,122 @@ modifications/5 = SubResource("SkeletonModification2DFABRIK_exm4t")
 modifications/6 = SubResource("SkeletonModification2DCCDIK_o7akt")
 modifications/7 = SubResource("SkeletonModification2DFABRIK_3ippq")
 
+[sub_resource type="Animation" id="Animation_125um"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Target/Target_ElbowFront:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-1500, 839), Vector2(-1849, 472), Vector2(-1500, 839)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Target/Target_ElbowFront:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Target/Target_ElbowBack:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(847, 1979), Vector2(1221, 1500), Vector2(847, 1979)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Target/Target_ElbowBack:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_eqpxn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Target/Target_ElbowFront:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1500, 839)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Target/Target_ElbowFront:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Target/Target_ElbowBack:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(847, 1979)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Target/Target_ElbowBack:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eqpxn"]
+_data = {
+&"Idle": SubResource("Animation_125um"),
+&"RESET": SubResource("Animation_eqpxn")
+}
+
 [node name="Animation" type="Node2D" unique_id=1686309358]
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1891861513]
-offset_left = -11542.0
-offset_top = -8423.0
-offset_right = 4132.0
-offset_bottom = 6756.0
+offset_left = -7827.0
+offset_top = -8585.0
+offset_right = 7847.0
+offset_bottom = 6594.0
 texture = SubResource("GradientTexture1D_7404g")
 
 [node name="CharacterContainer" type="Node2D" parent="." unique_id=1152748627]
@@ -135,16 +245,16 @@ texture = ExtResource("2_eqpxn")
 offset = Vector2(76, 640)
 
 [node name="ArmBack" type="Sprite2D" parent="CharacterContainer/Body" unique_id=422261146]
-position = Vector2(892.682, 253.6036)
-rotation = -0.7918803
-scale = Vector2(0.9998978, 0.9998978)
+position = Vector2(657.89856, 332.07635)
+rotation = -0.404261
+scale = Vector2(0.9997692, 0.9997692)
 texture = ExtResource("3_o7akt")
 offset = Vector2(244, 330)
 
 [node name="ShoulderBack" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1083019851]
 position = Vector2(524, -453)
-rotation = -0.68311894
-scale = Vector2(0.99999964, 0.99999964)
+rotation = -0.3712239
+scale = Vector2(0.99988246, 0.99988246)
 texture = ExtResource("4_exm4t")
 offset = Vector2(-203, 477)
 
@@ -152,22 +262,23 @@ offset = Vector2(-203, 477)
 texture = ExtResource("5_3ippq")
 
 [node name="ShoulderFront" type="Sprite2D" parent="CharacterContainer/Body" unique_id=717673647]
-position = Vector2(513.1184, 718.8656)
-rotation = 1.4440215
-scale = Vector2(0.99989843, 0.99989843)
+position = Vector2(-465.9258, -661.9195)
+rotation = 0.077430725
+scale = Vector2(0.999832, 0.999832)
 texture = ExtResource("6_h1jqw")
 offset = Vector2(-164, 343)
 
 [node name="LegFront" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1514605262]
 position = Vector2(-332, 774)
-rotation = -0.3523975
+rotation = -0.064363606
+scale = Vector2(0.9999987, 0.9999987)
 texture = ExtResource("7_6kkqa")
 offset = Vector2(32, 651)
 
 [node name="ArmFront" type="Sprite2D" parent="CharacterContainer/Body" unique_id=124897133]
-position = Vector2(-200.20677, 359.802)
-rotation = 0.88235795
-scale = Vector2(0.99987257, 0.99987257)
+position = Vector2(-962.4056, -36.16472)
+rotation = -0.21977851
+scale = Vector2(0.9997702, 0.9997702)
 texture = ExtResource("8_k8vl7")
 offset = Vector2(-98, 360)
 
@@ -177,8 +288,9 @@ texture = ExtResource("9_b5fe0")
 offset = Vector2(94, 446)
 
 [node name="FeetFront1" type="Sprite2D" parent="CharacterContainer/Body" unique_id=1163953118]
-position = Vector2(-274.45743, 2011.1656)
-rotation = -0.3523975
+position = Vector2(-628.26636, 1976.5441)
+rotation = -0.064363606
+scale = Vector2(0.9999987, 0.9999987)
 texture = ExtResource("10_ra8dv")
 offset = Vector2(-23, 438)
 
@@ -187,6 +299,7 @@ position = Vector2(228, -1028)
 texture = ExtResource("11_c1e3l")
 
 [node name="Bones" type="Node2D" parent="CharacterContainer" unique_id=1295945824]
+visible = false
 
 [node name="Skeleton2D" type="Skeleton2D" parent="CharacterContainer/Bones" unique_id=729776497]
 modification_stack = SubResource("SkeletonModificationStack2D_o7akt")
@@ -279,7 +392,7 @@ remote_path = NodePath("../../../../../Body/ShoulderFront")
 [node name="BicepFront" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Torso/ShoulderFront" unique_id=517297715]
 position = Vector2(-445.95752, 660.42584)
 rotation = -0.54182285
-scale = Vector2(0.9999866, 0.9999866)
+scale = Vector2(0.9999865, 0.9999865)
 rest = Transform2D(0.8567586, -0.5156917, 0.5156917, 0.8567586, -445.95752, 660.42584)
 metadata/_local_pose_override_enabled_ = true
 
@@ -305,28 +418,32 @@ remote_path = NodePath("../../../../../Body/Head")
 [node name="Target" type="Node2D" parent="." unique_id=855116075]
 
 [node name="Target_Head" type="Node2D" parent="Target" unique_id=842272429]
-position = Vector2(1221, -967)
+position = Vector2(1273, -1028)
+rotation = -3.403392
 
 [node name="Target_ElbowFront" type="Node2D" parent="Target" unique_id=675955711]
-position = Vector2(-1657, -376)
+position = Vector2(-1500, 839)
 
 [node name="Target_ElbowBack" type="Node2D" parent="Target" unique_id=1233646083]
-position = Vector2(904, 260)
+position = Vector2(847, 1979)
 
 [node name="Target_HandFront" type="Node2D" parent="Target" unique_id=1050216767]
-position = Vector2(-1816, 1468)
+position = Vector2(-671, 2150)
 
 [node name="Target_HandBack" type="Node2D" parent="Target" unique_id=804767784]
-position = Vector2(2314, 477)
+position = Vector2(1500, 839)
 
 [node name="Target_KneeFront" type="Node2D" parent="Target" unique_id=880034872]
-position = Vector2(-274, 2021)
+position = Vector2(-671, 2150)
 
 [node name="Target_KneeBack" type="Node2D" parent="Target" unique_id=1651297051]
-position = Vector2(1670, 2150)
+position = Vector2(1840, 1979)
 
 [node name="Target_FootFront" type="Node2D" parent="Target" unique_id=1711964188]
 position = Vector2(-1053, 3371)
 
 [node name="Target_FootBack" type="Node2D" parent="Target" unique_id=227867962]
 position = Vector2(1085, 3142)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1170907941]
+libraries/ = SubResource("AnimationLibrary_eqpxn")
