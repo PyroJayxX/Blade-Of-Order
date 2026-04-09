@@ -11,12 +11,18 @@ enum BossState {
 @export var target_path: NodePath
 @export var detection_range: float = 2200.0
 @export var disengage_range: float = 2800.0
-@export var stop_chase_distance: float = 900.0
+@export var stop_chase_distance: float = 1250.0
 @export var chase_speed: float = 250.0
 @export var keep_y_position: bool = true
 @export var contact_buffer: float = 80.0
 @export var retreat_speed_multiplier: float = 0.6
-@export var max_eye_distance: float = 20.0 #
+@export var max_eye_distance: float = 20.0 
+
+# --- NEW: Shooting Variables ---
+@export var bubble_scene: PackedScene
+@export var shoot_interval: float = 0.6 
+var _shoot_timer: float = 0.0
+var _attack_anim_timer: float = 0.0 # Re-added so your ATTACK animation doesn't glitch
 
 var _state: BossState = BossState.IDLE
 var _target: Node2D
@@ -41,12 +47,18 @@ func _ready() -> void:
 	_refresh_personal_space()
 	_set_state(BossState.IDLE)
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if _target == null or not is_instance_valid(_target):
 		_resolve_target()
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return
+
+	# --- NEW: Tick down timers ---
+	if _shoot_timer > 0.0:
+		_shoot_timer -= delta
+	if _attack_anim_timer > 0.0:
+		_attack_anim_timer -= delta
 
 	var distance_to_target: float = global_position.distance_to(_target.global_position)
 	var attack_distance: float = maxf(stop_chase_distance, _desired_personal_space)
@@ -56,24 +68,36 @@ func _physics_process(_delta: float) -> void:
 			if distance_to_target <= detection_range:
 				_set_state(BossState.CHASE)
 		BossState.CHASE:
+			# --- NEW: Shoot while chasing ---
+			if _shoot_timer <= 0.0:
+				_shoot_bubble()
+				_shoot_timer = shoot_interval
+				
 			if distance_to_target > disengage_range:
 				_set_state(BossState.IDLE)
 				velocity = Vector2.ZERO
 			elif distance_to_target <= attack_distance:
 				_set_state(BossState.ATTACK)
-				# Ranged boss behavior: hold distance instead of touching player.
+				_attack_anim_timer = 0.5 # Lock attack state for animation
 				velocity = Vector2.ZERO
 			else:
 				_chase_target()
 		BossState.ATTACK:
+			# --- NEW: Shoot while attacking ---
+			if _shoot_timer <= 0.0:
+				_shoot_bubble()
+				_shoot_timer = shoot_interval
+				
 			if distance_to_target < attack_distance * 0.9:
 				_retreat_from_target()
 			else:
 				velocity = Vector2.ZERO
-			if distance_to_target > disengage_range:
-				_set_state(BossState.IDLE)
-			elif distance_to_target > attack_distance + 100.0:
-				_set_state(BossState.CHASE)
+				
+			if _attack_anim_timer <= 0.0:
+				if distance_to_target > disengage_range:
+					_set_state(BossState.IDLE)
+				elif distance_to_target > attack_distance + 100.0:
+					_set_state(BossState.CHASE)
 
 	move_and_slide()
 
@@ -152,7 +176,6 @@ func _estimate_body_radius(node: Node) -> float:
 			var rect: RectangleShape2D = shape_node.shape as RectangleShape2D
 			return rect.size.length() * 0.5 * scale_factor
 
-	# Fallback if no recognized collision shape exists.
 	return 64.0
 
 func _set_state(new_state: BossState) -> void:
@@ -189,7 +212,7 @@ func _state_to_text(state: BossState) -> String:
 		_:
 			return "UNKNOWN"
 			
-func take_damage(amount: int, causes_stun: bool = false) -> void:
+func take_damage(_amount: int, causes_stun: bool = false) -> void:
 	if causes_stun:
 		_set_state(BossState.STUNNED)
 	else:
@@ -215,6 +238,52 @@ func on_resonance_surge_mock() -> void:
 	_set_state(BossState.CHASE)
 		
 func _unhandled_input(event: InputEvent) -> void:
-	# Press 'H' on your keyboard to instantly hurt the boss
 	if event is InputEventKey and event.pressed and event.keycode == KEY_H:
 		take_damage(10, false)
+
+# --- NEW: Spawning the Bubble ---
+func _shoot_bubble() -> void:
+	if bubble_scene == null or _target == null:
+		return
+		
+	var bubble = bubble_scene.instantiate()
+	bubble.global_position = global_position
+	bubble.direction = global_position.direction_to(_get_predicted_target_position(bubble.speed))
+	
+	# Add the bullet to the main level, not the boss
+	get_tree().current_scene.add_child(bubble)
+
+func _get_predicted_target_position(projectile_speed: float) -> Vector2:
+	var target_position: Vector2 = _target.global_position
+	var target_velocity: Vector2 = _get_target_velocity()
+	var to_target: Vector2 = target_position - global_position
+	var distance_squared: float = to_target.length_squared()
+
+	if distance_squared <= 0.0001 or projectile_speed <= 0.0001:
+		return target_position
+
+	var a: float = target_velocity.length_squared() - projectile_speed * projectile_speed
+	var b: float = 2.0 * to_target.dot(target_velocity)
+	var c: float = distance_squared
+	var time_to_hit: float = 0.0
+
+	if absf(a) < 0.0001:
+		if absf(b) > 0.0001:
+			time_to_hit = -c / b
+	else:
+		var discriminant: float = b * b - 4.0 * a * c
+		if discriminant >= 0.0:
+			var sqrt_discriminant: float = sqrt(discriminant)
+			var time_one: float = (-b - sqrt_discriminant) / (2.0 * a)
+			var time_two: float = (-b + sqrt_discriminant) / (2.0 * a)
+			time_to_hit = minf(time_one if time_one > 0.0 else INF, time_two if time_two > 0.0 else INF)
+
+	if time_to_hit <= 0.0 or is_inf(time_to_hit):
+		time_to_hit = to_target.length() / projectile_speed
+
+	return target_position + target_velocity * time_to_hit
+
+func _get_target_velocity() -> Vector2:
+	if _target is CharacterBody2D:
+		return (_target as CharacterBody2D).velocity
+	return Vector2.ZERO
