@@ -672,7 +672,7 @@ scale = Vector2(100, 100)
 script = ExtResource("1_o6wqv")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1938050514]
-modulate = Color(0, 0, 0, 0.8980392)
+modulate = Color(0.06879827, 0.06879828, 0.06879828, 0.8980392)
 position = Vector2(7.6293945e-06, -3.8146973e-06)
 scale = Vector2(96.339584, 96.339584)
 mesh = SubResource("SphereMesh_yq4lb")
