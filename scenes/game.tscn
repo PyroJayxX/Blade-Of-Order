@@ -42,7 +42,7 @@ position = Vector2(-594, 622)
 
 [node name="Player_OH" parent="." unique_id=1514829157 instance=ExtResource("3_gee14")]
 position = Vector2(643, 282)
-scale = Vector2(0.07, 0.07)
+scale = Vector2(0.065, 0.065)
 
 [node name="Camera2D" type="Camera2D" parent="Player_OH" unique_id=1881718613]
 position = Vector2(5.9604645e-07, -5.9604645e-07)

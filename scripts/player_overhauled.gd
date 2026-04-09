@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED := 500.0
+const SPEED := 750.0
 const JUMP_HEIGHT := 240.0
 const AIR_TIME := 0.5
 const JUMP_VELOCITY := -(4.0 * JUMP_HEIGHT / AIR_TIME)
