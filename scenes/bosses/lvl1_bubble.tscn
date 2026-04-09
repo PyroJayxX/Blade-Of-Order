@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b6sy41opg4xdm"]
 
 [ext_resource type="Script" uid="uid://f7enwscw1p4t" path="res://scripts/lvl1_bubble.gd" id="1_o6wqv"]
+[ext_resource type="PackedScene" uid="uid://cotv2jt318bb1" path="res://scenes/bosses/BubbleProjectile.tscn" id="2_bngsm"]
 [ext_resource type="Texture2D" uid="uid://cb0cxq6x40vly" path="res://scenes/bosses/bubble_eye.png" id="2_d8eeg"]
 [ext_resource type="Texture2D" uid="uid://0lhasthl5m6l" path="res://scenes/bosses/bubble_eye_hurt.png" id="3_muye3"]
 [ext_resource type="Texture2D" uid="uid://bsjfkvst5ensl" path="res://scenes/bosses/bubble_eye_stunned.png" id="4_ki3hw"]
@@ -668,8 +669,10 @@ _data = {
 }
 
 [node name="Node2D" type="CharacterBody2D" unique_id=1029836507]
+z_index = 1
 scale = Vector2(100, 100)
 script = ExtResource("1_o6wqv")
+bubble_scene = ExtResource("2_bngsm")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1938050514]
 modulate = Color(0, 0, 0, 0.8980392)
