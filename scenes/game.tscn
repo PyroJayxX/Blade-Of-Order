@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bcrasxytwhuqh" path="res://scripts/game.gd" id="1_hv20u"]
 [ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/arena.tscn" id="1_yqjtg"]
-[ext_resource type="PackedScene" uid="uid://cd0plyvsyqfcl" path="res://scenes/player.tscn" id="2_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://c6pnmy21s1kis" path="res://scenes/player_overhauled.tscn" id="3_gee14"]
 [ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/touchControls.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b6sy41opg4xdm" path="res://scenes/bosses/lvl1_bubble.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" path="res://scenes/ui/sealing_modal.tscn" id="5_rpq23"]
@@ -40,11 +40,11 @@ texture = SubResource("GradientTexture2D_gee14")
 [node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("1_yqjtg")]
 position = Vector2(-594, 622)
 
-[node name="Player" parent="." unique_id=1401691669 instance=ExtResource("2_lnu2h")]
-position = Vector2(595, 352)
-scale = Vector2(0.6, 0.6)
+[node name="Player_OH" parent="." unique_id=1514829157 instance=ExtResource("3_gee14")]
+position = Vector2(643, 282)
+scale = Vector2(0.07, 0.07)
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=330250361]
+[node name="Camera2D" type="Camera2D" parent="Player_OH" unique_id=1881718613]
 position = Vector2(5.9604645e-07, -5.9604645e-07)
 offset = Vector2(0, -300)
 zoom = Vector2(0.5, 0.5)

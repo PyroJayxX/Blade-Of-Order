@@ -109,8 +109,19 @@ func _resolve_target() -> void:
 
 	var current_scene: Node = get_tree().current_scene
 	if current_scene != null:
-		_target = current_scene.get_node_or_null("Player") as Node2D
+		_target = _find_target_in_scene(current_scene)
 		_refresh_personal_space()
+
+func _find_target_in_scene(current_scene: Node) -> Node2D:
+	var by_group: Node = get_tree().get_first_node_in_group("player")
+	if by_group is Node2D and is_instance_valid(by_group):
+		return by_group as Node2D
+
+	var modern_player: Node2D = current_scene.get_node_or_null("Player_OH") as Node2D
+	if modern_player != null:
+		return modern_player
+
+	return current_scene.get_node_or_null("Player") as Node2D
 
 func _refresh_personal_space() -> void:
 	var self_radius: float = _estimate_body_radius(self)
