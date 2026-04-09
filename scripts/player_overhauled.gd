@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED := 750.0
+const SPEED := 1000.0
 const JUMP_HEIGHT := 240.0
 const AIR_TIME := 0.5
 const JUMP_VELOCITY := -(4.0 * JUMP_HEIGHT / AIR_TIME)
@@ -13,19 +13,33 @@ const ANIM_RUNNING: StringName = &"Running"
 const ANIM_JUMP: StringName = &"Jump"
 const ANIM_SLASH: StringName = &"Slash_1"
 const ANIM_RESET: StringName = &"RESET"
+const SWORD_HITBOX_PATH: NodePath = ^"CharacterContainer/Bones/Skeleton2D/Torso/ShoulderFront/BicepFront/SwordHeld/Area2D"
+const HUD_PATH: NodePath = ^"HudHealthBars"
 
 @onready var body_root: Node2D = $CharacterContainer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var sword_hitbox: Area2D = get_node_or_null(SWORD_HITBOX_PATH) as Area2D
 
 var facing_right := true
 var is_attacking := false
 var _active_animation: StringName = &""
 var _attack_timer := 0.0
+@export var max_health: int = 100
+var _current_health: int = 100
 
 func _ready() -> void:
+	_current_health = max_health
 	_apply_facing(facing_right)
 	if not animation_player.animation_finished.is_connected(_on_animation_finished):
 		animation_player.animation_finished.connect(_on_animation_finished)
+	if sword_hitbox != null:
+		if not sword_hitbox.body_entered.is_connected(_on_sword_hitbox_body_entered):
+			sword_hitbox.body_entered.connect(_on_sword_hitbox_body_entered)
+		if not sword_hitbox.area_entered.is_connected(_on_sword_hitbox_area_entered):
+			sword_hitbox.area_entered.connect(_on_sword_hitbox_area_entered)
+	else:
+		push_warning("Sword hitbox Area2D not found at expected path.")
+	_sync_player_hud_health()
 	_play_animation_with_reset(ANIM_IDLE)
 
 func _physics_process(delta: float) -> void:
@@ -93,6 +107,43 @@ func _on_animation_finished(anim_name: StringName) -> void:
 		is_attacking = false
 		_attack_timer = 0.0
 		_active_animation = &""
+
+func _on_sword_hitbox_body_entered(body: Node2D) -> void:
+	if _is_boss_hit_target(body):
+		print("Boss got hit by player!")
+		body.call("take_damage", 1)
+
+func _on_sword_hitbox_area_entered(area: Area2D) -> void:
+	if _is_boss_hit_target(area):
+		print("Boss got hit by player!")
+		area.call("take_damage", 1)
+		return
+
+	var parent_node: Node = area.get_parent()
+	if _is_boss_hit_target(parent_node):
+		print("Boss got hit by player!")
+		parent_node.call("take_damage", 1)
+
+func _is_boss_hit_target(candidate: Node) -> bool:
+	if candidate == null or not candidate.has_method("take_damage"):
+		return false
+	if candidate == self or self.is_ancestor_of(candidate):
+		return false
+	return true
+
+func take_damage(amount: int = 1) -> void:
+	var safe_amount: int = maxi(amount, 0)
+	_current_health = clampi(_current_health - safe_amount, 0, max_health)
+	_sync_player_hud_health()
+	print("Player HP -> ", _current_health, "/", max_health)
+
+func _sync_player_hud_health() -> void:
+	var current_scene: Node = get_tree().current_scene
+	if current_scene == null:
+		return
+	var hud: Node = current_scene.get_node_or_null(HUD_PATH)
+	if hud != null and hud.has_method("set_player_health"):
+		hud.call("set_player_health", _current_health, max_health)
 
 func _get_animation_length(animation_name: StringName) -> float:
 	var animation_resource: Animation = animation_player.get_animation(animation_name)

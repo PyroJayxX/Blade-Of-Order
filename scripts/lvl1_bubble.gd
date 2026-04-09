@@ -17,17 +17,21 @@ enum BossState {
 @export var contact_buffer: float = 80.0
 @export var retreat_speed_multiplier: float = 0.6
 @export var max_eye_distance: float = 20.0 
+@export var max_health: int = 100
+
+const HUD_PATH: NodePath = ^"HudHealthBars"
 
 # --- NEW: Shooting Variables ---
 @export var bubble_scene: PackedScene
 @export var shoot_interval: float = 0.6 
 var _shoot_timer: float = 0.0
-var _attack_anim_timer: float = 0.0 # Re-added so your ATTACK animation doesn't glitch
+var _attack_anim_timer: float = 0.0 
 
 var _state: BossState = BossState.IDLE
 var _target: Node2D
 var _home_y: float = 0.0
 var _desired_personal_space: float = 0.0
+var _current_health: int = 100
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var eyes_pivot: Node2D = $EyesPivot
 
@@ -42,10 +46,12 @@ func _process(_delta: float) -> void:
 			eyes_pivot.global_rotation = 0
 
 func _ready() -> void:
+	_current_health = max_health
 	_home_y = global_position.y
 	_resolve_target()
 	_refresh_personal_space()
 	_set_state(BossState.IDLE)
+	_sync_boss_hud_health()
 
 func _physics_process(delta: float) -> void:
 	if _target == null or not is_instance_valid(_target):
@@ -212,13 +218,26 @@ func _state_to_text(state: BossState) -> String:
 		_:
 			return "UNKNOWN"
 			
-func take_damage(_amount: int, causes_stun: bool = false) -> void:
+func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
+	var safe_amount: int = maxi(amount, 0)
+	_current_health = clampi(_current_health - safe_amount, 0, max_health)
+	_sync_boss_hud_health()
+	print("Boss HP -> ", _current_health, "/", max_health)
+
 	if causes_stun:
 		_set_state(BossState.STUNNED)
 	else:
 		_set_state(BossState.HURT)
 		await anim_player.animation_finished
 		_set_state(BossState.CHASE)
+
+func _sync_boss_hud_health() -> void:
+	var current_scene: Node = get_tree().current_scene
+	if current_scene == null:
+		return
+	var hud: Node = current_scene.get_node_or_null(HUD_PATH)
+	if hud != null and hud.has_method("set_boss_health"):
+		hud.call("set_boss_health", _current_health, max_health)
 
 func on_stun_started_mock() -> void:
 	_set_state(BossState.STUNNED)
@@ -248,42 +267,7 @@ func _shoot_bubble() -> void:
 		
 	var bubble = bubble_scene.instantiate()
 	bubble.global_position = global_position
-	bubble.direction = global_position.direction_to(_get_predicted_target_position(bubble.speed))
+	bubble.direction = global_position.direction_to(_target.global_position)
 	
 	# Add the bullet to the main level, not the boss
 	get_tree().current_scene.add_child(bubble)
-
-func _get_predicted_target_position(projectile_speed: float) -> Vector2:
-	var target_position: Vector2 = _target.global_position
-	var target_velocity: Vector2 = _get_target_velocity()
-	var to_target: Vector2 = target_position - global_position
-	var distance_squared: float = to_target.length_squared()
-
-	if distance_squared <= 0.0001 or projectile_speed <= 0.0001:
-		return target_position
-
-	var a: float = target_velocity.length_squared() - projectile_speed * projectile_speed
-	var b: float = 2.0 * to_target.dot(target_velocity)
-	var c: float = distance_squared
-	var time_to_hit: float = 0.0
-
-	if absf(a) < 0.0001:
-		if absf(b) > 0.0001:
-			time_to_hit = -c / b
-	else:
-		var discriminant: float = b * b - 4.0 * a * c
-		if discriminant >= 0.0:
-			var sqrt_discriminant: float = sqrt(discriminant)
-			var time_one: float = (-b - sqrt_discriminant) / (2.0 * a)
-			var time_two: float = (-b + sqrt_discriminant) / (2.0 * a)
-			time_to_hit = minf(time_one if time_one > 0.0 else INF, time_two if time_two > 0.0 else INF)
-
-	if time_to_hit <= 0.0 or is_inf(time_to_hit):
-		time_to_hit = to_target.length() / projectile_speed
-
-	return target_position + target_velocity * time_to_hit
-
-func _get_target_velocity() -> Vector2:
-	if _target is CharacterBody2D:
-		return (_target as CharacterBody2D).velocity
-	return Vector2.ZERO
