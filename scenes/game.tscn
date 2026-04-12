@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bcrasxytwhuqh" path="res://scripts/game.gd" id="1_hv20u"]
 [ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/arena.tscn" id="1_yqjtg"]
-[ext_resource type="PackedScene" uid="uid://c6pnmy21s1kis" path="res://scenes/player_overhauled.tscn" id="3_gee14"]
 [ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/touchControls.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b6sy41opg4xdm" path="res://scenes/bosses/lvl1_bubble.tscn" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/player_new.tscn" id="4_u5sy4"]
 [ext_resource type="PackedScene" path="res://scenes/ui/sealing_modal.tscn" id="5_rpq23"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_health_bars.tscn" id="6_6ifkb"]
 
@@ -15,14 +15,6 @@ colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_gee14"]
 gradient = SubResource("Gradient_u5sy4")
 fill_to = Vector2(0, 1)
-
-[sub_resource type="Animation" id="Animation_lbhrr"]
-resource_name = "Walk"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_iywne"]
-_data = {
-&"Walk": SubResource("Animation_lbhrr")
-}
 
 [node name="game" type="Node2D" unique_id=632939941]
 script = ExtResource("1_hv20u")
@@ -40,15 +32,6 @@ texture = SubResource("GradientTexture2D_gee14")
 [node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("1_yqjtg")]
 position = Vector2(-594, 622)
 
-[node name="Player_OH" parent="." unique_id=1514829157 instance=ExtResource("3_gee14")]
-position = Vector2(643, 282)
-scale = Vector2(0.065, 0.065)
-
-[node name="Camera2D" type="Camera2D" parent="Player_OH" unique_id=1881718613]
-position = Vector2(5.9604645e-07, -5.9604645e-07)
-offset = Vector2(0, -300)
-zoom = Vector2(0.5, 0.5)
-
 [node name="Control" type="Control" parent="." unique_id=2072395279]
 layout_mode = 3
 anchors_preset = 0
@@ -59,6 +42,15 @@ offset_bottom = 139.0
 
 [node name="TouchControls" parent="Control" unique_id=1019859329 instance=ExtResource("3_lnu2h")]
 
+[node name="Player" parent="." unique_id=1430617140 instance=ExtResource("4_u5sy4")]
+position = Vector2(675, 494)
+scale = Vector2(0.28, 0.28)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1264934876]
+position = Vector2(75.00005, -796.4286)
+zoom = Vector2(0.53, 0.53)
+position_smoothing_enabled = true
+
 [node name="BubbleBoss" parent="." unique_id=1029836507 instance=ExtResource("4_lbhrr")]
 position = Vector2(3306, -125.000046)
 scale = Vector2(10, 10)
@@ -66,6 +58,3 @@ scale = Vector2(10, 10)
 [node name="SealingModal" parent="." unique_id=1794402820 instance=ExtResource("5_rpq23")]
 
 [node name="HudHealthBars" parent="." unique_id=353806393 instance=ExtResource("6_6ifkb")]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=759719720]
-libraries/ = SubResource("AnimationLibrary_iywne")

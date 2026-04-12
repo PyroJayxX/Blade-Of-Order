@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bgs3fe3dc8ab" path="res://scripts/player_controller.gd" id="1_wm45n"]
 [ext_resource type="Texture2D" uid="uid://b77okifyob3ix" path="res://assets/player_sprites/shits.png" id="2_wm45n"]
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_wm45n"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dsvhw"]
 size = Vector2(216, 762)
 
@@ -155,6 +157,14 @@ animations = [{
 [node name="Player" type="CharacterBody2D" unique_id=1430617140]
 script = ExtResource("1_wm45n")
 
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1323140840]
+visible = false
+offset_left = -1392.0
+offset_top = -820.0
+offset_right = 1772.0
+offset_bottom = 1392.0
+texture = SubResource("CanvasTexture_wm45n")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1619671646]
 position = Vector2(-74, 141)
 shape = SubResource("RectangleShape2D_dsvhw")
@@ -163,5 +173,3 @@ shape = SubResource("RectangleShape2D_dsvhw")
 sprite_frames = SubResource("SpriteFrames_nirif")
 animation = &"idle"
 autoplay = "idle"
-frame = 4
-frame_progress = 0.30788234
