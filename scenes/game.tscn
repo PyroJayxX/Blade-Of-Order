@@ -44,12 +44,13 @@ offset_bottom = 139.0
 
 [node name="Player" parent="." unique_id=1430617140 instance=ExtResource("4_u5sy4")]
 position = Vector2(675, 494)
-scale = Vector2(0.28, 0.28)
+scale = Vector2(0.34, 0.34)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1264934876]
-position = Vector2(75.00005, -796.4286)
+position = Vector2(75.00005, -535.29407)
 zoom = Vector2(0.53, 0.53)
 position_smoothing_enabled = true
+position_smoothing_speed = 4.5
 
 [node name="BubbleBoss" parent="." unique_id=1029836507 instance=ExtResource("4_lbhrr")]
 position = Vector2(3306, -125.000046)

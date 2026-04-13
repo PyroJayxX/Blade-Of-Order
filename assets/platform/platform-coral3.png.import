@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b77okifyob3ix"
-path="res://.godot/imported/shits.png-70d14c64f459137f62b9e02a7e4edc1b.ctex"
+uid="uid://cy63jsvvxsv43"
+path="res://.godot/imported/platform-coral3.png-b25773cb121f5702fb4f2da181bb4d46.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player_sprites/shits.png"
-dest_files=["res://.godot/imported/shits.png-70d14c64f459137f62b9e02a7e4edc1b.ctex"]
+source_file="res://assets/platform/platform-coral3.png"
+dest_files=["res://.godot/imported/platform-coral3.png-b25773cb121f5702fb4f2da181bb4d46.ctex"]
 
 [params]
 

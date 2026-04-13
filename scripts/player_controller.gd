@@ -6,7 +6,6 @@ const JUMP_VELOCITY = -1200.0
 const FALL_MULTIPLIER = 4
 const LOW_JUMP_MULTIPLIER = 2.2
 
-const ACCELERATION = 2000.0
  
 @onready var animated_sprite = $AnimatedSprite2D
 
@@ -27,7 +26,7 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("ui_left", "ui_right")
 	if direction != 0:
-		velocity.x = move_toward(velocity.x, direction * SPEED, ACCELERATION * delta)
+		velocity.x = direction * SPEED
 		animated_sprite.play("run")
 		animated_sprite.flip_h = direction < 0
 	else:
