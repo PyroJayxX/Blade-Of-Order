@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://d7il0wmgrue5"]
+
+[ext_resource type="Script" uid="uid://byho76ipbcg82" path="res://scripts/puzzle_manager.gd" id="1_7yfm1"]
+[ext_resource type="PackedScene" uid="uid://brn3ow27db1c1" path="res://scenes/puzzle_components/drop_zone.tscn" id="2_kwler"]
+[ext_resource type="PackedScene" uid="uid://cjxaxnefegp2h" path="res://scenes/puzzle_components/piece.tscn" id="3_kwler"]
+
+[node name="BubbleSort" type="Node2D" unique_id=1315408768]
+script = ExtResource("1_7yfm1")
+
+[node name="DropZone" type="Node2D" parent="." unique_id=1482787003]
+
+[node name="DropZone" parent="DropZone" unique_id=559763923 instance=ExtResource("2_kwler")]
+position = Vector2(561, 101)
+
+[node name="Pieces" type="Node2D" parent="." unique_id=1655018569]
+position = Vector2(74, 11)
+
+[node name="PuzzlePiece" parent="Pieces" unique_id=947852651 instance=ExtResource("3_kwler")]
+position = Vector2(121, 90)

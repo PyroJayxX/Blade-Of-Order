@@ -1,134 +1,99 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://ioy41xka5ra0"]
 
 [ext_resource type="Script" path="res://scripts/ui/sealing_modal.gd" id="1_x3f6a"]
 
 [node name="SealingModal" type="CanvasLayer"]
 script = ExtResource("1_x3f6a")
 
-[node name="ModalRoot" type="Control" parent="."]
-layout_mode = 3
+[node name="BackgroundDimmer" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 0
+color = Color(0, 0.15, 0.15, 0.85)
 
-[node name="Dim" type="ColorRect" parent="ModalRoot"]
-layout_mode = 1
-anchors_preset = 15
+[node name="HeaderUI" type="VBoxContainer" parent="."]
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
+offset_top = 60.0
+offset_bottom = 160.0
 grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.56)
-
-[node name="PuzzlePanel" type="PanelContainer" parent="ModalRoot"]
-layout_mode = 1
-anchors_preset = 15
-anchor_left = 0.04
-anchor_top = 0.05
-anchor_right = 0.96
-anchor_bottom = 0.95
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Content" type="VBoxContainer" parent="ModalRoot/PuzzlePanel"]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="Header" type="VBoxContainer" parent="ModalRoot/PuzzlePanel/Content"]
-layout_mode = 2
-
-[node name="Title" type="Label" parent="ModalRoot/PuzzlePanel/Content/Header"]
-layout_mode = 2
-text = "Sealing Script Reconstruction"
-horizontal_alignment = 1
-
-[node name="Subtitle" type="Label" parent="ModalRoot/PuzzlePanel/Content/Header"]
-layout_mode = 2
-text = "Drag lines into slots to rebuild Bubble Sort logic"
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="MainRow" type="HBoxContainer" parent="ModalRoot/PuzzlePanel/Content"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 12
-
-[node name="CodeBankPanel" type="PanelContainer" parent="ModalRoot/PuzzlePanel/Content/MainRow"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="CodeBankBody" type="VBoxContainer" parent="ModalRoot/PuzzlePanel/Content/MainRow/CodeBankPanel"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="CodeBankTitle" type="Label" parent="ModalRoot/PuzzlePanel/Content/MainRow/CodeBankPanel/CodeBankBody"]
-layout_mode = 2
-text = "Code Blocks"
-
-[node name="CodeBankScroll" type="ScrollContainer" parent="ModalRoot/PuzzlePanel/Content/MainRow/CodeBankPanel/CodeBankBody"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="CodeBankList" type="VBoxContainer" parent="ModalRoot/PuzzlePanel/Content/MainRow/CodeBankPanel/CodeBankBody/CodeBankScroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 8
-
-[node name="SlotsPanel" type="PanelContainer" parent="ModalRoot/PuzzlePanel/Content/MainRow"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="SlotsBody" type="VBoxContainer" parent="ModalRoot/PuzzlePanel/Content/MainRow/SlotsPanel"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="SlotsTitle" type="Label" parent="ModalRoot/PuzzlePanel/Content/MainRow/SlotsPanel/SlotsBody"]
-layout_mode = 2
-text = "Assembly Slots"
-
-[node name="SlotsScroll" type="ScrollContainer" parent="ModalRoot/PuzzlePanel/Content/MainRow/SlotsPanel/SlotsBody"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="SlotsList" type="VBoxContainer" parent="ModalRoot/PuzzlePanel/Content/MainRow/SlotsPanel/SlotsBody/SlotsScroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 8
-
-[node name="FooterRow" type="VBoxContainer" parent="ModalRoot/PuzzlePanel/Content"]
-layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 10
 
-[node name="StatusLabel" type="Label" parent="ModalRoot/PuzzlePanel/Content/FooterRow"]
+[node name="Title" type="Label" parent="HeaderUI"]
 layout_mode = 2
-text = "Reconstruct Bubble Sort by dragging each line into the right order."
-autowrap_mode = 2
+theme_override_colors/font_color = Color(0.12, 1, 0.75, 1)
+theme_override_font_sizes/font_size = 42
+text = "SEALING SEQUENCE INITIATED"
+horizontal_alignment = 1
 
-[node name="ErrorCounter" type="Label" parent="ModalRoot/PuzzlePanel/Content/FooterRow"]
+[node name="Subtitle" type="Label" parent="HeaderUI"]
 layout_mode = 2
-text = "Consecutive errors: 0 / 3"
+theme_override_colors/font_color = Color(0.6, 0.9, 0.8, 1)
+theme_override_font_sizes/font_size = 24
+text = "Reconstruct the Bubble Sort logic to seal the boss."
+horizontal_alignment = 1
 
-[node name="Actions" type="HBoxContainer" parent="ModalRoot/PuzzlePanel/Content/FooterRow"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -600.0
+offset_right = 450.0
+offset_bottom = 600.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(900, 1200)
+render_target_update_mode = 4
+
+[node name="FooterUI" type="VBoxContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="ErrorCounter" type="Label" parent="FooterUI"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+theme_override_font_sizes/font_size = 28
+text = "System Errors: 0 / 3"
+horizontal_alignment = 1
+
+[node name="Actions" type="HBoxContainer" parent="FooterUI"]
 layout_mode = 2
 alignment = 1
-theme_override_constants/separation = 14
+theme_override_constants/separation = 40
 
-[node name="ValidateButton" type="Button" parent="ModalRoot/PuzzlePanel/Content/FooterRow/Actions"]
-custom_minimum_size = Vector2(180, 72)
+[node name="ValidateButton" type="Button" parent="FooterUI/Actions"]
+custom_minimum_size = Vector2(240, 90)
 layout_mode = 2
-text = "Validate"
+theme_override_font_sizes/font_size = 32
+text = "EXECUTE"
 
-[node name="ResetButton" type="Button" parent="ModalRoot/PuzzlePanel/Content/FooterRow/Actions"]
-custom_minimum_size = Vector2(180, 72)
+[node name="ResetButton" type="Button" parent="FooterUI/Actions"]
+custom_minimum_size = Vector2(240, 90)
 layout_mode = 2
-text = "Reset"
+theme_override_font_sizes/font_size = 32
+text = "RESET"
 
-[node name="CloseButton" type="Button" parent="ModalRoot/PuzzlePanel/Content/FooterRow/Actions"]
-custom_minimum_size = Vector2(180, 72)
+[node name="CloseButton" type="Button" parent="FooterUI/Actions"]
+custom_minimum_size = Vector2(240, 90)
 layout_mode = 2
-text = "Close"
+theme_override_font_sizes/font_size = 32
+text = "ABORT"

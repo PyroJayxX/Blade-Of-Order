@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://brn3ow27db1c1"]
+
+[ext_resource type="Script" uid="uid://bw6pdxblfpdq" path="res://scripts/drop_zone.gd" id="1_k1kcn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nsqcw"]
+size = Vector2(318.75, 23.5)
+
+[sub_resource type="Gradient" id="Gradient_k1kcn"]
+colors = PackedColorArray(0, 0.6787103, 0.653287, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_espto"]
+gradient = SubResource("Gradient_k1kcn")
+
+[node name="DropZone" type="Area2D" unique_id=559763923 groups=["drop_zone"]]
+script = ExtResource("1_k1kcn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1772799532]
+shape = SubResource("RectangleShape2D_nsqcw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1514767585]
+scale = Vector2(1.2500001, 22)
+texture = SubResource("GradientTexture1D_espto")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
