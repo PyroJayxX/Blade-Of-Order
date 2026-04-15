@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cjxaxnefegp2h"]
+
+[ext_resource type="Script" uid="uid://db1wlml0hrlhg" path="res://scripts/piece.gd" id="1_cge1j"]
+
+[sub_resource type="Gradient" id="Gradient_k1kcn"]
+colors = PackedColorArray(0.10980392, 0.59607846, 0.58431375, 0.42745098, 0.17254902, 0.6039216, 0.54901963, 0.5254902)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cge1j"]
+gradient = SubResource("Gradient_k1kcn")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_su5e7"]
+size = Vector2(316, 20)
+
+[node name="PuzzlePiece" type="Area2D" unique_id=947852651]
+script = ExtResource("1_cge1j")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1899492596]
+scale = Vector2(1.2500001, 22)
+texture = SubResource("GradientTexture1D_cge1j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2110832052]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_su5e7")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

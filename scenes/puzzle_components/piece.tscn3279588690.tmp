@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cjxaxnefegp2h"]
+
+[ext_resource type="Script" uid="uid://db1wlml0hrlhg" path="res://scripts/piece.gd" id="1_cge1j"]
+
+[sub_resource type="Gradient" id="Gradient_cge1j"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_u2ive"]
+gradient = SubResource("Gradient_cge1j")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_su5e7"]
+size = Vector2(300, 32)
+
+[node name="PuzzlePiece" type="Area2D" unique_id=947852651]
+script = ExtResource("1_cge1j")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=724903535]
+scale = Vector2(1.1640625, 32.5)
+texture = SubResource("GradientTexture1D_u2ive")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2110832052]
+shape = SubResource("RectangleShape2D_su5e7")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
