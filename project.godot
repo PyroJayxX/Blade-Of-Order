@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Blade of Order"
-run/main_scene="uid://ioy41xka5ra0"
+run/main_scene="uid://cfg61w43rnbvl"
 config/features=PackedStringArray("4.6")
 
 [autoload]
