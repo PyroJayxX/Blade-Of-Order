@@ -11,6 +11,7 @@ const DASH_TIME = 0.4 # higher -> more distance
 const DASH_DECEL = 2000.0 # lower -> decelerate more/longer stop
 
 var is_dashing = false
+var is_attacking = false
  
 @onready var animated_sprite = $AnimatedSprite2D
 
@@ -29,6 +30,21 @@ func start_dash(direction):
 	
 	is_dashing = false
 
+func start_attack():
+	if is_attacking:
+		return
+	
+	is_attacking = true
+	
+	# stop movement slightly
+	velocity.x *= 0.3
+	
+	animated_sprite.play("slash_1")
+	
+	await animated_sprite.animation_finished
+	
+	is_attacking = false
+
 func _physics_process(delta: float) -> void:
 	# gravity
 	if not is_on_floor():
@@ -37,17 +53,21 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity += get_gravity() * LOW_JUMP_MULTIPLIER * delta
 	
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY 
 
-	var direction := Input.get_axis("ui_left", "ui_right")
+	var direction := Input.get_axis("moveLeft", "moveRight")
 
 	if Input.is_action_just_pressed("dash") and not is_dashing:
 		start_dash(direction)
+		
+	if Input.is_action_just_pressed("slash") and not is_attacking:
+		start_attack()
 
 	# Movement
-	if is_dashing:
-		# decelerate instead of sharp stop
+	if is_attacking:
+		velocity.x = move_toward(velocity.x, 0, DASH_DECEL * delta)
+	elif is_dashing:
 		velocity.x = move_toward(velocity.x, 0, DASH_DECEL * delta)
 	else:
 		if direction != 0:
@@ -55,11 +75,12 @@ func _physics_process(delta: float) -> void:
 			animated_sprite.flip_h = direction < 0
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
-
+			
 	# Animation (PRIORITY-BASED)
-	if is_dashing:
+	if is_attacking:
+		animated_sprite.play("slash_1")
+	elif is_dashing:
 		animated_sprite.play("dash")
-
 	elif not is_on_floor():
 		if velocity.y < 0:
 			animated_sprite.play("jump")
