@@ -66,5 +66,10 @@ func _on_level_tile_selected(level_id, tile_node):
 func _on_play_button_pressed():
 	if currently_selected_level_id != -1:
 		print("Starting level: ", currently_selected_level_id)
-		# Add your scene transition logic here
-		# e.g., get_tree().change_scene_to_file("res://scenes/levels/level_" + str(currently_selected_level_id) + ".tscn")
+		
+		# Check which level is selected and load the correct scene
+		match currently_selected_level_id:
+			1:
+				get_tree().change_scene_to_file("res://scenes/game.tscn")
+			_:
+				print("Level not built yet!")
