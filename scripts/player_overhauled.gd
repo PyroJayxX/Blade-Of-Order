@@ -7,6 +7,8 @@ const JUMP_VELOCITY := -(4.0 * JUMP_HEIGHT / AIR_TIME)
 const JUMP_GRAVITY := 5.0 * JUMP_HEIGHT / (AIR_TIME * AIR_TIME)
 const ACTION_JUMP: StringName = &"Jump"
 const ACTION_SLASH: StringName = &"Slash"
+const ACTION_MOVE_LEFT: StringName = &"moveLeft"
+const ACTION_MOVE_RIGHT: StringName = &"moveRight"
 
 const ANIM_IDLE: StringName = &"Idle"
 const ANIM_RUNNING: StringName = &"Running"
@@ -25,6 +27,9 @@ var is_attacking := false
 var _active_animation: StringName = &""
 var _attack_timer := 0.0
 @export var max_health: int = 100
+@export var wrap_enabled: bool = true
+@export var wrap_left_x: float = 750.0
+@export var wrap_right_x: float = 5540.0
 var _current_health: int = 100
 
 func _ready() -> void:
@@ -61,7 +66,7 @@ func _physics_process(delta: float) -> void:
 		_attack_timer = _get_animation_length(ANIM_SLASH)
 		_play_animation_with_reset(ANIM_SLASH)
 
-	var direction := Input.get_axis("ui_left", "ui_right")
+	var direction := _get_move_axis()
 	if direction != 0.0:
 		velocity.x = direction * SPEED
 		var wants_right := direction > 0.0
@@ -71,6 +76,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0.0, SPEED)
 
 	move_and_slide()
+	_apply_horizontal_wrap()
 	_update_animation(direction)
 
 func _update_animation(direction: float) -> void:
@@ -99,6 +105,18 @@ func _just_pressed(action_primary: StringName, action_fallback: StringName = &""
 	if InputMap.has_action(action_primary) and Input.is_action_just_pressed(action_primary):
 		return true
 	if action_fallback != &"" and InputMap.has_action(action_fallback) and Input.is_action_just_pressed(action_fallback):
+		return true
+	return false
+
+func _get_move_axis() -> float:
+	var left_pressed := _pressed(ACTION_MOVE_LEFT, &"ui_left")
+	var right_pressed := _pressed(ACTION_MOVE_RIGHT, &"ui_right")
+	return float(right_pressed) - float(left_pressed)
+
+func _pressed(action_primary: StringName, action_fallback: StringName = &"") -> bool:
+	if InputMap.has_action(action_primary) and Input.is_action_pressed(action_primary):
+		return true
+	if action_fallback != &"" and InputMap.has_action(action_fallback) and Input.is_action_pressed(action_fallback):
 		return true
 	return false
 
@@ -154,3 +172,15 @@ func _get_animation_length(animation_name: StringName) -> float:
 func _apply_facing(face_right: bool) -> void:
 	facing_right = face_right
 	body_root.scale.x = 1.0 if facing_right else -1.0
+
+func _apply_horizontal_wrap() -> void:
+	if not wrap_enabled:
+		return
+
+	var span: float = wrap_right_x - wrap_left_x
+	if span <= 0.0:
+		return
+
+	if global_position.x < wrap_left_x or global_position.x > wrap_right_x:
+		var wrapped_x: float = wrap_left_x + fposmod(global_position.x - wrap_left_x, span)
+		global_position.x = wrapped_x
