@@ -1,134 +1,35 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dek51badnrtp7"]
 
-[ext_resource type="Script" path="res://scripts/ui/sealing_modal.gd" id="1_x3f6a"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i054c"]
+bg_color = Color(0.06666667, 0.105882354, 0.11372549, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.16759703, 0.82772696, 0.7885211, 0.56078434)
+shadow_color = Color(0.23529412, 0.5764706, 0.6, 0.5058824)
+shadow_size = 10
 
-[node name="SealingModal" type="CanvasLayer"]
-script = ExtResource("1_x3f6a")
+[node name="SealingModal" type="CanvasLayer" unique_id=1036400120]
 
-[node name="ModalRoot" type="Control" parent="."]
-layout_mode = 3
+[node name="Overlay" type="Panel" parent="." unique_id=1611946475]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_i054c")
 
-[node name="Dim" type="ColorRect" parent="ModalRoot"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.56)
+[node name="ColorRect" type="ColorRect" parent="Overlay" unique_id=1798293749]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 8.0
+offset_right = 1271.0
+offset_bottom = 61.0
+color = Color(0.11372549, 0.19607843, 0.19215687, 0.54901963)
 
-[node name="PuzzlePanel" type="PanelContainer" parent="ModalRoot"]
-layout_mode = 1
-anchors_preset = 15
-anchor_left = 0.04
-anchor_top = 0.05
-anchor_right = 0.96
-anchor_bottom = 0.95
-grow_horizontal = 2
-grow_vertical = 2
+[node name="FlyingPieces" type="Node2D" parent="." unique_id=702031064]
 
-[node name="Content" type="VBoxContainer" parent="ModalRoot/PuzzlePanel"]
-layout_mode = 2
-theme_override_constants/separation = 12
+[node name="HealthUI" type="Node2D" parent="." unique_id=1427537712]
 
-[node name="Header" type="VBoxContainer" parent="ModalRoot/PuzzlePanel/Content"]
-layout_mode = 2
-
-[node name="Title" type="Label" parent="ModalRoot/PuzzlePanel/Content/Header"]
-layout_mode = 2
-text = "Sealing Script Reconstruction"
-horizontal_alignment = 1
-
-[node name="Subtitle" type="Label" parent="ModalRoot/PuzzlePanel/Content/Header"]
-layout_mode = 2
-text = "Drag lines into slots to rebuild Bubble Sort logic"
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="MainRow" type="HBoxContainer" parent="ModalRoot/PuzzlePanel/Content"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 12
-
-[node name="CodeBankPanel" type="PanelContainer" parent="ModalRoot/PuzzlePanel/Content/MainRow"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="CodeBankBody" type="VBoxContainer" parent="ModalRoot/PuzzlePanel/Content/MainRow/CodeBankPanel"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="CodeBankTitle" type="Label" parent="ModalRoot/PuzzlePanel/Content/MainRow/CodeBankPanel/CodeBankBody"]
-layout_mode = 2
-text = "Code Blocks"
-
-[node name="CodeBankScroll" type="ScrollContainer" parent="ModalRoot/PuzzlePanel/Content/MainRow/CodeBankPanel/CodeBankBody"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="CodeBankList" type="VBoxContainer" parent="ModalRoot/PuzzlePanel/Content/MainRow/CodeBankPanel/CodeBankBody/CodeBankScroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 8
-
-[node name="SlotsPanel" type="PanelContainer" parent="ModalRoot/PuzzlePanel/Content/MainRow"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="SlotsBody" type="VBoxContainer" parent="ModalRoot/PuzzlePanel/Content/MainRow/SlotsPanel"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="SlotsTitle" type="Label" parent="ModalRoot/PuzzlePanel/Content/MainRow/SlotsPanel/SlotsBody"]
-layout_mode = 2
-text = "Assembly Slots"
-
-[node name="SlotsScroll" type="ScrollContainer" parent="ModalRoot/PuzzlePanel/Content/MainRow/SlotsPanel/SlotsBody"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="SlotsList" type="VBoxContainer" parent="ModalRoot/PuzzlePanel/Content/MainRow/SlotsPanel/SlotsBody/SlotsScroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 8
-
-[node name="FooterRow" type="VBoxContainer" parent="ModalRoot/PuzzlePanel/Content"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatusLabel" type="Label" parent="ModalRoot/PuzzlePanel/Content/FooterRow"]
-layout_mode = 2
-text = "Reconstruct Bubble Sort by dragging each line into the right order."
-autowrap_mode = 2
-
-[node name="ErrorCounter" type="Label" parent="ModalRoot/PuzzlePanel/Content/FooterRow"]
-layout_mode = 2
-text = "Consecutive errors: 0 / 3"
-
-[node name="Actions" type="HBoxContainer" parent="ModalRoot/PuzzlePanel/Content/FooterRow"]
-layout_mode = 2
-alignment = 1
-theme_override_constants/separation = 14
-
-[node name="ValidateButton" type="Button" parent="ModalRoot/PuzzlePanel/Content/FooterRow/Actions"]
-custom_minimum_size = Vector2(180, 72)
-layout_mode = 2
-text = "Validate"
-
-[node name="ResetButton" type="Button" parent="ModalRoot/PuzzlePanel/Content/FooterRow/Actions"]
-custom_minimum_size = Vector2(180, 72)
-layout_mode = 2
-text = "Reset"
-
-[node name="CloseButton" type="Button" parent="ModalRoot/PuzzlePanel/Content/FooterRow/Actions"]
-custom_minimum_size = Vector2(180, 72)
-layout_mode = 2
-text = "Close"
+[node name="PuzzleManager" type="Node" parent="." unique_id=68481343]

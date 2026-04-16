@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/touchControls.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b6sy41opg4xdm" path="res://scenes/bosses/lvl1_bubble.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/player_new.tscn" id="4_u5sy4"]
-[ext_resource type="PackedScene" path="res://scenes/ui/sealing_modal.tscn" id="5_rpq23"]
+[ext_resource type="PackedScene" uid="uid://d7il0wmgrue5" path="res://scenes/puzzles/bubble_sort.tscn" id="5_u5sy4"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_health_bars.tscn" id="6_6ifkb"]
 
 [sub_resource type="Gradient" id="Gradient_u5sy4"]
@@ -49,13 +49,12 @@ scale = Vector2(0.34, 0.34)
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1264934876]
 position = Vector2(75.00005, -535.29407)
 zoom = Vector2(0.53, 0.53)
-position_smoothing_enabled = true
 position_smoothing_speed = 4.5
 
 [node name="BubbleBoss" parent="." unique_id=1029836507 instance=ExtResource("4_lbhrr")]
 position = Vector2(3306, -125.000046)
 scale = Vector2(10, 10)
 
-[node name="SealingModal" parent="." unique_id=1794402820 instance=ExtResource("5_rpq23")]
+[node name="BubbleSortPuzzle" parent="." unique_id=1036400120 instance=ExtResource("5_u5sy4")]
 
 [node name="HudHealthBars" parent="." unique_id=353806393 instance=ExtResource("6_6ifkb")]
