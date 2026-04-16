@@ -6,47 +6,35 @@ signal resonance_surge_triggered
 signal modal_closed
 
 const MAX_CONSECUTIVE_ERRORS: int = 3
-const CODE_LINES: Array[String] = [
-	"int n = arr.size();",
-	"bool swapped;",
-	"for (int i = 0; i < n - 1; i++) {",
-	"swapped = false;",
-	"for (int j = 0; j < n - i - 1; j++) {",
-	"if (arr[j] > arr[j + 1]) {",
-	"swap(arr[j], arr[j + 1]);",
-	"swapped = true;",
-	"}",
-	"}",
-	"if (!swapped) break;",
-	"}",
-]
-
-@onready var _code_bank_container: VBoxContainer = $ModalRoot/PuzzlePanel/Content/MainRow/CodeBankPanel/CodeBankBody/CodeBankScroll/CodeBankList
-@onready var _slots_container: VBoxContainer = $ModalRoot/PuzzlePanel/Content/MainRow/SlotsPanel/SlotsBody/SlotsScroll/SlotsList
-@onready var _status_label: Label = $ModalRoot/PuzzlePanel/Content/FooterRow/StatusLabel
-@onready var _error_counter_label: Label = $ModalRoot/PuzzlePanel/Content/FooterRow/ErrorCounter
-@onready var _validate_button: Button = $ModalRoot/PuzzlePanel/Content/FooterRow/Actions/ValidateButton
-@onready var _reset_button: Button = $ModalRoot/PuzzlePanel/Content/FooterRow/Actions/ResetButton
-@onready var _close_button: Button = $ModalRoot/PuzzlePanel/Content/FooterRow/Actions/CloseButton
-
-var _slots: Array[PuzzleDropSlot] = []
 var _consecutive_errors: int = 0
+
+# --- NEW NODE PATHS ---
+# These paths match the SubViewport layout we just built!
+@onready var _title_label: Label = $HeaderUI/Title
+@onready var _subtitle_label: Label = $HeaderUI/Subtitle
+@onready var _error_counter_label: Label = $FooterUI/ErrorCounter
+@onready var _validate_button: Button = $FooterUI/Actions/ValidateButton
+@onready var _reset_button: Button = $FooterUI/Actions/ResetButton
+@onready var _close_button: Button = $FooterUI/Actions/CloseButton
+
+# Grab the TV Screen, and the 2D puzzle minigame that is playing inside of it
+@onready var _viewport: SubViewport = $SubViewportContainer/SubViewport
 
 func _ready() -> void:
 	visible = false
 	layer = 10
-	_initialize_slots()
-	_reset_puzzle_layout()
+	
+	# Connect our buttons
 	_validate_button.pressed.connect(_on_validate_pressed)
 	_reset_button.pressed.connect(_on_reset_pressed)
 	_close_button.pressed.connect(hide_modal)
+	
 	_update_error_counter()
 
 func show_modal() -> void:
 	_consecutive_errors = 0
-	_reset_puzzle_layout()
 	_update_error_counter()
-	_status_label.text = "Reconstruct Bubble Sort by dragging each line into the right order."
+	_subtitle_label.text = "Reconstruct the Bubble Sort logic to seal the boss."
 	visible = true
 
 func hide_modal() -> void:
@@ -55,67 +43,47 @@ func hide_modal() -> void:
 	visible = false
 	modal_closed.emit()
 
-func _initialize_slots() -> void:
-	_slots.clear()
-	for child in _slots_container.get_children():
-		child.queue_free()
-
-	for i in CODE_LINES.size():
-		var slot: PuzzleDropSlot = PuzzleDropSlot.new()
-		slot.slot_index = i
-		slot.line_assigned.connect(_on_slot_line_assigned)
-		_slots_container.add_child(slot)
-		_slots.append(slot)
-
-func _reset_puzzle_layout() -> void:
-	for slot in _slots:
-		slot.clear_assignment()
-
-	for child in _code_bank_container.get_children():
-		child.queue_free()
-
-	var line_indices: Array[int] = []
-	for i in CODE_LINES.size():
-		line_indices.append(i)
-	line_indices.shuffle()
-
-	for line_index in line_indices:
-		var block: PuzzleCodeBlock = PuzzleCodeBlock.new()
-		block.setup(line_index, CODE_LINES[line_index])
-		_code_bank_container.add_child(block)
-
-func _on_slot_line_assigned(slot_index: int, line_id: int, _line_text: String) -> void:
-	for slot in _slots:
-		if slot.slot_index != slot_index and slot.assigned_line_id == line_id:
-			slot.clear_assignment()
-
 func _on_validate_pressed() -> void:
-	if _is_solution_correct():
-		_status_label.text = "Seal locked in. The algorithm is stable."
+	# Get the active 2D puzzle from inside the SubViewport
+	var active_puzzle = _viewport.get_child(0)
+	
+	if not active_puzzle:
+		return
+		
+	# Check if the 2D puzzle manager has all its pieces snapped into place!
+	if active_puzzle.solved_pieces == active_puzzle.total_pieces:
+		_subtitle_label.text = "Seal locked in. The algorithm is stable."
 		sealing_succeeded.emit()
 		hide_modal()
 		return
 
+	# If they hit execute but the puzzle isn't finished:
 	_consecutive_errors += 1
 	_update_error_counter()
+	
 	if _consecutive_errors >= MAX_CONSECUTIVE_ERRORS:
-		_status_label.text = "Resonance Surge! Boss regains full power."
+		_subtitle_label.text = "Resonance Surge! Boss regains full power."
 		resonance_surge_triggered.emit()
-		_reset_puzzle_layout()
+		_on_reset_pressed() # Auto reset the puzzle pieces
 		hide_modal()
 		return
 
-	_status_label.text = "Logic mismatch. Check loop bounds and swapped flow."
+	_subtitle_label.text = "Logic mismatch. Assembly incomplete."
 
 func _on_reset_pressed() -> void:
-	_status_label.text = "Puzzle reset. Try rebuilding the flow from scratch."
-	_reset_puzzle_layout()
-
-func _is_solution_correct() -> bool:
-	for i in _slots.size():
-		if _slots[i].assigned_line_id != i:
-			return false
-	return true
+	_subtitle_label.text = "Puzzle reset. Try rebuilding the flow from scratch."
+	
+	# Tell the 2D puzzle to reset its pieces
+	var active_puzzle = _viewport.get_child(0)
+	if active_puzzle:
+		# Loop through the "Pieces" folder inside the 2D minigame
+		for piece in active_puzzle.get_node("Pieces").get_children():
+			# Force every piece to snap back to its starting coordinate
+			piece.is_locked = false
+			piece.z_index = 0
+			piece._return_to_start()
+			
+		active_puzzle.solved_pieces = 0
 
 func _update_error_counter() -> void:
-	_error_counter_label.text = "Consecutive errors: %d / %d" % [_consecutive_errors, MAX_CONSECUTIVE_ERRORS]
+	_error_counter_label.text = "System Errors: %d / %d" % [_consecutive_errors, MAX_CONSECUTIVE_ERRORS]
