@@ -51,7 +51,7 @@ func _process(delta: float) -> void:
 			velocity.y = -abs(velocity.y) # Force move up
 			global_position.y = bounds.end.y - margin
 
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if is_locked: return
 	
 	if event is InputEventMouseButton or event is InputEventScreenTouch:
@@ -85,8 +85,16 @@ func _check_drop() -> void:
 		_nudge_away()
 		
 func _snap_to_zone(zone: Area2D) -> void:
-	global_position = zone.global_position
+	# 1. Lock the piece so it can't be dragged anymore
 	is_locked = true
+	
+	# 2. Safely attach this piece to the DropZone so they scroll together
+	call_deferred("reparent", zone)
+	
+	# 3. Reset its local position so it snaps perfectly to the center of its new parent
+	set_deferred("position", Vector2.ZERO)
+	
+	# 4. Tell the manager it was placed correctly
 	placed_correctly.emit()
 
 func _nudge_away() -> void:

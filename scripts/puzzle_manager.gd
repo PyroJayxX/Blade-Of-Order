@@ -1,4 +1,5 @@
 extends Node2D
+class_name PuzzleManager
 
 @onready var camera: Camera2D = $Camera2D
 var total_pieces := 0

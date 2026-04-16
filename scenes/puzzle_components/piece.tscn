@@ -2,21 +2,25 @@
 
 [ext_resource type="Script" uid="uid://db1wlml0hrlhg" path="res://scripts/piece.gd" id="1_cge1j"]
 
-[sub_resource type="Gradient" id="Gradient_k1kcn"]
-colors = PackedColorArray(0.10980392, 0.59607846, 0.58431375, 0.42745098, 0.17254902, 0.6039216, 0.54901963, 0.5254902)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_cge1j"]
-gradient = SubResource("Gradient_k1kcn")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cge1j"]
+bg_color = Color(0.05882353, 0.26666668, 0.23921569, 0.19215687)
+border_color = Color(0, 0.84313726, 0.70980394, 0.56078434)
+shadow_color = Color(0.043137256, 0.5294118, 0.4862745, 0.3372549)
+shadow_size = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_su5e7"]
-size = Vector2(316, 20)
+size = Vector2(376, 50)
 
 [node name="PuzzlePiece" type="Area2D" unique_id=947852651]
 script = ExtResource("1_cge1j")
 
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1899492596]
-scale = Vector2(1.2500001, 22)
-texture = SubResource("GradientTexture1D_cge1j")
+[node name="Panel" type="Panel" parent="." unique_id=1179001616]
+visible = false
+offset_left = -160.0
+offset_top = -11.0
+offset_right = 160.0
+offset_bottom = 11.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cge1j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2110832052]
 position = Vector2(1, 0)
