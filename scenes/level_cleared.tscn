@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://cmlnvfj6ps3j7"]
+
+[ext_resource type="FontFile" uid="uid://cnu6t4palvls7" path="res://fonts/VerminVibesV-Zlg3.ttf" id="1_f7xcr"]
+[ext_resource type="Texture2D" uid="uid://lfwjxl1wur87" path="res://assets/tiles/Quit.png" id="2_4jpot"]
+[ext_resource type="FontFile" uid="uid://btvnfrvu1nsxl" path="res://fonts/Hackdaddy.otf" id="2_fy7iq"]
+[ext_resource type="Texture2D" uid="uid://l5oj8pi6kb5x" path="res://assets/tiles/Next.png" id="3_fy7iq"]
+
+[node name="LevelClearedScreen" type="CanvasLayer" unique_id=85807437]
+
+[node name="ScreenDimmer" type="ColorRect" parent="." unique_id=1699121192]
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.78431374)
+
+[node name="Container" type="Panel" parent="." unique_id=1703728720]
+anchors_preset = -1
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="label_title" type="RichTextLabel" parent="Container" unique_id=866945346]
+layout_mode = 0
+offset_top = 207.0
+offset_right = 1280.0
+offset_bottom = 258.0
+theme_override_fonts/normal_font = ExtResource("1_f7xcr")
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "[center]LEVEL CLEARED[/center]"
+
+[node name="label_time" type="RichTextLabel" parent="Container" unique_id=1965613618]
+layout_mode = 0
+offset_top = 357.0
+offset_right = 1280.0
+offset_bottom = 395.0
+theme_override_fonts/normal_font = ExtResource("2_fy7iq")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[center] Time: XX [/center]
+"
+
+[node name="label_score" type="RichTextLabel" parent="Container" unique_id=1185250470]
+layout_mode = 0
+offset_top = 310.0
+offset_right = 1280.0
+offset_bottom = 348.0
+theme_override_fonts/normal_font = ExtResource("2_fy7iq")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[center] Score: XX [/center]
+"
+
+[node name="btn_quit" type="TextureButton" parent="Container" unique_id=453423589]
+layout_mode = 0
+offset_left = 321.0
+offset_top = 451.0
+offset_right = 721.0
+offset_bottom = 566.0
+scale = Vector2(0.6, 0.6)
+texture_normal = ExtResource("2_4jpot")
+
+[node name="btn_next" type="TextureButton" parent="Container" unique_id=438905277]
+layout_mode = 0
+offset_left = 711.0
+offset_top = 451.0
+offset_right = 1111.0
+offset_bottom = 566.0
+scale = Vector2(0.6, 0.6)
+texture_normal = ExtResource("3_fy7iq")
