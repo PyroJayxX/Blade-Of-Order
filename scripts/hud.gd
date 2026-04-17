@@ -4,11 +4,11 @@ class_name HudHealthBars
 @export var default_player_max_health: int = 100
 @export var default_boss_max_health: int = 100
 
-const PLAYER_BAR_PATH: NodePath = ^"Root/SafeMargin/TopRow/PlayerPanel/PlayerBar"
-const PLAYER_VALUE_PATH: NodePath = ^"Root/SafeMargin/TopRow/PlayerPanel/PlayerValue"
-const BOSS_BAR_PATH: NodePath = ^"Root/SafeMargin/TopRow/BossPanel/BossBar"
-const BOSS_VALUE_PATH: NodePath = ^"Root/SafeMargin/TopRow/BossPanel/BossValue"
-const TIMER_LABEL_PATH: NodePath = ^"Root/TimerLabel"
+const PLAYER_BAR_PATH: NodePath = ^"Root/TopRow/PlayerPanel/PlayerBar"
+const PLAYER_VALUE_PATH: NodePath = ^"Root/TopRow/PlayerPanel/PlayerValue"
+const BOSS_BAR_PATH: NodePath = ^"Root/TopRow/BossPanel/BossBar"
+const BOSS_VALUE_PATH: NodePath = ^"Root/TopRow/BossPanel/BossValue"
+const TIMER_LABEL_PATH: NodePath = ^"Root/TopRow/Spacer/TimerLabel"
 
 var _player_bar: ProgressBar
 var _player_value_label: Label

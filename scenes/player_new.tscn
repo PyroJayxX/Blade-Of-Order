@@ -448,11 +448,17 @@ offset_right = 1772.0
 offset_bottom = 1392.0
 texture = SubResource("CanvasTexture_wm45n")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1619671646]
+[node name="PlayerCollision" type="CollisionShape2D" parent="." unique_id=1619671646]
 position = Vector2(-74, 140)
 shape = SubResource("RectangleShape2D_dsvhw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=850400138]
 sprite_frames = SubResource("SpriteFrames_nirif")
-animation = &"slash_1"
+animation = &"idle"
 autoplay = "idle"
+
+[node name="SlashCollision" type="CollisionPolygon2D" parent="." unique_id=646558415]
+visible = false
+position = Vector2(362, 140)
+polygon = PackedVector2Array(-316, 10, -329, -546, -138, -580, 82, -568, 283, -508, 433, -373, 527, -191, 559, 45, 537, 171, 478, 302, 340, 337, 107, 290, -166, 287)
+disabled = true

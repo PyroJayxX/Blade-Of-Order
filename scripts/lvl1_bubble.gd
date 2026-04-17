@@ -274,6 +274,16 @@ func on_sealing_success_mock() -> void:
 func on_resonance_surge_mock() -> void:
 	print("Resonance Surge. TODO: restore boss HP to full.")
 	_set_state(BossState.CHASE)
+
+func reset_for_retry(spawn_position: Vector2) -> void:
+	global_position = spawn_position
+	velocity = Vector2.ZERO
+	_current_health = max_health
+	_is_defeated = false
+	_shoot_timer = 0.0
+	_attack_anim_timer = 0.0
+	_sync_boss_hud_health()
+	_set_state(BossState.CHASE)
 		
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_H:

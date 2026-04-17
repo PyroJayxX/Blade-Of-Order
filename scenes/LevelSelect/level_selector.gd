@@ -3,6 +3,7 @@ extends Control
 # NOTE: Drag and drop your nodes here like we discussed if the paths are different!
 @onready var grid_container = $Overlay/GridContainer
 @onready var play_button = $Overlay/PlayButton 
+@onready var back_button = $Overlay/BackButton
 
 const LEVEL_TILE_SCENE = preload("res://scenes/LevelSelect/level_tile.tscn")
 const LOCK_TEXTURE = preload("res://assets/boss_splash/Locked_Level.png") # Your lock image
@@ -26,6 +27,7 @@ var currently_selected_tile = null
 func _ready():
 	play_button.disabled = true
 	play_button.pressed.connect(_on_play_button_pressed)
+	back_button.pressed.connect(_on_back_button_pressed)
 	generate_level_grid()
 
 func generate_level_grid():
@@ -73,3 +75,6 @@ func _on_play_button_pressed():
 				get_tree().change_scene_to_file("res://scenes/game.tscn")
 			_:
 				print("Level not built yet!")
+
+func _on_back_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

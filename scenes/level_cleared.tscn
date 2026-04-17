@@ -4,8 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://lfwjxl1wur87" path="res://assets/tiles/Quit.png" id="2_4jpot"]
 [ext_resource type="FontFile" uid="uid://btvnfrvu1nsxl" path="res://fonts/Hackdaddy.otf" id="2_fy7iq"]
 [ext_resource type="Texture2D" uid="uid://l5oj8pi6kb5x" path="res://assets/tiles/Next.png" id="3_fy7iq"]
+[ext_resource type="Script" path="res://scripts/level_cleared.gd" id="4_j2g8h"]
 
 [node name="LevelClearedScreen" type="CanvasLayer" unique_id=85807437]
+script = ExtResource("4_j2g8h")
 
 [node name="ScreenDimmer" type="ColorRect" parent="." unique_id=1699121192]
 offset_right = 1280.0
@@ -67,3 +69,6 @@ offset_right = 1111.0
 offset_bottom = 566.0
 scale = Vector2(0.6, 0.6)
 texture_normal = ExtResource("3_fy7iq")
+
+[connection signal="pressed" from="Container/btn_quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Container/btn_next" to="." method="_on_next_pressed"]

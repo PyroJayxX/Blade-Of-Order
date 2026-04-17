@@ -79,6 +79,8 @@ func _check_drop() -> void:
 	
 	for area in overlapping:
 		if area.is_in_group("drop_zone"):
+			if area.has_method("is_occupied") and area.call("is_occupied"):
+				continue
 			hit_zone = true
 			if area.expected_id == piece_id:
 				correct_zone = true
@@ -93,6 +95,8 @@ func _check_drop() -> void:
 func _snap_to_zone(zone: Area2D) -> void:
 	# 1. Lock the piece so it can't be dragged anymore
 	is_locked = true
+	if zone.has_method("set_occupied"):
+		zone.call("set_occupied", true)
 	
 	# 2. Safely attach this piece to the DropZone so they scroll together
 	call_deferred("reparent", zone)
