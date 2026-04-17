@@ -46,15 +46,10 @@ func start_dash(direction):
 
 func start_attack():
 	if is_attacking:
-		_queued_next_attack = true
 		return
 	
 	is_attacking = true
-	_combo_step = (_combo_step % MAX_COMBO_STEPS) + 1
-	_queued_next_attack = false
-	_combo_timer = COMBO_RESET_TIME
 	_slash_has_hit = false
-	_set_slash_collision_enabled(true)
 	
 	# stop movement slightly
 	velocity.x *= 0.3
@@ -64,10 +59,6 @@ func start_attack():
 	await animated_sprite.animation_finished
 	
 	_set_slash_collision_enabled(false)
-	if _queued_next_attack:
-		start_attack()
-		return
-
 	is_attacking = false
 
 func _physics_process(delta: float) -> void:
