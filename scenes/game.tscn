@@ -56,5 +56,7 @@ position = Vector2(3306, -125.000046)
 scale = Vector2(10, 10)
 
 [node name="BubbleSortPuzzle" parent="." unique_id=1036400120 instance=ExtResource("5_u5sy4")]
+visible = false
 
 [node name="HudHealthBars" parent="." unique_id=353806393 instance=ExtResource("6_6ifkb")]
+visible = false
