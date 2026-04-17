@@ -10,6 +10,7 @@ var _initial_player_position: Vector2 = Vector2.ZERO
 var _initial_boss_position: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
+	AudioController.play_boss_music()
 	_bubble_sort_puzzle.visible = false
 	_level_cleared_screen.visible = false
 	_initial_player_position = _player.global_position

@@ -244,6 +244,7 @@ func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
 
 	if causes_stun:
 		_set_state(BossState.STUNNED)
+		AudioController.play_boss_stunned()
 	else:
 		_set_state(BossState.HURT)
 		await anim_player.animation_finished
