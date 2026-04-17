@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://c8uxykmwbpdao" path="res://audio/sfx/main menu - button press.mp3" id="2_dr783"]
 [ext_resource type="AudioStream" uid="uid://7cx50ed0vs" path="res://audio/sfx/boss music.mp3" id="4_aufy8"]
 [ext_resource type="AudioStream" uid="uid://3gct1fviyc3w" path="res://audio/sfx/boss stunned.mp3" id="5_blxgy"]
-[ext_resource type="AudioStream" uid="uid://cwqwrkfntfqm1" path="res://audio/sfx/boss hit - bubble.mp3" id="6_xujww"]
+[ext_resource type="AudioStream" uid="uid://yqm6vipa3eph" path="res://audio/sfx/boss hit - bubble.mp3" id="6_xujww"]
 
 [node name="audio_controller" type="Node2D" unique_id=1390589828]
 script = ExtResource("1_dr783")
