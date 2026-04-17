@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://co0jjtb6av0yf"]
+
+[ext_resource type="Texture2D" uid="uid://pt5kibn23u4e" path="res://assets/main_menu_btn/play_btn.png" id="1_ekxnf"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_oa1go"]
+[ext_resource type="FontFile" uid="uid://cnu6t4palvls7" path="res://fonts/VerminVibesV-Zlg3.ttf" id="2_5dd4i"]
+[ext_resource type="Texture2D" uid="uid://kt0r8vckxicl" path="res://assets/main_menu_btn/play_btn_pressed.png" id="2_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://dxl1camdajdpo" path="res://assets/main_menu_btn/temp_logopng.png" id="2_tbmy8"]
+[ext_resource type="Texture2D" uid="uid://ddfn7q8tiwwm1" path="res://assets/main_menu_btn/leaderboard_btn.png" id="3_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://ct1ha7fitwrua" path="res://assets/main_menu_btn/leaderboard_btn_pressed.png" id="4_oa1go"]
+[ext_resource type="Texture2D" uid="uid://pod03f4qyffe" path="res://assets/main_menu_btn/settings_btn.png" id="5_tbmy8"]
+[ext_resource type="Texture2D" uid="uid://t00xa6w1iyin" path="res://assets/main_menu_btn/settings_btn_pressed.png" id="6_jk1qb"]
+[ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/player_new.tscn" id="10_lgwnu"]
+[ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/arena.tscn" id="11_lgwnu"]
+
+[sub_resource type="Gradient" id="Gradient_u5sy4"]
+offsets = PackedFloat32Array(0.27108434, 1)
+colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_flqon"]
+gradient = SubResource("Gradient_u5sy4")
+fill_to = Vector2(0, 1)
+
+[node name="MainMenu" type="Control" unique_id=1834903873]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oa1go")
+
+[node name="placeholder_bg" type="ColorRect" parent="." unique_id=1734849051]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1205428567]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 0
+offset_top = 150.0
+offset_right = 1280.0
+offset_bottom = 250.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.41960785, 0.9529412, 1, 1)
+theme_override_fonts/normal_font = ExtResource("2_5dd4i")
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "[center] BLADE OF ORDER [/center]"
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1171145806]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=382746785]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="temp_logo" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=562739532]
+visible = false
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 2
+texture = ExtResource("2_tbmy8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1156467472]
+custom_minimum_size = Vector2(50, 200)
+layout_mode = 2
+
+[node name="play_btn" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=1654960614]
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("1_ekxnf")
+texture_pressed = ExtResource("2_bqqt6")
+texture_hover = ExtResource("2_bqqt6")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="leaderboard_btn" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=1743265239]
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("3_rtw2f")
+texture_pressed = ExtResource("4_oa1go")
+texture_hover = ExtResource("4_oa1go")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="settings_btn" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=644725805]
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("5_tbmy8")
+texture_pressed = ExtResource("6_jk1qb")
+texture_hover = ExtResource("6_jk1qb")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=797033237]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 722.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_flqon")
+
+[node name="Player" parent="." unique_id=1430617140 instance=ExtResource("10_lgwnu")]
+position = Vector2(190, 479.99997)
+scale = Vector2(0.34, 0.34)
+script = null
+
+[node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("11_lgwnu")]
+position = Vector2(-6799, 649)
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/play_btn" to="." method="_on_play_btn_pressed"]

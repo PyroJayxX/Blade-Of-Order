@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://cfg61w43rnbvl"]
+
+[ext_resource type="Script" uid="uid://21h2d3h1her5" path="res://scenes/LevelSelect/level_selector.gd" id="1_ya7lg"]
+[ext_resource type="FontFile" uid="uid://dmfiak0cq6xa0" path="res://fonts/LiberationMono-Bold.ttf" id="2_v5i0c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qq53c"]
+bg_color = Color(0.06666667, 0.105882354, 0.11372549, 0.54901963)
+border_color = Color(0.16759703, 0.82772696, 0.7885211, 0.56078434)
+shadow_color = Color(0.16470589, 0.6784314, 0.654902, 0.039215688)
+shadow_size = 10
+
+[node name="Levelselector" type="Control" unique_id=1211046810]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ya7lg")
+
+[node name="Overlay" type="Panel" parent="." unique_id=794363499]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -597.0
+offset_top = -330.0
+offset_right = 603.0
+offset_bottom = 330.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_qq53c")
+
+[node name="ColorRect" type="ColorRect" parent="Overlay" unique_id=801615781]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 1195.0
+offset_bottom = 82.0
+mouse_filter = 2
+color = Color(0.12156863, 0.5019608, 0.4745098, 0.40784314)
+
+[node name="Title" type="RichTextLabel" parent="Overlay/ColorRect" unique_id=1360016785]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.24700001
+anchor_bottom = 0.24700001
+offset_top = 3.980999
+offset_right = 1190.0
+offset_bottom = 41.981
+rotation = -0.0008601075
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0.9239334, 0.83635265, 1)
+theme_override_colors/selection_color = Color(0.1, 0.1, 1, 0.8)
+theme_override_fonts/normal_font = ExtResource("2_v5i0c")
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "[center]SELECT LEVEL[/center]"
+
+[node name="GridContainer" type="GridContainer" parent="Overlay" unique_id=1380729248]
+clip_contents = true
+layout_mode = 0
+offset_left = 10.0
+offset_top = 94.0
+offset_right = 1190.0
+offset_bottom = 594.0
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 3
+
+[node name="PlayButton" type="Button" parent="Overlay" unique_id=671322526]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 0
+offset_left = 543.0
+offset_top = 607.0
+offset_right = 693.0
+offset_bottom = 657.0
+disabled = true
+text = "PLAY"
+
+[node name="BackButton" type="Button" parent="Overlay" unique_id=395493240]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -68.0
+offset_top = 19.0
+offset_right = -18.0
+offset_bottom = 69.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+text = "X"

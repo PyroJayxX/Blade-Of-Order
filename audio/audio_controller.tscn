@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://q8ssf58bkdpy"]
+
+[ext_resource type="Script" uid="uid://echas4suk1un" path="res://audio/audio_controller.gd" id="1_dr783"]
+[ext_resource type="AudioStream" uid="uid://bj3flmt63j0wd" path="res://audio/sfx/main menu music.mp3" id="1_e6jji"]
+[ext_resource type="AudioStream" uid="uid://c8uxykmwbpdao" path="res://audio/sfx/main menu - button press.mp3" id="2_dr783"]
+[ext_resource type="AudioStream" uid="uid://7cx50ed0vs" path="res://audio/sfx/boss music.mp3" id="4_aufy8"]
+[ext_resource type="AudioStream" uid="uid://3gct1fviyc3w" path="res://audio/sfx/boss stunned.mp3" id="5_blxgy"]
+[ext_resource type="AudioStream" uid="uid://cwqwrkfntfqm1" path="res://audio/sfx/boss hit - bubble.mp3" id="6_xujww"]
+
+[node name="audio_controller" type="Node2D" unique_id=1390589828]
+script = ExtResource("1_dr783")
+
+[node name="main_menu_music" type="AudioStreamPlayer" parent="." unique_id=293644593]
+stream = ExtResource("1_e6jji")
+volume_db = -25.0
+autoplay = true
+
+[node name="main_menu_button_press" type="AudioStreamPlayer" parent="." unique_id=1187421236]
+stream = ExtResource("2_dr783")
+volume_db = 5.0
+
+[node name="boss_music" type="AudioStreamPlayer" parent="." unique_id=225095980]
+stream = ExtResource("4_aufy8")
+volume_db = -20.0
+pitch_scale = 0.8
+
+[node name="boss_stunned" type="AudioStreamPlayer" parent="." unique_id=898486715]
+stream = ExtResource("5_blxgy")
+pitch_scale = 0.9
+
+[node name="boss_hit_bubble" type="AudioStreamPlayer" parent="." unique_id=985551864]
+stream = ExtResource("6_xujww")
+volume_db = -15.0
+pitch_scale = 0.5

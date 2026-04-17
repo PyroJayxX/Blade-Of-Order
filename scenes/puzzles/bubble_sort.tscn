@@ -3,7 +3,9 @@
 [ext_resource type="FontFile" uid="uid://dmfiak0cq6xa0" path="res://fonts/LiberationMono-Bold.ttf" id="1_krfs4"]
 [ext_resource type="FontFile" uid="uid://bop2b21o5j7w8" path="res://fonts/Inconsolata-Regular.ttf" id="2_krfs4"]
 [ext_resource type="PackedScene" uid="uid://brn3ow27db1c1" path="res://scenes/puzzle_components/drop_zone.tscn" id="2_kwler"]
+[ext_resource type="Texture2D" uid="uid://dqtf34c6njaw5" path="res://assets/puzzle_sprites/Skull.png" id="2_pnhvk"]
 [ext_resource type="PackedScene" uid="uid://cjxaxnefegp2h" path="res://scenes/puzzle_components/piece.tscn" id="3_kwler"]
+[ext_resource type="Script" path="res://scripts/puzzles/bubble_sort_puzzle.gd" id="6_g3w4b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i054c"]
 bg_color = Color(0.06666667, 0.105882354, 0.11372549, 0.54901963)
@@ -24,6 +26,7 @@ shadow_size = 2
 
 [node name="BubbleSortPuzzle" type="CanvasLayer" unique_id=1036400120]
 layer = 20
+script = ExtResource("6_g3w4b")
 
 [node name="PuzzleManager" type="Node" parent="." unique_id=68481343]
 
@@ -71,6 +74,24 @@ theme_override_fonts/normal_font = ExtResource("1_krfs4")
 theme_override_font_sizes/normal_font_size = 28
 bbcode_enabled = true
 text = "[center]COMPLETE THE BUBBLE SORT ALGORITHM TO SEAL THE BOSS![/center]"
+
+[node name="Skull_1" type="Sprite2D" parent="Overlay" unique_id=783750513]
+visible = false
+position = Vector2(800, 522)
+scale = Vector2(0.276, 0.276)
+texture = ExtResource("2_pnhvk")
+
+[node name="Skull_2" type="Sprite2D" parent="Overlay" unique_id=1301147582]
+visible = false
+position = Vector2(938, 522)
+scale = Vector2(0.276, 0.276)
+texture = ExtResource("2_pnhvk")
+
+[node name="Skull_3" type="Sprite2D" parent="Overlay" unique_id=2076781974]
+visible = false
+position = Vector2(1076, 522)
+scale = Vector2(0.276, 0.276)
+texture = ExtResource("2_pnhvk")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Overlay" unique_id=242596808]
 layout_mode = 1

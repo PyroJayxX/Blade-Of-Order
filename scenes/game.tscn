@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://b6sy41opg4xdm" path="res://scenes/bosses/lvl1_bubble.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/player_new.tscn" id="4_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://d7il0wmgrue5" path="res://scenes/puzzles/bubble_sort.tscn" id="5_u5sy4"]
-[ext_resource type="PackedScene" path="res://scenes/ui/hud_health_bars.tscn" id="6_6ifkb"]
+[ext_resource type="PackedScene" uid="uid://ctapwu3uviyqg" path="res://scenes/ui/hud.tscn" id="6_6ifkb"]
+[ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/level_cleared.tscn" id="7_d2r9c"]
 
 [sub_resource type="Gradient" id="Gradient_u5sy4"]
 offsets = PackedFloat32Array(0.27108434, 1)
@@ -58,5 +59,9 @@ scale = Vector2(10, 10)
 [node name="BubbleSortPuzzle" parent="." unique_id=1036400120 instance=ExtResource("5_u5sy4")]
 visible = false
 
-[node name="HudHealthBars" parent="." unique_id=353806393 instance=ExtResource("6_6ifkb")]
+[node name="HUD" parent="." unique_id=353806393 instance=ExtResource("6_6ifkb")]
+layer = 10
+
+[node name="LevelClearedScreen" parent="." unique_id=85807437 instance=ExtResource("7_d2r9c")]
+layer = 25
 visible = false

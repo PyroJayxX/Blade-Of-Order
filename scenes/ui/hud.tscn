@@ -1,0 +1,155 @@
+[gd_scene format=3 uid="uid://ctapwu3uviyqg"]
+
+[ext_resource type="Script" uid="uid://j8h6r37cj7ho" path="res://scripts/hud.gd" id="1_hud"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mwgc"]
+bg_color = Color(0, 0, 0, 0.21568628)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bo48s"]
+bg_color = Color(1.1358858e-05, 0.9036864, 0.8253158, 0.19607843)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqnrr"]
+bg_color = Color(0, 0, 0, 0.21568628)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8qguk"]
+bg_color = Color(0.9999998, 0.30583885, 0.17400965, 0.19607843)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="HUD" type="CanvasLayer" unique_id=148605811]
+script = ExtResource("1_hud")
+
+[node name="Root" type="Control" parent="." unique_id=669818091]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TopRow" type="Control" parent="Root" unique_id=209127207]
+anchors_preset = 0
+offset_left = 22.0
+offset_top = 24.0
+offset_right = 1258.0
+offset_bottom = 658.0
+
+[node name="PlayerPanel" type="Control" parent="Root/TopRow" unique_id=28552465]
+custom_minimum_size = Vector2(360, 0)
+anchors_preset = 0
+offset_right = 392.0
+offset_bottom = 634.0
+size_flags_horizontal = 3
+
+[node name="PlayerLabel" type="Label" parent="Root/TopRow/PlayerPanel" unique_id=236731150]
+layout_mode = 0
+offset_left = 2.0
+offset_right = 394.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.95, 0.98, 1, 1)
+text = "PLAYER"
+
+[node name="PlayerBar" type="ProgressBar" parent="Root/TopRow/PlayerPanel" unique_id=1763737140]
+custom_minimum_size = Vector2(360, 34)
+layout_mode = 0
+offset_top = 29.0
+offset_right = 392.0
+offset_bottom = 63.0
+scale = Vector2(0.8, 0.8)
+theme_override_styles/background = SubResource("StyleBoxFlat_0mwgc")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bo48s")
+value = 100.0
+show_percentage = false
+
+[node name="PlayerValue" type="Label" parent="Root/TopRow/PlayerPanel" unique_id=1249860962]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 69.0
+offset_right = 394.0
+offset_bottom = 92.0
+theme_override_colors/font_color = Color(0.95, 0.98, 1, 1)
+text = "Player HP: 100/100"
+
+[node name="Spacer" type="Control" parent="Root/TopRow" unique_id=1620862275]
+anchors_preset = 0
+offset_left = 408.0
+offset_right = 800.0
+offset_bottom = 634.0
+size_flags_horizontal = 3
+
+[node name="TimerLabel" type="Label" parent="Root/TopRow/Spacer" unique_id=1155319074]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -196.0
+offset_top = 23.0
+offset_right = 196.0
+offset_bottom = 59.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.95, 0.98, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_constants/shadow_outline_size = 2
+theme_override_font_sizes/font_size = 18
+text = "Time: 00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BossPanel" type="Control" parent="Root/TopRow" unique_id=1567236027]
+custom_minimum_size = Vector2(420, 0)
+anchors_preset = 0
+offset_left = 816.0
+offset_right = 1236.0
+offset_bottom = 634.0
+size_flags_horizontal = 3
+
+[node name="BossLabel" type="Label" parent="Root/TopRow/BossPanel" unique_id=1071218740]
+layout_mode = 0
+offset_left = -2.0
+offset_right = 418.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.95, 0.98, 1, 1)
+text = "BOSS"
+horizontal_alignment = 2
+
+[node name="BossBar" type="ProgressBar" parent="Root/TopRow/BossPanel" unique_id=924566724]
+custom_minimum_size = Vector2(420, 34)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.99500006
+anchor_top = 0.046000004
+anchor_right = 0.99500006
+anchor_bottom = 0.046000004
+offset_left = -335.90002
+offset_top = -0.16400146
+offset_right = 84.099976
+offset_bottom = 33.836
+scale = Vector2(0.8, 0.8)
+theme_override_styles/background = SubResource("StyleBoxFlat_hqnrr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_8qguk")
+value = 100.0
+show_percentage = false
+
+[node name="BossValue" type="Label" parent="Root/TopRow/BossPanel" unique_id=445092677]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 69.0
+offset_right = 418.0
+offset_bottom = 92.0
+theme_override_colors/font_color = Color(0.95, 0.98, 1, 1)
+text = "Boss HP: 100/100"
+horizontal_alignment = 2

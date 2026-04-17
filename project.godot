@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Blade of Order"
-run/main_scene="uid://ioy41xka5ra0"
+run/main_scene="uid://co0jjtb6av0yf"
 config/features=PackedStringArray("4.6")
 
 [autoload]
 
 GameConfig="*res://scripts/core/game_config.gd"
 CombatEvents="*res://scripts/core/combat_events.gd"
+AudioController="*uid://q8ssf58bkdpy"
 
 [display]
 
