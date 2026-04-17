@@ -55,12 +55,18 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 	if is_locked: return
 	
 	if event is InputEventMouseButton or event is InputEventScreenTouch:
+		if event is InputEventMouseButton and event.button_index != MOUSE_BUTTON_LEFT:
+			return
 		if event.pressed:
+			if is_dragging:
+				return
 			# CAUGHT IT!
 			is_dragging = true
 			z_index = 10
 			get_viewport().set_input_as_handled()
 		else:
+			if not is_dragging:
+				return
 			# RELEASED IT!
 			is_dragging = false
 			z_index = 0

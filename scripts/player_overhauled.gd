@@ -16,7 +16,7 @@ const ANIM_JUMP: StringName = &"Jump"
 const ANIM_SLASH: StringName = &"Slash_1"
 const ANIM_RESET: StringName = &"RESET"
 const SWORD_HITBOX_PATH: NodePath = ^"CharacterContainer/Bones/Skeleton2D/Torso/ShoulderFront/BicepFront/SwordHeld/Area2D"
-const HUD_PATH: NodePath = ^"HudHealthBars"
+const HUD_PATH: NodePath = ^"HUD"
 
 @onready var body_root: Node2D = $CharacterContainer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer

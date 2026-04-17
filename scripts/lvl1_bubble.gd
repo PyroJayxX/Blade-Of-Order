@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal boss_defeated
+
 enum BossState {
 	IDLE,
 	CHASE,
@@ -19,7 +21,7 @@ enum BossState {
 @export var max_eye_distance: float = 20.0 
 @export var max_health: int = 100
 
-const HUD_PATH: NodePath = ^"HudHealthBars"
+const HUD_PATH: NodePath = ^"HUD"
 
 # --- NEW: Shooting Variables ---
 @export var bubble_scene: PackedScene
@@ -32,6 +34,7 @@ var _target: Node2D
 var _home_y: float = 0.0
 var _desired_personal_space: float = 0.0
 var _current_health: int = 100
+var _is_defeated: bool = false
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var eyes_pivot: Node2D = $EyesPivot
 
@@ -47,6 +50,7 @@ func _process(_delta: float) -> void:
 
 func _ready() -> void:
 	_current_health = max_health
+	_is_defeated = false
 	_home_y = global_position.y
 	_resolve_target()
 	_refresh_personal_space()
@@ -73,6 +77,10 @@ func _physics_process(delta: float) -> void:
 			velocity = Vector2.ZERO
 			if distance_to_target <= detection_range:
 				_set_state(BossState.CHASE)
+		BossState.HURT:
+			velocity = Vector2.ZERO
+		BossState.STUNNED:
+			velocity = Vector2.ZERO
 		BossState.CHASE:
 			# --- NEW: Shoot while chasing ---
 			if _shoot_timer <= 0.0:
@@ -219,17 +227,28 @@ func _state_to_text(state: BossState) -> String:
 			return "UNKNOWN"
 			
 func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
+	if _is_defeated:
+		return
+
 	var safe_amount: int = maxi(amount, 0)
 	_current_health = clampi(_current_health - safe_amount, 0, max_health)
 	_sync_boss_hud_health()
 	print("Boss HP -> ", _current_health, "/", max_health)
+
+	if _current_health <= 0:
+		_is_defeated = true
+		velocity = Vector2.ZERO
+		_set_state(BossState.IDLE)
+		boss_defeated.emit()
+		return
 
 	if causes_stun:
 		_set_state(BossState.STUNNED)
 	else:
 		_set_state(BossState.HURT)
 		await anim_player.animation_finished
-		_set_state(BossState.CHASE)
+		if not _is_defeated:
+			_set_state(BossState.CHASE)
 
 func _sync_boss_hud_health() -> void:
 	var current_scene: Node = get_tree().current_scene
@@ -241,19 +260,19 @@ func _sync_boss_hud_health() -> void:
 
 func on_stun_started_mock() -> void:
 	_set_state(BossState.STUNNED)
-	print("Stun puzzle opened (mock hook).")
+	print("Stun puzzle opened.")
 
 func on_stun_modal_closed_mock() -> void:
 	if _state == BossState.STUNNED:
 		_set_state(BossState.CHASE)
-	print("Stun puzzle closed (mock hook).")
+	print("Stun puzzle closed.")
 
 func on_sealing_success_mock() -> void:
-	print("Sealing success (mock hook). TODO: apply real sealing outcome.")
+	print("Sealing success. TODO: apply real sealing outcome.")
 	_set_state(BossState.IDLE)
 
 func on_resonance_surge_mock() -> void:
-	print("Resonance Surge (mock hook). TODO: restore boss HP to full.")
+	print("Resonance Surge. TODO: restore boss HP to full.")
 	_set_state(BossState.CHASE)
 		
 func _unhandled_input(event: InputEvent) -> void:
