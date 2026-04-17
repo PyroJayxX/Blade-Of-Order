@@ -19,6 +19,7 @@ func _on_body_entered(body: Node2D) -> void:
 	# Check if the thing we hit is the player (matching the names your boss uses)
 	if "Player" in body.name or body.is_in_group("player"):
 		print("Player got hit by a bubble!")
+		AudioController.play_boss_hit_bubble()
 		if body.has_method("take_damage"):
 			body.call("take_damage", 1)
 		

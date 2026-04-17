@@ -25,6 +25,7 @@ var currently_selected_level_id = -1
 var currently_selected_tile = null
 
 func _ready():
+	AudioController.play_button()
 	play_button.disabled = true
 	play_button.pressed.connect(_on_play_button_pressed)
 	back_button.pressed.connect(_on_back_button_pressed)
@@ -49,6 +50,7 @@ func generate_level_grid():
 		
 		
 func _on_level_tile_selected(level_id, tile_node):
+	AudioController.play_button()
 	if currently_selected_tile == tile_node:
 		currently_selected_tile.set_active_selection(false) # Turn off visuals
 		currently_selected_tile = null                      # Clear the selection
@@ -66,6 +68,7 @@ func _on_level_tile_selected(level_id, tile_node):
 	play_button.disabled = false
 
 func _on_play_button_pressed():
+	AudioController.play_button()
 	if currently_selected_level_id != -1:
 		print("Starting level: ", currently_selected_level_id)
 		
@@ -77,4 +80,5 @@ func _on_play_button_pressed():
 				print("Level not built yet!")
 
 func _on_back_button_pressed() -> void:
+	AudioController.play_button()
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

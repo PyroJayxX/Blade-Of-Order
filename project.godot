@@ -18,6 +18,7 @@ config/features=PackedStringArray("4.6")
 
 GameConfig="*res://scripts/core/game_config.gd"
 CombatEvents="*res://scripts/core/combat_events.gd"
+AudioController="*uid://q8ssf58bkdpy"
 
 [display]
 
