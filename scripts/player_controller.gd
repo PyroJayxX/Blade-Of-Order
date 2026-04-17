@@ -31,6 +31,7 @@ func _ready() -> void:
 
 func start_dash(direction):
 	is_dashing = true
+	print("dev: dash")
 	
 	# if no input, dash based on facing direction
 	if direction == 0:
@@ -39,6 +40,7 @@ func start_dash(direction):
 	velocity.x = direction * DASH_SPEED
 	
 	animated_sprite.play("dash")
+	AudioController.play_player_dash()
 	
 	await get_tree().create_timer(DASH_TIME).timeout
 	
@@ -53,6 +55,8 @@ func start_attack():
 	
 	# stop movement slightly
 	velocity.x *= 0.3
+	
+	AudioController.play_player_slash_1()
 	
 	animated_sprite.play("slash_1")
 	

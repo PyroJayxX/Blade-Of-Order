@@ -22,6 +22,17 @@ func play_boss_music():
 
 func play_boss_stunned():
 	$boss_stunned.play()
+	if not mute:
+		$boss_music.stop()
 
 func play_boss_hit_bubble():
 	$boss_hit_bubble.play()
+
+func play_player_slash_1():
+	$player_slash_1.play()
+
+func play_player_dash():
+	$player_dash.play()
+
+func play_player_run():
+	$player_run.play()
