@@ -69,3 +69,6 @@ func _update_timer_text() -> void:
 	var minutes: int = _elapsed_seconds / 60
 	var seconds: int = _elapsed_seconds % 60
 	_timer_label.text = "Time: %02d:%02d" % [minutes, seconds]
+
+func get_elapsed_seconds() -> int:
+	return _elapsed_seconds

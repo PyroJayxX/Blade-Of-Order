@@ -3,6 +3,7 @@ extends Node2D
 @onready var _bubble_sort_puzzle: CanvasLayer = $BubbleSortPuzzle
 @onready var _bubble_boss: Node = $BubbleBoss
 @onready var _player: Node2D = $Player
+@onready var _hud: CanvasLayer = $HUD
 @onready var _level_cleared_screen: CanvasLayer = $LevelClearedScreen
 
 var _initial_player_position: Vector2 = Vector2.ZERO
@@ -50,6 +51,17 @@ func _on_puzzle_failed() -> void:
 		_player.global_position = _initial_player_position
 
 func _on_puzzle_completed() -> void:
+	var elapsed_seconds: float = 0.0
+	var mistakes_made: int = 0
+
+	if _hud != null and _hud.has_method("get_elapsed_seconds"):
+		elapsed_seconds = float(_hud.call("get_elapsed_seconds"))
+	if _bubble_sort_puzzle != null and _bubble_sort_puzzle.has_method("get_mistake_count"):
+		mistakes_made = int(_bubble_sort_puzzle.call("get_mistake_count"))
+
+	if _level_cleared_screen != null and _level_cleared_screen.has_method("show_results"):
+		_level_cleared_screen.call("show_results", elapsed_seconds, mistakes_made)
+
 	_bubble_sort_puzzle.visible = false
 	_level_cleared_screen.visible = true
 

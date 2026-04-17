@@ -55,3 +55,6 @@ func _reset_attempt_state() -> void:
 func _on_visibility_changed() -> void:
 	if visible:
 		_reset_attempt_state()
+
+func get_mistake_count() -> int:
+	return mistake_count
