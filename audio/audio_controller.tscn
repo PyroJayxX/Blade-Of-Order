@@ -6,6 +6,10 @@
 [ext_resource type="AudioStream" uid="uid://7cx50ed0vs" path="res://audio/sfx/boss music.mp3" id="4_aufy8"]
 [ext_resource type="AudioStream" uid="uid://3gct1fviyc3w" path="res://audio/sfx/boss stunned.mp3" id="5_blxgy"]
 [ext_resource type="AudioStream" uid="uid://yqm6vipa3eph" path="res://audio/sfx/boss hit - bubble.mp3" id="6_xujww"]
+[ext_resource type="AudioStream" uid="uid://c3g2w5as4b15d" path="res://audio/sfx/slash1.mp3" id="7_h7rxg"]
+[ext_resource type="AudioStream" uid="uid://vfywnhkb12k5" path="res://audio/sfx/slash2.mp3" id="7_vys8g"]
+[ext_resource type="AudioStream" uid="uid://bd464tsj1gg4g" path="res://audio/sfx/dash.mp3" id="9_y6d7d"]
+[ext_resource type="AudioStream" uid="uid://dkc6aijo08gwo" path="res://audio/sfx/run.mp3" id="10_2fxmg"]
 
 [node name="audio_controller" type="Node2D" unique_id=1390589828]
 script = ExtResource("1_dr783")
@@ -26,9 +30,23 @@ pitch_scale = 0.8
 
 [node name="boss_stunned" type="AudioStreamPlayer" parent="." unique_id=898486715]
 stream = ExtResource("5_blxgy")
-pitch_scale = 0.9
+volume_db = -15.0
+pitch_scale = 0.5
 
 [node name="boss_hit_bubble" type="AudioStreamPlayer" parent="." unique_id=985551864]
 stream = ExtResource("6_xujww")
 volume_db = -15.0
 pitch_scale = 0.5
+
+[node name="player_slash_1" type="AudioStreamPlayer" parent="." unique_id=606134259]
+stream = ExtResource("7_h7rxg")
+
+[node name="player_slash_2" type="AudioStreamPlayer" parent="." unique_id=552063317]
+stream = ExtResource("7_vys8g")
+
+[node name="player_dash" type="AudioStreamPlayer" parent="." unique_id=821449492]
+stream = ExtResource("9_y6d7d")
+volume_db = -20.0
+
+[node name="player_run" type="AudioStreamPlayer" parent="." unique_id=334092567]
+stream = ExtResource("10_2fxmg")

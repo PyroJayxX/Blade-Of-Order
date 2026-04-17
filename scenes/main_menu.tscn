@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://co0jjtb6av0yf"]
 
 [ext_resource type="Texture2D" uid="uid://pt5kibn23u4e" path="res://assets/main_menu_btn/play_btn.png" id="1_ekxnf"]
-[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_oa1go"]
+[ext_resource type="Script" uid="uid://dig7obs6yh0i2" path="res://scripts/main_menu.gd" id="1_oa1go"]
 [ext_resource type="FontFile" uid="uid://cnu6t4palvls7" path="res://fonts/VerminVibesV-Zlg3.ttf" id="2_5dd4i"]
 [ext_resource type="Texture2D" uid="uid://kt0r8vckxicl" path="res://assets/main_menu_btn/play_btn_pressed.png" id="2_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://dxl1camdajdpo" path="res://assets/main_menu_btn/temp_logopng.png" id="2_tbmy8"]
