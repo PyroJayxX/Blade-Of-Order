@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d2bpeqqhiomea"]
 
-[ext_resource type="Script" uid="uid://dq77wa88718h7" path="res://scenes/LevelSelect/level_tile.gd" id="1_45nxb"]
+[ext_resource type="Script" uid="uid://dq77wa88718h7" path="res://scripts/level_tile.gd" id="1_45nxb"]
 [ext_resource type="Shader" uid="uid://ba7e5jwvma3sj" path="res://scenes/LevelSelect/level_tile.gdshader" id="2_u2c4r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ambrg"]

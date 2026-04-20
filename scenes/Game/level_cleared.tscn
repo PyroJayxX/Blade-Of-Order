@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://cmlnvfj6ps3j7"]
+
+[ext_resource type="FontFile" uid="uid://btvnfrvu1nsxl" path="res://fonts/Hackdaddy.otf" id="3_3cx1p"]
+[ext_resource type="Texture2D" uid="uid://cmpjxx76oulpw" path="res://assets/buttons/menu_btn.png" id="4_3cx1p"]
+[ext_resource type="Script" uid="uid://ekptpsxrmrh2" path="res://scripts/level_cleared.gd" id="4_j2g8h"]
+[ext_resource type="FontFile" uid="uid://cnu6t4palvls7" path="res://fonts/VerminVibesV-Zlg3.ttf" id="5_5dd4i"]
+[ext_resource type="Texture2D" uid="uid://vub2l2cpe2b8" path="res://assets/buttons/menu_pressed.png" id="5_rq5e8"]
+[ext_resource type="Texture2D" uid="uid://durtdl550o3ru" path="res://assets/buttons/next_btn.png" id="6_pho2a"]
+[ext_resource type="Texture2D" uid="uid://f0mvv57k2lhj" path="res://assets/buttons/next_pressed.png" id="7_br41n"]
+
+[sub_resource type="Gradient" id="Gradient_bg"]
+offsets = PackedFloat32Array(0.27108434, 1)
+colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bg"]
+gradient = SubResource("Gradient_bg")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.047058824, 0.05882353, 0.09019608, 0.94)
+border_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 14
+
+[node name="LevelCleared" type="CanvasLayer" unique_id=957970479]
+layer = 25
+script = ExtResource("4_j2g8h")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=377121615]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_bg")
+
+[node name="Panel" type="Panel" parent="." unique_id=190965791]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=46697569]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=255684237]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Title" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer" unique_id=1391639993]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.41960785, 0.9529412, 1, 1)
+theme_override_fonts/normal_font = ExtResource("5_5dd4i")
+theme_override_font_sizes/normal_font_size = 44
+bbcode_enabled = true
+text = "[center]LEVEL CLEARED[/center]"
+
+[node name="ScoreLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer" unique_id=935613761]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.95, 0.98, 1, 1)
+theme_override_fonts/normal_font = ExtResource("3_3cx1p")
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "[center]Score: 0[/center]"
+
+[node name="TimeLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer" unique_id=348720934]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.95, 0.98, 1, 1)
+theme_override_fonts/normal_font = ExtResource("3_3cx1p")
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "[center]Time: 00:00[/center]"
+
+[node name="Buttons" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=1368748000]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="QuitButton" type="TextureButton" parent="Panel/MarginContainer/VBoxContainer/Buttons" unique_id=1655917038]
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("4_3cx1p")
+texture_pressed = ExtResource("5_rq5e8")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="NextButton" type="TextureButton" parent="Panel/MarginContainer/VBoxContainer/Buttons" unique_id=852139961]
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("6_pho2a")
+texture_pressed = ExtResource("7_br41n")
+ignore_texture_size = true
+stretch_mode = 5
+
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Buttons/QuitButton" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Buttons/NextButton" to="." method="_on_next_pressed"]

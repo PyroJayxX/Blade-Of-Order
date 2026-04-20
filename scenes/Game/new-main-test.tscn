@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bhywt4pukl0u4"]
+
+[ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/Player/player_new.tscn" id="1_jabrk"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_jabrk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jabrk"]
+size = Vector2(1463, 20)
+
+[node name="Node2D" type="Node2D" unique_id=1124544943]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=55913773]
+offset_left = -367.0
+offset_top = -252.0
+offset_right = 1873.0
+offset_bottom = 898.0
+texture = SubResource("CanvasTexture_jabrk")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1586943669]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1129350539]
+position = Vector2(672.5, 582)
+shape = SubResource("RectangleShape2D_jabrk")
+
+[node name="Player" parent="." unique_id=1430617140 instance=ExtResource("1_jabrk")]
+position = Vector2(646.99994, 331)
+scale = Vector2(0.175, 0.175)

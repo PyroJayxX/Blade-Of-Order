@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal player_died
+
 const SPEED = 800.0 # how fast the player is
 const JUMP_VELOCITY = -1200.0 # higher magnitude = higher and faster jump
 
@@ -20,12 +22,16 @@ var _slash_has_hit: bool = false
 var _combo_step: int = 0
 var _queued_next_attack: bool = false
 var _combo_timer: float = 0.0
+var _death_emitted: bool = false
+var _controls_enabled: bool = true
  
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var slash_collision: CollisionPolygon2D = $SlashCollision
 
 func _ready() -> void:
 	_current_health = max_health
+	_death_emitted = false
+	_controls_enabled = true
 	_set_slash_collision_enabled(false)
 	_sync_player_hud_health()
 
@@ -66,6 +72,14 @@ func start_attack():
 	is_attacking = false
 
 func _physics_process(delta: float) -> void:
+	if not _controls_enabled:
+		velocity = Vector2.ZERO
+		is_dashing = false
+		is_attacking = false
+		_set_slash_collision_enabled(false)
+		move_and_slide()
+		return
+
 	if not is_attacking and _combo_step > 0:
 		_combo_timer = maxf(_combo_timer - delta, 0.0)
 		if _combo_timer <= 0.0:
@@ -125,6 +139,20 @@ func take_damage(amount: int = 1) -> void:
 	_current_health = clampi(_current_health - safe_amount, 0, max_health)
 	_sync_player_hud_health()
 	print("Player HP -> ", _current_health, "/", max_health)
+	if _current_health <= 0 and not _death_emitted:
+		_death_emitted = true
+		player_died.emit()
+
+func get_current_health() -> int:
+	return _current_health
+
+func set_controls_enabled(enabled: bool) -> void:
+	_controls_enabled = enabled
+	if not _controls_enabled:
+		velocity = Vector2.ZERO
+		is_dashing = false
+		is_attacking = false
+		_set_slash_collision_enabled(false)
 
 func _sync_player_hud_health() -> void:
 	var current_scene: Node = get_tree().current_scene
@@ -154,7 +182,7 @@ func _process_slash_hits() -> void:
 		return
 
 	if _is_boss_overlapping_slash(boss):
-		boss.call("take_damage", 20, false)
+		boss.call("take_damage", 10, false)
 		_slash_has_hit = true
 
 func _is_boss_hit_target(candidate: Node) -> bool:
@@ -239,9 +267,12 @@ func _estimate_body_radius(target: Node) -> float:
 func reset_for_retry(spawn_position: Vector2) -> void:
 	global_position = spawn_position
 	velocity = Vector2.ZERO
+	_current_health = max_health
+	_death_emitted = false
 	is_dashing = false
 	is_attacking = false
 	_queued_next_attack = false
 	_combo_step = 0
 	_combo_timer = 0.0
 	_set_slash_collision_enabled(false)
+	_sync_player_hud_health()

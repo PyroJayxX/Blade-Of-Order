@@ -6,8 +6,8 @@ extends CanvasLayer
 @export var min_score: int = 0
 @export var max_displayed_score: int = 100
 
-@onready var _time_label: RichTextLabel = $Container/label_time
-@onready var _score_label: RichTextLabel = $Container/label_score
+@onready var _time_label: RichTextLabel = $Panel/MarginContainer/VBoxContainer/TimeLabel
+@onready var _score_label: RichTextLabel = $Panel/MarginContainer/VBoxContainer/ScoreLabel
 
 func show_results(time_taken: float, mistakes_made: int) -> void:
 	var final_score: int = calculate_final_score(time_taken, mistakes_made)
@@ -25,7 +25,7 @@ func calculate_final_score(time_taken: float, mistakes_made: int) -> int:
 	return int(clamp(raw_score, float(min_score), float(max_displayed_score)))
 
 func _on_quit_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	get_tree().change_scene_to_file("res://scenes/MainMenu/main_menu.tscn")
 
 func _on_next_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/LevelSelect/level_selector.tscn")

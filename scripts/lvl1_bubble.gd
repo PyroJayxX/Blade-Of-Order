@@ -35,10 +35,15 @@ var _home_y: float = 0.0
 var _desired_personal_space: float = 0.0
 var _current_health: int = 100
 var _is_defeated: bool = false
+var _combat_enabled: bool = true
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var eyes_pivot: Node2D = $EyesPivot
 
 func _process(_delta: float) -> void:
+	if not _combat_enabled:
+		eyes_pivot.position = Vector2.ZERO
+		eyes_pivot.global_rotation = 0
+		return
 	if _target != null and is_instance_valid(_target):
 		if _state == BossState.CHASE or _state == BossState.ATTACK:
 			var target_vector = _target.global_position - global_position
@@ -58,6 +63,11 @@ func _ready() -> void:
 	_sync_boss_hud_health()
 
 func _physics_process(delta: float) -> void:
+	if not _combat_enabled:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
+
 	if _target == null or not is_instance_valid(_target):
 		_resolve_target()
 		velocity = Vector2.ZERO
@@ -279,12 +289,21 @@ func on_resonance_surge_mock() -> void:
 func reset_for_retry(spawn_position: Vector2) -> void:
 	global_position = spawn_position
 	velocity = Vector2.ZERO
+	_combat_enabled = true
 	_current_health = max_health
 	_is_defeated = false
 	_shoot_timer = 0.0
 	_attack_anim_timer = 0.0
 	_sync_boss_hud_health()
 	_set_state(BossState.CHASE)
+
+func set_combat_enabled(enabled: bool) -> void:
+	_combat_enabled = enabled
+	if not _combat_enabled:
+		velocity = Vector2.ZERO
+		_shoot_timer = 0.0
+		_attack_anim_timer = 0.0
+		_set_state(BossState.IDLE)
 		
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_H:

@@ -18,7 +18,7 @@ Initial Godot 4.6.1 vertical-slice scaffold is implemented for the Bubble Sort l
 ## Run Instructions
 1. Open the folder in Godot 4.6.1.
 2. If prompted, import and re-scan the project.
-3. Run the main scene at `res://scenes/main/main.tscn`.
+3. Run the main scene at `res://scenes/MainMenu/main_menu.tscn`.
 
 ## Test Loop (Current Prototype)
 1. Use touch controls to move and jump.

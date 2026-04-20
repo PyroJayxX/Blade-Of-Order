@@ -17,17 +17,21 @@ var _boss_value_label: Label
 var _timer_label: Label
 var _elapsed_seconds: int = 0
 var _timer_accumulator: float = 0.0
+var _timer_running: bool = true
 
 func _ready() -> void:
 	layer = 5
 	_resolve_ui_nodes()
 	_elapsed_seconds = 0
 	_timer_accumulator = 0.0
+	_timer_running = true
 	_update_timer_text()
 	set_player_health(default_player_max_health, default_player_max_health)
 	set_boss_health(default_boss_max_health, default_boss_max_health)
 
 func _process(delta: float) -> void:
+	if not _timer_running:
+		return
 	_timer_accumulator += delta
 	while _timer_accumulator >= 1.0:
 		_timer_accumulator -= 1.0
@@ -72,3 +76,12 @@ func _update_timer_text() -> void:
 
 func get_elapsed_seconds() -> int:
 	return _elapsed_seconds
+
+func set_timer_running(is_running: bool) -> void:
+	_timer_running = is_running
+
+func stop_timer() -> void:
+	_timer_running = false
+
+func start_timer() -> void:
+	_timer_running = true

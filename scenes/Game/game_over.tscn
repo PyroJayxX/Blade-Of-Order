@@ -1,0 +1,123 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_script"]
+[ext_resource type="FontFile" path="res://fonts/Hackdaddy.otf" id="2_body_font"]
+[ext_resource type="FontFile" path="res://fonts/VerminVibesV-Zlg3.ttf" id="3_title_font"]
+[ext_resource type="Texture2D" path="res://assets/buttons/menu_btn.png" id="4_menu"]
+[ext_resource type="Texture2D" path="res://assets/buttons/menu_pressed.png" id="5_menu_pressed"]
+[ext_resource type="Texture2D" path="res://assets/buttons/tryagain_btn.png" id="6_try_again"]
+[ext_resource type="Texture2D" path="res://assets/buttons/tryagain_pressed.png" id="7_try_again_pressed"]
+
+[sub_resource type="Gradient" id="1_gradient"]
+offsets = PackedFloat32Array(0.27108434, 1)
+colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
+
+[sub_resource type="GradientTexture2D" id="2_gradient_tex"]
+gradient = SubResource("1_gradient")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="3_panel_style"]
+bg_color = Color(0.047058824, 0.05882353, 0.09019608, 0.94)
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+border_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 14
+
+[node name="GameOver" type="CanvasLayer"]
+layer = 26
+script = ExtResource("1_script")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("2_gradient_tex")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("3_panel_style")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Title" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.415686, 0.415686, 1)
+theme_override_fonts/normal_font = ExtResource("3_title_font")
+theme_override_font_sizes/normal_font_size = 44
+bbcode_enabled = true
+text = "[center]GAME OVER[/center]"
+
+[node name="ScoreLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.95, 0.98, 1, 1)
+theme_override_fonts/normal_font = ExtResource("2_body_font")
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "[center]Mistakes: 0[/center]"
+
+[node name="TimeLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.95, 0.98, 1, 1)
+theme_override_fonts/normal_font = ExtResource("2_body_font")
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "[center]Time: 00:00[/center]"
+
+[node name="Buttons" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="MenuButton" type="TextureButton" parent="Panel/MarginContainer/VBoxContainer/Buttons"]
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("4_menu")
+texture_pressed = ExtResource("5_menu_pressed")
+texture_hover = ExtResource("5_menu_pressed")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TryAgainButton" type="TextureButton" parent="Panel/MarginContainer/VBoxContainer/Buttons"]
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("6_try_again")
+texture_pressed = ExtResource("7_try_again_pressed")
+texture_hover = ExtResource("7_try_again_pressed")
+ignore_texture_size = true
+stretch_mode = 5
+
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Buttons/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Buttons/TryAgainButton" to="." method="_on_try_again_button_pressed"]

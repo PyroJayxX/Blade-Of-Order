@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cfg61w43rnbvl"]
 
-[ext_resource type="Script" uid="uid://21h2d3h1her5" path="res://scenes/LevelSelect/level_selector.gd" id="1_ya7lg"]
+[ext_resource type="Script" uid="uid://21h2d3h1her5" path="res://scripts/level_selector.gd" id="1_ya7lg"]
 [ext_resource type="FontFile" uid="uid://dmfiak0cq6xa0" path="res://fonts/LiberationMono-Bold.ttf" id="2_v5i0c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qq53c"]
