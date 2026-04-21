@@ -113,12 +113,14 @@ func _physics_process(delta: float) -> void:
 			velocity += get_gravity() * FALL_MULTIPLIER * delta
 		else:
 			velocity += get_gravity() * LOW_JUMP_MULTIPLIER * delta
-	else:
-		_jumps_used = 0
-	
-	if Input.is_action_just_pressed("jump") and _jumps_used < MAX_JUMPS:
-		velocity.y = JUMP_VELOCITY 
-		_jumps_used += 1
+
+	if Input.is_action_just_pressed("jump"):
+		if is_on_floor():
+			velocity.y = JUMP_VELOCITY
+			_jumps_used = 0
+		elif _jumps_used < MAX_JUMPS - 1:
+			velocity.y = JUMP_VELOCITY
+			_jumps_used += 1
 
 	var direction := Input.get_axis("moveLeft", "moveRight")
 
@@ -157,6 +159,8 @@ func _physics_process(delta: float) -> void:
 			animated_sprite.play("idle")
 
 	move_and_slide()
+	if is_on_floor():
+		_jumps_used = 0
 	_process_slash_hits()
 
 func take_damage(amount: int = 1) -> void:
