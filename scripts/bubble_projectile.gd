@@ -21,7 +21,7 @@ func _on_body_entered(body: Node2D) -> void:
 		print("Player got hit by a bubble!")
 		AudioController.play_boss_hit_bubble()
 		if body.has_method("take_damage"):
-			body.call("take_damage", 10)
+			body.call("take_damage", 5)
 		
 		# Pop the bubble on impact
 		queue_free()

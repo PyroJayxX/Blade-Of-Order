@@ -672,7 +672,6 @@ _data = {
 z_index = 1
 scale = Vector2(100, 100)
 collision_layer = 2
-collision_mask = 1
 script = ExtResource("1_o6wqv")
 bubble_scene = ExtResource("2_bngsm")
 

@@ -7,10 +7,13 @@ const JUMP_VELOCITY = -1200.0 # higher magnitude = higher and faster jump
 
 const FALL_MULTIPLIER = 4 # gravity multiplier when falling
 const LOW_JUMP_MULTIPLIER = 2.2 # gravity multiplier when jumping
+const MAX_JUMPS = 2
 
 const DASH_SPEED = 2500.0 # higher -> travels faster
 const DASH_TIME = 0.4 # higher -> more distance
+const DASH_COOLDOWN = 0.5
 const DASH_DECEL = 2000.0 # lower -> decelerate more/longer stop
+const DASH_POST_INVULN_TIME = 0.12
 const MAX_COMBO_STEPS = 3
 const COMBO_RESET_TIME = 0.45
 
@@ -24,6 +27,11 @@ var _queued_next_attack: bool = false
 var _combo_timer: float = 0.0
 var _death_emitted: bool = false
 var _controls_enabled: bool = true
+var _jumps_used: int = 0
+var _dash_invuln_timer: float = 0.0
+var _dash_cooldown_timer: float = 0.0
+var _body_collision_layer: int = 0
+var _body_collision_mask: int = 0
  
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var slash_collision: CollisionPolygon2D = $SlashCollision
@@ -32,18 +40,25 @@ func _ready() -> void:
 	_current_health = max_health
 	_death_emitted = false
 	_controls_enabled = true
+	_jumps_used = 0
+	_dash_invuln_timer = 0.0
+	_dash_cooldown_timer = 0.0
+	_body_collision_layer = collision_layer
+	_body_collision_mask = collision_mask
+	_set_solid_collision_enabled(true)
 	_set_slash_collision_enabled(false)
 	_sync_player_hud_health()
 
 func start_dash(direction):
 	is_dashing = true
-	print("dev: dash")
+	_dash_cooldown_timer = DASH_COOLDOWN
 	
 	# if no input, dash based on facing direction
 	if direction == 0:
 		direction = -1 if animated_sprite.flip_h else 1
 	
 	velocity.x = direction * DASH_SPEED
+	_dash_invuln_timer = maxf(_dash_invuln_timer, DASH_TIME + DASH_POST_INVULN_TIME)
 	
 	animated_sprite.play("dash")
 	AudioController.play_player_dash()
@@ -76,9 +91,16 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 		is_dashing = false
 		is_attacking = false
+		_dash_invuln_timer = 0.0
+		_set_solid_collision_enabled(true)
 		_set_slash_collision_enabled(false)
 		move_and_slide()
 		return
+
+	if _dash_invuln_timer > 0.0:
+		_dash_invuln_timer = maxf(_dash_invuln_timer - delta, 0.0)
+	if _dash_cooldown_timer > 0.0:
+		_dash_cooldown_timer = maxf(_dash_cooldown_timer - delta, 0.0)
 
 	if not is_attacking and _combo_step > 0:
 		_combo_timer = maxf(_combo_timer - delta, 0.0)
@@ -91,13 +113,16 @@ func _physics_process(delta: float) -> void:
 			velocity += get_gravity() * FALL_MULTIPLIER * delta
 		else:
 			velocity += get_gravity() * LOW_JUMP_MULTIPLIER * delta
+	else:
+		_jumps_used = 0
 	
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and _jumps_used < MAX_JUMPS:
 		velocity.y = JUMP_VELOCITY 
+		_jumps_used += 1
 
 	var direction := Input.get_axis("moveLeft", "moveRight")
 
-	if Input.is_action_just_pressed("dash") and not is_dashing:
+	if Input.is_action_just_pressed("dash") and not is_dashing and _dash_cooldown_timer <= 0.0:
 		start_dash(direction)
 		
 	if Input.is_action_just_pressed("slash"):
@@ -124,7 +149,7 @@ func _physics_process(delta: float) -> void:
 		if velocity.y < 0:
 			animated_sprite.play("jump")
 		else:
-			animated_sprite.play("fall")
+			animated_sprite.play("jump")
 	else:
 		if direction != 0:
 			animated_sprite.play("run")
@@ -135,6 +160,8 @@ func _physics_process(delta: float) -> void:
 	_process_slash_hits()
 
 func take_damage(amount: int = 1) -> void:
+	if _dash_invuln_timer > 0.0:
+		return
 	var safe_amount: int = maxi(amount, 0)
 	_current_health = clampi(_current_health - safe_amount, 0, max_health)
 	_sync_player_hud_health()
@@ -152,7 +179,18 @@ func set_controls_enabled(enabled: bool) -> void:
 		velocity = Vector2.ZERO
 		is_dashing = false
 		is_attacking = false
+		_dash_invuln_timer = 0.0
+		_dash_cooldown_timer = 0.0
+		_set_solid_collision_enabled(true)
 		_set_slash_collision_enabled(false)
+
+func _set_solid_collision_enabled(enabled: bool) -> void:
+	if enabled:
+		collision_layer = _body_collision_layer
+		collision_mask = _body_collision_mask
+	else:
+		collision_layer = 0
+		collision_mask = 0
 
 func _sync_player_hud_health() -> void:
 	var current_scene: Node = get_tree().current_scene
@@ -274,5 +312,9 @@ func reset_for_retry(spawn_position: Vector2) -> void:
 	_queued_next_attack = false
 	_combo_step = 0
 	_combo_timer = 0.0
+	_jumps_used = 0
+	_dash_invuln_timer = 0.0
+	_dash_cooldown_timer = 0.0
+	_set_solid_collision_enabled(true)
 	_set_slash_collision_enabled(false)
 	_sync_player_hud_health()
