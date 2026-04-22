@@ -24,6 +24,8 @@ func _ready():
 func play_main_menu_music():
 	if mute:
 		return
+	if _main_menu_music.playing and not _boss_music.playing:
+		return
 	if _boss_music.playing:
 		_boss_music.stop()
 	_boss_music.stream_paused = false

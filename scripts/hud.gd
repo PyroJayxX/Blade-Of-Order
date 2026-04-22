@@ -70,7 +70,7 @@ func _apply_health(bar: ProgressBar, value_label: Label, current: int, max_value
 func _update_timer_text() -> void:
 	if _timer_label == null:
 		return
-	var minutes: int = _elapsed_seconds / 60
+	var minutes: int = int(floor(float(_elapsed_seconds) / 60.0))
 	var seconds: int = _elapsed_seconds % 60
 	_timer_label.text = "Time: %02d:%02d" % [minutes, seconds]
 

@@ -189,6 +189,11 @@ func _maintain_personal_space_during_special() -> void:
 	_return_to_default_y(0.0)
 
 func _resolve_target() -> void:
+	if player != null and is_instance_valid(player):
+		_target = player
+		_refresh_personal_space()
+		return
+
 	if not target_path.is_empty():
 		_target = get_node_or_null(target_path) as Node2D
 		if _target != null:
@@ -205,11 +210,11 @@ func _find_target_in_scene(current_scene: Node) -> Node2D:
 	if by_group is Node2D and is_instance_valid(by_group):
 		return by_group as Node2D
 
-	var modern_player: Node2D = current_scene.get_node_or_null("Player_OH") as Node2D
+	var modern_player: Node2D = current_scene.find_child("Player_OH", true, false) as Node2D
 	if modern_player != null:
 		return modern_player
 
-	return current_scene.get_node_or_null("Player") as Node2D
+	return current_scene.find_child("Player", true, false) as Node2D
 
 func _refresh_personal_space() -> void:
 	var self_radius: float = _estimate_body_radius(self)
@@ -307,7 +312,9 @@ func _sync_boss_hud_health() -> void:
 	var current_scene: Node = get_tree().current_scene
 	if current_scene == null:
 		return
-	var hud: Node = current_scene.get_node_or_null(HUD_PATH)
+	var hud: Node = current_scene.find_child("HUD", true, false)
+	if hud == null:
+		hud = current_scene.get_node_or_null(HUD_PATH)
 	if hud != null and hud.has_method("set_boss_health"):
 		hud.call("set_boss_health", _current_health, max_health)
 
@@ -473,8 +480,8 @@ func _return_to_default_y(_delta: float) -> void:
 func _spawn_bubble_in_direction(direction: Vector2) -> void:
 	if bubble_scene == null:
 		return
-	var current_scene: Node = get_tree().current_scene
-	if current_scene == null:
+	var level_root: Node = _get_level_root()
+	if level_root == null:
 		return
 
 	var bubble: Node = bubble_scene.instantiate()
@@ -482,10 +489,21 @@ func _spawn_bubble_in_direction(direction: Vector2) -> void:
 		return
 	bubble.global_position = global_position
 	bubble.direction = direction.normalized()
-	current_scene.add_child(bubble)
+	level_root.add_child(bubble)
 
 func _is_special_attack_running() -> bool:
 	return _attack_2_running or _attack_3_running
+
+func _get_level_root() -> Node:
+	var node: Node = self
+	while node != null:
+		var parent: Node = node.get_parent()
+		if parent == null:
+			break
+		if parent.name == "ContentRoot":
+			return node
+		node = parent
+	return get_tree().current_scene
 
 # --- NEW: Spawning the Bubble ---
 func _shoot_bubble() -> void:

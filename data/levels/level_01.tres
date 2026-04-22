@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LevelDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/flow/level_definition.gd" id="1_gf5td"]
+[ext_resource type="Texture2D" path="res://assets/boss_splash/BubbleSort_Splash.png" id="2_0d3xm"]
+
+[resource]
+script = ExtResource("1_gf5td")
+level_id = 1
+display_name = "Bubble Sort"
+preview_image = ExtResource("2_0d3xm")
+scene_path = "res://scenes/Bosses/Level1/level_01_bubble_sort.tscn"
+unlock_level_required = 0
+boss_type = "bubble"
+puzzle_type = "bubble_sort"
+timer_rules = "default"

@@ -34,6 +34,7 @@ var _body_collision_layer: int = 0
 var _body_collision_mask: int = 0
 var _slash_base_position: Vector2 = Vector2.ZERO
 var _slash_base_scale: Vector2 = Vector2.ONE
+var _boss_ref: Node2D = null
  
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var slash_collision: CollisionPolygon2D = $SlashCollision
@@ -42,6 +43,8 @@ func _ready() -> void:
 	_current_health = max_health
 	_death_emitted = false
 	_controls_enabled = true
+	if not is_in_group("player"):
+		add_to_group("player")
 	_jumps_used = 0
 	_dash_invuln_timer = 0.0
 	_dash_cooldown_timer = 0.0
@@ -205,7 +208,7 @@ func _sync_player_hud_health() -> void:
 	var current_scene: Node = get_tree().current_scene
 	if current_scene == null:
 		return
-	var hud: Node = current_scene.get_node_or_null("HUD")
+	var hud: Node = current_scene.find_child("HUD", true, false)
 	if hud != null and hud.has_method("set_player_health"):
 		hud.call("set_player_health", _current_health, max_health)
 
@@ -226,11 +229,7 @@ func _process_slash_hits() -> void:
 	if not is_attacking or _slash_has_hit:
 		return
 
-	var current_scene: Node = get_tree().current_scene
-	if current_scene == null:
-		return
-
-	var boss: Node2D = current_scene.get_node_or_null("BubbleBoss") as Node2D
+	var boss: Node2D = _get_boss_ref()
 	if boss == null or not is_instance_valid(boss):
 		return
 	if not _is_boss_hit_target(boss):
@@ -239,6 +238,35 @@ func _process_slash_hits() -> void:
 	if _is_boss_overlapping_slash(boss):
 		boss.call("take_damage", 10, false)
 		_slash_has_hit = true
+
+func _get_boss_ref() -> Node2D:
+	if _boss_ref != null and is_instance_valid(_boss_ref):
+		return _boss_ref
+
+	var current_scene: Node = get_tree().current_scene
+	if current_scene == null:
+		return null
+
+	var named_boss: Node2D = current_scene.find_child("BubbleBoss", true, false) as Node2D
+	if named_boss != null:
+		_boss_ref = named_boss
+		return _boss_ref
+
+	var fallback: Node = _find_first_descendant_with_boss_defeated(current_scene)
+	if fallback is Node2D:
+		_boss_ref = fallback as Node2D
+		return _boss_ref
+
+	return null
+
+func _find_first_descendant_with_boss_defeated(root: Node) -> Node:
+	if root.has_signal("boss_defeated") and root.has_method("take_damage"):
+		return root
+	for child in root.get_children():
+		var found: Node = _find_first_descendant_with_boss_defeated(child)
+		if found != null:
+			return found
+	return null
 
 func _is_boss_hit_target(candidate: Node) -> bool:
 	if candidate == null:

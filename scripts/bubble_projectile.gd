@@ -59,11 +59,16 @@ func _get_player_ref() -> Node2D:
 	if _player_ref != null and is_instance_valid(_player_ref):
 		return _player_ref
 
+	var by_group: Node = get_tree().get_first_node_in_group("player")
+	if by_group is Node2D and is_instance_valid(by_group):
+		_player_ref = by_group as Node2D
+		return _player_ref
+
 	var current_scene: Node = get_tree().current_scene
 	if current_scene == null:
 		return null
 
-	var named_player: Node2D = current_scene.get_node_or_null("Player") as Node2D
+	var named_player: Node2D = current_scene.find_child("Player", true, false) as Node2D
 	if named_player != null and _is_player(named_player):
 		_player_ref = named_player
 		return _player_ref

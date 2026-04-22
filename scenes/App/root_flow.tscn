@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/flow/root_flow.gd" id="1_8q8xb"]
+[ext_resource type="PackedScene" path="res://scenes/App/transition_layer.tscn" id="2_0m0yd"]
+
+[node name="RootFlow" type="Node"]
+script = ExtResource("1_8q8xb")
+
+[node name="ContentRoot" type="Node" parent="."]
+
+[node name="TransitionLayer" parent="." instance=ExtResource("2_0m0yd")]

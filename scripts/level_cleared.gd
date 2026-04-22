@@ -12,7 +12,7 @@ extends CanvasLayer
 func show_results(time_taken: float, mistakes_made: int) -> void:
 	var final_score: int = calculate_final_score(time_taken, mistakes_made)
 	var total_seconds: int = maxi(int(round(time_taken)), 0)
-	var minutes: int = total_seconds / 60
+	var minutes: int = int(floor(float(total_seconds) / 60.0))
 	var seconds: int = total_seconds % 60
 
 	_time_label.text = "[center] Time: %02d:%02d [/center]" % [minutes, seconds]
@@ -25,7 +25,11 @@ func calculate_final_score(time_taken: float, mistakes_made: int) -> int:
 	return int(clamp(raw_score, float(min_score), float(max_displayed_score)))
 
 func _on_quit_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/MainMenu/main_menu.tscn")
+	var flow: Node = get_node_or_null("/root/SceneFlow")
+	if flow != null:
+		flow.call("goto_main_menu")
 
 func _on_next_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/LevelSelect/level_selector.tscn")
+	var flow: Node = get_node_or_null("/root/SceneFlow")
+	if flow != null:
+		flow.call("goto_level_select")
