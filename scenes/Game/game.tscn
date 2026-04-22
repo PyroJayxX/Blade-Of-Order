@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://d7il0wmgrue5" path="res://scenes/Puzzles/bubble_sort.tscn" id="5_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://ctapwu3uviyqg" path="res://scenes/Game/hud.tscn" id="6_6ifkb"]
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="7_d2r9c"]
-[ext_resource type="PackedScene" path="res://scenes/Game/game_over.tscn" id="8_gg8g0"]
+[ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="8_gg8g0"]
 
 [sub_resource type="Gradient" id="Gradient_u5sy4"]
 offsets = PackedFloat32Array(0.27108434, 1)
@@ -54,7 +54,7 @@ zoom = Vector2(0.53, 0.53)
 position_smoothing_speed = 4.5
 
 [node name="BubbleBoss" parent="." unique_id=1029836507 instance=ExtResource("4_lbhrr")]
-position = Vector2(3306, -125.000046)
+position = Vector2(3265, -109.00001)
 scale = Vector2(10, 10)
 
 [node name="BubbleSortPuzzle" parent="." unique_id=1036400120 instance=ExtResource("5_u5sy4")]
@@ -64,9 +64,7 @@ visible = false
 layer = 10
 
 [node name="LevelCleared" parent="." unique_id=85807437 instance=ExtResource("7_d2r9c")]
-layer = 25
 visible = false
 
-[node name="GameOver" parent="." instance=ExtResource("8_gg8g0")]
-layer = 26
+[node name="GameOver" parent="." unique_id=864499377 instance=ExtResource("8_gg8g0")]
 visible = false

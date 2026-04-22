@@ -32,6 +32,8 @@ var _dash_invuln_timer: float = 0.0
 var _dash_cooldown_timer: float = 0.0
 var _body_collision_layer: int = 0
 var _body_collision_mask: int = 0
+var _slash_base_position: Vector2 = Vector2.ZERO
+var _slash_base_scale: Vector2 = Vector2.ONE
  
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var slash_collision: CollisionPolygon2D = $SlashCollision
@@ -45,8 +47,11 @@ func _ready() -> void:
 	_dash_cooldown_timer = 0.0
 	_body_collision_layer = collision_layer
 	_body_collision_mask = collision_mask
+	_slash_base_position = slash_collision.position
+	_slash_base_scale = slash_collision.scale
 	_set_solid_collision_enabled(true)
 	_set_slash_collision_enabled(false)
+	_update_slash_collision_transform()
 	_sync_player_hud_health()
 
 func start_dash(direction):
@@ -83,7 +88,6 @@ func start_attack():
 	
 	await animated_sprite.animation_finished
 	
-	_set_slash_collision_enabled(false)
 	is_attacking = false
 
 func _physics_process(delta: float) -> void:
@@ -141,6 +145,7 @@ func _physics_process(delta: float) -> void:
 			animated_sprite.flip_h = direction < 0
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
+	_update_slash_collision_transform()
 			
 	# Animation (PRIORITY-BASED)
 	if is_attacking:
@@ -208,6 +213,14 @@ func _set_slash_collision_enabled(enabled: bool) -> void:
 	if slash_collision == null:
 		return
 	slash_collision.disabled = not enabled
+
+func _update_slash_collision_transform() -> void:
+	if slash_collision == null:
+		return
+
+	var facing_sign: float = -1.0 if animated_sprite.flip_h else 1.0
+	slash_collision.position = Vector2(_slash_base_position.x * facing_sign, _slash_base_position.y)
+	slash_collision.scale = Vector2(_slash_base_scale.x * facing_sign, _slash_base_scale.y)
 
 func _process_slash_hits() -> void:
 	if not is_attacking or _slash_has_hit:

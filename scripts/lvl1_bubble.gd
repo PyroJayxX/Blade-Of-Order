@@ -91,7 +91,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	if _is_special_attack_running():
-		velocity = Vector2.ZERO
+		_maintain_personal_space_during_special()
 		move_and_slide()
 		return
 
@@ -167,6 +167,26 @@ func _retreat_from_target() -> void:
 		return
 
 	velocity = delta.normalized() * chase_speed * retreat_speed_multiplier
+
+func _maintain_personal_space_during_special() -> void:
+	if _target == null or not is_instance_valid(_target):
+		velocity = Vector2.ZERO
+		return
+
+	var push_delta: Vector2 = global_position - _target.global_position
+	if keep_y_position:
+		push_delta.y = 0.0
+
+	var min_distance: float = maxf(_desired_personal_space, stop_chase_distance * 0.7)
+	var planar_distance: float = push_delta.length()
+	if planar_distance < min_distance:
+		if planar_distance <= 0.0001:
+			push_delta = Vector2.RIGHT
+		velocity = push_delta.normalized() * chase_speed * retreat_speed_multiplier
+	else:
+		velocity = Vector2.ZERO
+
+	_return_to_default_y(0.0)
 
 func _resolve_target() -> void:
 	if not target_path.is_empty():
