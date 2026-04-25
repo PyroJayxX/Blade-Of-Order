@@ -1,0 +1,185 @@
+[gd_scene format=3 uid="uid://um285o336rqp"]
+
+[ext_resource type="Script" uid="uid://0nkvm7a8nr3s" path="res://scripts/leaderboard.gd" id="1_84e3n"]
+[ext_resource type="PackedScene" uid="uid://cineufoadrqx4" path="res://scenes/Game/leaderboard_row.tscn" id="2_foshq"]
+[ext_resource type="FontFile" uid="uid://btvnfrvu1nsxl" path="res://fonts/Hackdaddy.otf" id="2_m3jn6"]
+
+[sub_resource type="Gradient" id="Gradient_bg"]
+offsets = PackedFloat32Array(0.27108434, 1)
+colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nujf3"]
+gradient = SubResource("Gradient_bg")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tyoqt"]
+bg_color = Color(0.047058824, 0.05882353, 0.09019608, 0.94)
+border_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 14
+
+[node name="Leaderboard" type="CanvasLayer" unique_id=101961168]
+script = ExtResource("1_84e3n")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2141115119]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_nujf3")
+
+[node name="Panel" type="Panel" parent="." unique_id=1386717537]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tyoqt")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel" unique_id=904939638]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer" unique_id=1000932178]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/ScrollContainer/VBoxContainer" unique_id=2131701898]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Title" type="RichTextLabel" parent="Panel/ScrollContainer/VBoxContainer" unique_id=565970082]
+custom_minimum_size = Vector2(1280, 35)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.41960785, 0.9529412, 1, 1)
+theme_override_fonts/normal_font = ExtResource("2_m3jn6")
+theme_override_font_sizes/normal_font_size = 44
+bbcode_enabled = true
+text = "[center]LEADERBOARD[/center]"
+
+[node name="NameRow" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer" unique_id=210450617]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="NameStateLabel" type="Label" parent="Panel/ScrollContainer/VBoxContainer/NameRow" unique_id=733132306]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.98, 1, 1)
+text = "You have no name set."
+
+[node name="NameActionButton" type="Button" parent="Panel/ScrollContainer/VBoxContainer/NameRow" unique_id=1476071815]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Enter Name"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/ScrollContainer/VBoxContainer" unique_id=1079824533]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="BossFilterRow" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer" unique_id=473657051]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="BossFilterLabel" type="Label" parent="Panel/ScrollContainer/VBoxContainer/BossFilterRow" unique_id=964978194]
+layout_mode = 2
+text = "Leaderboard:"
+
+[node name="BossFilterOption" type="OptionButton" parent="Panel/ScrollContainer/VBoxContainer/BossFilterRow" unique_id=83407395]
+custom_minimum_size = Vector2(280, 48)
+layout_mode = 2
+
+[node name="LoadingLabel" type="Label" parent="Panel/ScrollContainer/VBoxContainer" unique_id=12285361]
+layout_mode = 2
+text = "Loading..."
+horizontal_alignment = 1
+
+[node name="BestNotificationLabel" type="Label" parent="Panel/ScrollContainer/VBoxContainer" unique_id=1305537437]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.41960785, 0.9529412, 1, 1)
+text = "New personal best submitted!"
+horizontal_alignment = 1
+
+[node name="EntryList" type="VBoxContainer" parent="Panel/ScrollContainer/VBoxContainer" unique_id=1209034788]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 8
+
+[node name="LeaderboardRow" parent="Panel/ScrollContainer/VBoxContainer/EntryList" unique_id=1272543178 instance=ExtResource("2_foshq")]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer" unique_id=1639950742]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="SubmitButton" type="Button" parent="Panel/ScrollContainer/VBoxContainer/Buttons" unique_id=1408749874]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "SUBMIT SCORE"
+
+[node name="CloseButton" type="Button" parent="Panel/ScrollContainer/VBoxContainer/Buttons" unique_id=1523659631]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "CLOSE"
+
+[node name="NameDialog" type="PanelContainer" parent="Panel" unique_id=767468829]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -150.0
+offset_right = 250.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tyoqt")
+
+[node name="VBox" type="VBoxContainer" parent="Panel/NameDialog" unique_id=1636003240]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="Panel/NameDialog/VBox" unique_id=352459879]
+layout_mode = 2
+text = "Enter Display Name"
+horizontal_alignment = 1
+
+[node name="NameLineEdit" type="LineEdit" parent="Panel/NameDialog/VBox" unique_id=149198328]
+layout_mode = 2
+placeholder_text = "Your name..."
+max_length = 16
+
+[node name="Buttons" type="HBoxContainer" parent="Panel/NameDialog/VBox" unique_id=390846313]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ConfirmNameButton" type="Button" parent="Panel/NameDialog/VBox/Buttons" unique_id=1071379763]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "CONFIRM"
+
+[node name="CancelNameButton" type="Button" parent="Panel/NameDialog/VBox/Buttons" unique_id=214951379]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "CANCEL"
+
+[node name="NameStatusLabel" type="Label" parent="Panel/NameDialog/VBox" unique_id=1982147973]
+layout_mode = 2
+
+[node name="NotificationTimer" type="Timer" parent="." unique_id=549194307]
+wait_time = 2.5
+one_shot = true

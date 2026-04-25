@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cineufoadrqx4"]
+
+[node name="LeaderboardRow" type="HBoxContainer" unique_id=1272543178]
+
+[node name="RankLabel" type="Label" parent="." unique_id=506215688]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="." unique_id=1502454309]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="." unique_id=1883410885]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2

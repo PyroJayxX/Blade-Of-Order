@@ -20,6 +20,8 @@ GameConfig="*res://scripts/game_config.gd"
 CombatEvents="*res://scripts/combat_events.gd"
 AudioController="*uid://q8ssf58bkdpy"
 SceneFlow="*res://scripts/flow/scene_flow.gd"
+Supabase="*uid://m654xqg1jlx6"
+PlayerData="*res://scripts/player_data.gd"
 
 [display]
 
@@ -27,6 +29,10 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/supabase/plugin.cfg")
 
 [input]
 

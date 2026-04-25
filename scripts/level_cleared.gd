@@ -9,8 +9,11 @@ extends CanvasLayer
 @onready var _time_label: RichTextLabel = $Panel/MarginContainer/VBoxContainer/TimeLabel
 @onready var _score_label: RichTextLabel = $Panel/MarginContainer/VBoxContainer/ScoreLabel
 
+var _last_score: int = 0
+
 func show_results(time_taken: float, mistakes_made: int) -> void:
 	var final_score: int = calculate_final_score(time_taken, mistakes_made)
+	_last_score = final_score
 	var total_seconds: int = maxi(int(round(time_taken)), 0)
 	var minutes: int = int(floor(float(total_seconds) / 60.0))
 	var seconds: int = total_seconds % 60
@@ -32,4 +35,8 @@ func _on_quit_pressed() -> void:
 func _on_next_pressed() -> void:
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
-		flow.call("goto_level_select")
+		var payload: Dictionary = {
+			"score": _last_score,
+			"level_id": int(flow.call("get_active_level_id")),
+		}
+		flow.call("goto_leaderboard", payload)

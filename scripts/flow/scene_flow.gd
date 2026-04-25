@@ -2,6 +2,7 @@ extends Node
 
 const MAIN_MENU_SCENE: String = "res://scenes/MainMenu/main_menu.tscn"
 const LEVEL_SELECT_SCENE: String = "res://scenes/LevelSelect/level_selector.tscn"
+const LEADERBOARD_SCENE: String = "res://scenes/Game/leaderboard.tscn"
 
 var _root_flow: Node
 var _content_root: Node
@@ -10,6 +11,7 @@ var _current_scene: Node
 var _current_scene_path: String = ""
 var _active_level_id: int = -1
 var _is_loading_scene: bool = false
+var _leaderboard_context: Dictionary = {}
 
 func register_root(root_flow: Node, content_root: Node, transition_layer: CanvasLayer = null) -> void:
 	_root_flow = root_flow
@@ -23,6 +25,15 @@ func goto_main_menu() -> void:
 func goto_level_select() -> void:
 	_active_level_id = -1
 	load_scene(LEVEL_SELECT_SCENE)
+
+func goto_leaderboard(context: Dictionary = {}) -> void:
+	_leaderboard_context = context.duplicate(true)
+	load_scene(LEADERBOARD_SCENE)
+
+func consume_leaderboard_context() -> Dictionary:
+	var payload: Dictionary = _leaderboard_context.duplicate(true)
+	_leaderboard_context.clear()
+	return payload
 
 func play_level(level_id: int) -> bool:
 	var config: Node = get_node_or_null("/root/GameConfig")
