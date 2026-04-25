@@ -5,6 +5,8 @@ const SAVE_PATH: String = "user://player_data.json"
 var player_name: String = ""
 var personal_best: int = 0
 var boss_personal_bests: Dictionary = {}
+var pending_submission_score: int = 0
+var pending_submission_level_id: int = 0
 
 func _ready() -> void:
 	_load()
@@ -19,12 +21,35 @@ func save() -> void:
 		"player_name": player_name,
 		"personal_best": personal_best,
 		"boss_personal_bests": boss_personal_bests,
+		"pending_submission_score": pending_submission_score,
+		"pending_submission_level_id": pending_submission_level_id,
 	}
 	file.store_string(JSON.stringify(data))
 
 func set_player_name(name: String) -> void:
 	player_name = name.strip_edges()
+	personal_best = 0
+	boss_personal_bests.clear()
+	pending_submission_score = 0
+	pending_submission_level_id = 0
 	save()
+
+func set_pending_submission(score: int, level_id: int) -> void:
+	pending_submission_score = maxi(score, 0)
+	pending_submission_level_id = maxi(level_id, 0)
+	save()
+
+func consume_pending_submission() -> Dictionary:
+	if pending_submission_score <= 0 and pending_submission_level_id <= 0:
+		return {}
+	var payload: Dictionary = {
+		"score": pending_submission_score,
+		"level_id": pending_submission_level_id,
+	}
+	pending_submission_score = 0
+	pending_submission_level_id = 0
+	save()
+	return payload
 
 func try_submit_score(score: int) -> bool:
 	return try_submit_score_for_boss("global", score)
@@ -63,6 +88,8 @@ func _load() -> void:
 		var data: Dictionary = parsed
 		player_name = String(data.get("player_name", "")).strip_edges()
 		personal_best = maxi(int(data.get("personal_best", 0)), 0)
+		pending_submission_score = maxi(int(data.get("pending_submission_score", 0)), 0)
+		pending_submission_level_id = maxi(int(data.get("pending_submission_level_id", 0)), 0)
 		boss_personal_bests.clear()
 		var parsed_bests: Variant = data.get("boss_personal_bests", {})
 		if parsed_bests is Dictionary:
@@ -74,6 +101,8 @@ func _load() -> void:
 	else:
 		player_name = ""
 		personal_best = 0
+		pending_submission_score = 0
+		pending_submission_level_id = 0
 		boss_personal_bests.clear()
 		save()
 

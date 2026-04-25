@@ -34,9 +34,8 @@ func _on_quit_pressed() -> void:
 
 func _on_next_pressed() -> void:
 	var flow: Node = get_node_or_null("/root/SceneFlow")
+	var player_data: Node = get_node_or_null("/root/PlayerData")
+	if player_data != null and flow != null:
+		player_data.call("set_pending_submission", _last_score, int(flow.call("get_active_level_id")))
 	if flow != null:
-		var payload: Dictionary = {
-			"score": _last_score,
-			"level_id": int(flow.call("get_active_level_id")),
-		}
-		flow.call("goto_leaderboard", payload)
+		flow.call("goto_level_select")

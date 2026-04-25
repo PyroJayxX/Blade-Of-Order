@@ -124,11 +124,6 @@ layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="SubmitButton" type="Button" parent="Panel/ScrollContainer/VBoxContainer/Buttons" unique_id=1408749874]
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 2
-text = "SUBMIT SCORE"
-
 [node name="CloseButton" type="Button" parent="Panel/ScrollContainer/VBoxContainer/Buttons" unique_id=1523659631]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
