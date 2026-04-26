@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://bfp3iuuho0l2b"]
+
+[ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/Game/arena.tscn" id="1_0il8v"]
+[ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/Game/touchControls.tscn" id="2_dvama"]
+[ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/Player/player_new.tscn" id="3_c8rws"]
+[ext_resource type="PackedScene" uid="uid://ctapwu3uviyqg" path="res://scenes/Game/hud.tscn" id="4_vyrcm"]
+[ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="5_023rx"]
+[ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="6_8nvh1"]
+[ext_resource type="PackedScene" uid="uid://dn1osp8xlnwlu" path="res://scenes/Puzzles/radix_sort.tscn" id="7_dvama"]
+[ext_resource type="Script" uid="uid://duu7rove1ish3" path="res://scripts/level_06_radix_sort.gd" id="8_level6"]
+
+[sub_resource type="Gradient" id="Gradient_u5sy4"]
+offsets = PackedFloat32Array(0.27108434, 1)
+colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x37sr"]
+gradient = SubResource("Gradient_u5sy4")
+fill_to = Vector2(0, 1)
+
+[node name="level6" type="Node2D" unique_id=365381309]
+script = ExtResource("8_level6")
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=320319230]
+scroll_offset = Vector2(190, -329)
+
+[node name="TextureRect" type="TextureRect" parent="Parallax2D" unique_id=490009251]
+offset_left = -1020.0
+offset_top = -689.0
+offset_right = 14731.0
+offset_bottom = 1282.0
+texture = SubResource("GradientTexture2D_x37sr")
+
+[node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("1_0il8v")]
+position = Vector2(-594, 622)
+
+[node name="Control" type="Control" parent="." unique_id=106556102]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -283.0
+offset_top = -14.0
+offset_right = -144.0
+offset_bottom = 139.0
+
+[node name="TouchControls" parent="Control" unique_id=1019859329 instance=ExtResource("2_dvama")]
+
+[node name="Player" parent="." unique_id=1430617140 instance=ExtResource("3_c8rws")]
+position = Vector2(675, 494)
+scale = Vector2(0.34, 0.34)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=2147483579]
+position = Vector2(75.00005, -535.29407)
+zoom = Vector2(0.53, 0.53)
+position_smoothing_speed = 4.5
+
+[node name="RadixSort" parent="." unique_id=1428021277 instance=ExtResource("7_dvama")]
+layer = 101
+
+[node name="HUD" parent="." unique_id=148605811 instance=ExtResource("4_vyrcm")]
+layer = 10
+
+[node name="LevelCleared" parent="." unique_id=957970479 instance=ExtResource("5_023rx")]
+visible = false
+
+[node name="GameOver" parent="." unique_id=346392607 instance=ExtResource("6_8nvh1")]
+visible = false

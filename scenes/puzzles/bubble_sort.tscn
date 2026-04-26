@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://brn3ow27db1c1" path="res://scenes/PuzzleComponents/drop_zone.tscn" id="2_kwler"]
 [ext_resource type="Texture2D" uid="uid://dqtf34c6njaw5" path="res://assets/puzzle_sprites/Skull.png" id="2_pnhvk"]
 [ext_resource type="PackedScene" uid="uid://cjxaxnefegp2h" path="res://scenes/PuzzleComponents/piece.tscn" id="3_kwler"]
-[ext_resource type="Script" path="res://scripts/bubble_sort_puzzle.gd" id="6_g3w4b"]
+[ext_resource type="Script" uid="uid://cdcuchr2je2xr" path="res://scripts/bubble_sort_puzzle.gd" id="6_g3w4b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i054c"]
 bg_color = Color(0.06666667, 0.105882354, 0.11372549, 0.54901963)
@@ -13,10 +13,12 @@ border_color = Color(0.16759703, 0.82772696, 0.7885211, 0.56078434)
 shadow_color = Color(0.16470589, 0.6784314, 0.654902, 0.039215688)
 shadow_size = 10
 
-[sub_resource type="Environment" id="Environment_kwler"]
-background_mode = 3
-glow_enabled = true
-glow_bloom = 0.13
+[sub_resource type="Gradient" id="Gradient_ir62w"]
+offsets = PackedFloat32Array(0.27304965, 0.7446808)
+colors = PackedColorArray(0, 0, 0, 0.49019608, 0, 0, 0, 0.49019608)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5uls5"]
+gradient = SubResource("Gradient_ir62w")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwler"]
 bg_color = Color(0.05882353, 0.26666668, 0.23921569, 0.19215687)
@@ -147,20 +149,30 @@ position = Vector2(-169, 358)
 scale = Vector2(0.9, 1)
 expected_id = "1"
 
+[node name="DropBox" type="Sprite2D" parent="Overlay/ScrollContainer/ScrollContent/DropZones/DropZone" unique_id=257805511]
+position = Vector2(6.1035156e-05, 0)
+scale = Vector2(1.3888898, 24)
+texture = SubResource("GradientTexture1D_5uls5")
+
 [node name="DropZone2" parent="Overlay/ScrollContainer/ScrollContent/DropZones" unique_id=877416642 instance=ExtResource("2_kwler")]
 position = Vector2(-83, 389)
 scale = Vector2(1.05, 1)
 expected_id = "2"
+
+[node name="DropBox" type="Sprite2D" parent="Overlay/ScrollContainer/ScrollContent/DropZones/DropZone2" unique_id=1981472356]
+position = Vector2(3.0517578e-05, 0)
+scale = Vector2(1.3913693, 24)
+texture = SubResource("GradientTexture1D_5uls5")
 
 [node name="DropZone3" parent="Overlay/ScrollContainer/ScrollContent/DropZones" unique_id=573308252 instance=ExtResource("2_kwler")]
 position = Vector2(-76, 513)
 scale = Vector2(0.8, 1)
 expected_id = "3"
 
-[node name="HealthUI" type="Node2D" parent="." unique_id=1427537712]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1338613870]
-environment = SubResource("Environment_kwler")
+[node name="DropBox" type="Sprite2D" parent="Overlay/ScrollContainer/ScrollContent/DropZones/DropZone3" unique_id=508854555]
+position = Vector2(-3.0517578e-05, 0)
+scale = Vector2(1.386719, 24)
+texture = SubResource("GradientTexture1D_5uls5")
 
 [node name="FlyingPieces" type="Node2D" parent="." unique_id=702031064]
 

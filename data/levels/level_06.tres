@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_ibobs")
 level_id = 6
-display_name = "???"
-scene_path = ""
-unlock_level_required = 5
+display_name = "Radix Sort"
+scene_path = "res://scenes/Bosses/Level6/level_06_radix_sort.tscn"
+unlock_level_required = 0
