@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cotv2jt318bb1"]
 
-[ext_resource type="Script" uid="uid://o3utpgms3r38" path="res://scripts/bubble_projectile.gd" id="1_crf5i"]
+[ext_resource type="Script" uid="uid://o3utpgms3r38" path="res://scripts/BossScripts/bubble_projectile.gd" id="1_crf5i"]
 [ext_resource type="Texture2D" uid="uid://dv0u1goj5n0et" path="res://scenes/Bosses/Level1/Bubble/bubble_projectile.png" id="1_emqen"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_crf5i"]

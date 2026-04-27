@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bmwn8h0crb74a"]
 
-[ext_resource type="Script" uid="uid://dmepwdyfq3wdi" path="res://scripts/game_over.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://dmepwdyfq3wdi" path="res://scripts/GameScripts/game_over.gd" id="1_script"]
 [ext_resource type="FontFile" uid="uid://btvnfrvu1nsxl" path="res://fonts/Hackdaddy.otf" id="2_body_font"]
 [ext_resource type="FontFile" uid="uid://cnu6t4palvls7" path="res://fonts/VerminVibesV-Zlg3.ttf" id="3_title_font"]
 [ext_resource type="Texture2D" uid="uid://cmpjxx76oulpw" path="res://assets/buttons/menu_btn.png" id="4_menu"]

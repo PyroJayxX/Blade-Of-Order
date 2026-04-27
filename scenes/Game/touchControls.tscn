@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d21scx72jcmc3"]
 
-[ext_resource type="Script" uid="uid://bgru3frysudqb" path="res://scripts/touch_controls.gd" id="1_6jjp2"]
+[ext_resource type="Script" uid="uid://bgru3frysudqb" path="res://scripts/PlayerScripts/touch_controls.gd" id="1_6jjp2"]
 [ext_resource type="Texture2D" uid="uid://cgolksvcdcnjg" path="res://assets/touchControls/Left.png" id="1_w4sk7"]
 [ext_resource type="Texture2D" uid="uid://bvi5plvexg6wx" path="res://assets/touchControls/Right.png" id="2_6jjp2"]
 [ext_resource type="Texture2D" uid="uid://djmkwb2i3wvj7" path="res://assets/touchControls/Slash.png" id="3_0u434"]

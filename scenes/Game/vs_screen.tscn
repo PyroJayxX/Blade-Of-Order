@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://brmjgarmddojq"]
+
+[ext_resource type="Script" uid="uid://dk7mpeldktgvm" path="res://scripts/GameScripts/vs_screen.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://btvnfrvu1nsxl" path="res://fonts/Hackdaddy.otf" id="2_body_font"]
+[ext_resource type="FontFile" uid="uid://cnu6t4palvls7" path="res://fonts/VerminVibesV-Zlg3.ttf" id="3_vs_font"]
+
+[sub_resource type="Gradient" id="Gradient_c6si1"]
+offsets = PackedFloat32Array(0, 0.59917355)
+colors = PackedColorArray(1.0588765e-06, 0.52440566, 0.5039614, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ed0jr"]
+gradient = SubResource("Gradient_c6si1")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="VSIntro" type="CanvasLayer" unique_id=1443201771]
+script = ExtResource("1_script")
+
+[node name="Root" type="Control" parent="." unique_id=184268503]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BGRect" type="TextureRect" parent="Root" unique_id=911516453]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_ed0jr")
+
+[node name="RightSide" type="Control" parent="Root" unique_id=1581985426]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BossArt" type="TextureRect" parent="Root/RightSide" unique_id=646397348]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.18
+anchor_right = 0.5
+anchor_bottom = 0.18
+offset_left = -223.0
+offset_top = 75.399994
+offset_right = 217.0
+offset_bottom = 445.4
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch_mode = 6
+
+[node name="BossNameLabel" type="Label" parent="Root/RightSide" unique_id=272699498]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.67
+anchor_right = 0.5
+anchor_bottom = 0.67
+offset_left = -323.0
+offset_top = 84.599976
+offset_right = 317.0
+offset_bottom = 132.59998
+theme_override_colors/font_color = Color(0.95, 0.98, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("2_body_font")
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+
+[node name="VSLabel" type="Label" parent="Root" unique_id=314277076]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.44
+anchor_right = 0.5
+anchor_bottom = 0.44
+offset_left = -181.0
+offset_top = -248.79999
+offset_right = 159.0
+offset_bottom = -48.799988
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_vs_font")
+theme_override_font_sizes/font_size = 120
+text = "VS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FlashRect" type="ColorRect" parent="Root" unique_id=2036177244]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="LevelTitleLabel" type="Label" parent="Root" unique_id=1311279225]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.9
+anchor_right = 0.5
+anchor_bottom = 0.9
+offset_left = -506.0
+offset_top = -17.0
+offset_right = 494.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.41, 0.95, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_body_font")
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+vertical_alignment = 1

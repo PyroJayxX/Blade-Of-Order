@@ -17,15 +17,15 @@ enum BossState {
 @export var keep_y_position: bool = true # whether movement should lock to home y
 @export var contact_buffer: float = 80.0 # extra spacing added to body radius distance
 @export var retreat_speed_multiplier: float = 0.6 # retreat speed as a fraction of chase speed
-@export var attack_2_cooldown: float = 7.0 # cooldown between attack_2 uses in seconds
-@export var attack_2_waves: int = 4 # number of star-burst waves for attack_2
+@export var attack_2_cooldown: float = 2.0 # cooldown between attack_2 uses in seconds
+@export var attack_2_waves: int = 16 # number of star-burst waves for attack_2
 @export var attack_2_projectiles_per_wave: int = 8 # bullets per attack_2 wave
 @export var attack_2_wave_interval: float = 0.22 # delay between attack_2 waves in seconds
-@export var attack_3_cooldown: float = 7.0 # cooldown between attack_3 uses in seconds
-@export var attack_3_duration: float = 10.0 # total attack_3 stream duration in seconds
-@export var attack_3_shot_interval: float = 0.05 # delay between attack_3 shots in seconds
+@export var attack_3_cooldown: float = 2.0 # cooldown between attack_3 uses in seconds
+@export var attack_3_duration: float = 7.0 # total attack_3 stream duration in seconds
+@export var attack_3_shot_interval: float = 0.03 # delay between attack_3 shots in seconds
 @export var attack_3_start_angle_deg: float = 0.0 # starting angle for attack_3 stream in degrees
-@export var attack_3_angle_step_deg: float = 10.0 # angle increment per attack_3 shot in degrees
+@export var attack_3_angle_step_deg: float = 15.0 # angle increment per attack_3 shot in degrees
 @export var return_speed: float = 2400.0 # speed used when returning to home y
 @export var max_eye_distance: float = 20.0 # max offset for eye tracking movement
 @export var max_health: int = 100 # total boss hp
@@ -41,7 +41,7 @@ var _shots_left_in_burst: int = 0 # remaining shots in the current normal burst
 var _attack_anim_timer: float = 0.0 # small lock timer before special checks
 var _attack_2_running: bool = false # whether attack_2 coroutine is active
 var _attack_3_running: bool = false # whether attack_3 coroutine is active
-var _next_special_is_attack_2: bool = false # alternation flag for choosing next special
+var _next_special_is_attack_2: bool = true # alternation flag for choosing next special
 
 var _state: BossState = BossState.IDLE # current boss state
 var _target: Node2D # resolved player target

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://um285o336rqp"]
 
-[ext_resource type="Script" uid="uid://0nkvm7a8nr3s" path="res://scripts/leaderboard.gd" id="1_84e3n"]
+[ext_resource type="Script" uid="uid://0nkvm7a8nr3s" path="res://scripts/GameScripts/leaderboard.gd" id="1_84e3n"]
 [ext_resource type="PackedScene" uid="uid://cineufoadrqx4" path="res://scenes/Game/leaderboard_row.tscn" id="2_foshq"]
 [ext_resource type="FontFile" uid="uid://btvnfrvu1nsxl" path="res://fonts/Hackdaddy.otf" id="2_m3jn6"]
 

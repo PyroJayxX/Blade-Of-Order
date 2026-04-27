@@ -1,5 +1,9 @@
 extends Node2D
 
+const VS_SCREEN: PackedScene = preload("res://scenes/Game/vs_screen.tscn")
+const PLAYER_PORTRAIT: Texture2D = preload("res://assets/player_sprites/player 1.png")
+const BUBBLE_BOSS_PORTRAIT: Texture2D = preload("res://assets/boss_splash/BubbleSort_Splash_NOBG.png")
+
 @onready var _bubble_sort_puzzle: CanvasLayer = $BubbleSortPuzzle
 @onready var _bubble_boss: Node = $BubbleBoss
 @onready var _player: Node2D = $Player
@@ -18,7 +22,6 @@ func _ready() -> void:
 	_bubble_sort_puzzle.visible = false
 	_level_cleared.visible = false
 	_game_over.visible = false
-	start_level()
 	_initial_player_position = _player.global_position
 	if _bubble_boss is Node2D:
 		_initial_boss_position = (_bubble_boss as Node2D).global_position
@@ -35,11 +38,24 @@ func _ready() -> void:
 	if _bubble_sort_puzzle.has_signal("puzzle_completed") and not _bubble_sort_puzzle.puzzle_completed.is_connected(_on_puzzle_completed):
 		_bubble_sort_puzzle.puzzle_completed.connect(_on_puzzle_completed)
 
+	_set_player_controls_enabled(false)
+	_set_boss_combat_enabled(false)
+	await _show_vs_intro()
+	start_level()
+
 func start_level() -> void:
 	_set_player_controls_enabled(true)
 	_set_boss_combat_enabled(true)
 	if _hud != null and _hud.has_method("start_timer"):
 		_hud.call("start_timer")
+
+func _show_vs_intro() -> void:
+	var vs: CanvasLayer = VS_SCREEN.instantiate()
+	vs.boss_name = "BUBBLE SORT BOSS"
+	vs.boss_texture = BUBBLE_BOSS_PORTRAIT
+	vs.next_scene_path = ""
+	add_child(vs)
+	await vs.intro_finished
 
 func pause_level(is_paused: bool) -> void:
 	get_tree().paused = is_paused

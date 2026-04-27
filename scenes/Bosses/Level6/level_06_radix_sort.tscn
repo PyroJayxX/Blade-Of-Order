@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="5_023rx"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="6_8nvh1"]
 [ext_resource type="PackedScene" uid="uid://dn1osp8xlnwlu" path="res://scenes/Puzzles/radix_sort.tscn" id="7_dvama"]
-[ext_resource type="Script" uid="uid://duu7rove1ish3" path="res://scripts/level_06_radix_sort.gd" id="8_level6"]
+[ext_resource type="Script" uid="uid://duu7rove1ish3" path="res://scripts/LevelScripts/level2.gd" id="8_level6"]
 
 [sub_resource type="Gradient" id="Gradient_u5sy4"]
 offsets = PackedFloat32Array(0.27108434, 1)

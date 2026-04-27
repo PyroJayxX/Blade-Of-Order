@@ -111,6 +111,9 @@ func load_scene(scene_path: String) -> void:
 
 	_is_loading_scene = false
 
+func load_level(scene_path: String) -> void:
+	load_scene(scene_path)
+
 func get_active_level_id() -> int:
 	return _active_level_id
 

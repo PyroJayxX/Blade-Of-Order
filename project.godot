@@ -16,12 +16,12 @@ config/features=PackedStringArray("4.6")
 
 [autoload]
 
-GameConfig="*res://scripts/game_config.gd"
-CombatEvents="*res://scripts/combat_events.gd"
+GameConfig="*res://scripts/GameScripts/game_config.gd"
+CombatEvents="*res://scripts/GameScripts/combat_events.gd"
 AudioController="*uid://q8ssf58bkdpy"
 SceneFlow="*res://scripts/flow/scene_flow.gd"
 Supabase="*uid://m654xqg1jlx6"
-PlayerData="*res://scripts/player_data.gd"
+PlayerData="*res://scripts/PlayerScripts/player_data.gd"
 
 [display]
 

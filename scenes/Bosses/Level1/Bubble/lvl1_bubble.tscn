@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b6sy41opg4xdm"]
 
-[ext_resource type="Script" uid="uid://f7enwscw1p4t" path="res://scripts/lvl1_bubble.gd" id="1_o6wqv"]
+[ext_resource type="Script" uid="uid://f7enwscw1p4t" path="res://scripts/BossScripts/lvl1_bubble.gd" id="1_o6wqv"]
 [ext_resource type="PackedScene" uid="uid://cotv2jt318bb1" path="res://scenes/Bosses/Level1/Bubble/BubbleProjectile.tscn" id="2_bngsm"]
 [ext_resource type="Texture2D" uid="uid://cb0cxq6x40vly" path="res://scenes/Bosses/Level1/Bubble/bubble_eye.png" id="2_d8eeg"]
 [ext_resource type="Texture2D" uid="uid://0lhasthl5m6l" path="res://scenes/Bosses/Level1/Bubble/bubble_eye_hurt.png" id="3_muye3"]
@@ -676,8 +676,8 @@ script = ExtResource("1_o6wqv")
 bubble_scene = ExtResource("2_bngsm")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1938050514]
-modulate = Color(0.06879827, 0.06879828, 0.06879828, 0.8980392)
-position = Vector2(7.6293945e-06, -3.8146973e-06)
+modulate = Color(0.03, 0.03, 0.03, 0.9019608)
+position = Vector2(0.51000005, 4.5474735e-13)
 scale = Vector2(96.339584, 96.339584)
 mesh = SubResource("SphereMesh_yq4lb")
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://brn3ow27db1c1"]
 
-[ext_resource type="Script" uid="uid://bw6pdxblfpdq" path="res://scripts/drop_zone.gd" id="1_k1kcn"]
+[ext_resource type="Script" uid="uid://bw6pdxblfpdq" path="res://scripts/GameScripts/drop_zone.gd" id="1_k1kcn"]
 
 [sub_resource type="Gradient" id="Gradient_k1kcn"]
 offsets = PackedFloat32Array(0.27304965, 0.7446808)
