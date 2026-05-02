@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://diuqsvtndeujv"]
+
+[ext_resource type="Script" uid="uid://lnl1wyj1rcbm" path="res://scripts/LevelScripts/level4.gd" id="1_jcw1t"]
+[ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/Game/arena.tscn" id="1_mrhuk"]
+[ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/Game/touchControls.tscn" id="2_bjic3"]
+[ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/Player/player_new.tscn" id="3_jcw1t"]
+[ext_resource type="Script" uid="uid://bx0igiwp84c3p" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="4_kyofk"]
+[ext_resource type="PackedScene" uid="uid://gsoljar2todh" path="res://scenes/puzzles/bucket_sort.tscn" id="5_bjic3"]
+[ext_resource type="PackedScene" uid="uid://ctapwu3uviyqg" path="res://scenes/Game/hud.tscn" id="5_hsq10"]
+[ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="6_0o8ub"]
+[ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="7_kr5hc"]
+
+[sub_resource type="Gradient" id="Gradient_u5sy4"]
+offsets = PackedFloat32Array(0.27108434, 1)
+colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a41yn"]
+gradient = SubResource("Gradient_u5sy4")
+fill_to = Vector2(0, 1)
+
+[node name="BucketSort" type="Node2D" unique_id=1624970354]
+script = ExtResource("1_jcw1t")
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1890472538]
+scroll_offset = Vector2(190, -329)
+
+[node name="TextureRect" type="TextureRect" parent="Parallax2D" unique_id=1066443890]
+offset_left = -1020.0
+offset_top = -689.0
+offset_right = 14731.0
+offset_bottom = 1282.0
+texture = SubResource("GradientTexture2D_a41yn")
+
+[node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("1_mrhuk")]
+position = Vector2(-594, 622)
+
+[node name="Control" type="Control" parent="." unique_id=2113019863]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -283.0
+offset_top = -14.0
+offset_right = -144.0
+offset_bottom = 139.0
+
+[node name="TouchControls" parent="Control" unique_id=1019859329 instance=ExtResource("2_bjic3")]
+
+[node name="Player" parent="." unique_id=1430617140 instance=ExtResource("3_jcw1t")]
+position = Vector2(675, 494)
+scale = Vector2(0.34, 0.34)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1914555653]
+position = Vector2(75.00005, -535.29407)
+zoom = Vector2(0.53, 0.53)
+position_smoothing_speed = 4.5
+script = ExtResource("4_kyofk")
+
+[node name="BucketSort" parent="." unique_id=1903240147 instance=ExtResource("5_bjic3")]
+layer = 101
+visible = false
+
+[node name="HUD" parent="." unique_id=148605811 instance=ExtResource("5_hsq10")]
+layer = 10
+
+[node name="LevelCleared" parent="." unique_id=957970479 instance=ExtResource("6_0o8ub")]
+visible = false
+
+[node name="GameOver" parent="." unique_id=346392607 instance=ExtResource("7_kr5hc")]
+visible = false

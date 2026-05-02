@@ -1,0 +1,246 @@
+[gd_scene format=3 uid="uid://gsoljar2todh"]
+
+[ext_resource type="FontFile" uid="uid://dmfiak0cq6xa0" path="res://fonts/LiberationMono-Bold.ttf" id="1_qtcq6"]
+[ext_resource type="Texture2D" uid="uid://dqtf34c6njaw5" path="res://assets/puzzle_sprites/Skull.png" id="2_pte6v"]
+[ext_resource type="FontFile" uid="uid://bop2b21o5j7w8" path="res://fonts/Inconsolata-Regular.ttf" id="3_tmsnq"]
+[ext_resource type="PackedScene" uid="uid://brn3ow27db1c1" path="res://scenes/PuzzleComponents/drop_zone.tscn" id="4_wts2d"]
+[ext_resource type="PackedScene" uid="uid://cjxaxnefegp2h" path="res://scenes/PuzzleComponents/piece.tscn" id="5_0s0tx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ci0gr"]
+bg_color = Color(0.06666667, 0.105882354, 0.11372549, 0.54901963)
+border_color = Color(0.16759703, 0.82772696, 0.7885211, 0.56078434)
+shadow_color = Color(0.16470589, 0.6784314, 0.654902, 0.039215688)
+shadow_size = 10
+
+[sub_resource type="Gradient" id="Gradient_ir62w"]
+offsets = PackedFloat32Array(0.27304965, 0.7446808)
+colors = PackedColorArray(0, 0, 0, 0.49019608, 0, 0, 0, 0.49019608)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k7eau"]
+gradient = SubResource("Gradient_ir62w")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_46sh0"]
+bg_color = Color(0.05882353, 0.26666668, 0.23921569, 0.19215687)
+border_color = Color(0, 0.84313726, 0.70980394, 0.56078434)
+shadow_color = Color(0.043137256, 0.5294118, 0.4862745, 0.3372549)
+shadow_size = 2
+
+[node name="BucketSort" type="CanvasLayer" unique_id=1903240147]
+
+[node name="PuzzleManager" type="Node" parent="." unique_id=1645481690]
+
+[node name="ScreenDimmer" type="ColorRect" parent="." unique_id=569079531]
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.78431374)
+
+[node name="Overlay" type="Panel" parent="." unique_id=824795442]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -597.0
+offset_top = -330.0
+offset_right = 603.0
+offset_bottom = 313.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ci0gr")
+
+[node name="ColorRect" type="ColorRect" parent="Overlay" unique_id=92616710]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 1195.0
+offset_bottom = 82.0
+mouse_filter = 2
+color = Color(0.12156863, 0.5019608, 0.4745098, 0.40784314)
+
+[node name="Title" type="RichTextLabel" parent="Overlay/ColorRect" unique_id=1928748648]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.24700001
+anchor_bottom = 0.24700001
+offset_top = 3.980999
+offset_right = 1190.0
+offset_bottom = 41.981
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0.9239334, 0.83635265, 1)
+theme_override_fonts/normal_font = ExtResource("1_qtcq6")
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "[center]COMPLETE THE BUCKET SORT ALGORITHM TO SEAL THE BOSS![/center]"
+
+[node name="Skull_1" type="Sprite2D" parent="Overlay" unique_id=1243315904]
+visible = false
+position = Vector2(800, 522)
+scale = Vector2(0.276, 0.276)
+texture = ExtResource("2_pte6v")
+
+[node name="Skull_2" type="Sprite2D" parent="Overlay" unique_id=2097732584]
+visible = false
+position = Vector2(938, 522)
+scale = Vector2(0.276, 0.276)
+texture = ExtResource("2_pte6v")
+
+[node name="Skull_3" type="Sprite2D" parent="Overlay" unique_id=2006900414]
+visible = false
+position = Vector2(1076, 522)
+scale = Vector2(0.276, 0.276)
+texture = ExtResource("2_pte6v")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Overlay" unique_id=659587488]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99600005
+anchor_bottom = 1.0
+offset_top = 90.0
+offset_right = 12.799927
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+scroll_hint_mode = 1
+
+[node name="ScrollContent" type="Control" parent="Overlay/ScrollContainer" unique_id=1983852851]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Overlay/ScrollContainer/ScrollContent" unique_id=306716005]
+layout_mode = 1
+offset_left = 40.0
+offset_top = 24.0
+offset_right = 1200.0
+offset_bottom = 588.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(8.278489e-06, 0.89056355, 0.8009366, 1)
+theme_override_fonts/normal_font = ExtResource("3_tmsnq")
+theme_override_font_sizes/normal_font_size = 28
+text = " 1 | int main() {
+ 2 |     int arr[] = {5, 3, 8, 4, 2};
+ 3 |     int n = 5;
+ 4 |     int buckets[5][5], sizes[5] = {0};
+ 5 |     int i, j, idx, write_idx;
+ 6 |     for                    {
+ 7 |         idx = arr[i] / 2;
+ 8 |         buckets[idx][sizes[idx]] = arr[i];
+ 9 |         sizes[idx]++;
+10 |     }
+11 |     write_idx = 0;
+12 |     for                    {
+13 |         for                           {
+14 |         	arr[write_idx++] = buckets[i][j];
+15 |         }
+16 |     }
+17 |     return 0;
+18 | }"
+scroll_active = false
+
+[node name="DropZones" type="Node2D" parent="Overlay/ScrollContainer/ScrollContent" unique_id=1956952122]
+position = Vector2(548, -162)
+
+[node name="DropZone" parent="Overlay/ScrollContainer/ScrollContent/DropZones" unique_id=559763923 instance=ExtResource("4_wts2d")]
+position = Vector2(-201, 361)
+scale = Vector2(0.9, 1)
+expected_id = "1"
+
+[node name="DropBox" type="Sprite2D" parent="Overlay/ScrollContainer/ScrollContent/DropZones/DropZone" unique_id=686527137]
+position = Vector2(6.198883e-06, 0)
+scale = Vector2(1.154514, 24)
+texture = SubResource("GradientTexture1D_k7eau")
+
+[node name="DropZone2" parent="Overlay/ScrollContainer/ScrollContent/DropZones" unique_id=1845312685 instance=ExtResource("4_wts2d")]
+position = Vector2(-197, 546)
+scale = Vector2(1.05, 1)
+expected_id = "2"
+
+[node name="DropBox" type="Sprite2D" parent="Overlay/ScrollContainer/ScrollContent/DropZones/DropZone2" unique_id=1616555542]
+position = Vector2(-0.9524231, 0)
+scale = Vector2(0.9747025, 24)
+texture = SubResource("GradientTexture1D_k7eau")
+
+[node name="DropZone3" parent="Overlay/ScrollContainer/ScrollContent/DropZones" unique_id=726331738 instance=ExtResource("4_wts2d")]
+position = Vector2(-97, 576)
+scale = Vector2(0.8, 1)
+expected_id = "3"
+
+[node name="DropBox" type="Sprite2D" parent="Overlay/ScrollContainer/ScrollContent/DropZones/DropZone3" unique_id=2092440101]
+position = Vector2(1.8749695, 1.0000916)
+scale = Vector2(1.7236327, 24)
+texture = SubResource("GradientTexture1D_k7eau")
+
+[node name="FlyingPieces" type="Node2D" parent="." unique_id=2068867579]
+
+[node name="PuzzlePiece" parent="FlyingPieces" unique_id=947852651 instance=ExtResource("5_0s0tx")]
+position = Vector2(965, 228)
+piece_id = "1"
+
+[node name="BlockBG" type="Panel" parent="FlyingPieces/PuzzlePiece" unique_id=1954825944]
+offset_left = -133.0
+offset_top = -15.0
+offset_right = 134.0
+offset_bottom = 11.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_46sh0")
+
+[node name="Block1" type="RichTextLabel" parent="FlyingPieces/PuzzlePiece" unique_id=17339420]
+offset_left = -176.0
+offset_top = -20.0
+offset_right = 176.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0.9239334, 0.83635265, 1)
+theme_override_fonts/normal_font = ExtResource("3_tmsnq")
+theme_override_font_sizes/normal_font_size = 28
+text = "(i = 0; i < n; i++)"
+horizontal_alignment = 1
+
+[node name="PuzzlePiece2" parent="FlyingPieces" unique_id=954405205 instance=ExtResource("5_0s0tx")]
+position = Vector2(994, 407)
+piece_id = "2"
+
+[node name="BlockBG" type="Panel" parent="FlyingPieces/PuzzlePiece2" unique_id=804146354]
+offset_left = -133.0
+offset_top = -15.0
+offset_right = 133.0
+offset_bottom = 11.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_46sh0")
+
+[node name="Block2" type="RichTextLabel" parent="FlyingPieces/PuzzlePiece2" unique_id=1998130448]
+offset_left = -195.0
+offset_top = -20.0
+offset_right = 195.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0.9239334, 0.83635265, 1)
+theme_override_fonts/normal_font = ExtResource("3_tmsnq")
+theme_override_font_sizes/normal_font_size = 28
+text = "(i = 0; i < 5; i++)"
+horizontal_alignment = 1
+
+[node name="PuzzlePiece3" parent="FlyingPieces" unique_id=1241560269 instance=ExtResource("5_0s0tx")]
+position = Vector2(818, 633)
+piece_id = "3"
+
+[node name="BlockBG" type="Panel" parent="FlyingPieces/PuzzlePiece3" unique_id=1782918513]
+offset_left = -179.0
+offset_top = -13.0
+offset_right = 183.0
+offset_bottom = 13.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_46sh0")
+
+[node name="Block3" type="RichTextLabel" parent="FlyingPieces/PuzzlePiece3" unique_id=1950162244]
+offset_left = -238.0
+offset_top = -18.0
+offset_right = 242.0
+offset_bottom = 22.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0.9239334, 0.83635265, 1)
+theme_override_fonts/normal_font = ExtResource("3_tmsnq")
+theme_override_font_sizes/normal_font_size = 28
+text = "(j = 0; j < sizes[i]; j++)"
+horizontal_alignment = 1
