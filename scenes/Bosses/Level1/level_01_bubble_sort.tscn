@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://d7il0wmgrue5" path="res://scenes/Puzzles/bubble_sort.tscn" id="5_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://ctapwu3uviyqg" path="res://scenes/Game/hud.tscn" id="6_6ifkb"]
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="7_d2r9c"]
+[ext_resource type="Script" uid="uid://dl12j7k89iyj" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="8_dynamic_camera"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="8_gg8g0"]
 
 [sub_resource type="Gradient" id="Gradient_u5sy4"]
@@ -49,6 +50,7 @@ position = Vector2(675, 494)
 scale = Vector2(0.34, 0.34)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1264934876]
+script = ExtResource("8_dynamic_camera")
 position = Vector2(75.00005, -535.29407)
 zoom = Vector2(0.53, 0.53)
 position_smoothing_speed = 4.5

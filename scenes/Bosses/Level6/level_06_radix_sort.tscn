@@ -7,7 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="5_023rx"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="6_8nvh1"]
 [ext_resource type="PackedScene" uid="uid://dn1osp8xlnwlu" path="res://scenes/Puzzles/radix_sort.tscn" id="7_dvama"]
-[ext_resource type="Script" uid="uid://duu7rove1ish3" path="res://scripts/LevelScripts/level2.gd" id="8_level6"]
+[ext_resource type="Script" uid="uid://duu7rove1ish3" path="res://scripts/LevelScripts/level6.gd" id="8_level6"]
+[ext_resource type="Script" uid="uid://dl12j7k89iyj" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="9_dynamic_camera"]
 
 [sub_resource type="Gradient" id="Gradient_u5sy4"]
 offsets = PackedFloat32Array(0.27108434, 1)
@@ -48,6 +49,7 @@ position = Vector2(675, 494)
 scale = Vector2(0.34, 0.34)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2147483579]
+script = ExtResource("9_dynamic_camera")
 position = Vector2(75.00005, -535.29407)
 zoom = Vector2(0.53, 0.53)
 position_smoothing_speed = 4.5
