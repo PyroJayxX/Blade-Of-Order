@@ -9,11 +9,14 @@ const LOW_JUMP_MULTIPLIER = 2.2 # gravity multiplier when jumping
 const DASH_SPEED = 2500.0 # higher -> travels faster
 const DASH_TIME = 0.4 # higher -> more distance
 const DASH_DECEL = 2000.0 # lower -> decelerate more/longer stop
-const MAX_COMBO_STEPS = 3
-const COMBO_RESET_TIME = 0.45
+const MAX_COMBO_STEPS = 3 # 1 2 3 slash combo (max 3)
+const COMBO_RESET_TIME = 0.45 # combo timer b4 resetting
+const MAX_JUMPS = 2  # 1 = normal jump, 2 = double jump
 
+var jump_count = 0
 var is_dashing = false
 var is_attacking = false
+
 @export var max_health: int = 100
 var _current_health: int = 100
 var _slash_has_hit: bool = false
@@ -51,22 +54,47 @@ func start_attack():
 	is_attacking = true
 	_slash_has_hit = false
 	
-	# stop movement slightly
-	velocity.x *= 0.3
+	var direction := Input.get_axis("moveLeft", "moveRight")
 	
-	animated_sprite.play("slash_1")
+	# if no input, use facing direction
+	if direction == 0:
+		direction = -1 if animated_sprite.flip_h else 1
+	
+	# apply forward lunge only if pressing forward
+	if direction != 0:
+		velocity.x = direction * 800  
+	
+	# advance combo
+	_combo_step += 1
+	if _combo_step > MAX_COMBO_STEPS:
+		_combo_step = 1
+	
+	# reset timer
+	_combo_timer = COMBO_RESET_TIME
+	
+	# play animation
+	var anim_name = "slash_" + str(_combo_step)
+	animated_sprite.play(anim_name)
 	
 	await animated_sprite.animation_finished
 	
 	_set_slash_collision_enabled(false)
 	is_attacking = false
+	
+	# check if player queued next attack
+	if _queued_next_attack:
+		_queued_next_attack = false
+		start_attack()
 
 func _physics_process(delta: float) -> void:
 	if not is_attacking and _combo_step > 0:
 		_combo_timer = maxf(_combo_timer - delta, 0.0)
 		if _combo_timer <= 0.0:
 			_combo_step = 0
-
+	
+	if is_on_floor():
+		jump_count = 0
+	
 	# gravity
 	if not is_on_floor():
 		if velocity.y > 0:
@@ -74,8 +102,13 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity += get_gravity() * LOW_JUMP_MULTIPLIER * delta
 	
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY 
+	if Input.is_action_just_pressed("jump") and jump_count < MAX_JUMPS:
+		if jump_count == 0:
+			velocity.y = JUMP_VELOCITY
+		else:
+			velocity.y = JUMP_VELOCITY * 0.85  # softer second jump
+		
+		jump_count += 1
 
 	var direction := Input.get_axis("moveLeft", "moveRight")
 
@@ -83,7 +116,10 @@ func _physics_process(delta: float) -> void:
 		start_dash(direction)
 		
 	if Input.is_action_just_pressed("slash"):
-		start_attack()
+		if is_attacking:
+			_queued_next_attack = true
+		else:
+			start_attack()
 
 	# Movement
 	if is_attacking:
@@ -99,7 +135,8 @@ func _physics_process(delta: float) -> void:
 			
 	# Animation (PRIORITY-BASED)
 	if is_attacking:
-		animated_sprite.play("slash_1")
+		var anim_name = "slash_" + str(_combo_step)
+		animated_sprite.play(anim_name)
 	elif is_dashing:
 		animated_sprite.play("dash")
 	elif not is_on_floor():
