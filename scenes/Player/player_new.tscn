@@ -612,6 +612,7 @@ polygon = PackedVector2Array(-316, 10, -374, -438, -391, -534, -145, -568, 252, 
 disabled = true
 
 [node name="SlashCollision2" type="CollisionPolygon2D" parent="." unique_id=610825675]
+visible = false
 position = Vector2(362, 140)
 polygon = PackedVector2Array(-179, 36, -927, -507, -931, -616, -889, -657, -584, -691, -150, -611, 117, -482, 305, -365, 577, -85, 585, 69, 568, 182, 478, 302, 335, 345, -62, 366, -355, 320)
 disabled = true
