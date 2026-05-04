@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 signal player_died
 
+# MOVEMENT CONST VARIABLES
 const SPEED = 800.0 # how fast the player is
 const JUMP_VELOCITY = -1200.0 # higher magnitude = higher and faster jump
 
@@ -9,35 +10,47 @@ const FALL_MULTIPLIER = 4 # gravity multiplier when falling
 const LOW_JUMP_MULTIPLIER = 2.2 # gravity multiplier when jumping
 const MAX_JUMPS = 2
 
+# DASH  CONST VARIABLES
 const DASH_SPEED = 2500.0 # higher -> travels faster
 const DASH_TIME = 0.4 # higher -> more distance
 const DASH_DECEL = 2000.0 # lower -> decelerate more/longer stop
 const DASH_COOLDOWN = 0.5
 const DASH_POST_INVULN_TIME = 0.12 # dash invincible frames
 
+# COMBO CONST VARIABLES
 const MAX_COMBO_STEPS = 3
 const COMBO_RESET_TIME = 0.25
 
-var is_dashing = false
-var is_attacking = false
+# HEALTH VARIABLES
 @export var max_health: int = 100
 var _current_health: int = 100
+
+# COMBAT VARIABLES
+var is_attacking = false
+
 var _slash_has_hit: bool = false
 var _combo_step: int = 0
 var _queued_next_attack: bool = false
 var _combo_timer: float = 0.0
-var _death_emitted: bool = false
-var _controls_enabled: bool = true
-var _jumps_used: int = 0
-var _dash_invuln_timer: float = 0.0
-var _dash_cooldown_timer: float = 0.0
-var _body_collision_layer: int = 0
-var _body_collision_mask: int = 0
 
 var _slash_bases := {} # slash collision dict per slash
 
-var _boss_ref: Node2D = null
- 
+# MOVEMENT
+var is_dashing = false
+
+var _jumps_used: int = 0
+var _dash_invuln_timer: float = 0.0
+var _dash_cooldown_timer: float = 0.0
+
+# COLLISION
+var _body_collision_layer: int = 0
+var _body_collision_mask: int = 0
+
+# CORE
+var _death_emitted: bool = false
+var _controls_enabled: bool = true
+var _boss_ref: Node2D = null 
+
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var slash1 : CollisionPolygon2D = $SlashCollision1
 @onready var slash2 : CollisionPolygon2D = $SlashCollision2
