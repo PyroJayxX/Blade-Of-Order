@@ -11,11 +11,12 @@ const MAX_JUMPS = 2
 
 const DASH_SPEED = 2500.0 # higher -> travels faster
 const DASH_TIME = 0.4 # higher -> more distance
-const DASH_COOLDOWN = 0.5
 const DASH_DECEL = 2000.0 # lower -> decelerate more/longer stop
-const DASH_POST_INVULN_TIME = 0.12
+const DASH_COOLDOWN = 0.5
+const DASH_POST_INVULN_TIME = 0.12 # dash invincible frames
+
 const MAX_COMBO_STEPS = 3
-const COMBO_RESET_TIME = 0.45
+const COMBO_RESET_TIME = 0.25
 
 var is_dashing = false
 var is_attacking = false
@@ -32,12 +33,15 @@ var _dash_invuln_timer: float = 0.0
 var _dash_cooldown_timer: float = 0.0
 var _body_collision_layer: int = 0
 var _body_collision_mask: int = 0
-var _slash_base_position: Vector2 = Vector2.ZERO
-var _slash_base_scale: Vector2 = Vector2.ONE
+
+var _slash_bases := {} # slash collision dict per slash
+
 var _boss_ref: Node2D = null
  
 @onready var animated_sprite = $AnimatedSprite2D
-@onready var slash_collision: CollisionPolygon2D = $SlashCollision
+@onready var slash1 : CollisionPolygon2D = $SlashCollision1
+@onready var slash2 : CollisionPolygon2D = $SlashCollision2
+@onready var slash3 : CollisionPolygon2D = $SlashCollision3
 
 func _ready() -> void:
 	_current_health = max_health
@@ -50,12 +54,20 @@ func _ready() -> void:
 	_dash_cooldown_timer = 0.0
 	_body_collision_layer = collision_layer
 	_body_collision_mask = collision_mask
-	_slash_base_position = slash_collision.position
-	_slash_base_scale = slash_collision.scale
+	_slash_bases = {
+		slash1: { "pos": slash1.position, "scale": slash1.scale },
+		slash2: { "pos": slash2.position, "scale": slash2.scale },
+		slash3: { "pos": slash3.position, "scale": slash3.scale }
+	}
 	_set_solid_collision_enabled(true)
 	_set_slash_collision_enabled(false)
 	_update_slash_collision_transform()
 	_sync_player_hud_health()
+
+# play animation helper function so there is no animation overlap
+func play_anim(name: String):
+	if animated_sprite.animation != name:
+		animated_sprite.play(name)
 
 func start_dash(direction):
 	is_dashing = true
@@ -68,7 +80,7 @@ func start_dash(direction):
 	velocity.x = direction * DASH_SPEED
 	_dash_invuln_timer = maxf(_dash_invuln_timer, DASH_TIME + DASH_POST_INVULN_TIME)
 	
-	animated_sprite.play("dash")
+	play_anim("dash")
 	AudioController.play_player_dash()
 	
 	await get_tree().create_timer(DASH_TIME).timeout
@@ -78,20 +90,48 @@ func start_dash(direction):
 func start_attack():
 	if is_attacking:
 		return
-	
+		
 	is_attacking = true
 	_slash_has_hit = false
+	
+	var direction := Input.get_axis("moveLeft", "moveRight")
+	
+	if direction == 0:
+		direction = -1 if animated_sprite.flip_h else 1
+	
+	# apply forward lunge ONLY if pressing forward
+	if direction != 0:
+		velocity.x = direction * 800  # tweak this value
+	
+	# advance combo
+	_combo_step += 1
+	if _combo_step > MAX_COMBO_STEPS:
+		_combo_step = 1
+	
+	# reset timer
+	_combo_timer = COMBO_RESET_TIME
 	
 	# stop movement slightly
 	velocity.x *= 0.3
 	
+	# enable hitboxes for slash
+	_set_slash_collision_enabled(true)
+	
 	AudioController.play_player_slash_1()
 	
-	animated_sprite.play("slash_1")
+	# play correct animation
+	var anim_name = "slash_" + str(_combo_step)
+	play_anim(anim_name)
 	
 	await animated_sprite.animation_finished
 	
+	# disable hitbox for slash
+	_set_slash_collision_enabled(false)
 	is_attacking = false
+	
+	if _queued_next_attack:
+		_queued_next_attack = false
+		start_attack()
 
 func _physics_process(delta: float) -> void:
 	if not _controls_enabled:
@@ -135,7 +175,10 @@ func _physics_process(delta: float) -> void:
 		start_dash(direction)
 		
 	if Input.is_action_just_pressed("slash"):
-		start_attack()
+		if is_attacking and animated_sprite.frame >= 5:
+			_queued_next_attack = true
+		else:
+			start_attack()
 
 	# Movement
 	if is_attacking:
@@ -148,27 +191,24 @@ func _physics_process(delta: float) -> void:
 			animated_sprite.flip_h = direction < 0
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
-	_update_slash_collision_transform()
+			
+		_update_slash_collision_transform()
 			
 	# Animation (PRIORITY-BASED)
 	if is_attacking:
-		animated_sprite.play("slash_1")
+		var anim_name = "slash_" + str(_combo_step)
+		play_anim(anim_name)
 	elif is_dashing:
-		animated_sprite.play("dash")
+		play_anim("dash")
 	elif not is_on_floor():
-		if velocity.y < 0:
-			animated_sprite.play("jump")
-		else:
-			animated_sprite.play("jump")
+		animated_sprite.play("jump")
 	else:
 		if direction != 0:
-			animated_sprite.play("run")
+			play_anim("run")
 		else:
-			animated_sprite.play("idle")
+			play_anim("idle")
 
 	move_and_slide()
-	if is_on_floor():
-		_jumps_used = 0
 	_process_slash_hits()
 
 func take_damage(amount: int = 1) -> void:
@@ -204,6 +244,11 @@ func _set_solid_collision_enabled(enabled: bool) -> void:
 		collision_layer = 0
 		collision_mask = 0
 
+func _disable_all_slash_collisions():
+	slash1.disabled = true
+	slash2.disabled = true
+	slash3.disabled = true
+
 func _sync_player_hud_health() -> void:
 	var current_scene: Node = get_tree().current_scene
 	if current_scene == null:
@@ -213,17 +258,27 @@ func _sync_player_hud_health() -> void:
 		hud.call("set_player_health", _current_health, max_health)
 
 func _set_slash_collision_enabled(enabled: bool) -> void:
-	if slash_collision == null:
+	_disable_all_slash_collisions()
+	
+	if not enabled:
 		return
-	slash_collision.disabled = not enabled
+
+	match _combo_step:
+		1:
+			slash1.disabled = false
+		2:
+			slash2.disabled = false
+		3:
+			slash3.disabled = false
 
 func _update_slash_collision_transform() -> void:
-	if slash_collision == null:
-		return
-
 	var facing_sign: float = -1.0 if animated_sprite.flip_h else 1.0
-	slash_collision.position = Vector2(_slash_base_position.x * facing_sign, _slash_base_position.y)
-	slash_collision.scale = Vector2(_slash_base_scale.x * facing_sign, _slash_base_scale.y)
+	
+	for slash in _slash_bases.keys():
+		var base = _slash_bases[slash]
+		
+		slash.position = Vector2(base["pos"].x * facing_sign, base["pos"].y)
+		slash.scale = Vector2(base["scale"].x * facing_sign, base["scale"].y)
 
 func _process_slash_hits() -> void:
 	if not is_attacking or _slash_has_hit:
@@ -281,7 +336,8 @@ func _is_boss_hit_target(candidate: Node) -> bool:
 	return candidate.has_signal("boss_defeated")
 
 func _is_boss_overlapping_slash(boss: Node2D) -> bool:
-	if slash_collision == null:
+	var active = _get_active_slash_collision()
+	if active == null:
 		return false
 
 	var world_polygon: PackedVector2Array = _get_slash_world_polygon()
@@ -304,12 +360,25 @@ func _is_boss_overlapping_slash(boss: Node2D) -> bool:
 
 	return false
 
+func _get_active_slash_collision() -> CollisionPolygon2D:
+	match _combo_step:
+		1: return slash1
+		2: return slash2
+		3: return slash3
+	return null
+
 func _get_slash_world_polygon() -> PackedVector2Array:
-	var local_polygon: PackedVector2Array = slash_collision.polygon
+	var active = _get_active_slash_collision()
+	if active == null:
+		return PackedVector2Array()
+
+	var local_polygon = active.polygon
 	var world_polygon: PackedVector2Array = PackedVector2Array()
 	world_polygon.resize(local_polygon.size())
+	
 	for i in range(local_polygon.size()):
-		world_polygon[i] = slash_collision.to_global(local_polygon[i])
+		world_polygon[i] = active.to_global(local_polygon[i])
+	
 	return world_polygon
 
 func _distance_point_to_segment(point: Vector2, a: Vector2, b: Vector2) -> float:
