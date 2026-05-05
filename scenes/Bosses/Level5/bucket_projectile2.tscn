@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://ceo8rdm65xgqx"]
+
+[ext_resource type="Texture2D" uid="uid://dp5telw6e368w" path="res://assets/bosses/bucket_boss/projectile_2.png" id="1_w1vd5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idaqn"]
+atlas = ExtResource("1_w1vd5")
+region = Rect2(0, 0, 2304, 1296)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcf8g"]
+atlas = ExtResource("1_w1vd5")
+region = Rect2(2304, 0, 2304, 1296)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brpx8"]
+atlas = ExtResource("1_w1vd5")
+region = Rect2(4608, 0, 2304, 1296)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lghc6"]
+atlas = ExtResource("1_w1vd5")
+region = Rect2(6912, 0, 2304, 1296)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1x1xy"]
+atlas = ExtResource("1_w1vd5")
+region = Rect2(9216, 0, 2304, 1296)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_krgn7"]
+animations = [{
+"frames": [{
+"duration": 15.0,
+"texture": SubResource("AtlasTexture_idaqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fcf8g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brpx8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lghc6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1x1xy")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_faln8"]
+
+[node name="BucketProjectile2" type="CharacterBody2D" unique_id=1304657853]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1140765970]
+sprite_frames = SubResource("SpriteFrames_krgn7")
+autoplay = "default"
+frame = 4
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=619347435]
+visible = false
+position = Vector2(-18, -15)
+scale = Vector2(-20.999962, -20.999962)
+shape = SubResource("CircleShape2D_faln8")
