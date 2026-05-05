@@ -1,0 +1,158 @@
+[gd_scene format=3 uid="uid://7rkgjpqq2unb"]
+
+[ext_resource type="Texture2D" uid="uid://dnyhpmxq33e6x" path="res://assets/bosses/shell_boss/shell_front_bot.png" id="1_cli4a"]
+[ext_resource type="Texture2D" uid="uid://cshgw4c57dtlb" path="res://assets/bosses/shell_boss/shell_front_top.png" id="2_xb1to"]
+[ext_resource type="Texture2D" uid="uid://b7jaik08c40m0" path="res://assets/bosses/shell_boss/eye_front.png" id="3_gsm5u"]
+[ext_resource type="Texture2D" uid="uid://cavqnpvh0y4qd" path="res://assets/bosses/shell_boss/shell_close_front.png" id="4_cjhbe"]
+[ext_resource type="Texture2D" uid="uid://b2magpkuaxwmn" path="res://assets/bosses/shell_boss/shell_close_side.png" id="5_r0lau"]
+[ext_resource type="Texture2D" uid="uid://c8y8e0lsyksj5" path="res://assets/bosses/shell_boss/shell_open_side.png" id="6_tuyt5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cjhbe"]
+
+[sub_resource type="Animation" id="Animation_r0lau"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShellBossFront/ShellFrontBot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(15, 23)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShellBossFront/ShellFrontTop:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(15, 23)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ShellBossFront/EyeFront:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(15, 23)]
+}
+
+[sub_resource type="Animation" id="Animation_tuyt5"]
+resource_name = "idle"
+length = 3.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShellBossFront/ShellFrontBot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.6, 2.4333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(20, 23), Vector2(9, 35), Vector2(20, 49), Vector2(-9, 20)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShellBossFront/ShellFrontTop:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.0333333, 2, 2.5333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(28, 10), Vector2(-5, 24), Vector2(15, 1), Vector2(20, 5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ShellBossFront/EyeFront:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 1.2, 1.8, 2.4333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(18, 18), Vector2(15, 23), Vector2(20, 28), Vector2(21, 23), Vector2(25, 18)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hamel"]
+_data = {
+&"RESET": SubResource("Animation_r0lau"),
+&"idle": SubResource("Animation_tuyt5")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w7jjy"]
+size = Vector2(106.043045, 20)
+
+[node name="Lvl3Shell" type="CharacterBody2D" unique_id=87852550]
+
+[node name="ShellBossFront" type="Sprite2D" parent="." unique_id=946307893]
+scale = Vector2(0.7961471, 0.7961471)
+
+[node name="ShellFrontBot" type="Sprite2D" parent="ShellBossFront" unique_id=2128332516]
+texture_filter = 1
+position = Vector2(15, 23)
+texture = ExtResource("1_cli4a")
+
+[node name="ShellFrontTop" type="Sprite2D" parent="ShellBossFront" unique_id=485431625]
+texture_filter = 1
+position = Vector2(15, 23)
+texture = ExtResource("2_xb1to")
+
+[node name="EyeFront" type="Sprite2D" parent="ShellBossFront" unique_id=1283139084]
+texture_filter = 1
+position = Vector2(15, 23)
+texture = ExtResource("3_gsm5u")
+
+[node name="ShellCloseFront" type="Sprite2D" parent="ShellBossFront" unique_id=1137865854]
+visible = false
+position = Vector2(-3.7680712, 2.5120986)
+scale = Vector2(1.0513768, 1.0513768)
+texture = ExtResource("4_cjhbe")
+
+[node name="ShellCloseSide" type="Sprite2D" parent="ShellBossFront" unique_id=388746479]
+visible = false
+position = Vector2(-3.768148, -2.5120986)
+scale = Vector2(1.0934305, 1.0934305)
+texture = ExtResource("5_r0lau")
+
+[node name="ShellOpenSide" type="Sprite2D" parent="ShellBossFront" unique_id=222837123]
+visible = false
+position = Vector2(0, 1.2560493)
+scale = Vector2(1.0158536, 1.0158536)
+texture = ExtResource("6_tuyt5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=408948847]
+visible = false
+position = Vector2(2, -18)
+scale = Vector2(37.595, 31.965)
+shape = SubResource("CircleShape2D_cjhbe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=378354249]
+libraries/ = SubResource("AnimationLibrary_hamel")
+autoplay = &"idle"
+
+[node name="pseudofloor" type="CollisionShape2D" parent="." unique_id=1623860581]
+visible = false
+position = Vector2(39.000008, 402.00003)
+scale = Vector2(28.81, 2.83)
+shape = SubResource("RectangleShape2D_w7jjy")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=147631242]
+visible = false
+scale = Vector2(6.758, 7.449)
+zoom = Vector2(0.455, 0.455)

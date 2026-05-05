@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://lexycqi8v6v2"]
 
-[ext_resource type="Texture2D" uid="uid://85wdd37xecj0" path="res://assets/selection_boss/base.png" id="1_hgefe"]
-[ext_resource type="Texture2D" uid="uid://0so0t5722x7c" path="res://assets/selection_boss/kunai_attack.png" id="2_hgefe"]
-[ext_resource type="Texture2D" uid="uid://brkwiuc6sga1x" path="res://assets/selection_boss/smash.png" id="3_jlg68"]
-[ext_resource type="Texture2D" uid="uid://drc2y0f1k8o46" path="res://assets/selection_boss/base_loading.png" id="3_p0vlh"]
+[ext_resource type="Texture2D" uid="uid://85wdd37xecj0" path="res://assets/bosses/selection_boss/base.png" id="1_hgefe"]
+[ext_resource type="Texture2D" uid="uid://0so0t5722x7c" path="res://assets/bosses/selection_boss/kunai_attack.png" id="2_hgefe"]
+[ext_resource type="Texture2D" uid="uid://brkwiuc6sga1x" path="res://assets/bosses/selection_boss/smash.png" id="3_jlg68"]
+[ext_resource type="Texture2D" uid="uid://drc2y0f1k8o46" path="res://assets/bosses/selection_boss/base_loading.png" id="3_p0vlh"]
 
 [sub_resource type="Shader" id="Shader_ap0bl"]
 code = "shader_type canvas_item;

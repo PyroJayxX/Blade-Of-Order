@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drc2y0f1k8o46"
-path="res://.godot/imported/base_loading.png-9e8cb23d31fd27870676f4f2d47f91fc.ctex"
+uid="uid://brkwiuc6sga1x"
+path="res://.godot/imported/smash.png-d497c20c545ccd0f4965fbe6e51d7a61.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/selection_boss/base_loading.png"
-dest_files=["res://.godot/imported/base_loading.png-9e8cb23d31fd27870676f4f2d47f91fc.ctex"]
+source_file="res://assets/bosses/selection_boss/smash.png"
+dest_files=["res://.godot/imported/smash.png-d497c20c545ccd0f4965fbe6e51d7a61.ctex"]
 
 [params]
 

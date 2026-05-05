@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brkwiuc6sga1x"
-path="res://.godot/imported/smash.png-c63fa29ced590ba1c4cd0f63b8ef5890.ctex"
+uid="uid://cyl0ioko5uqc"
+path="res://.godot/imported/projectile3.png-ba9d88cd9dc20fa50211c7b41dcf941a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/selection_boss/smash.png"
-dest_files=["res://.godot/imported/smash.png-c63fa29ced590ba1c4cd0f63b8ef5890.ctex"]
+source_file="res://assets/bosses/selection_boss/projectile3.png"
+dest_files=["res://.godot/imported/projectile3.png-ba9d88cd9dc20fa50211c7b41dcf941a.ctex"]
 
 [params]
 
