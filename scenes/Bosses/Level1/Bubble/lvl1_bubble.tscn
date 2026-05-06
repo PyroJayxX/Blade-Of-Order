@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://0lhasthl5m6l" path="res://scenes/Bosses/Level1/Bubble/bubble_eye_hurt.png" id="3_muye3"]
 [ext_resource type="Texture2D" uid="uid://bsjfkvst5ensl" path="res://scenes/Bosses/Level1/Bubble/bubble_eye_stunned.png" id="4_ki3hw"]
 
+
 [sub_resource type="SphereMesh" id="SphereMesh_yq4lb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ac34n"]

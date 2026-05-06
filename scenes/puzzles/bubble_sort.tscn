@@ -111,7 +111,7 @@ custom_minimum_size = Vector2(0, 600)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Overlay/ScrollContainer/ScrollContent" unique_id=1694114833]
+[node name="Code" type="RichTextLabel" parent="Overlay/ScrollContainer/ScrollContent" unique_id=1694114833]
 layout_mode = 1
 offset_left = 40.0
 offset_top = 24.0

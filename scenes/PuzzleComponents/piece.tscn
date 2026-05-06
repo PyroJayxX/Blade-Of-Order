@@ -23,6 +23,7 @@ offset_bottom = 11.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_cge1j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2110832052]
+visible = false
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_su5e7")
 

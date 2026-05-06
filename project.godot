@@ -65,6 +65,18 @@ Dodge={
 "deadzone": 0.2,
 "events": []
 }
+Slash={
+"deadzone": 0.2,
+"events": []
+}
+Dash={
+"deadzone": 0.2,
+"events": []
+}
+Jump={
+"deadzone": 0.2,
+"events": []
+}
 
 [input_devices]
 
