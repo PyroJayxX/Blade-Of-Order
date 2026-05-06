@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://b1xwduace6uac"]
+
+[ext_resource type="Texture2D" uid="uid://dw7fg3i2h8cfy" path="res://assets/bosses/bucket_boss/bucket_smash.png" id="1_da0u5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lwted"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g534q"]
+atlas = ExtResource("1_da0u5")
+region = Rect2(0, 0, 2304, 1296)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjob6"]
+atlas = ExtResource("1_da0u5")
+region = Rect2(2304, 0, 2304, 1296)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5l8d"]
+atlas = ExtResource("1_da0u5")
+region = Rect2(4608, 0, 2304, 1296)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpj2k"]
+atlas = ExtResource("1_da0u5")
+region = Rect2(6912, 0, 2304, 1296)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxkhy"]
+atlas = ExtResource("1_da0u5")
+region = Rect2(9216, 0, 2304, 1296)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_koh2i"]
+atlas = ExtResource("1_da0u5")
+region = Rect2(11520, 0, 2304, 1296)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3bqn"]
+atlas = ExtResource("1_da0u5")
+region = Rect2(13824, 0, 2304, 1296)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6adr0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g534q")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_xjob6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5l8d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wpj2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxkhy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_koh2i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3bqn")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 15.0
+}]
+
+[node name="Lvl5Bucket" type="CharacterBody2D" unique_id=1048804533]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1293211379]
+shape = SubResource("CircleShape2D_lwted")
+
+[node name="BucketBoss" type="AnimatedSprite2D" parent="." unique_id=704912931]
+visible = false
+sprite_frames = SubResource("SpriteFrames_6adr0")
+animation = &"attack"
+frame = 6
+frame_progress = 1.0
