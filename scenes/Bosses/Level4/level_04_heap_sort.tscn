@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://bpqk512aubwb"]
+
+[ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/Game/arena.tscn" id="1_603lc"]
+[ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/Game/touchControls.tscn" id="2_phf3p"]
+[ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/Player/player_new.tscn" id="3_bhejy"]
+[ext_resource type="Script" uid="uid://bx0igiwp84c3p" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="4_uay2n"]
+[ext_resource type="PackedScene" uid="uid://ctapwu3uviyqg" path="res://scenes/Game/hud.tscn" id="5_tygc3"]
+[ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="6_2ujx4"]
+[ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="7_gtlv4"]
+
+[sub_resource type="Gradient" id="Gradient_jxgif"]
+offsets = PackedFloat32Array(0.27108434, 1)
+colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d3jfy"]
+gradient = SubResource("Gradient_jxgif")
+fill_to = Vector2(0, 1)
+
+[node name="HeapSort" type="Node2D" unique_id=764411515]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=726251597]
+offset_left = -1020.0
+offset_top = -689.0
+offset_right = 14731.0
+offset_bottom = 1282.0
+texture = SubResource("GradientTexture2D_d3jfy")
+
+[node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("1_603lc")]
+position = Vector2(-594, 622)
+
+[node name="Control" type="Control" parent="." unique_id=1247612260]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -283.0
+offset_top = -14.0
+offset_right = -144.0
+offset_bottom = 139.0
+
+[node name="TouchControls" parent="Control" unique_id=1019859329 instance=ExtResource("2_phf3p")]
+
+[node name="Player" parent="." unique_id=1430617140 instance=ExtResource("3_bhejy")]
+position = Vector2(675, 494)
+scale = Vector2(0.34, 0.34)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=511707380]
+position = Vector2(75.00005, -535.29407)
+zoom = Vector2(0.53, 0.53)
+position_smoothing_speed = 4.5
+script = ExtResource("4_uay2n")
+
+[node name="HUD" parent="." unique_id=148605811 instance=ExtResource("5_tygc3")]
+layer = 10
+
+[node name="LevelCleared" parent="." unique_id=957970479 instance=ExtResource("6_2ujx4")]
+visible = false
+
+[node name="GameOver" parent="." unique_id=346392607 instance=ExtResource("7_gtlv4")]
+visible = false

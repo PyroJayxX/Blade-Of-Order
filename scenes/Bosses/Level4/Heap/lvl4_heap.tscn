@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://cg6n0tiemkag6"]
+
+[ext_resource type="Texture2D" uid="uid://cwugarjxuicrr" path="res://assets/bosses/heap_boss/body_no_hands.png" id="1_03pbj"]
+[ext_resource type="Texture2D" uid="uid://dwqxw2wqevc15" path="res://assets/bosses/heap_boss/hand_left.png" id="2_kkkdm"]
+[ext_resource type="Texture2D" uid="uid://ehq0xfv06b2" path="res://assets/bosses/heap_boss/hand_right.png" id="3_b3oyy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0t648"]
+size = Vector2(24.762749, 43.239567)
+
+[node name="Lvl4Heap" type="CharacterBody2D" unique_id=2133724916]
+
+[node name="HeapBoss" type="Sprite2D" parent="." unique_id=863862943]
+position = Vector2(-239.99998, -272)
+scale = Vector2(0.75955534, 0.75955534)
+
+[node name="Body" type="Sprite2D" parent="HeapBoss" unique_id=195109962]
+position = Vector2(314, 348)
+texture = ExtResource("1_03pbj")
+
+[node name="HandLeft" type="Sprite2D" parent="HeapBoss" unique_id=2125269693]
+position = Vector2(314, 348)
+texture = ExtResource("2_kkkdm")
+
+[node name="HandRight" type="Sprite2D" parent="HeapBoss" unique_id=805155052]
+position = Vector2(314, 348)
+texture = ExtResource("3_b3oyy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1511924361]
+visible = false
+position = Vector2(13, -84)
+scale = Vector2(10.499643, 10.499643)
+shape = SubResource("RectangleShape2D_0t648")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2042349312]
