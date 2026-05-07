@@ -20,7 +20,7 @@ const DEFAULT_RANK_COLOR: Color = Color(0.95, 0.98, 1.0, 1.0)
 @onready var _best_notification_label: Label = $Panel/ScrollContainer/VBoxContainer/BestNotificationLabel
 @onready var _notification_timer: Timer = $NotificationTimer
 @onready var _boss_filter_option: OptionButton = $Panel/ScrollContainer/VBoxContainer/BossFilterRow/BossFilterOption
-@onready var _close_button: Button = $Panel/ScrollContainer/VBoxContainer/Buttons/CloseButton
+@onready var _close_button: TextureButton = $Panel/ScrollContainer/VBoxContainer/Buttons/CloseButton
 
 var _current_score: int = 0
 var _pending_auto_submit_score: int = -1
@@ -65,16 +65,25 @@ func fetch_scores() -> void:
 		_loading_label.text = "Failed to load leaderboard: Supabase autoload is missing."
 		return
 
+	# DEBUG: Print Supabase config
+	var supabase: Node = get_node_or_null("/root/Supabase")
+	if supabase != null and "config" in supabase:
+		var cfg = supabase.config
+		print("DEBUG: Supabase config: url='%s' key='%s'" % [cfg.get("supabaseUrl", "EMPTY"), cfg.get("supabaseKey", "EMPTY")])
+	
 	var query: SupabaseQuery = SupabaseQuery.new().from(TABLE_NAME).select().order("score", SupabaseQuery.Directions.Descending).range(0, 9)
 	
 	# Apply integer level filter if a specific level is selected
 	if _selected_level_id > 0:
-		query.eq("level", String.num_int64(_selected_level_id))
-		
+		query = query.eq("level", String.num_int64(_selected_level_id))
+	
+	print("DEBUG: Fetching leaderboard scores, level_id=%d" % _selected_level_id)
 	var result: Dictionary = await _run_database_query(db, query, &"selected")
+	print("DEBUG: Query result received, success=%s" % result.get("success"))
 	
 	if not bool(result.get("success", false)):
 		var error_message: String = _extract_error_from_payload(result.get("payload"))
+		print("DEBUG: Leaderboard fetch failed: %s" % error_message)
 		_loading_label.text = "Failed to load leaderboard: %s" % error_message
 		return
 

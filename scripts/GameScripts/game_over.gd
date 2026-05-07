@@ -24,6 +24,7 @@ func _on_menu_button_pressed() -> void:
 		push_warning("SceneFlow not found and main menu scene missing; cannot navigate to menu.")
 
 func _on_try_again_button_pressed() -> void:
+	var tree: SceneTree = get_tree()
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
 		var active_id: int = -1
@@ -37,7 +38,7 @@ func _on_try_again_button_pressed() -> void:
 		# Wait one frame for SceneFlow to process the restart; if SceneFlow doesn't change
 		# the top-level scene file (common when content is instanced), force a direct reload
 		# using the scene path reported by SceneFlow or GameConfig.
-		await get_tree().process_frame
+		await tree.process_frame
 		var new_path: String = ""
 		if flow.has_method("get_current_scene_path"):
 			new_path = String(flow.call("get_current_scene_path"))
@@ -49,15 +50,15 @@ func _on_try_again_button_pressed() -> void:
 					new_path = String(def.get("scene_path"))
 		if not new_path.is_empty() and ResourceLoader.exists(new_path):
 			push_warning("game_over: forcing reload to %s" % new_path)
-			get_tree().change_scene_to_file(new_path)
+			tree.change_scene_to_file(new_path)
 			return
 		return
 
-	var current_scene: Node = get_tree().current_scene
+	var current_scene: Node = tree.current_scene
 	if current_scene != null:
 		var scene_path: String = String(current_scene.scene_file_path)
 		if not scene_path.is_empty():
-			get_tree().change_scene_to_file(scene_path)
+			tree.change_scene_to_file(scene_path)
 			return
 
 	# Last-resort fallback if the active scene has no file path.
