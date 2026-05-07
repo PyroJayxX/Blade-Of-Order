@@ -306,8 +306,10 @@ func _process_slash_hits() -> void:
 	if not _is_boss_hit_target(boss):
 		return
 
-	if _is_boss_overlapping_slash(boss):
-		boss.call("take_damage", 10, false)
+	# Always ask boss to evaluate the slash polygon — boss handles per-node checks
+	var poly := _get_slash_world_polygon()
+	if poly.size() >= 3:
+		boss.call("apply_slash_hits", poly)
 		_slash_has_hit = true
 
 func _get_boss_ref() -> Node2D:

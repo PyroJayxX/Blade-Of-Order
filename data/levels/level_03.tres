@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_lokck")
 level_id = 3
-display_name = "???"
+display_name = "Shell Sort"
 scene_path = ""
 unlock_level_required = 2

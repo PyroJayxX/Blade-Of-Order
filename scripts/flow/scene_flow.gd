@@ -72,8 +72,13 @@ func on_level_failed(_payload: Dictionary = {}) -> void:
 func load_scene(scene_path: String) -> void:
 	if _is_loading_scene:
 		return
+	# If SceneFlow root hasn't been registered (e.g., running outside the expected root flow),
+	# fall back to a direct scene change instead of failing.
 	if _content_root == null:
-		push_warning("SceneFlow root is not registered before loading '%s'." % scene_path)
+		if ResourceLoader.exists(scene_path):
+			get_tree().change_scene(scene_path)
+		else:
+			push_warning("SceneFlow root is not registered and scene '%s' was not found." % scene_path)
 		return
 	if scene_path.is_empty():
 		push_warning("SceneFlow received an empty scene path.")

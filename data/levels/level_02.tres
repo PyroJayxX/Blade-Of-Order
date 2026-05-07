@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_7at47")
 level_id = 2
-display_name = "???"
+display_name = "Selection Sort"
 scene_path = ""
 unlock_level_required = 1

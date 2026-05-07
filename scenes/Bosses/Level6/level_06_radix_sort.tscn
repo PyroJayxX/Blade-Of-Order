@@ -6,9 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://ctapwu3uviyqg" path="res://scenes/Game/hud.tscn" id="4_vyrcm"]
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="5_023rx"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="6_8nvh1"]
-[ext_resource type="PackedScene" uid="uid://dn1osp8xlnwlu" path="res://scenes/Puzzles/radix_sort.tscn" id="7_dvama"]
+[ext_resource type="Script" uid="uid://djg71lk02jgv" path="res://scripts/BossScripts/lvl6_radix.gd" id="7_8nvh1"]
+[ext_resource type="PackedScene" path="res://scenes/Puzzles/radix_sort.tscn" id="7_dvama"]
 [ext_resource type="Script" uid="uid://duu7rove1ish3" path="res://scripts/LevelScripts/level6.gd" id="8_level6"]
-[ext_resource type="Script" uid="uid://dl12j7k89iyj" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="9_dynamic_camera"]
+[ext_resource type="Script" uid="uid://bx0igiwp84c3p" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="9_dynamic_camera"]
+[ext_resource type="PackedScene" uid="uid://bq8r8ec3jd8ix" path="res://scenes/Bosses/Level6/Radix/lvl6_radix.tscn" id="10_023rx"]
 
 [sub_resource type="Gradient" id="Gradient_u5sy4"]
 offsets = PackedFloat32Array(0.27108434, 1)
@@ -49,10 +51,14 @@ position = Vector2(675, 494)
 scale = Vector2(0.34, 0.34)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2147483579]
-script = ExtResource("9_dynamic_camera")
 position = Vector2(75.00005, -535.29407)
 zoom = Vector2(0.53, 0.53)
 position_smoothing_speed = 4.5
+script = ExtResource("9_dynamic_camera")
+
+[node name="RadixBoss" parent="." unique_id=962015265 instance=ExtResource("10_023rx")]
+position = Vector2(6655, 3591)
+script = ExtResource("7_8nvh1")
 
 [node name="RadixSort" parent="." unique_id=1428021277 instance=ExtResource("7_dvama")]
 layer = 101
