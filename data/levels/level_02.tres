@@ -1,10 +1,15 @@
-[gd_resource type="Resource" script_class="LevelDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="LevelDefinition" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/flow/level_definition.gd" id="1_7at47"]
+[ext_resource type="Texture2D" path="res://assets/boss_splash/BubbleSort_Splash_NOBG.png" id="2_preview"]
 
 [resource]
 script = ExtResource("1_7at47")
 level_id = 2
 display_name = "Selection Sort"
-scene_path = ""
-unlock_level_required = 1
+preview_image = ExtResource("2_preview")
+scene_path = "res://scenes/Bosses/Level2/level_02_selection_sort.tscn"
+unlock_level_required = 0
+boss_type = "selection"
+puzzle_type = "selection_sort"
+timer_rules = "default"

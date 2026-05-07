@@ -44,6 +44,7 @@ func play_level(level_id: int) -> bool:
 	var scene_path_value: String = ""
 	if definition != null:
 		scene_path_value = String(definition.get("scene_path"))
+	push_warning("SceneFlow.play_level: level_id=%d definition_found=%s scene_path='%s'" % [level_id, str(definition != null), scene_path_value])
 	if definition == null or scene_path_value.is_empty():
 		push_warning("Cannot play level %d: missing level definition or scene path." % level_id)
 		return false
@@ -52,6 +53,7 @@ func play_level(level_id: int) -> bool:
 	return true
 
 func restart_active_level() -> void:
+	push_warning("SceneFlow.restart_active_level: active_id=%d current_scene_path='%s'" % [_active_level_id, _current_scene_path])
 	if _active_level_id > 0:
 		if play_level(_active_level_id):
 			return
@@ -76,7 +78,7 @@ func load_scene(scene_path: String) -> void:
 	# fall back to a direct scene change instead of failing.
 	if _content_root == null:
 		if ResourceLoader.exists(scene_path):
-			get_tree().change_scene(scene_path)
+			get_tree().change_scene_to_file(scene_path)
 		else:
 			push_warning("SceneFlow root is not registered and scene '%s' was not found." % scene_path)
 		return

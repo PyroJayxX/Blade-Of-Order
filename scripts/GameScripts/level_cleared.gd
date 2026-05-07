@@ -33,7 +33,7 @@ func _on_quit_pressed() -> void:
 		return
 	var menu_path := "res://scenes/MainMenu/main_menu.tscn"
 	if ResourceLoader.exists(menu_path):
-		get_tree().change_scene(menu_path)
+		get_tree().change_scene_to_file(menu_path)
 	else:
 		push_warning("SceneFlow not found and main menu scene missing; cannot navigate to menu.")
 
@@ -47,6 +47,6 @@ func _on_next_pressed() -> void:
 		return
 	var selector_path := "res://scenes/LevelSelect/level_selector.tscn"
 	if ResourceLoader.exists(selector_path):
-		get_tree().change_scene(selector_path)
+		get_tree().change_scene_to_file(selector_path)
 	else:
 		push_warning("SceneFlow not found and level selector missing; cannot navigate to level select.")
