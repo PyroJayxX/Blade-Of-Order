@@ -39,6 +39,8 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	_projectile_radius = _estimate_projectile_radius()
 	_origin = global_position
+	if mode == ProjectileMode.HOMING:
+		queue_free()
 
 	# Set initial direction based on mode
 	match mode:
@@ -119,18 +121,21 @@ func _move_homing(delta: float) -> void:
 	position += direction * speed * delta
 
 # ── Collision ─────────────────────────────────────────────────────────────────
-
+var _hit: bool = false
 func _on_body_entered(body: Node2D) -> void:
-	if not _is_player(body):
+	if _hit or not _is_player(body):
 		return
+	_hit = true
 	if body.has_method("take_damage"):
 		body.call("take_damage", damage)
 	AudioController.play_boss_hit_bubble()
+	if mode == ProjectileMode.HOMING:
+		queue_free()
 
 # ── Player slash deflection ───────────────────────────────────────────────────
 
 func _try_pop_from_player_slash() -> void:
-	if not is_inside_tree():
+	if _hit or not is_inside_tree():
 		return
 	var player: Node2D = _get_player_ref()
 	if player == null:
@@ -144,6 +149,7 @@ func _try_pop_from_player_slash() -> void:
 		return
 	if not _is_circle_overlapping_polygon(global_position, _projectile_radius, slash_polygon):
 		return
+	_hit = true
 	AudioController.play_boss_hit_bubble()
 
 # ── Player detection ──────────────────────────────────────────────────────────
