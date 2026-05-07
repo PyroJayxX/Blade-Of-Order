@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ctapwu3uviyqg" path="res://scenes/Game/hud.tscn" id="5_ndleo"]
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="6_8wb4u"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="7_0v417"]
+[ext_resource type="PackedScene" uid="uid://b1xwduace6uac" path="res://scenes/bosses/Level5/Bucket/lvl5_bucket.tscn" id="8_3532l"]
 
 [sub_resource type="Gradient" id="Gradient_1u0sw"]
 offsets = PackedFloat32Array(0.27108434, 1)
@@ -56,3 +57,6 @@ visible = false
 
 [node name="GameOver" parent="." unique_id=346392607 instance=ExtResource("7_0v417")]
 visible = false
+
+[node name="Lvl5Bucket" parent="." unique_id=1048804533 instance=ExtResource("8_3532l")]
+position = Vector2(3173, -173)
