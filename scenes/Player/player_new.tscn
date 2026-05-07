@@ -603,20 +603,38 @@ sprite_frames = SubResource("SpriteFrames_nirif")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="SlashCollision1" type="CollisionPolygon2D" parent="." unique_id=2010047765]
-visible = false
+[node name="SlashCollision1" type="Area2D" parent="." unique_id=2010047765]
+monitoring = true
 position = Vector2(273, 230)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SlashCollision1" unique_id=553334111]
+visible = false
+position = Vector2(0, 0)
 polygon = PackedVector2Array(-316, 10, -374, -438, -391, -534, -145, -568, 252, -476, 407, -346, 612, -62, 553, 5, 411, 92, 269, 167, 48, 276, -495, 276, -729, 263, -905, 226, -984, 167)
 disabled = true
 
-[node name="SlashCollision2" type="CollisionPolygon2D" parent="." unique_id=610825675]
-visible = false
+[node name="SlashCollision2" type="Area2D" parent="." unique_id=610825675]
+monitoring = true
 position = Vector2(362, 140)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SlashCollision2" unique_id=553334112]
+visible = false
+position = Vector2(0, 0)
 polygon = PackedVector2Array(-179, 36, -927, -507, -931, -616, -889, -657, -584, -691, -150, -611, 117, -482, 305, -365, 577, -85, 585, 69, 568, 182, 478, 302, 335, 345, -62, 366, -355, 320)
 disabled = true
 
-[node name="SlashCollision3" type="CollisionPolygon2D" parent="." unique_id=646558415]
-visible = false
+[node name="SlashCollision3" type="Area2D" parent="." unique_id=646558415]
+monitoring = true
 position = Vector2(362, 140)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SlashCollision3" unique_id=553334113]
+visible = false
+position = Vector2(0, 0)
 polygon = PackedVector2Array(-316, 10, -329, -546, -138, -580, 82, -568, 283, -508, 433, -373, 527, -191, 559, 45, 537, 171, 478, 302, 340, 337, 107, 290, -166, 287)
 disabled = true
