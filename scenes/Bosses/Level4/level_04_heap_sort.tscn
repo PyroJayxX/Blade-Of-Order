@@ -48,6 +48,7 @@ scale = Vector2(1.4251735, 1.4251735)
 collision_layer = 4
 collision_mask = 0
 rain_x_variance = 500.0
+spike_sweep_spacing = 250.0
 attack_sequence_cooldown = 4.0
 
 [node name="Player" parent="." unique_id=1430617140 instance=ExtResource("3_bhejy")]

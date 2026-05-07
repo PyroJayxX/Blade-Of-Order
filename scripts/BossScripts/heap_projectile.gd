@@ -39,9 +39,15 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	_projectile_radius = _estimate_projectile_radius()
 	_origin = global_position
-	if mode == ProjectileMode.HOMING:
-		queue_free()
-
+	if mode == ProjectileMode.FALLING:
+		rotation = randf_range(0.0, TAU)
+		var rand_scale: float = randf_range(0.6, 1.2)
+		scale = Vector2(rand_scale, rand_scale)
+	if mode == ProjectileMode.FALLING or mode == ProjectileMode.HORIZONTAL or mode == ProjectileMode.RISING:
+		var rand_scale: float = randf_range(0.3, 1.2)
+		scale = Vector2(rand_scale, rand_scale)
+	if mode == ProjectileMode.FALLING:
+		rotation = randf_range(0.0, TAU)
 	# Set initial direction based on mode
 	match mode:
 		ProjectileMode.FALLING:
@@ -63,6 +69,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	_elapsed += delta
+	if _hit_cooldown > 0.0:
+		_hit_cooldown -= delta
 
 	match mode:
 		ProjectileMode.STRAIGHT:
@@ -82,6 +90,13 @@ func _physics_process(delta: float) -> void:
 
 func _move_straight(delta: float) -> void:
 	position += direction.normalized() * speed * delta
+	if mode == ProjectileMode.FALLING:
+		rotation += sin(_elapsed * 3.0) * delta * 2.5
+		position.x += sin(_elapsed * 2.0) * 60.0 * delta
+	if mode == ProjectileMode.HORIZONTAL:
+		rotation += direction.x * speed * delta * 0.01
+	if mode == ProjectileMode.STRAIGHT:
+		rotation = direction.angle() + PI / 2.0
 
 func _move_rising(delta: float) -> void:
 	position += Vector2.UP * speed * delta
@@ -122,10 +137,11 @@ func _move_homing(delta: float) -> void:
 
 # ── Collision ─────────────────────────────────────────────────────────────────
 var _hit: bool = false
+var _hit_cooldown: float = 0.0
 func _on_body_entered(body: Node2D) -> void:
-	if _hit or not _is_player(body):
+	if _hit_cooldown > 0.0 or not _is_player(body):
 		return
-	_hit = true
+	_hit_cooldown = 2.0
 	if body.has_method("take_damage"):
 		body.call("take_damage", damage)
 	AudioController.play_boss_hit_bubble()
@@ -151,6 +167,8 @@ func _try_pop_from_player_slash() -> void:
 		return
 	_hit = true
 	AudioController.play_boss_hit_bubble()
+	if mode == ProjectileMode.HOMING or mode == ProjectileMode.STRAIGHT:
+		queue_free()
 
 # ── Player detection ──────────────────────────────────────────────────────────
 

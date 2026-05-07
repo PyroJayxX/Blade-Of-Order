@@ -7,7 +7,6 @@
 size = Vector2(100, 310)
 
 [node name="HeapGroundSpike_tscn" type="Area2D" unique_id=854952101]
-position = Vector2(-0.99999994, 5.9999995)
 scale = Vector2(0.66245055, 0.66245055)
 script = ExtResource("1_kp7kp")
 mode = 2

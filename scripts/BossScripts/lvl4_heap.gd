@@ -38,6 +38,7 @@ enum AttackType {
 @export var ground_spike_scene: PackedScene
 @export var leaf_wall_scene: PackedScene
 @export var spore_scene: PackedScene
+@export var spike_warning_scene: PackedScene
 
 # ── Attack 1 — Homing Leaf ───────────────────────────────────────────────────
 @export var homing_cooldown: float = 4.0
@@ -66,7 +67,7 @@ enum AttackType {
 @export var wall_leaf_count: int = 10
 @export var wall_spacing: float = 80.0
 @export var wall_speed: float = 520.0
-@export var ground_y: float = 650.0
+@export var ground_y: float = 550.0
 
 # ── Attack 6 — Spore Burst (rage) ───────────────────────────────────────────
 @export var spore_burst_duration: float = 6.0
@@ -270,7 +271,6 @@ func execute_homing_leaf() -> void:
 	_attack_running = false
 
 # ── Attack 2 — Leaf Volley ───────────────────────────────────────────────────
-
 func execute_leaf_volley() -> void:
 	if _is_defeated:
 		_attack_running = false
@@ -288,14 +288,20 @@ func execute_leaf_volley() -> void:
 	var base_angle: float = base_dir.angle()
 	var half_spread: float = deg_to_rad(volley_spread_deg * 0.5)
 	var count: int = maxi(volley_count, 3)
+	var waves: int = randi_range(2, 3)
 
-	for i in range(count):
+	for w in range(waves):
 		if _is_defeated:
 			break
-		var t: float = float(i) / float(count - 1) if count > 1 else 0.5
-		var angle: float = base_angle - half_spread + half_spread * 2.0 * t
-		var dir: Vector2 = Vector2.RIGHT.rotated(angle)
-		_spawn_projectile(volley_leaf_scene, global_position, dir, {})
+		for i in range(count):
+			if _is_defeated:
+				break
+			var t: float = float(i) / float(count - 1) if count > 1 else 0.5
+			var angle: float = base_angle - half_spread + half_spread * 2.0 * t
+			var dir: Vector2 = Vector2.RIGHT.rotated(angle)
+			_spawn_projectile(volley_leaf_scene, global_position, dir, {})
+		if w < waves - 1:
+			await get_tree().create_timer(0.5).timeout
 
 	_tween_hands_to_rest()
 	_attack_running = false
@@ -313,7 +319,7 @@ func execute_rain_of_leaves() -> void:
 	await raise_tween.finished
 
 	var viewport_rect: Rect2 = get_viewport_rect()
-	var top_y: float = global_position.y - viewport_rect.size.y * 0.5 - 200.0
+	var top_y: float = global_position.y - viewport_rect.size.y * 0.5 - 500.0
 
 	for i in range(maxi(rain_count, 1)):
 		if _is_defeated:
@@ -339,15 +345,37 @@ func execute_ground_spike() -> void:
 	await press_tween.finished
 	await get_tree().create_timer(0.15).timeout
 
-	var viewport_rect: Rect2 = get_viewport_rect()
-	var half_w: float = viewport_rect.size.x * 0.5
-
+	var spike_positions: Array = []
 	for i in range(maxi(spike_sweep_count, 1)):
+		spike_positions.append(Vector2(
+			_target.global_position.x + randf_range(-300.0, 300.0),
+			800
+		))
+
+	for i in range(spike_positions.size()):
 		if _is_defeated:
 			break
-		var spawn_x: float = _target.global_position.x + randf_range(-300.0, 300.0)
-		var spawn_pos: Vector2 = Vector2(spawn_x, 800)
-		_spawn_projectile(ground_spike_scene, spawn_pos, Vector2.UP, {})
+
+		# Spawn warning
+		var warning: Node = null
+		if spike_warning_scene != null:
+			warning = spike_warning_scene.instantiate()
+			warning.global_position = Vector2(spike_positions[i].x, ground_y)
+			_get_level_root().add_child(warning)
+
+		# Wait 1.5s then spawn spike and remove warning
+		var captured_pos = spike_positions[i]
+		var captured_warning = warning
+		get_tree().create_timer(1.5).timeout.connect(func():
+			if _is_defeated:
+				if is_instance_valid(captured_warning):
+					captured_warning.queue_free()
+				return
+			_spawn_projectile(ground_spike_scene, captured_pos, Vector2.UP, {})
+			if is_instance_valid(captured_warning):
+				captured_warning.queue_free()
+		)
+
 		await get_tree().create_timer(spike_sweep_interval).timeout
 
 	_tween_hands_to_rest()
@@ -361,29 +389,16 @@ func execute_leaf_wall() -> void:
 		return
 
 	var player_is_right: bool = _target.global_position.x > global_position.x
-	var viewport_rect: Rect2 = get_viewport_rect()
-	var half_w: float = viewport_rect.size.x * 0.5
-
-	var spawn_x: float
-	var travel_dir: Vector2
-	if player_is_right:
-		spawn_x = global_position.x - half_w - 40.0
-		travel_dir = Vector2.RIGHT
-	else:
-		spawn_x = global_position.x + half_w + 40.0
-		travel_dir = Vector2.LEFT
+	var travel_dir: Vector2 = Vector2.RIGHT if player_is_right else Vector2.LEFT
 
 	var active_hand: Node2D = hand_l if player_is_right else hand_r
-	var push_offset: Vector2 = Vector2(-50, 0) if player_is_right else Vector2(50, 0)
+	var push_offset: Vector2 = Vector2(60, -20) if player_is_right else Vector2(-60, -20)
 	var push_tween: Tween = create_tween()
 	push_tween.tween_property(active_hand, "position", active_hand.position + push_offset, 0.3)
 	await push_tween.finished
 
-	var count: int = maxi(wall_leaf_count, 3)
-
-	for i in range(count):
-		var spawn_pos: Vector2 = Vector2(spawn_x, ground_y - wall_spacing * float(i))
-		_spawn_projectile(leaf_wall_scene, spawn_pos, travel_dir, {"speed_override": wall_speed})
+	var spawn_pos: Vector2 = Vector2(global_position.x, ground_y)
+	_spawn_projectile(leaf_wall_scene, spawn_pos, travel_dir, {"speed_override": wall_speed, "ground_snap_y": 400.0})
 
 	_tween_hands_to_rest()
 	_attack_running = false
@@ -455,6 +470,10 @@ func _spawn_projectile(scene: PackedScene, spawn_pos: Vector2, dir: Vector2, pro
 
 	if props.has("speed_override") and proj.get("speed") != null:
 		proj.speed = props["speed_override"]
+		
+	if props.has("ground_snap_y") and proj.get("scale") != null:
+		var half_height: float = props["ground_snap_y"]
+		proj.global_position.y -= proj.scale.y * half_height
 
 	level_root.add_child(proj)
 

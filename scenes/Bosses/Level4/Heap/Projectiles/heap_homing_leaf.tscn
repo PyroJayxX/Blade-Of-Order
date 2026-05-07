@@ -8,7 +8,7 @@ radius = 48.64
 height = 174.0
 
 [node name="HeapHomingLeaf" type="Area2D" unique_id=1835883019]
-scale = Vector2(0.37554884, 0.37554884)
+scale = Vector2(0.6078144, 0.6078144)
 script = ExtResource("1_raj3r")
 mode = 4
 
@@ -16,5 +16,6 @@ mode = 4
 texture = ExtResource("2_62anp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=172339727]
-position = Vector2(46, -19)
+position = Vector2(46.066696, -19.742868)
+scale = Vector2(0.8645718, 0.81793237)
 shape = SubResource("CapsuleShape2D_yx3t5")

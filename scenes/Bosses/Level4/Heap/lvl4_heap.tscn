@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://x4cr6frqsm7m" path="res://scenes/Bosses/Level4/Heap/Projectiles/heap_ground_spike.tscn" id="5_v0wwg"]
 [ext_resource type="PackedScene" uid="uid://l1pqhx0utprb" path="res://scenes/Bosses/Level4/Heap/Projectiles/heap_leaf_wall.tscn" id="6_xqg7r"]
 [ext_resource type="PackedScene" uid="uid://ce1i8toqtw51q" path="res://scenes/Bosses/Level4/Heap/Projectiles/heap_spore.tscn" id="7_1771k"]
+[ext_resource type="PackedScene" uid="uid://bummfae4t6wx3" path="res://scenes/Bosses/Level4/Heap/Projectiles/spike_warning.tscn" id="8_42ceg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0t648"]
 size = Vector2(35.239296, 57.07337)
@@ -22,6 +23,7 @@ rain_leaf_scene = ExtResource("4_bkdpl")
 ground_spike_scene = ExtResource("5_v0wwg")
 leaf_wall_scene = ExtResource("6_xqg7r")
 spore_scene = ExtResource("7_1771k")
+spike_warning_scene = ExtResource("8_42ceg")
 homing_cooldown = 5.0
 homing_count = 5
 homing_launch_interval = 0.7
@@ -29,7 +31,9 @@ volley_cooldown = 5.0
 rain_count = 15
 rain_x_variance = 700.0
 spike_cooldown = 5.0
-wall_leaf_count = 5
+spike_sweep_interval = 0.6
+spike_sweep_spacing = 150.0
+wall_leaf_count = 1
 wall_spacing = 50.0
 spore_burst_duration = 3.0
 attack_sequence_cooldown = 2.0
