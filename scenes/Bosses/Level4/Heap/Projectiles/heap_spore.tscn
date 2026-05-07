@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://ce1i8toqtw51q"]
+
+[ext_resource type="Script" uid="uid://ldfa6nbaml0k" path="res://scripts/BossScripts/heap_projectile.gd" id="1_5l8hs"]
+[ext_resource type="Texture2D" uid="uid://dtuoogokypgj8" path="res://assets/bosses/heap_boss/projectile3.png" id="2_ix63g"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hcv24"]
+radius = 65.0
+height = 184.0
+
+[node name="HeapSpore_tscn" type="Area2D" unique_id=1264690391]
+scale = Vector2(0.24428916, 0.24428916)
+script = ExtResource("1_5l8hs")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1502414585]
+texture = ExtResource("2_ix63g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1849524977]
+position = Vector2(39, -28)
+shape = SubResource("CapsuleShape2D_hcv24")

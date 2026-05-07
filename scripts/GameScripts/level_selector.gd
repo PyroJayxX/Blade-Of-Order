@@ -6,7 +6,7 @@ extends Control
 @onready var back_button = $Overlay/BackButton
 
 const LEVEL_TILE_SCENE = preload("res://scenes/LevelSelect/level_tile.tscn")
-const LOCK_TEXTURE = preload("res://assets/boss_splash/Locked_Level.png") # Your lock image
+const LOCK_TEXTURE = preload("res://assets/boss_splash/Locked_Level.png")
 
 var level_data: Array[Resource] = []
 var currently_selected_level_id = -1

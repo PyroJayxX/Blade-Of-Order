@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://l1pqhx0utprb"]
+
+[ext_resource type="Script" uid="uid://ldfa6nbaml0k" path="res://scripts/BossScripts/heap_projectile.gd" id="1_jijuj"]
+[ext_resource type="Texture2D" uid="uid://cf8ocqa53eyeo" path="res://assets/bosses/heap_boss/projectile5.png" id="2_rsill"]
+[ext_resource type="Texture2D" uid="uid://dchles7yuc402" path="res://assets/bosses/heap_boss/projectile6.png" id="3_8r0mq"]
+[ext_resource type="Texture2D" uid="uid://c0p32ud4p2jhn" path="res://assets/bosses/heap_boss/projectile7.png" id="4_w7luf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sc1rc"]
+size = Vector2(62.5, 434)
+
+[node name="HeapLeafWall_tscn" type="Area2D" unique_id=1029744394]
+scale = Vector2(0.3540137, 0.3540137)
+script = ExtResource("1_jijuj")
+mode = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1397535283]
+position = Vector2(59.319733, -141.23743)
+rotation = 0.23022656
+scale = Vector2(0.9541215, 0.85706824)
+texture = ExtResource("2_rsill")
+offset = Vector2(271, 40)
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=2051426713]
+position = Vector2(8.474245, -81.91772)
+rotation = 0.26240903
+scale = Vector2(0.9639965, 0.99585354)
+texture = ExtResource("3_8r0mq")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=2100978561]
+position = Vector2(-14.123748, -50.84549)
+rotation = -0.1796723
+texture = ExtResource("4_w7luf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=695119217]
+visible = false
+position = Vector2(64.969246, -268.35126)
+rotation = -0.008055963
+scale = Vector2(2.6546848, 1.4582359)
+shape = SubResource("RectangleShape2D_sc1rc")

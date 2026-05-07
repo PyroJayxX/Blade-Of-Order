@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://x4cr6frqsm7m"]
+
+[ext_resource type="Script" uid="uid://ldfa6nbaml0k" path="res://scripts/BossScripts/heap_projectile.gd" id="1_kp7kp"]
+[ext_resource type="Texture2D" uid="uid://bmhhx87845rle" path="res://assets/bosses/heap_boss/spike.png" id="2_kp7kp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1881s"]
+size = Vector2(100, 310)
+
+[node name="HeapGroundSpike_tscn" type="Area2D" unique_id=854952101]
+position = Vector2(-0.99999994, 5.9999995)
+scale = Vector2(0.66245055, 0.66245055)
+script = ExtResource("1_kp7kp")
+mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1373998833]
+position = Vector2(22, -167)
+texture = ExtResource("2_kp7kp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=972985548]
+position = Vector2(49, -159)
+shape = SubResource("RectangleShape2D_1881s")
