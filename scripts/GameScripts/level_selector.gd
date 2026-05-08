@@ -38,7 +38,6 @@ func generate_level_grid():
 		var data_id: int = int(data.get("level_id"))
 		var data_name: String = String(data.get("display_name"))
 		var data_scene_path: String = String(data.get("scene_path"))
-		var data_image: Texture2D = data.get("preview_image") as Texture2D
 		var unlocked: bool = false
 		if config != null:
 			unlocked = bool(config.call("is_level_unlocked", data_id))
