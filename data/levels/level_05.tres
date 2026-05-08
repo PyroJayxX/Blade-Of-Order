@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="LevelDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="LevelDefinition" format=3 uid="uid://d21lv6bbbd4r5"]
 
-[ext_resource type="Script" path="res://scripts/flow/level_definition.gd" id="1_vqwqy"]
+[ext_resource type="Script" uid="uid://c18lfy1s5vebn" path="res://scripts/flow/level_definition.gd" id="1_vqwqy"]
 
 [resource]
 script = ExtResource("1_vqwqy")
 level_id = 5
-display_name = "???"
-scene_path = ""
-unlock_level_required = 4
+display_name = "Bucket Sort"
+scene_path = "uid://b6pps0560ow8d"
+boss_type = "bucket"
+puzzle_type = "bucket_sort"
+timer_rules = "default"
