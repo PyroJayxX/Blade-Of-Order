@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c8nyk26qo50yu"]
+
+[ext_resource type="Script" uid="uid://dy8m1qycjr13b" path="res://scripts/BossScripts/shell_projectile.gd" id="1_2i2sy"]
+[ext_resource type="Texture2D" uid="uid://choka35egbhpm" path="res://assets/bosses/shell_boss/projectile5.png" id="1_cbpsf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2i2sy"]
+radius = 45.0
+
+[node name="ShellProjectile" type="Area2D" unique_id=475620726]
+script = ExtResource("1_2i2sy")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2133639653]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_cbpsf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=493183910]
+position = Vector2(8, -4)
+shape = SubResource("CircleShape2D_2i2sy")

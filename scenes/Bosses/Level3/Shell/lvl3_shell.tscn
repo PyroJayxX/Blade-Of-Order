@@ -47,6 +47,88 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(15, 23)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ShellBossFront/ShellOpenSide:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ShellBossFront/EyeFront:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ShellBossFront/ShellCloseFront:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_a1tc7"]
+resource_name = "chase"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShellBossFront/ShellOpenSide:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_m3on7"]
+resource_name = "hurt"
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShellBossFront/EyeFront:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0009999999, 1.0333334, 2.0682561),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 0, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShellBossFront/ShellCloseFront:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0009999999, 1, 2.1000001),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 0, 0]
+}
 
 [sub_resource type="Animation" id="Animation_tuyt5"]
 resource_name = "idle"
@@ -89,14 +171,31 @@ tracks/2/keys = {
 "values": [Vector2(18, 18), Vector2(15, 23), Vector2(20, 28), Vector2(21, 23), Vector2(25, 18)]
 }
 
+[sub_resource type="Animation" id="Animation_hxy82"]
+resource_name = "stunned"
+length = 1.0333333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShellBossFront/ShellCloseFront:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335, 0.28388804),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hamel"]
 _data = {
 &"RESET": SubResource("Animation_r0lau"),
-&"idle": SubResource("Animation_tuyt5")
+&"chase": SubResource("Animation_a1tc7"),
+&"hurt": SubResource("Animation_m3on7"),
+&"idle": SubResource("Animation_tuyt5"),
+&"stunned": SubResource("Animation_hxy82")
 }
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w7jjy"]
-size = Vector2(106.043045, 20)
 
 [node name="Lvl3Shell" type="CharacterBody2D" unique_id=87852550]
 
@@ -136,6 +235,18 @@ position = Vector2(0, 1.2560493)
 scale = Vector2(1.0158536, 1.0158536)
 texture = ExtResource("6_tuyt5")
 
+[node name="ShellBossStunned" type="Sprite2D" parent="." unique_id=784004155]
+visible = false
+
+[node name="Stunned" type="Sprite2D" parent="ShellBossStunned" unique_id=1250713938]
+texture = ExtResource("4_cjhbe")
+
+[node name="ShellBossChase" type="Sprite2D" parent="." unique_id=1554798688]
+visible = false
+
+[node name="Chase" type="Sprite2D" parent="ShellBossChase" unique_id=1473281172]
+texture = ExtResource("6_tuyt5")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=408948847]
 visible = false
 position = Vector2(2, -18)
@@ -145,12 +256,6 @@ shape = SubResource("CircleShape2D_cjhbe")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=378354249]
 libraries/ = SubResource("AnimationLibrary_hamel")
 autoplay = &"idle"
-
-[node name="pseudofloor" type="CollisionShape2D" parent="." unique_id=1623860581]
-visible = false
-position = Vector2(39.000008, 402.00003)
-scale = Vector2(28.81, 2.83)
-shape = SubResource("RectangleShape2D_w7jjy")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=147631242]
 visible = false
