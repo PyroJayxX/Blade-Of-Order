@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="6_hbwrx"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="7_0ehd4"]
 [ext_resource type="PackedScene" uid="uid://lexycqi8v6v2" path="res://scenes/Bosses/Level2/Selection/lvl2_selection.tscn" id="8_3ahh8"]
+[ext_resource type="Script" uid="uid://cygsihyk2yykh" path="res://scripts/BossScripts/lvl_2_selection.gd" id="9_dtodq"]
 
 [sub_resource type="Gradient" id="Gradient_u5sy4"]
 offsets = PackedFloat32Array(0.27108434, 1)
@@ -59,5 +60,6 @@ visible = false
 visible = false
 
 [node name="Lvl2Selection" parent="." unique_id=974633589 instance=ExtResource("8_3ahh8")]
-position = Vector2(3760, -357)
+position = Vector2(3743, -151)
 platform_on_leave = 1
+script = ExtResource("9_dtodq")
