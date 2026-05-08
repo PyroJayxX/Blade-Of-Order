@@ -4,7 +4,6 @@ extends CanvasLayer
 @export var time_penalty: float = 1.0
 @export var mistake_penalty: int = 25
 @export var min_score: int = 0
-@export var max_displayed_score: int = 100
 
 @onready var _time_label: RichTextLabel = $Panel/MarginContainer/VBoxContainer/TimeLabel
 @onready var _score_label: RichTextLabel = $Panel/MarginContainer/VBoxContainer/ScoreLabel
@@ -22,9 +21,9 @@ func show_results(time_taken: float, mistakes_made: int) -> void:
 	_score_label.text = "[center] Score: %d [/center]" % final_score
 
 func calculate_final_score(time_taken: float, mistakes_made: int) -> int:
-	# Buffer design: start at base_score and allow full range up to base_score (no hard 100 clamp)
+	# Only clamp to min_score (0), allow score to go as high as time/mistakes allow
 	var raw_score: float = float(base_score) - (time_taken * time_penalty) - float(mistakes_made * mistake_penalty)
-	return int(clamp(raw_score, float(min_score), float(base_score)))
+	return int(max(raw_score, float(min_score)))
 
 func _on_quit_pressed() -> void:
 	var flow: Node = get_node_or_null("/root/SceneFlow")

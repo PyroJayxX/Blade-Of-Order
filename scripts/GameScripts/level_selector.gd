@@ -7,7 +7,7 @@ extends Control
 
 const LEVEL_TILE_SCENE = preload("res://scenes/LevelSelect/level_tile.tscn")
 const SPLASH_TEXTURE_BUBBLE = preload("res://assets/boss_splash/BubbleSort_Splash.png")
-const LOCK_TEXTURE_LEVEL4 = preload("res://assets/boss_splash/Splash_Temp.png")
+const SPLASH_TEXTURE_HEAP = preload("res://assets/boss_splash/HeapSort_Splash.png")
 
 var level_data: Array[Resource] = []
 var currently_selected_level_id = -1
@@ -45,8 +45,7 @@ func generate_level_grid():
 		var is_locked: bool = (not unlocked) or data_scene_path.is_empty()
 		var splash_texture: Texture2D = SPLASH_TEXTURE_BUBBLE
 		if data_id == 4:
-			splash_texture = LOCK_TEXTURE_LEVEL4
-		
+			splash_texture = SPLASH_TEXTURE_HEAP
 		tile.setup(data_id, data_name, splash_texture, is_locked, splash_texture)
 		tile.tile_selected.connect(_on_level_tile_selected)
 		
