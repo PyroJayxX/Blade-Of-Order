@@ -4,7 +4,6 @@ extends CanvasLayer
 @export var time_penalty: float = 1.0
 @export var mistake_penalty: int = 25
 @export var min_score: int = 0
-@export var max_displayed_score: int = 100
 
 @onready var _time_label: RichTextLabel = $Panel/MarginContainer/VBoxContainer/TimeLabel
 @onready var _score_label: RichTextLabel = $Panel/MarginContainer/VBoxContainer/ScoreLabel
@@ -22,15 +21,20 @@ func show_results(time_taken: float, mistakes_made: int) -> void:
 	_score_label.text = "[center] Score: %d [/center]" % final_score
 
 func calculate_final_score(time_taken: float, mistakes_made: int) -> int:
-	# Buffer design: start at 150 but cap display to 100, giving a 50-point cushion
-	# so players can spend up to 50 seconds with no mistakes and still show 100.
+	# Only clamp to min_score (0), allow score to go as high as time/mistakes allow
 	var raw_score: float = float(base_score) - (time_taken * time_penalty) - float(mistakes_made * mistake_penalty)
-	return int(clamp(raw_score, float(min_score), float(max_displayed_score)))
+	return int(max(raw_score, float(min_score)))
 
 func _on_quit_pressed() -> void:
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
 		flow.call("goto_main_menu")
+		return
+	var menu_path := "res://scenes/MainMenu/main_menu.tscn"
+	if ResourceLoader.exists(menu_path):
+		get_tree().change_scene_to_file(menu_path)
+	else:
+		push_warning("SceneFlow not found and main menu scene missing; cannot navigate to menu.")
 
 func _on_next_pressed() -> void:
 	var flow: Node = get_node_or_null("/root/SceneFlow")
@@ -39,3 +43,9 @@ func _on_next_pressed() -> void:
 		player_data.call("set_pending_submission", _last_score, int(flow.call("get_active_level_id")))
 	if flow != null:
 		flow.call("goto_level_select")
+		return
+	var selector_path := "res://scenes/LevelSelect/level_selector.tscn"
+	if ResourceLoader.exists(selector_path):
+		get_tree().change_scene_to_file(selector_path)
+	else:
+		push_warning("SceneFlow not found and level selector missing; cannot navigate to level select.")

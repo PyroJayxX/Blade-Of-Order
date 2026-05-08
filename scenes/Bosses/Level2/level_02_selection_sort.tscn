@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="6_hbwrx"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="7_0ehd4"]
 [ext_resource type="PackedScene" uid="uid://lexycqi8v6v2" path="res://scenes/Bosses/Level2/Selection/lvl2_selection.tscn" id="8_3ahh8"]
-[ext_resource type="Script" uid="uid://cygsihyk2yykh" path="res://scripts/BossScripts/lvl_2_selection.gd" id="9_dtodq"]
+[ext_resource type="Script" path="res://scripts/BossScripts/lvl_2_selection.gd" id="9_dtodq"]
 
 [sub_resource type="Gradient" id="Gradient_u5sy4"]
 offsets = PackedFloat32Array(0.27108434, 1)
@@ -21,10 +21,10 @@ fill_to = Vector2(0, 1)
 [node name="SelectionSort" type="Node2D" unique_id=663554583]
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1150585068]
-offset_left = -413.0
-offset_top = -647.0
-offset_right = 15338.0
-offset_bottom = 1324.0
+offset_left = -1030.0
+offset_top = -1028.0
+offset_right = 14721.0
+offset_bottom = 943.0
 texture = SubResource("GradientTexture2D_u50gt")
 
 [node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("1_h4n5n")]

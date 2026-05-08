@@ -52,9 +52,12 @@ var _controls_enabled: bool = true
 var _boss_ref: Node2D = null 
 
 @onready var animated_sprite = $AnimatedSprite2D
-@onready var slash1 : CollisionPolygon2D = $SlashCollision1
-@onready var slash2 : CollisionPolygon2D = $SlashCollision2
-@onready var slash3 : CollisionPolygon2D = $SlashCollision3
+@onready var slash1_area : Area2D = $SlashCollision1
+@onready var slash2_area : Area2D = $SlashCollision2
+@onready var slash3_area : Area2D = $SlashCollision3
+@onready var slash1 : CollisionPolygon2D = $SlashCollision1/CollisionPolygon2D
+@onready var slash2 : CollisionPolygon2D = $SlashCollision2/CollisionPolygon2D
+@onready var slash3 : CollisionPolygon2D = $SlashCollision3/CollisionPolygon2D
 
 func _ready() -> void:
 	_current_health = max_health
@@ -68,9 +71,9 @@ func _ready() -> void:
 	_body_collision_layer = collision_layer
 	_body_collision_mask = collision_mask
 	_slash_bases = {
-		slash1: { "pos": slash1.position, "scale": slash1.scale },
-		slash2: { "pos": slash2.position, "scale": slash2.scale },
-		slash3: { "pos": slash3.position, "scale": slash3.scale }
+		slash1_area: { "pos": slash1_area.position, "scale": slash1_area.scale },
+		slash2_area: { "pos": slash2_area.position, "scale": slash2_area.scale },
+		slash3_area: { "pos": slash3_area.position, "scale": slash3_area.scale }
 	}
 	_set_solid_collision_enabled(true)
 	_set_slash_collision_enabled(false)
@@ -287,11 +290,11 @@ func _set_slash_collision_enabled(enabled: bool) -> void:
 func _update_slash_collision_transform() -> void:
 	var facing_sign: float = -1.0 if animated_sprite.flip_h else 1.0
 	
-	for slash in _slash_bases.keys():
-		var base = _slash_bases[slash]
+	for area in _slash_bases.keys():
+		var base = _slash_bases[area]
 		
-		slash.position = Vector2(base["pos"].x * facing_sign, base["pos"].y)
-		slash.scale = Vector2(base["scale"].x * facing_sign, base["scale"].y)
+		area.position = Vector2(base["pos"].x * facing_sign, base["pos"].y)
+		area.scale = Vector2(base["scale"].x * facing_sign, base["scale"].y)
 
 func _process_slash_hits() -> void:
 	if not is_attacking or _slash_has_hit:
@@ -303,8 +306,10 @@ func _process_slash_hits() -> void:
 	if not _is_boss_hit_target(boss):
 		return
 
-	if _is_boss_overlapping_slash(boss):
-		boss.call("take_damage", 10, false)
+	# Always ask boss to evaluate the slash polygon — boss handles per-node checks
+	var poly := _get_slash_world_polygon()
+	if poly.size() >= 3:
+		boss.call("apply_slash_hits", poly)
 		_slash_has_hit = true
 
 func _get_boss_ref() -> Node2D:

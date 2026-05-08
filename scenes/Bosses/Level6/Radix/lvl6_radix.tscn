@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://bq8r8ec3jd8ix"]
+
+[ext_resource type="PackedScene" uid="uid://p5wi0fbditkp" path="res://scenes/Bosses/Level6/Radix/head.tscn" id="1_3b4n8"]
+[ext_resource type="PackedScene" uid="uid://cwkgk07e1bbsr" path="res://scenes/Bosses/Level6/Radix/segment.tscn" id="2_eyv1h"]
+
+[node name="RadixBoss" type="Node2D" unique_id=962015265]
+
+[node name="Head" parent="." unique_id=875666592 instance=ExtResource("1_3b4n8")]
+scale = Vector2(8, 8)
+
+[node name="Segment" parent="." unique_id=721851220 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment2" parent="." unique_id=2147042420 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment3" parent="." unique_id=907813238 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment4" parent="." unique_id=941252049 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment5" parent="." unique_id=808527845 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment6" parent="." unique_id=2081249134 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment7" parent="." unique_id=55597761 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment8" parent="." unique_id=353207761 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment9" parent="." unique_id=1675549004 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment10" parent="." unique_id=970862666 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment11" parent="." unique_id=600944673 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment12" parent="." unique_id=18913149 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment13" parent="." unique_id=1923257590 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment14" parent="." unique_id=1497291505 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment15" parent="." unique_id=107974651 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment16" parent="." unique_id=1053422699 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment17" parent="." unique_id=1070071733 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment18" parent="." unique_id=1007472000 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment19" parent="." unique_id=1706918425 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment20" parent="." unique_id=749766560 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment21" parent="." unique_id=338515220 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment22" parent="." unique_id=1739348962 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment23" parent="." unique_id=1475642849 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment24" parent="." unique_id=686061416 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment25" parent="." unique_id=1735781792 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment26" parent="." unique_id=1126660849 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment27" parent="." unique_id=1082339046 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment28" parent="." unique_id=1313720199 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment29" parent="." unique_id=283073094 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)
+
+[node name="Segment30" parent="." unique_id=1698643888 instance=ExtResource("2_eyv1h")]
+scale = Vector2(8, 8)

@@ -7,8 +7,9 @@
 script = ExtResource("1_jm88h")
 level_id = 4
 display_name = "Heap Sort"
+scene_path = "res://scenes/Bosses/Level4/level_04_heap_sort.tscn"
+unlock_level_required = 0
 preview_image = ExtResource("1_8yld6")
-scene_path = "uid://bpqk512aubwb"
 boss_type = "heap"
 puzzle_type = "heap_sort"
 timer_rules = "default"
