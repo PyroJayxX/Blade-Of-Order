@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://diuqsvtndeujv"]
 
-[ext_resource type="Script" uid="uid://lnl1wyj1rcbm" path="res://scripts/LevelScripts/level4.gd" id="1_jcw1t"]
+[ext_resource type="Script" uid="uid://lnl1wyj1rcbm" path="res://scripts/LevelScripts/level5.gd" id="1_jcw1t"]
 [ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/Game/arena.tscn" id="1_mrhuk"]
 [ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/Game/touchControls.tscn" id="2_bjic3"]
 [ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/Player/player_new.tscn" id="3_jcw1t"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ctapwu3uviyqg" path="res://scenes/Game/hud.tscn" id="5_hsq10"]
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="6_0o8ub"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="7_kr5hc"]
+
 
 [sub_resource type="Gradient" id="Gradient_u5sy4"]
 offsets = PackedFloat32Array(0.27108434, 1)

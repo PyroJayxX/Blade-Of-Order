@@ -6,7 +6,8 @@ enum BossState {
 	IDLE,
 	CHASE,
 	DROP,    
-	ATTACK,
+	ATTACK1, # The Smash
+	ATTACK2, # Kept in enum for reference, but runs async now
 	RETURN,  
 	HURT,
 	STUNNED
@@ -20,9 +21,19 @@ enum BossState {
 @export var attack_cooldown: float = 2.0 
 @export var chase_speed: float = 200.0 
 @export var drop_speed: float = 1500.0     
-@export var return_speed: float = 500.0    
+@export var return_speed: float = 200.0    
 @export var keep_y_position: bool = true   
 @export var max_health: int = 150 
+@export var attack_damage: int = 10 
+
+# PROJECTILE VARIABLES
+@export var projectile_scene: PackedScene 
+@export var attack2_cooldown: float = 7.0
+@export var attack2_trigger_dist: float = 600.0 
+@export var projectile_arc_radius: float = 800.0  # Spawns high above player
+@export var projectile_spread_angle: float = 80.0 
+@export var projectile_hover_time: float = 2.0    # Time spent hanging in the air
+@export var projectile_fire_delay: float = 0.2
 
 const HUD_PATH: NodePath = ^"HUD"
 
@@ -33,7 +44,8 @@ var _home_y: float = 0.0
 var _current_health: int = 100
 var _is_defeated: bool = false
 var _combat_enabled: bool = true
-var _attack_timer: float = 0.0
+var _attack1_timer: float = 0.0
+var _attack2_timer: float = 4.0
 var _floor_y_level: float = 0.0 
 
 # --- NODE REFERENCES ---
@@ -64,8 +76,9 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
-	if _attack_timer > 0.0:
-		_attack_timer -= delta
+	# Decrement both timers
+	if _attack1_timer > 0.0: _attack1_timer -= delta
+	if _attack2_timer > 0.0: _attack2_timer -= delta
 
 	var dist_x = abs(global_position.x - _target.global_position.x)
 
@@ -75,14 +88,17 @@ func _physics_process(delta: float) -> void:
 			_set_state(BossState.CHASE) 
 			
 		BossState.CHASE:
-			# ACTIVELY MAINTAIN GAP (Follow or Retreat)
 			_maintain_horizontal_spacing(dist_x)
-			# Stay at hover height
 			velocity.y = (_home_y - global_position.y) * 10
 			
-			if dist_x <= attack_range and _attack_timer <= 0.0:
+			# Trigger Smash Attack
+			if dist_x <= attack_range and _attack1_timer <= 0.0:
 				_floor_y_level = _target.global_position.y
 				_set_state(BossState.DROP)
+			
+			# Trigger Projectile Attack (Runs asynchronously while chasing!)
+			elif dist_x > attack2_trigger_dist and _attack2_timer <= 0.0:
+				_run_attack2_sequence()
 				
 		BossState.DROP:
 			velocity.x = 0
@@ -90,13 +106,12 @@ func _physics_process(delta: float) -> void:
 			
 			if is_on_floor() or global_position.y >= (_floor_y_level - 10):
 				velocity.y = 0
-				_set_state(BossState.ATTACK)
+				_set_state(BossState.ATTACK1)
 
-		BossState.ATTACK:
+		BossState.ATTACK1:
 			velocity = Vector2.ZERO 
 			
 		BossState.RETURN:
-			# Back up while returning if the player is chasing us!
 			_maintain_horizontal_spacing(dist_x)
 			
 			if global_position.y > (_home_y + 10):
@@ -106,35 +121,75 @@ func _physics_process(delta: float) -> void:
 				global_position.y = _home_y
 				_set_state(BossState.CHASE)
 
-		BossState.HURT, BossState.STUNNED:
-			# Optional: Slight pushback when hurt to prevent spam
+		BossState.HURT:
 			var dir_away = sign(global_position.x - _target.global_position.x)
 			velocity.x = dir_away * 50 
 			velocity.y = 0
 
 	move_and_slide()
 
-# --- REVISED MOVEMENT LOGIC ---
+# --- MOVEMENT LOGIC ---
 func _maintain_horizontal_spacing(distance_x: float) -> void:
 	var direction_to_player = sign(_target.global_position.x - global_position.x)
-	
-	# BUFFER: We use a small range (50px) to prevent the boss from jittering back and forth
 	var buffer = 50.0
 
 	if distance_x < (personal_space - buffer):
-		# Player is TOO CLOSE. Move AWAY from player.
+		# Player is TOO CLOSE. Move AWAY.
 		velocity.x = -direction_to_player * 1000.0
 	elif distance_x > (personal_space + buffer):
-		# Player is TOO FAR. Move TOWARD player.
+		# Player is TOO FAR. Move CLOSER.
 		velocity.x = direction_to_player * chase_speed
 	else:
-		# Player is in the "Sweet Spot". Stay still.
 		velocity.x = 0
+
+# --- ATTACK 2 SEQUENCE (Orbital Strike on Player) ---
+func _run_attack2_sequence() -> void:
+	if projectile_scene == null: 
+		print("ERROR: Projectile Scene is missing in the Inspector!")
+		return
+	
+	_attack2_timer = attack2_cooldown
+	var spawned_projectiles: Array[Node2D] = []
+	var num_shots = 5
+	
+	# PHASE 1: SUMMON ABOVE THE PLAYER
+	var spread_angle = deg_to_rad(projectile_spread_angle) 
+	var start_angle = -spread_angle / 2.0
+	var angle_step = spread_angle / float(num_shots - 1)
+	
+	for i in range(num_shots):
+		var p = projectile_scene.instantiate()
+		get_tree().current_scene.add_child(p)
+		
+		var current_angle = start_angle + (i * angle_step)
+		var offset = Vector2.UP.rotated(current_angle) * projectile_arc_radius 
+		
+		# Spawn relative to the PLAYER'S position
+		p.global_position = _target.global_position + offset
+		spawned_projectiles.append(p)
+	
+	# Wait for the projectiles to hang in the air
+	await get_tree().create_timer(projectile_hover_time).timeout
+	
+	# PHASE 2: FIRE THEM ONE BY ONE
+	for i in range(spawned_projectiles.size()):
+		# Stop firing if boss dies or is stunned
+		if _is_defeated or _state == BossState.STUNNED:
+			for unlaunched_p in spawned_projectiles:
+				if is_instance_valid(unlaunched_p) and not unlaunched_p._is_launched:
+					unlaunched_p.queue_free()
+			return
+			
+		var p = spawned_projectiles[i]
+		if is_instance_valid(p):
+			p.launch(_target.global_position)
+			
+		# Wait before firing the next one
+		await get_tree().create_timer(projectile_fire_delay).timeout
 
 # --- STATE MACHINE EXECUTION ---
 func _set_state(new_state: BossState) -> void:
-	if _state == new_state:
-		return
+	if _state == new_state: return
 	_state = new_state
 	print("BUCKET LOG: Entering State -> ", _state_to_text(_state))
 
@@ -146,9 +201,9 @@ func _set_state(new_state: BossState) -> void:
 				anim_player.play("chase")
 			BossState.DROP:
 				_face_player_for_attack()
-			BossState.ATTACK:
+			BossState.ATTACK1:
 				anim_player.play("attack")
-				_attack_timer = attack_cooldown
+				_attack1_timer = attack_cooldown
 			BossState.RETURN:
 				anim_player.play("idle")
 			BossState.HURT:
@@ -165,7 +220,6 @@ func _on_animation_finished(anim_name: String) -> void:
 	
 	if anim_name == "attack":
 		_set_state(BossState.RETURN)
-	
 	elif anim_name == "hurt":
 		if global_position.y > (_home_y + 100):
 			_set_state(BossState.RETURN)
@@ -178,13 +232,13 @@ func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
 	var safe_amount: int = maxi(amount, 0)
 	_current_health = clampi(_current_health - safe_amount, 0, max_health)
 	_sync_boss_hud_health()
-	
+	print("Boss HP -> ", _current_health, "/", max_health)
+
 	if _current_health <= 0:
 		if AudioController and AudioController.has_method("play_boss_stunned"):
 			AudioController.play_boss_stunned()
 		_is_defeated = true
-		velocity = Vector2.ZERO
-		_set_state(BossState.IDLE)
+		_set_state(BossState.STUNNED)
 		boss_defeated.emit()
 		return
 
@@ -192,6 +246,9 @@ func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
 		_set_state(BossState.STUNNED)
 	else:
 		_set_state(BossState.HURT)
+		await anim_player.animation_finished
+		if not _is_defeated:
+			_set_state(BossState.CHASE)
 
 func _sync_boss_hud_health() -> void:
 	var current_scene: Node = get_tree().current_scene
@@ -234,13 +291,15 @@ func _state_to_text(state: BossState) -> String:
 		BossState.RETURN: return "RETURN"
 		BossState.HURT: return "HURT"
 		BossState.STUNNED: return "STUNNED"
-		BossState.ATTACK: return "ATTACK"
+		BossState.ATTACK1: return "ATTACK1"
+		BossState.ATTACK2: return "ATTACK2"
 		_: return "UNKNOWN"
 
 func _on_smash_hitbox_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player") and _state == BossState.ATTACK:
+	if body.is_in_group("player") and _state == BossState.ATTACK1:
 		if body.has_method("take_damage"):
-			body.take_damage(1)
+			body.take_damage(attack_damage) 
+			print("Boss dealt ", attack_damage, " damage to the player!")
 
 func _on_boss_hurtbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("player_weapon"):
