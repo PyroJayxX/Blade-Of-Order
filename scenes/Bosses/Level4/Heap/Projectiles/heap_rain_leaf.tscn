@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://crw7mvklb4lw6"]
+
+[ext_resource type="Script" uid="uid://ldfa6nbaml0k" path="res://scripts/BossScripts/heap_projectile.gd" id="1_o70t4"]
+[ext_resource type="Texture2D" uid="uid://c1x43ni7ome07" path="res://assets/bosses/heap_boss/projectile4.png" id="2_o70t4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0u7ud"]
+radius = 104.00484
+
+[node name="HeapRainLeaf_tscn" type="Area2D" unique_id=1029744394]
+scale = Vector2(0.40580732, 0.40580732)
+script = ExtResource("1_o70t4")
+mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1397535283]
+position = Vector2(79.18817, -111.47469)
+rotation = 1.5707964
+texture = ExtResource("2_o70t4")
+offset = Vector2(-38.525307, -5.811821)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=563145597]
+visible = false
+position = Vector2(101.99999, -109.99999)
+rotation = 1.5836112
+scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("CircleShape2D_0u7ud")
