@@ -8,6 +8,78 @@
 [ext_resource type="Texture2D" uid="uid://c603e6ue5ku00" path="res://assets/player_sprites/slash3.png" id="5_mra3b"]
 [ext_resource type="Texture2D" uid="uid://dl5xdnihfmivd" path="res://assets/player_sprites/slash2.png" id="6_femgl"]
 
+[sub_resource type="Shader" id="Shader_mra3b"]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform int particles_anim_h_frames;
+uniform int particles_anim_v_frames;
+uniform bool particles_anim_loop;
+
+uniform vec4 flash_color : source_color = vec4(0.7, 0.0, 1.0, 1.0); // default purple
+uniform float flash_speed = 15.0; // higher = faster flash
+uniform float flash_intensity : hint_range(0.0, 1.0) = 0.8; // intensity of flash
+
+void vertex() {
+	float h_frames = float(particles_anim_h_frames);
+	float v_frames = float(particles_anim_v_frames);
+	VERTEX.xy /= vec2(h_frames, v_frames);
+	float particle_total_frames = float(particles_anim_h_frames * particles_anim_v_frames);
+	float particle_frame = floor(INSTANCE_CUSTOM.z * float(particle_total_frames));
+	if (!particles_anim_loop) {
+		particle_frame = clamp(particle_frame, 0.0, particle_total_frames - 1.0);
+	} else {
+		particle_frame = mod(particle_frame, particle_total_frames);
+	}	
+	vec2 scale_uv = UV / vec2(h_frames, v_frames);
+	UV = scale_uv + vec2(
+		mod(particle_frame, h_frames) / h_frames, 
+		floor((particle_frame + 0.5) / h_frames) / v_frames);
+}
+
+void fragment() {
+	vec4 tex_color = texture(TEXTURE, UV); // get base color of sprite
+	
+	// combine w particle process mat
+	vec4 base_color = tex_color * COLOR;
+	
+	// create a pulsing value between 0.0 and 1.0 using a sine wave
+	// sin() goes from -1 to 1. adding 1.0 and dividing by 2.0 scales it to 0 to 1.
+	float pulse = (sin(TIME * flash_speed) + 1.0) / 2.0;
+	
+	// mix the base color's rgb with the purple color based on the pulse and intensity
+	vec3 final_rgb = mix(base_color.rgb, flash_color.rgb, pulse * flash_intensity);
+	
+	COLOR = vec4(final_rgb, base_color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_femgl"]
+shader = SubResource("Shader_mra3b")
+shader_parameter/particles_anim_h_frames = 7
+shader_parameter/particles_anim_v_frames = 1
+shader_parameter/particles_anim_loop = false
+shader_parameter/flash_color = Color(1, 0.6745098, 1, 1)
+shader_parameter/flash_speed = 20.0
+shader_parameter/flash_intensity = 1.0
+
+[sub_resource type="Curve" id="Curve_y5as4"]
+_data = [Vector2(0, 0.5034106), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_femgl"]
+curve = SubResource("Curve_y5as4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ipcd5"]
+spread = 25.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.38
+scale_max = 0.38
+alpha_curve = SubResource("CurveTexture_femgl")
+hue_variation_min = -2.2351742e-08
+hue_variation_max = -2.2351742e-08
+anim_speed_min = 0.29999998
+anim_speed_max = 0.29999998
+
 [sub_resource type="CanvasTexture" id="CanvasTexture_wm45n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dsvhw"]
@@ -586,6 +658,15 @@ animations = [{
 collision_mask = 3
 script = ExtResource("1_wm45n")
 
+[node name="DashParticles" type="GPUParticles2D" parent="." unique_id=2067135344]
+material = SubResource("ShaderMaterial_femgl")
+position = Vector2(0, -78)
+amount = 7
+texture = ExtResource("2_b288l")
+lifetime = 0.3
+fixed_fps = 24
+process_material = SubResource("ParticleProcessMaterial_ipcd5")
+
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1323140840]
 visible = false
 offset_left = -1392.0
@@ -595,46 +676,41 @@ offset_bottom = 1392.0
 texture = SubResource("CanvasTexture_wm45n")
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="." unique_id=1619671646]
+visible = false
 position = Vector2(-74, 140)
 shape = SubResource("RectangleShape2D_dsvhw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=850400138]
 sprite_frames = SubResource("SpriteFrames_nirif")
-animation = &"idle"
+animation = &"dash"
 autoplay = "idle"
 
 [node name="SlashCollision1" type="Area2D" parent="." unique_id=2010047765]
-monitoring = true
 position = Vector2(273, 230)
 collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SlashCollision1" unique_id=553334111]
 visible = false
-position = Vector2(0, 0)
 polygon = PackedVector2Array(-316, 10, -374, -438, -391, -534, -145, -568, 252, -476, 407, -346, 612, -62, 553, 5, 411, 92, 269, 167, 48, 276, -495, 276, -729, 263, -905, 226, -984, 167)
 disabled = true
 
 [node name="SlashCollision2" type="Area2D" parent="." unique_id=610825675]
-monitoring = true
 position = Vector2(362, 140)
 collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SlashCollision2" unique_id=553334112]
 visible = false
-position = Vector2(0, 0)
 polygon = PackedVector2Array(-179, 36, -927, -507, -931, -616, -889, -657, -584, -691, -150, -611, 117, -482, 305, -365, 577, -85, 585, 69, 568, 182, 478, 302, 335, 345, -62, 366, -355, 320)
 disabled = true
 
 [node name="SlashCollision3" type="Area2D" parent="." unique_id=646558415]
-monitoring = true
 position = Vector2(362, 140)
 collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SlashCollision3" unique_id=553334113]
 visible = false
-position = Vector2(0, 0)
 polygon = PackedVector2Array(-316, 10, -329, -546, -138, -580, 82, -568, 283, -508, 433, -373, 527, -191, 559, 45, 537, 171, 478, 302, 340, 337, 107, 290, -166, 287)
 disabled = true

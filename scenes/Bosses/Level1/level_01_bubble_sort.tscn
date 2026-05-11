@@ -11,12 +11,12 @@
 [ext_resource type="Script" uid="uid://bx0igiwp84c3p" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="8_dynamic_camera"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="8_gg8g0"]
 
-[sub_resource type="Gradient" id="Gradient_u5sy4"]
+[sub_resource type="Gradient" id="Gradient_wwrph"]
 offsets = PackedFloat32Array(0.27108434, 1)
 colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_gee14"]
-gradient = SubResource("Gradient_u5sy4")
+gradient = SubResource("Gradient_wwrph")
 fill_to = Vector2(0, 1)
 
 [node name="game" type="Node2D" unique_id=632939941]

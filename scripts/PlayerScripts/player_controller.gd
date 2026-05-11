@@ -55,6 +55,7 @@ var _boss_ref: Node2D = null
 @onready var slash1_area : Area2D = $SlashCollision1
 @onready var slash2_area : Area2D = $SlashCollision2
 @onready var slash3_area : Area2D = $SlashCollision3
+@onready var dash_particles: GPUParticles2D = $DashParticles
 @onready var slash1 : CollisionPolygon2D = $SlashCollision1/CollisionPolygon2D
 @onready var slash2 : CollisionPolygon2D = $SlashCollision2/CollisionPolygon2D
 @onready var slash3 : CollisionPolygon2D = $SlashCollision3/CollisionPolygon2D
@@ -92,6 +93,10 @@ func start_dash(direction):
 	# if no input, dash based on facing direction
 	if direction == 0:
 		direction = -1 if animated_sprite.flip_h else 1
+		 
+	# get direction player is facing before emitting particles
+	dash_particles.scale.x = direction 
+	dash_particles.emitting = true
 	
 	velocity.x = direction * DASH_SPEED
 	_dash_invuln_timer = maxf(_dash_invuln_timer, DASH_TIME + DASH_POST_INVULN_TIME)
@@ -102,6 +107,7 @@ func start_dash(direction):
 	await get_tree().create_timer(DASH_TIME).timeout
 	
 	is_dashing = false
+	dash_particles.emitting = false # turn off particles
 
 func start_attack():
 	if is_attacking:
@@ -169,6 +175,9 @@ func _physics_process(delta: float) -> void:
 		_combo_timer = maxf(_combo_timer - delta, 0.0)
 		if _combo_timer <= 0.0:
 			_combo_step = 0
+			
+	if not is_dashing:
+		dash_particles.emitting = false
 
 	# gravity
 	if not is_on_floor():
@@ -205,6 +214,7 @@ func _physics_process(delta: float) -> void:
 		if direction != 0:
 			velocity.x = direction * SPEED
 			animated_sprite.flip_h = direction < 0
+			
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			
