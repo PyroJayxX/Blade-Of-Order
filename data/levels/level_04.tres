@@ -1,10 +1,15 @@
-[gd_resource type="Resource" script_class="LevelDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="LevelDefinition" format=3 uid="uid://bxhlwyajt1loj"]
 
-[ext_resource type="Script" path="res://scripts/flow/level_definition.gd" id="1_jm88h"]
+[ext_resource type="Texture2D" uid="uid://btqiiev7n2xix" path="res://assets/boss_splash/HeapSort_Splash.png" id="1_8yld6"]
+[ext_resource type="Script" uid="uid://c18lfy1s5vebn" path="res://scripts/flow/level_definition.gd" id="1_jm88h"]
 
 [resource]
 script = ExtResource("1_jm88h")
 level_id = 4
-display_name = "???"
-scene_path = ""
-unlock_level_required = 3
+display_name = "Heap Sort"
+scene_path = "res://scenes/Bosses/Level4/level_04_heap_sort.tscn"
+unlock_level_required = 0
+preview_image = ExtResource("1_8yld6")
+boss_type = "heap"
+puzzle_type = "heap_sort"
+timer_rules = "default"

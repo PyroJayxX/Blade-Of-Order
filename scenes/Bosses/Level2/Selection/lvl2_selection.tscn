@@ -5,22 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://brkwiuc6sga1x" path="res://assets/bosses/selection_boss/smash.png" id="3_jlg68"]
 [ext_resource type="Texture2D" uid="uid://drc2y0f1k8o46" path="res://assets/bosses/selection_boss/base_loading.png" id="3_p0vlh"]
 
-[sub_resource type="Shader" id="Shader_ap0bl"]
-code = "shader_type canvas_item;
-
-uniform float white_amount : hint_range(0.0, 1.0) = 0.0;
-
-void fragment() {
-    vec4 tex = texture(TEXTURE, UV);
-    vec3 white = vec3(1.0);
-    COLOR.rgb = mix(tex.rgb, white, white_amount);
-    COLOR.a = tex.a;
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eqre8"]
-shader = SubResource("Shader_ap0bl")
-shader_parameter/white_amount = 1.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_6mbv3"]
 atlas = ExtResource("1_hgefe")
 region = Rect2(0, 0, 2304, 1296)
@@ -231,13 +215,13 @@ _data = {
 [node name="Lvl2Selection" type="CharacterBody2D" unique_id=974633589]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=368519854]
-position = Vector2(300, 161)
-scale = Vector2(3.985894, 3.265894)
-polygon = PackedVector2Array(3.565, 3.93, -10.81, 0, 0, 0)
+position = Vector2(51.054977, -356.25003)
+scale = Vector2(51.913044, 135.49619)
+polygon = PackedVector2Array(0.78872323, 5.655141, -4.1040745, 5.2787466, -13.947458, 5.2566056, -14.140088, 4.348831, -13.774092, 2.326634, -5.857006, 2.9908593, -4.084811, -0.55905604, 0.78872323, 1.4410001, 3.9093263, 0.7398734, 7.376663, 0.3339579, 10.343163, -0.26384497, 12.481354, 0.45204234, 10.728422, 2.5997043, 9.457066, 3.8912535, 7.1069813, 5.0647182, 3.4662778, 5.4853945)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=526954018]
 texture_filter = 1
-material = SubResource("ShaderMaterial_eqre8")
+position = Vector2(32, 51)
 sprite_frames = SubResource("SpriteFrames_6mbv3")
 animation = &"kunai_attack"
 

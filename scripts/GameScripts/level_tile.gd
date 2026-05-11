@@ -19,7 +19,7 @@ func setup(id: int, b_name: String, img: Texture2D, locked: bool, lock_img: Text
 	if is_locked:
 		boss_image.texture = lock_img
 		boss_name_label.text = "???"
-		disabled = true # Prevent clicking on locked levels
+		disabled = true 
 	else:
 		boss_image.texture = img
 		boss_name_label.text = boss_name

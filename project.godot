@@ -65,11 +65,30 @@ Dodge={
 "deadzone": 0.2,
 "events": []
 }
+Slash={
+"deadzone": 0.2,
+"events": []
+}
+Dash={
+"deadzone": 0.2,
+"events": []
+}
+Jump={
+"deadzone": 0.2,
+"events": []
+}
 
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
 pointing/emulate_mouse_from_touch=false
+
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="player"
+2d_physics/layer_3="boss"
+2d_physics/layer_4="projectile"
 
 [rendering]
 

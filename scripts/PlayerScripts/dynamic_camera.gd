@@ -9,8 +9,8 @@ class_name DynamicCamera
 # Dynamic zoom configuration
 @export var dynamic_zoom_enabled: bool = true
 @export var min_zoom: float = 0.35
-@export var max_zoom: float = 0.80
-@export var zoom_smoothing: float = 4.0  # How fast zoom changes
+@export var max_zoom: float = 0.5
+@export var zoom_smoothing: float = 3.0  # How fast zoom changes
 
 # Speed-based zoom
 @export var base_zoom: float = 0.45  # Zoom when player is stationary
