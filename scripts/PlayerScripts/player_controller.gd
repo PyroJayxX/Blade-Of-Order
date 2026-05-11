@@ -131,7 +131,10 @@ func start_attack():
 	if direction != 0:
 		velocity.x = direction * 1200  # tweak this value
 	
+	var anim_prefix = "slash_"
 	if not is_on_floor():
+		anim_prefix = "jump_slash_" # Use your new air animations
+		
 		# while attacking mid air, if velocity.y = 0 = hover, 50 = brakes completely, small number = hover
 		velocity.y = 30.0
 	
@@ -152,7 +155,7 @@ func start_attack():
 	AudioController.play_player_slash_1()
 	
 	# play correct animation
-	var anim_name = "slash_" + str(_combo_step)
+	var anim_name = anim_prefix + str(_combo_step)
 	play_anim(anim_name)
 	
 	await animated_sprite.animation_finished
@@ -247,7 +250,8 @@ func _physics_process(delta: float) -> void:
 			
 	# Animation (PRIORITY-BASED)
 	if is_attacking:
-		play_anim("slash_" + str(_combo_step))
+		var anim_prefix = "jump_slash_" if not is_on_floor() else "slash_"
+		play_anim(anim_prefix + str(_combo_step))
 	elif is_dashing:
 		play_anim("dash")
 	elif not is_on_floor():
