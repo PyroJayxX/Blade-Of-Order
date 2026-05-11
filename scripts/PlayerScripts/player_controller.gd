@@ -4,7 +4,7 @@ signal player_died
 
 # MOVEMENT CONST VARIABLES
 const SPEED = 800.0 # how fast the player is
-const JUMP_VELOCITY = -1200.0 # higher magnitude = higher and faster jump
+const JUMP_VELOCITY = -1500.0 # lower negative magnitude = higher and faster jump
 
 const FALL_MULTIPLIER = 4 # gravity multiplier when falling
 const LOW_JUMP_MULTIPLIER = 2.2 # gravity multiplier when jumping
@@ -120,6 +120,7 @@ func start_attack():
 		
 	is_attacking = true
 	_slash_has_hit = false
+	_queued_next_attack = false
 	
 	var direction := Input.get_axis("moveLeft", "moveRight")
 	
@@ -128,7 +129,11 @@ func start_attack():
 	
 	# apply forward lunge ONLY if pressing forward
 	if direction != 0:
-		velocity.x = direction * 800  # tweak this value
+		velocity.x = direction * 1200  # tweak this value
+	
+	if not is_on_floor():
+		# while attacking mid air, if velocity.y = 0 = hover, 50 = brakes completely, small number = hover
+		velocity.y = 30.0
 	
 	# advance combo
 	_combo_step += 1
@@ -151,6 +156,9 @@ func start_attack():
 	play_anim(anim_name)
 	
 	await animated_sprite.animation_finished
+	
+	if not is_attacking: # return if no longer attacking (like if jump interrupts)
+		return
 	
 	# disable hitbox for slash
 	_set_slash_collision_enabled(false)
@@ -186,19 +194,29 @@ func _physics_process(delta: float) -> void:
 
 	# gravity
 	if not is_on_floor():
-		if velocity.y > 0:
-			velocity += get_gravity() * FALL_MULTIPLIER * delta
+		var current_gravity = get_gravity()
+		
+		
+		if is_attacking: # reduce gravity when attacking mid-air
+			velocity += current_gravity * 0.2 * delta 
+		elif velocity.y > 0:
+			velocity += current_gravity * FALL_MULTIPLIER * delta
 		else:
-			velocity += get_gravity() * LOW_JUMP_MULTIPLIER * delta
+			velocity += current_gravity * LOW_JUMP_MULTIPLIER * delta
 
 	if Input.is_action_just_pressed("jump"):
-		if is_on_floor():
-			velocity.y = JUMP_VELOCITY
-			_jumps_used = 0
-			play_anim("jump", true)
-		elif _jumps_used < MAX_JUMPS - 1:
-			velocity.y = JUMP_VELOCITY
-			_jumps_used += 1
+		if is_on_floor() or _jumps_used < MAX_JUMPS - 1:
+			# these lines cancel attacks when clicking jump
+			is_attacking = false
+			_queued_next_attack = false
+			_set_slash_collision_enabled(false) 
+			
+			if is_on_floor():
+				velocity.y = JUMP_VELOCITY
+				_jumps_used = 0
+			else:
+				velocity.y = JUMP_VELOCITY
+				_jumps_used += 1
 			play_anim("jump", true)
 
 	var direction := Input.get_axis("moveLeft", "moveRight")
