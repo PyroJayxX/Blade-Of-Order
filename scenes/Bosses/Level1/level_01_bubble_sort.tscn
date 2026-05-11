@@ -19,6 +19,15 @@ colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
 gradient = SubResource("Gradient_wwrph")
 fill_to = Vector2(0, 1)
 
+[sub_resource type="Gradient" id="Gradient_duvjk"]
+colors = PackedColorArray(0, 0, 0, 0, 0.67, 0.11390001, 0.11390001, 0.24705882)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wwrph"]
+gradient = SubResource("Gradient_duvjk")
+fill = 1
+fill_from = Vector2(0.52991456, 0.5)
+fill_to = Vector2(1.39, 0)
+
 [node name="game" type="Node2D" unique_id=632939941]
 script = ExtResource("1_hv20u")
 
@@ -49,11 +58,30 @@ offset_bottom = 139.0
 position = Vector2(675, 494)
 scale = Vector2(0.34, 0.34)
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1264934876]
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1264934876 node_paths=PackedStringArray("vignette_node")]
 position = Vector2(75.00005, -535.29407)
 zoom = Vector2(0.53, 0.53)
 position_smoothing_speed = 4.5
 script = ExtResource("8_dynamic_camera")
+red_flash_opacity = 0.6
+vignette_node = NodePath("../CanvasLayer/DamageVignette")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player" unique_id=1470430862]
+
+[node name="DamageVignette" type="TextureRect" parent="Player/CanvasLayer" unique_id=184371931]
+texture_filter = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -443.0
+offset_right = 1461.6445
+offset_bottom = 787.31555
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3.6901062, 3.5308971)
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_wwrph")
 
 [node name="BubbleBoss" parent="." unique_id=1029836507 instance=ExtResource("4_lbhrr")]
 position = Vector2(3265, -109.00001)

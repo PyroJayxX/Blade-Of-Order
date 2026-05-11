@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="5_023rx"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="6_8nvh1"]
 [ext_resource type="Script" uid="uid://djg71lk02jgv" path="res://scripts/BossScripts/lvl6_radix.gd" id="7_8nvh1"]
-[ext_resource type="PackedScene" path="res://scenes/Puzzles/radix_sort.tscn" id="7_dvama"]
+[ext_resource type="PackedScene" uid="uid://dn1osp8xlnwlu" path="res://scenes/Puzzles/radix_sort.tscn" id="7_dvama"]
 [ext_resource type="Script" uid="uid://duu7rove1ish3" path="res://scripts/LevelScripts/level6.gd" id="8_level6"]
 [ext_resource type="Script" uid="uid://bx0igiwp84c3p" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="9_dynamic_camera"]
 [ext_resource type="Script" uid="uid://cesq8ibnflfga" path="res://scripts/PuzzleScripts/radix_sort_puzzle.gd" id="9_x37sr"]
@@ -20,6 +20,15 @@ colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_x37sr"]
 gradient = SubResource("Gradient_u5sy4")
 fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_x37sr"]
+colors = PackedColorArray(0, 0, 0, 0, 0.67, 0.11390001, 0.11390001, 0.24705882)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hu6eu"]
+gradient = SubResource("Gradient_x37sr")
+fill = 1
+fill_from = Vector2(0.52991456, 0.5)
+fill_to = Vector2(1.39, 0)
 
 [node name="level6" type="Node2D" unique_id=365381309]
 script = ExtResource("8_level6")
@@ -51,11 +60,30 @@ offset_bottom = 139.0
 position = Vector2(675, 494)
 scale = Vector2(0.34, 0.34)
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=2147483579]
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=2147483579 node_paths=PackedStringArray("vignette_node")]
 position = Vector2(75.00005, -535.29407)
 zoom = Vector2(0.53, 0.53)
 position_smoothing_speed = 4.5
 script = ExtResource("9_dynamic_camera")
+red_flash_opacity = 0.6
+vignette_node = NodePath("../CanvasLayer/DamageVignette")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player" unique_id=1024747759]
+
+[node name="DamageVignette" type="TextureRect" parent="Player/CanvasLayer" unique_id=1814373431]
+texture_filter = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -443.0
+offset_right = 1461.6445
+offset_bottom = 787.31555
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3.6901062, 3.5308971)
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_hu6eu")
 
 [node name="RadixBoss" parent="." unique_id=962015265 instance=ExtResource("10_023rx")]
 position = Vector2(6655, 3591)

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c63mrpidm8ab6" path="res://assets/player_sprites/dashh.png" id="2_b288l"]
 [ext_resource type="Texture2D" uid="uid://jsamke7lkdp" path="res://assets/player_sprites/sprite sheet.png" id="2_wm45n"]
 [ext_resource type="Texture2D" uid="uid://vf2dy8ogasis" path="res://assets/player_sprites/sheet 2.png" id="3_u2pge"]
+[ext_resource type="Shader" uid="uid://dccinbm05joqs" path="res://scenes/Player/player_hit.tres" id="3_y5as4"]
 [ext_resource type="Texture2D" uid="uid://c5de1ey3lo5m3" path="res://assets/player_sprites/slash1.png" id="5_d2bp7"]
 [ext_resource type="Texture2D" uid="uid://bu6v4rx30si4f" path="res://assets/player_sprites/jump slashes.png" id="5_femgl"]
 [ext_resource type="Texture2D" uid="uid://c603e6ue5ku00" path="res://assets/player_sprites/slash3.png" id="5_mra3b"]
@@ -85,6 +86,10 @@ anim_speed_max = 0.29999998
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dsvhw"]
 size = Vector2(216, 760)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjwkl"]
+shader = ExtResource("3_y5as4")
+shader_parameter/hit_strength = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b05de"]
 atlas = ExtResource("2_b288l")
@@ -852,6 +857,41 @@ animations = [{
 "speed": 24.0
 }]
 
+[sub_resource type="Animation" id="Animation_ipcd5"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/hit_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_8m5wa"]
+resource_name = "hit_animation"
+length = 0.2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/hit_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 2),
+"points": PackedFloat32Array(0.708, 0, 0, 0.033333335, -0.11800001, 0, -0.033333335, 0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_048y7"]
+_data = {
+&"RESET": SubResource("Animation_ipcd5"),
+&"hit_animation": SubResource("Animation_8m5wa")
+}
+
 [node name="Player" type="CharacterBody2D" unique_id=1430617140]
 collision_mask = 3
 script = ExtResource("1_wm45n")
@@ -880,11 +920,10 @@ position = Vector2(-74, 140)
 shape = SubResource("RectangleShape2D_dsvhw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=850400138]
+material = SubResource("ShaderMaterial_jjwkl")
 sprite_frames = SubResource("SpriteFrames_nirif")
-animation = &"jump_slash_3"
+animation = &"idle"
 autoplay = "idle"
-frame = 7
-frame_progress = 1.0
 
 [node name="SlashCollision1" type="Area2D" parent="." unique_id=2010047765]
 position = Vector2(273, 230)
@@ -915,3 +954,6 @@ collision_mask = 0
 visible = false
 polygon = PackedVector2Array(-316, 10, -329, -546, -138, -580, 82, -568, 283, -508, 433, -373, 527, -191, 559, 45, 537, 171, 478, 302, 340, 337, 107, 290, -166, 287)
 disabled = true
+
+[node name="HitFlash" type="AnimationPlayer" parent="." unique_id=492951429]
+libraries/ = SubResource("AnimationLibrary_048y7")

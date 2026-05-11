@@ -27,6 +27,14 @@ colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
 gradient = SubResource("Gradient_u5sy4")
 fill_to = Vector2(0, 1)
 
+[sub_resource type="Gradient" id="Gradient_duvjk"]
+colors = PackedColorArray(0, 0, 0, 0, 0.67, 0.11390001, 0.11390001, 0.24705882)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1dbx8"]
+gradient = SubResource("Gradient_duvjk")
+fill = 1
+fill_from = Vector2(0.5, 0.52991456)
+
 [node name="TestArena" type="Node2D" unique_id=89820303]
 script = SubResource("GDScript_duvjk")
 
@@ -63,3 +71,18 @@ position = Vector2(75.00005, -535.29407)
 zoom = Vector2(0.53, 0.53)
 position_smoothing_speed = 4.5
 script = ExtResource("5_sngdg")
+
+[node name="DamageVignette" type="TextureRect" parent="Player" unique_id=578096925]
+texture_filter = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3867.647
+offset_top = -2755.8823
+offset_right = -1766.0024
+offset_bottom = -1525.5668
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3.6901062, 3.5308971)
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_1dbx8")

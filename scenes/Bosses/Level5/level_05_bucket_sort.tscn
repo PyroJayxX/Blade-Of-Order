@@ -16,6 +16,15 @@ colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
 gradient = SubResource("Gradient_1u0sw")
 fill_to = Vector2(0, 1)
 
+[sub_resource type="Gradient" id="Gradient_i7kgr"]
+colors = PackedColorArray(0, 0, 0, 0, 0.67, 0.11390001, 0.11390001, 0.24705882)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yvess"]
+gradient = SubResource("Gradient_i7kgr")
+fill = 1
+fill_from = Vector2(0.52991456, 0.5)
+fill_to = Vector2(1.39, 0)
+
 [node name="BucketSort" type="Node2D" unique_id=1465864369]
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1645164315]
@@ -42,11 +51,30 @@ offset_bottom = 139.0
 position = Vector2(675, 494)
 scale = Vector2(0.34, 0.34)
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1842478497]
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1842478497 node_paths=PackedStringArray("vignette_node")]
 position = Vector2(75.00005, -535.29407)
 zoom = Vector2(0.53, 0.53)
 position_smoothing_speed = 4.5
 script = ExtResource("4_xrhxm")
+red_flash_opacity = 0.6
+vignette_node = NodePath("../CanvasLayer/DamageVignette")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player" unique_id=57270515]
+
+[node name="DamageVignette" type="TextureRect" parent="Player/CanvasLayer" unique_id=217278543]
+texture_filter = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -443.0
+offset_right = 1461.6445
+offset_bottom = 787.31555
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3.6901062, 3.5308971)
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_yvess")
 
 [node name="HUD" parent="." unique_id=148605811 instance=ExtResource("5_ndleo")]
 layer = 10

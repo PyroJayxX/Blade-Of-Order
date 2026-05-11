@@ -59,6 +59,8 @@ var _boss_ref: Node2D = null
 @onready var slash1 : CollisionPolygon2D = $SlashCollision1/CollisionPolygon2D
 @onready var slash2 : CollisionPolygon2D = $SlashCollision2/CollisionPolygon2D
 @onready var slash3 : CollisionPolygon2D = $SlashCollision3/CollisionPolygon2D
+@onready var hit_flash_player: AnimationPlayer = $HitFlash # hit effect animation player
+@onready var camera = $Camera2D
 
 func _ready() -> void:
 	_current_health = max_health
@@ -133,7 +135,7 @@ func start_attack():
 	
 	var anim_prefix = "slash_"
 	if not is_on_floor():
-		anim_prefix = "jump_slash_" # Use your new air animations
+		anim_prefix = "jump_slash_" # uses the new jump slashes animations
 		
 		# while attacking mid air, if velocity.y = 0 = hover, 50 = brakes completely, small number = hover
 		velocity.y = 30.0
@@ -250,7 +252,7 @@ func _physics_process(delta: float) -> void:
 			
 	# Animation (PRIORITY-BASED)
 	if is_attacking:
-		var anim_prefix = "jump_slash_" if not is_on_floor() else "slash_"
+		var anim_prefix = "jump_slash_" if not is_on_floor() else "slash_" # either jump or normal attack
 		play_anim(anim_prefix + str(_combo_step))
 	elif is_dashing:
 		play_anim("dash")
@@ -269,12 +271,21 @@ func take_damage(amount: int = 1) -> void:
 	if _dash_invuln_timer > 0.0:
 		return
 	var safe_amount: int = maxi(amount, 0)
+	
+	if safe_amount > 0:
+		hit_flash_player.stop() # forces the animation to restart if hit rapidly
+		hit_flash_player.play("hit_animation")
+	
 	_current_health = clampi(_current_health - safe_amount, 0, max_health)
 	_sync_player_hud_health()
 	print("Player HP -> ", _current_health, "/", max_health)
+	
+	camera.apply_hit_effect() # shows the hit animation of camera
+	
 	if _current_health <= 0 and not _death_emitted:
 		_death_emitted = true
 		player_died.emit()
+		
 
 func get_current_health() -> int:
 	return _current_health
