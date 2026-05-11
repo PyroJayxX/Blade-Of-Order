@@ -82,9 +82,14 @@ func _ready() -> void:
 	_sync_player_hud_health()
 
 # play animation helper function so there is no animation overlap
-func play_anim(name: String):
+func play_anim(name: String, force_restart: bool = false):
 	if animated_sprite.animation != name:
 		animated_sprite.play(name)
+	
+	# if force restart (for 2x jump), specify the frame restart to 0
+	if force_restart:
+		animated_sprite.frame = 0
+		animated_sprite.play(name) 
 
 func start_dash(direction):
 	is_dashing = true
@@ -190,9 +195,11 @@ func _physics_process(delta: float) -> void:
 		if is_on_floor():
 			velocity.y = JUMP_VELOCITY
 			_jumps_used = 0
+			play_anim("jump", true)
 		elif _jumps_used < MAX_JUMPS - 1:
 			velocity.y = JUMP_VELOCITY
 			_jumps_used += 1
+			play_anim("jump", true)
 
 	var direction := Input.get_axis("moveLeft", "moveRight")
 
@@ -222,12 +229,11 @@ func _physics_process(delta: float) -> void:
 			
 	# Animation (PRIORITY-BASED)
 	if is_attacking:
-		var anim_name = "slash_" + str(_combo_step)
-		play_anim(anim_name)
+		play_anim("slash_" + str(_combo_step))
 	elif is_dashing:
 		play_anim("dash")
 	elif not is_on_floor():
-		animated_sprite.play("jump")
+			play_anim("jump")
 	else:
 		if direction != 0:
 			play_anim("run")
