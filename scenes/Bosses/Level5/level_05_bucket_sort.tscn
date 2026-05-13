@@ -1,12 +1,16 @@
 [gd_scene format=3 uid="uid://b6pps0560ow8d"]
 
+[ext_resource type="Script" uid="uid://lnl1wyj1rcbm" path="res://scripts/LevelScripts/level5.gd" id="1_7qad3"]
 [ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/Game/arena.tscn" id="1_i7kgr"]
 [ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/Game/touchControls.tscn" id="2_yvess"]
 [ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/Player/player_new.tscn" id="3_kdtey"]
 [ext_resource type="Script" uid="uid://bx0igiwp84c3p" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="4_xrhxm"]
 [ext_resource type="PackedScene" uid="uid://ctapwu3uviyqg" path="res://scenes/Game/hud.tscn" id="5_ndleo"]
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="6_8wb4u"]
+[ext_resource type="PackedScene" uid="uid://gsoljar2todh" path="res://scenes/puzzles/bucket_sort.tscn" id="6_wp4kt"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="7_0v417"]
+[ext_resource type="PackedScene" uid="uid://b1xwduace6uac" path="res://scenes/bosses/Level5/Bucket/lvl5_bucket.tscn" id="8_3532l"]
+[ext_resource type="PackedScene" uid="uid://ceo8rdm65xgqx" path="res://scenes/bosses/Level5/Bucket/bucket_projectile2.tscn" id="11_n3mml"]
 
 [sub_resource type="Gradient" id="Gradient_1u0sw"]
 offsets = PackedFloat32Array(0.27108434, 1)
@@ -17,12 +21,13 @@ gradient = SubResource("Gradient_1u0sw")
 fill_to = Vector2(0, 1)
 
 [node name="BucketSort" type="Node2D" unique_id=1465864369]
+script = ExtResource("1_7qad3")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1645164315]
 offset_left = -1020.0
-offset_top = -689.0
+offset_top = -754.0
 offset_right = 14731.0
-offset_bottom = 1282.0
+offset_bottom = 1217.0
 texture = SubResource("GradientTexture2D_s3mc7")
 
 [node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("1_i7kgr")]
@@ -48,6 +53,9 @@ zoom = Vector2(0.53, 0.53)
 position_smoothing_speed = 4.5
 script = ExtResource("4_xrhxm")
 
+[node name="BucketSortPuzzle" parent="." unique_id=1903240147 instance=ExtResource("6_wp4kt")]
+layer = 101
+
 [node name="HUD" parent="." unique_id=148605811 instance=ExtResource("5_ndleo")]
 layer = 10
 
@@ -56,3 +64,7 @@ visible = false
 
 [node name="GameOver" parent="." unique_id=346392607 instance=ExtResource("7_0v417")]
 visible = false
+
+[node name="Lvl5Bucket" parent="." unique_id=1048804533 instance=ExtResource("8_3532l")]
+position = Vector2(3173, -173)
+projectile_scene = ExtResource("11_n3mml")

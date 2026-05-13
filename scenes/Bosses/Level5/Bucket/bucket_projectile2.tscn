@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://ceo8rdm65xgqx"]
 
+[ext_resource type="Script" uid="uid://c4wg07k1ev8fp" path="res://scripts/BossScripts/lvl5_bucket_projectile.gd" id="1_oc3q2"]
 [ext_resource type="Texture2D" uid="uid://dp5telw6e368w" path="res://assets/bosses/bucket_boss/projectile_2.png" id="1_w1vd5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_idaqn"]
@@ -27,6 +28,14 @@ animations = [{
 "frames": [{
 "duration": 15.0,
 "texture": SubResource("AtlasTexture_idaqn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 15.0,
+"texture": SubResource("AtlasTexture_idaqn")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fcf8g")
@@ -41,22 +50,24 @@ animations = [{
 "texture": SubResource("AtlasTexture_1x1xy")
 }],
 "loop": false,
-"name": &"default",
+"name": &"pop",
 "speed": 15.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_faln8"]
+radius = 5.614267
 
-[node name="BucketProjectile2" type="CharacterBody2D" unique_id=1304657853]
+[node name="BucketProjectile2" type="Area2D" unique_id=1928485964]
+script = ExtResource("1_oc3q2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1140765970]
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_krgn7")
 autoplay = "default"
-frame = 4
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=619347435]
-visible = false
-position = Vector2(-18, -15)
-scale = Vector2(-20.999962, -20.999962)
+rotation = -3.1415927
+scale = Vector2(20, 20)
 shape = SubResource("CircleShape2D_faln8")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

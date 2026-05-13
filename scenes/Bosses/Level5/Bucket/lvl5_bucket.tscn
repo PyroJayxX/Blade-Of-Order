@@ -1,74 +1,509 @@
 [gd_scene format=3 uid="uid://b1xwduace6uac"]
 
+[ext_resource type="Texture2D" uid="uid://bb1mxjcv5y5x" path="res://assets/bosses/bucket_boss/base.png" id="1_a4qyl"]
 [ext_resource type="Texture2D" uid="uid://dw7fg3i2h8cfy" path="res://assets/bosses/bucket_boss/bucket_smash.png" id="1_da0u5"]
+[ext_resource type="Texture2D" uid="uid://c03js4wq8ebbt" path="res://assets/bosses/bucket_boss/stunned.png" id="3_0opv1"]
+[ext_resource type="Script" uid="uid://q2vnjr4388c6" path="res://scripts/BossScripts/lvl5_bucket.gd" id="4_f26n7"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_lwted"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f26n7"]
+size = Vector2(425, 619)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g534q"]
-atlas = ExtResource("1_da0u5")
-region = Rect2(0, 0, 2304, 1296)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0opv1"]
+size = Vector2(523, 367)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xjob6"]
-atlas = ExtResource("1_da0u5")
-region = Rect2(2304, 0, 2304, 1296)
+[sub_resource type="CircleShape2D" id="CircleShape2D_f26n7"]
+radius = 752.44934
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u5l8d"]
-atlas = ExtResource("1_da0u5")
-region = Rect2(4608, 0, 2304, 1296)
+[sub_resource type="Animation" id="Animation_f26n7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bucket:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SmashAttack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Stunned:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bucket:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SmashAttack/SmashHitbox/AttackRange:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SmashAttack:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SmashAttack:frame_coords")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(2, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SmashAttack/SmashHitbox:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("SmashAttack/SmashHitbox:monitoring")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CollisionShape2D2:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-5.5, 153.5)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("CollisionShape2D2:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wpj2k"]
-atlas = ExtResource("1_da0u5")
-region = Rect2(6912, 0, 2304, 1296)
+[sub_resource type="Animation" id="Animation_lv0k5"]
+resource_name = "attack"
+length = 0.2667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bucket:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SmashAttack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Stunned:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SmashAttack:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.05, 0.06666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SmashAttack:frame_coords")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(5, 0), Vector2i(6, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SmashAttack/SmashHitbox:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.23333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SmashAttack/SmashHitbox:monitoring")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.24, 0.2667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SmashAttack/SmashHitbox/AttackRange:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CollisionShape2D2:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.050586034, 0.06713287, 0.10093209),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-5.5, 153.5), Vector2(91, 148), Vector2(69, 151), Vector2(-2.9999847, 190)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CollisionShape2D2:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.050586034, 0.06713287, 0.10093209),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, -0.12217305, -1.0471976]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_oxkhy"]
-atlas = ExtResource("1_da0u5")
-region = Rect2(9216, 0, 2304, 1296)
+[sub_resource type="Animation" id="Animation_ce4nt"]
+resource_name = "chase"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bucket:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SmashAttack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Stunned:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_koh2i"]
-atlas = ExtResource("1_da0u5")
-region = Rect2(11520, 0, 2304, 1296)
+[sub_resource type="Animation" id="Animation_wdgkb"]
+resource_name = "hurt"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bucket:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bucket:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.08726646, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SmashAttack:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SmashAttack/SmashHitbox/AttackRange:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Stunned:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_c3bqn"]
-atlas = ExtResource("1_da0u5")
-region = Rect2(13824, 0, 2304, 1296)
+[sub_resource type="Animation" id="Animation_qjsm5"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bucket:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SmashAttack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Stunned:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_6adr0"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g534q")
-}, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_xjob6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u5l8d")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wpj2k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oxkhy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_koh2i")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c3bqn")
-}],
-"loop": false,
-"name": &"attack",
-"speed": 15.0
-}]
+[sub_resource type="Animation" id="Animation_a2kbg"]
+resource_name = "stunned"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Stunned:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SmashAttack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bucket:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lv0k5"]
+_data = {
+&"RESET": SubResource("Animation_f26n7"),
+&"attack": SubResource("Animation_lv0k5"),
+&"chase": SubResource("Animation_ce4nt"),
+&"hurt": SubResource("Animation_wdgkb"),
+&"idle": SubResource("Animation_qjsm5"),
+&"stunned": SubResource("Animation_a2kbg")
+}
 
 [node name="Lvl5Bucket" type="CharacterBody2D" unique_id=1048804533]
+collision_layer = 3
+script = ExtResource("4_f26n7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1293211379]
-shape = SubResource("CircleShape2D_lwted")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=816528804]
+position = Vector2(-5.5, 153.5)
+shape = SubResource("RectangleShape2D_f26n7")
 
-[node name="BucketBoss" type="AnimatedSprite2D" parent="." unique_id=704912931]
+[node name="Bucket" type="Sprite2D" parent="." unique_id=307914674]
+texture = ExtResource("1_a4qyl")
+
+[node name="SmashAttack" type="Sprite2D" parent="." unique_id=464367480]
 visible = false
-sprite_frames = SubResource("SpriteFrames_6adr0")
-animation = &"attack"
-frame = 6
-frame_progress = 1.0
+texture = ExtResource("1_da0u5")
+hframes = 7
+frame = 2
+
+[node name="SmashHitbox" type="Area2D" parent="SmashAttack" unique_id=1700910550]
+monitoring = false
+
+[node name="AttackRange" type="CollisionShape2D" parent="SmashAttack/SmashHitbox" unique_id=762852501]
+position = Vector2(-626.5, 236.5)
+shape = SubResource("RectangleShape2D_0opv1")
+disabled = true
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1442444521]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=1944150479]
+visible = false
+shape = SubResource("CircleShape2D_f26n7")
+
+[node name="Stunned" type="Sprite2D" parent="." unique_id=1277173442]
+visible = false
+texture = ExtResource("3_0opv1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=926151173]
+libraries/ = SubResource("AnimationLibrary_lv0k5")
+
+[connection signal="body_entered" from="SmashAttack/SmashHitbox" to="." method="_on_smash_hitbox_body_entered"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
