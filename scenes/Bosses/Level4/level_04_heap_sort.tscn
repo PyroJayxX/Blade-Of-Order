@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bpqk512aubwb"]
 
 [ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/Game/arena.tscn" id="1_603lc"]
-[ext_resource type="Script" path="res://scripts/LevelScripts/level4.gd" id="1_phf3p"]
+[ext_resource type="Script" uid="uid://t2afda25e1l7" path="res://scripts/LevelScripts/level4.gd" id="1_phf3p"]
 [ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/Game/touchControls.tscn" id="2_phf3p"]
 [ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/Player/player_new.tscn" id="3_bhejy"]
 [ext_resource type="Script" uid="uid://bx0igiwp84c3p" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="4_uay2n"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="6_2ujx4"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="7_gtlv4"]
 [ext_resource type="PackedScene" uid="uid://cg6n0tiemkag6" path="res://scenes/Bosses/Level4/Heap/lvl4_heap.tscn" id="9_uay2n"]
-[ext_resource type="PackedScene" uid="uid://bp3jr1xy4vaga" path="res://scenes/Puzzles/heap_sort.tscn" id="10_tygc3"]
+[ext_resource type="PackedScene" uid="uid://bp3jr1xy4vaga" path="res://scenes/puzzles/heap_sort.tscn" id="10_tygc3"]
 
 [sub_resource type="Gradient" id="Gradient_jxgif"]
 offsets = PackedFloat32Array(0.27108434, 1)
@@ -18,6 +18,15 @@ colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_d3jfy"]
 gradient = SubResource("Gradient_jxgif")
 fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_uay2n"]
+colors = PackedColorArray(0, 0, 0, 0, 0.67, 0.11390001, 0.11390001, 0.24705882)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tygc3"]
+gradient = SubResource("Gradient_uay2n")
+fill = 1
+fill_from = Vector2(0.52991456, 0.5)
+fill_to = Vector2(1.39, 0)
 
 [node name="HeapSort" type="Node2D" unique_id=764411515]
 script = ExtResource("1_phf3p")
@@ -55,11 +64,30 @@ attack_sequence_cooldown = 4.0
 position = Vector2(675, 494)
 scale = Vector2(0.34, 0.34)
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=511707380]
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=511707380 node_paths=PackedStringArray("vignette_node")]
 position = Vector2(75.00005, -535.29407)
 zoom = Vector2(0.53, 0.53)
 position_smoothing_speed = 4.5
 script = ExtResource("4_uay2n")
+red_flash_opacity = 0.6
+vignette_node = NodePath("../CanvasLayer/DamageVignette")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player" unique_id=1713574980]
+
+[node name="DamageVignette" type="TextureRect" parent="Player/CanvasLayer" unique_id=1317292008]
+texture_filter = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -443.0
+offset_right = 1461.6445
+offset_bottom = 787.31555
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3.6901062, 3.5308971)
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_tygc3")
 
 [node name="HeapSortPuzzle" parent="." unique_id=1897790252 instance=ExtResource("10_tygc3")]
 layer = 20

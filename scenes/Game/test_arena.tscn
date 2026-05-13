@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://bngj08t1hp6qk"]
+
+[ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/Game/arena.tscn" id="2_fb7gq"]
+[ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/Game/touchControls.tscn" id="3_4uqaf"]
+[ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/Player/player_new.tscn" id="4_30mg7"]
+[ext_resource type="Script" uid="uid://bx0igiwp84c3p" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="5_sngdg"]
+
+[sub_resource type="GDScript" id="GDScript_duvjk"]
+script/source = "extends Node2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="Gradient" id="Gradient_u5sy4"]
+offsets = PackedFloat32Array(0.27108434, 1)
+colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1jyab"]
+gradient = SubResource("Gradient_u5sy4")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_duvjk"]
+colors = PackedColorArray(0, 0, 0, 0, 0.67, 0.11390001, 0.11390001, 0.24705882)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1dbx8"]
+gradient = SubResource("Gradient_duvjk")
+fill = 1
+fill_from = Vector2(0.5, 0.52991456)
+
+[node name="TestArena" type="Node2D" unique_id=89820303]
+script = SubResource("GDScript_duvjk")
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=230110157]
+scroll_offset = Vector2(190, -329)
+
+[node name="TextureRect" type="TextureRect" parent="Parallax2D" unique_id=672847518]
+offset_left = -1020.0
+offset_top = -689.0
+offset_right = 14731.0
+offset_bottom = 1282.0
+texture = SubResource("GradientTexture2D_1jyab")
+
+[node name="Control" type="Control" parent="." unique_id=409866846]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -283.0
+offset_top = -14.0
+offset_right = -144.0
+offset_bottom = 139.0
+
+[node name="TouchControls" parent="Control" unique_id=1019859329 instance=ExtResource("3_4uqaf")]
+visible = false
+
+[node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("2_fb7gq")]
+position = Vector2(-594, 622)
+
+[node name="Player" parent="." unique_id=1430617140 instance=ExtResource("4_30mg7")]
+position = Vector2(675, 494)
+scale = Vector2(0.34, 0.34)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1125834486]
+position = Vector2(75.00005, -535.29407)
+zoom = Vector2(0.53, 0.53)
+position_smoothing_speed = 4.5
+script = ExtResource("5_sngdg")
+
+[node name="DamageVignette" type="TextureRect" parent="Player" unique_id=578096925]
+texture_filter = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3867.647
+offset_top = -2755.8823
+offset_right = -1766.0024
+offset_bottom = -1525.5668
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3.6901062, 3.5308971)
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_1dbx8")
