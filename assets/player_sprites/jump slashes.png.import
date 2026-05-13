@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cb0cxq6x40vly"
-path="res://.godot/imported/bubble_eye.png-0a28ee2cb1915ebdf16e7129f2dd174c.ctex"
+uid="uid://bu6v4rx30si4f"
+path="res://.godot/imported/jump slashes.png-eccf1faca68c03ce6493ea1aef728c83.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/Bosses/Level1/Bubble/bubble_eye.png"
-dest_files=["res://.godot/imported/bubble_eye.png-0a28ee2cb1915ebdf16e7129f2dd174c.ctex"]
+source_file="res://assets/player_sprites/jump slashes.png"
+dest_files=["res://.godot/imported/jump slashes.png-eccf1faca68c03ce6493ea1aef728c83.ctex"]
 
 [params]
 

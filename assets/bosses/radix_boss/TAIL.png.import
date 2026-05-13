@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cb0cxq6x40vly"
-path="res://.godot/imported/bubble_eye.png-0a28ee2cb1915ebdf16e7129f2dd174c.ctex"
+uid="uid://b661i41luky8w"
+path="res://.godot/imported/TAIL.png-76f793b99b0117aef19d105fc2a33ef0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/Bosses/Level1/Bubble/bubble_eye.png"
-dest_files=["res://.godot/imported/bubble_eye.png-0a28ee2cb1915ebdf16e7129f2dd174c.ctex"]
+source_file="res://assets/bosses/radix_boss/TAIL.png"
+dest_files=["res://.godot/imported/TAIL.png-76f793b99b0117aef19d105fc2a33ef0.ctex"]
 
 [params]
 

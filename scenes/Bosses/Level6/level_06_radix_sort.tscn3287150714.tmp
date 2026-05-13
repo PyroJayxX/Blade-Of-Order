@@ -86,7 +86,7 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_hu6eu")
 
 [node name="RadixBoss" parent="." unique_id=962015265 instance=ExtResource("10_023rx")]
-position = Vector2(15597, 9715)
+position = Vector2(6655, 3591)
 script = ExtResource("7_8nvh1")
 
 [node name="RadixSort" parent="." unique_id=1428021277 instance=ExtResource("7_dvama")]

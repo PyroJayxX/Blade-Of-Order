@@ -4,7 +4,7 @@ signal player_died
 
 # MOVEMENT CONST VARIABLES
 const SPEED = 800.0 # how fast the player is
-const JUMP_VELOCITY = -1200.0 # higher magnitude = higher and faster jump
+const JUMP_VELOCITY = -1500.0 # lower negative magnitude = higher and faster jump
 
 const FALL_MULTIPLIER = 4 # gravity multiplier when falling
 const LOW_JUMP_MULTIPLIER = 2.2 # gravity multiplier when jumping
@@ -55,9 +55,12 @@ var _boss_ref: Node2D = null
 @onready var slash1_area : Area2D = $SlashCollision1
 @onready var slash2_area : Area2D = $SlashCollision2
 @onready var slash3_area : Area2D = $SlashCollision3
+@onready var dash_particles: GPUParticles2D = $DashParticles
 @onready var slash1 : CollisionPolygon2D = $SlashCollision1/CollisionPolygon2D
 @onready var slash2 : CollisionPolygon2D = $SlashCollision2/CollisionPolygon2D
 @onready var slash3 : CollisionPolygon2D = $SlashCollision3/CollisionPolygon2D
+@onready var hit_flash_player: AnimationPlayer = $HitFlash # hit effect animation player
+@onready var camera = $Camera2D
 
 func _ready() -> void:
 	_current_health = max_health
@@ -81,9 +84,14 @@ func _ready() -> void:
 	_sync_player_hud_health()
 
 # play animation helper function so there is no animation overlap
-func play_anim(name: String):
+func play_anim(name: String, force_restart: bool = false):
 	if animated_sprite.animation != name:
 		animated_sprite.play(name)
+	
+	# if force restart (for 2x jump), specify the frame restart to 0
+	if force_restart:
+		animated_sprite.frame = 0
+		animated_sprite.play(name) 
 
 func start_dash(direction):
 	is_dashing = true
@@ -92,6 +100,10 @@ func start_dash(direction):
 	# if no input, dash based on facing direction
 	if direction == 0:
 		direction = -1 if animated_sprite.flip_h else 1
+		 
+	# get direction player is facing before emitting particles
+	dash_particles.scale.x = direction 
+	dash_particles.emitting = true
 	
 	velocity.x = direction * DASH_SPEED
 	_dash_invuln_timer = maxf(_dash_invuln_timer, DASH_TIME + DASH_POST_INVULN_TIME)
@@ -102,6 +114,7 @@ func start_dash(direction):
 	await get_tree().create_timer(DASH_TIME).timeout
 	
 	is_dashing = false
+	dash_particles.emitting = false # turn off particles
 
 func start_attack():
 	if is_attacking:
@@ -109,6 +122,7 @@ func start_attack():
 		
 	is_attacking = true
 	_slash_has_hit = false
+	_queued_next_attack = false
 	
 	var direction := Input.get_axis("moveLeft", "moveRight")
 	
@@ -117,7 +131,14 @@ func start_attack():
 	
 	# apply forward lunge ONLY if pressing forward
 	if direction != 0:
-		velocity.x = direction * 800  # tweak this value
+		velocity.x = direction * 1200  # tweak this value
+	
+	var anim_prefix = "slash_"
+	if not is_on_floor():
+		anim_prefix = "jump_slash_" # uses the new jump slashes animations
+		
+		# while attacking mid air, if velocity.y = 0 = hover, 50 = brakes completely, small number = hover
+		velocity.y = 30.0
 	
 	# advance combo
 	_combo_step += 1
@@ -136,10 +157,13 @@ func start_attack():
 	AudioController.play_player_slash_1()
 	
 	# play correct animation
-	var anim_name = "slash_" + str(_combo_step)
+	var anim_name = anim_prefix + str(_combo_step)
 	play_anim(anim_name)
 	
 	await animated_sprite.animation_finished
+	
+	if not is_attacking: # return if no longer attacking (like if jump interrupts)
+		return
 	
 	# disable hitbox for slash
 	_set_slash_collision_enabled(false)
@@ -169,21 +193,36 @@ func _physics_process(delta: float) -> void:
 		_combo_timer = maxf(_combo_timer - delta, 0.0)
 		if _combo_timer <= 0.0:
 			_combo_step = 0
+			
+	if not is_dashing:
+		dash_particles.emitting = false
 
 	# gravity
 	if not is_on_floor():
-		if velocity.y > 0:
-			velocity += get_gravity() * FALL_MULTIPLIER * delta
+		var current_gravity = get_gravity()
+		
+		
+		if is_attacking: # reduce gravity when attacking mid-air
+			velocity += current_gravity * 0.2 * delta 
+		elif velocity.y > 0:
+			velocity += current_gravity * FALL_MULTIPLIER * delta
 		else:
-			velocity += get_gravity() * LOW_JUMP_MULTIPLIER * delta
+			velocity += current_gravity * LOW_JUMP_MULTIPLIER * delta
 
 	if Input.is_action_just_pressed("jump"):
-		if is_on_floor():
-			velocity.y = JUMP_VELOCITY
-			_jumps_used = 0
-		elif _jumps_used < MAX_JUMPS - 1:
-			velocity.y = JUMP_VELOCITY
-			_jumps_used += 1
+		if is_on_floor() or _jumps_used < MAX_JUMPS - 1:
+			# these lines cancel attacks when clicking jump
+			is_attacking = false
+			_queued_next_attack = false
+			_set_slash_collision_enabled(false) 
+			
+			if is_on_floor():
+				velocity.y = JUMP_VELOCITY
+				_jumps_used = 0
+			else:
+				velocity.y = JUMP_VELOCITY
+				_jumps_used += 1
+			play_anim("jump", true)
 
 	var direction := Input.get_axis("moveLeft", "moveRight")
 
@@ -205,6 +244,7 @@ func _physics_process(delta: float) -> void:
 		if direction != 0:
 			velocity.x = direction * SPEED
 			animated_sprite.flip_h = direction < 0
+			
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			
@@ -212,12 +252,12 @@ func _physics_process(delta: float) -> void:
 			
 	# Animation (PRIORITY-BASED)
 	if is_attacking:
-		var anim_name = "slash_" + str(_combo_step)
-		play_anim(anim_name)
+		var anim_prefix = "jump_slash_" if not is_on_floor() else "slash_" # either jump or normal attack
+		play_anim(anim_prefix + str(_combo_step))
 	elif is_dashing:
 		play_anim("dash")
 	elif not is_on_floor():
-		animated_sprite.play("jump")
+			play_anim("jump")
 	else:
 		if direction != 0:
 			play_anim("run")
@@ -231,12 +271,21 @@ func take_damage(amount: int = 1) -> void:
 	if _dash_invuln_timer > 0.0:
 		return
 	var safe_amount: int = maxi(amount, 0)
+	
+	if safe_amount > 0:
+		hit_flash_player.stop() # forces the animation to restart if hit rapidly
+		hit_flash_player.play("hit_animation")
+	
 	_current_health = clampi(_current_health - safe_amount, 0, max_health)
 	_sync_player_hud_health()
 	print("Player HP -> ", _current_health, "/", max_health)
+	
+	camera.apply_hit_effect() # shows the hit animation of camera
+	
 	if _current_health <= 0 and not _death_emitted:
 		_death_emitted = true
 		player_died.emit()
+		
 
 func get_current_health() -> int:
 	return _current_health
