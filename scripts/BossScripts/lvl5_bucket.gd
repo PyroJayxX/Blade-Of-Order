@@ -28,7 +28,7 @@ enum BossState {
 
 # PROJECTILE VARIABLES (Orbital Strike)
 @export var projectile_scene: PackedScene 
-@export var attack2_cooldown: float = 4.0
+@export var attack2_cooldown: float = 5.0
 @export var attack2_trigger_dist: float = 600.0 
 @export var projectile_arc_radius: float = 800.0  
 @export var projectile_spread_angle: float = 100.0 
@@ -36,11 +36,11 @@ enum BossState {
 @export var projectile_fire_delay: float = 0.1
 @export var horizontal_stretch: float = 1.7
 
-# LASER WAVE VARIABLES (New Attack!)
+# LASER WAVE VARIABLES (Wave Attack)
 @export var wave_projectile_scene: PackedScene 
-@export var laser_cooldown: float = 5.0   # How often the boss uses the laser
-@export var laser_duration: float = 2.0   # How long the laser stream lasts
-@export var laser_fire_rate: float = 0.15 # How fast the waves shoot out
+@export var laser_cooldown: float = 6.0   
+@export var laser_duration: float = 3.0   
+@export var laser_fire_rate: float = 0.07 
 
 const HUD_PATH: NodePath = ^"HUD"
 
