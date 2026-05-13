@@ -9,6 +9,7 @@ level_id = 5
 display_name = "Bucket Sort"
 preview_image = ExtResource("1_squx8")
 scene_path = "uid://b6pps0560ow8d"
+unlock_level_required = 0
 boss_type = "bucket"
 puzzle_type = "bucket_sort"
 timer_rules = "default"

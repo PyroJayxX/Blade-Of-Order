@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://0nkvm7a8nr3s" path="res://scripts/GameScripts/leaderboard.gd" id="1_84e3n"]
 [ext_resource type="PackedScene" uid="uid://cineufoadrqx4" path="res://scenes/Game/leaderboard_row.tscn" id="2_foshq"]
 [ext_resource type="FontFile" uid="uid://btvnfrvu1nsxl" path="res://fonts/Hackdaddy.otf" id="2_m3jn6"]
+[ext_resource type="Texture2D" uid="uid://bvs24313jv7y" path="res://assets/buttons/exit_btn.png" id="4_t4eqt"]
+[ext_resource type="Texture2D" uid="uid://dha0dnvfubb4a" path="res://assets/buttons/exit_btn_pressed.png" id="5_lme1y"]
 
 [sub_resource type="Gradient" id="Gradient_bg"]
 offsets = PackedFloat32Array(0.27108434, 1)
@@ -141,19 +143,24 @@ theme_override_constants/separation = 8
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 
-[node name="Buttons" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer" unique_id=1639950742]
+[node name="Buttons" type="Control" parent="Panel/ScrollContainer/VBoxContainer" unique_id=463878547]
 layout_mode = 2
-theme_override_constants/separation = 20
-alignment = 1
 
-[node name="CloseButton" type="Button" parent="Panel/ScrollContainer/VBoxContainer/Buttons" unique_id=1523659631]
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 2
-text = "CLOSE"
+[node name="CloseButton" type="TextureButton" parent="Panel/ScrollContainer/VBoxContainer/Buttons" unique_id=450895676]
+layout_mode = 1
+offset_left = 500.0
+offset_top = 150.0
+offset_right = 3499.0
+offset_bottom = 1057.0
+scale = Vector2(0.1, 0.1)
+texture_normal = ExtResource("4_t4eqt")
+texture_pressed = ExtResource("5_lme1y")
+texture_hover = ExtResource("5_lme1y")
+stretch_mode = 5
 
 [node name="NameDialog" type="PanelContainer" parent="Panel" unique_id=767468829]
-visible = false
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -161,7 +168,7 @@ anchor_bottom = 0.5
 offset_left = -250.0
 offset_top = -150.0
 offset_right = 250.0
-offset_bottom = 150.0
+offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tyoqt")
@@ -169,6 +176,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_tyoqt")
 [node name="VBox" type="VBoxContainer" parent="Panel/NameDialog" unique_id=1636003240]
 layout_mode = 2
 theme_override_constants/separation = 12
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/NameDialog/VBox" unique_id=1023638151]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 
 [node name="Label" type="Label" parent="Panel/NameDialog/VBox" unique_id=352459879]
 layout_mode = 2
@@ -178,11 +189,13 @@ horizontal_alignment = 1
 [node name="NameLineEdit" type="LineEdit" parent="Panel/NameDialog/VBox" unique_id=149198328]
 layout_mode = 2
 placeholder_text = "Your name..."
+alignment = 1
 max_length = 16
 
 [node name="Buttons" type="HBoxContainer" parent="Panel/NameDialog/VBox" unique_id=390846313]
 layout_mode = 2
 theme_override_constants/separation = 12
+alignment = 1
 
 [node name="ConfirmNameButton" type="Button" parent="Panel/NameDialog/VBox/Buttons" unique_id=1071379763]
 custom_minimum_size = Vector2(0, 48)

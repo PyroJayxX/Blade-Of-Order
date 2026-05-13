@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cwamcbrp5j01o"]
+
+[ext_resource type="Script" uid="uid://ldfa6nbaml0k" path="res://scripts/BossScripts/heap_projectile.gd" id="1_raj3r"]
+[ext_resource type="Texture2D" uid="uid://ga2666cfv857" path="res://assets/bosses/heap_boss/projectile2.png" id="2_62anp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yx3t5"]
+radius = 48.64
+height = 174.0
+
+[node name="HeapHomingLeaf" type="Area2D" unique_id=1835883019]
+scale = Vector2(0.6078144, 0.6078144)
+script = ExtResource("1_raj3r")
+mode = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1405287317]
+texture = ExtResource("2_62anp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=172339727]
+position = Vector2(46.066696, -19.742868)
+scale = Vector2(0.8645718, 0.81793237)
+shape = SubResource("CapsuleShape2D_yx3t5")

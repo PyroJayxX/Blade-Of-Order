@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/Player/player_new.tscn" id="3_jplhh"]
 [ext_resource type="Script" uid="uid://bx0igiwp84c3p" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="4_swf52"]
 [ext_resource type="PackedScene" uid="uid://ctapwu3uviyqg" path="res://scenes/Game/hud.tscn" id="5_g7rnl"]
+[ext_resource type="PackedScene" uid="uid://7rkgjpqq2unb" path="res://scenes/Bosses/Level3/Shell/lvl3_shell.tscn" id="5_qk581"]
+[ext_resource type="Script" uid="uid://bp6i8c0sd8bdv" path="res://scripts/BossScripts/lvl3_shell.gd" id="6_jplhh"]
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="6_rbong"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="7_udqt2"]
 
@@ -47,6 +49,10 @@ position = Vector2(75.00005, -535.29407)
 zoom = Vector2(0.53, 0.53)
 position_smoothing_speed = 4.5
 script = ExtResource("4_swf52")
+
+[node name="Lvl3Shell" parent="." unique_id=87852550 instance=ExtResource("5_qk581")]
+position = Vector2(1282, 0)
+script = ExtResource("6_jplhh")
 
 [node name="HUD" parent="." unique_id=148605811 instance=ExtResource("5_g7rnl")]
 layer = 10

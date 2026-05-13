@@ -40,6 +40,7 @@ pitch_scale = 0.5
 
 [node name="player_slash_1" type="AudioStreamPlayer" parent="." unique_id=606134259]
 stream = ExtResource("7_h7rxg")
+volume_db = -9.476
 
 [node name="player_slash_2" type="AudioStreamPlayer" parent="." unique_id=552063317]
 stream = ExtResource("7_vys8g")
