@@ -55,19 +55,19 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_faln8"]
-radius = 5.614267
+radius = 4.5643525
 
 [node name="BucketProjectile2" type="Area2D" unique_id=1928485964]
 script = ExtResource("1_oc3q2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1140765970]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.475, 0.475)
 sprite_frames = SubResource("SpriteFrames_krgn7")
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=619347435]
 rotation = -3.1415927
-scale = Vector2(20, 20)
+scale = Vector2(22.505, 22.505)
 shape = SubResource("CircleShape2D_faln8")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

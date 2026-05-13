@@ -1,8 +1,8 @@
 extends Area2D
 
-@export var speed: float = 1500.0
+@export var speed: float = 4000.0
 @export var damage: int = 5
-@export var spin_speed: float = 40.0 # Constant spin in the air
+@export var spin_speed: float = 50.0 # Constant spin in the air
 
 var _direction: Vector2 = Vector2.ZERO
 var _is_launched: bool = false

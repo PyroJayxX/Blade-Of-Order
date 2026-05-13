@@ -28,12 +28,13 @@ enum BossState {
 
 # PROJECTILE VARIABLES
 @export var projectile_scene: PackedScene 
-@export var attack2_cooldown: float = 7.0
+@export var attack2_cooldown: float = 4.0
 @export var attack2_trigger_dist: float = 600.0 
 @export var projectile_arc_radius: float = 800.0  # Spawns high above player
-@export var projectile_spread_angle: float = 80.0 
-@export var projectile_hover_time: float = 2.0    # Time spent hanging in the air
-@export var projectile_fire_delay: float = 0.2
+@export var projectile_spread_angle: float = 100.0 
+@export var projectile_hover_time: float = 1.0    # Time spent hanging in the air
+@export var projectile_fire_delay: float = 0.1
+@export var horizontal_stretch: float = 1.7
 
 const HUD_PATH: NodePath = ^"HUD"
 
@@ -150,7 +151,7 @@ func _run_attack2_sequence() -> void:
 	
 	_attack2_timer = attack2_cooldown
 	var spawned_projectiles: Array[Node2D] = []
-	var num_shots = 5
+	var num_shots = 8
 	
 	# PHASE 1: SUMMON ABOVE THE PLAYER
 	var spread_angle = deg_to_rad(projectile_spread_angle) 
@@ -163,6 +164,8 @@ func _run_attack2_sequence() -> void:
 		
 		var current_angle = start_angle + (i * angle_step)
 		var offset = Vector2.UP.rotated(current_angle) * projectile_arc_radius 
+		
+		offset.x *= horizontal_stretch
 		
 		# Spawn relative to the PLAYER'S position
 		p.global_position = _target.global_position + offset
