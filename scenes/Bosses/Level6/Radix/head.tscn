@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://p5wi0fbditkp"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gjr4n"]
+[ext_resource type="Texture2D" uid="uid://bmgju2xcfnex8" path="res://assets/bosses/radix_boss/HEAD.png" id="1_2r0c4"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_2r0c4"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_gjr4n"]
 
 [node name="Head" type="CharacterBody2D" unique_id=875666592]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2023627667]
-scale = Vector2(2.5, 2.5)
+scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_gjr4n")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=709846643]
-modulate = Color(6.256998e-07, 0.20333421, 0.28324717, 1)
-scale = Vector2(50, 50)
-mesh = SubResource("SphereMesh_2r0c4")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2146703357]
+rotation = 3.1415927
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("1_2r0c4")

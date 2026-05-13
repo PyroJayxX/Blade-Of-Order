@@ -5,95 +5,122 @@
 
 [node name="RadixBoss" type="Node2D" unique_id=962015265]
 
-[node name="Head" parent="." unique_id=875666592 instance=ExtResource("1_3b4n8")]
-scale = Vector2(8, 8)
-
 [node name="Segment" parent="." unique_id=721851220 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment2" parent="." unique_id=2147042420 instance=ExtResource("2_eyv1h")]
+[node name="Segment2" parent="." unique_id=749766560 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment3" parent="." unique_id=907813238 instance=ExtResource("2_eyv1h")]
+[node name="Segment3" parent="." unique_id=1210661947 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment4" parent="." unique_id=941252049 instance=ExtResource("2_eyv1h")]
+[node name="Segment4" parent="." unique_id=580571683 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment5" parent="." unique_id=808527845 instance=ExtResource("2_eyv1h")]
+[node name="Segment5" parent="." unique_id=719652516 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment6" parent="." unique_id=2081249134 instance=ExtResource("2_eyv1h")]
+[node name="Segment6" parent="." unique_id=522951774 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment7" parent="." unique_id=55597761 instance=ExtResource("2_eyv1h")]
+[node name="Segment7" parent="." unique_id=561996077 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment8" parent="." unique_id=353207761 instance=ExtResource("2_eyv1h")]
+[node name="Segment8" parent="." unique_id=2074521604 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment9" parent="." unique_id=1675549004 instance=ExtResource("2_eyv1h")]
+[node name="Segment9" parent="." unique_id=1352931262 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment10" parent="." unique_id=970862666 instance=ExtResource("2_eyv1h")]
+[node name="Segment10" parent="." unique_id=519892485 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment11" parent="." unique_id=600944673 instance=ExtResource("2_eyv1h")]
+[node name="Segment11" parent="." unique_id=1548903921 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment12" parent="." unique_id=18913149 instance=ExtResource("2_eyv1h")]
+[node name="Segment12" parent="." unique_id=1131936551 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment13" parent="." unique_id=1923257590 instance=ExtResource("2_eyv1h")]
+[node name="Segment13" parent="." unique_id=691122889 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment14" parent="." unique_id=1497291505 instance=ExtResource("2_eyv1h")]
+[node name="Segment14" parent="." unique_id=458021177 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment15" parent="." unique_id=107974651 instance=ExtResource("2_eyv1h")]
+[node name="Segment15" parent="." unique_id=133737983 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment16" parent="." unique_id=1053422699 instance=ExtResource("2_eyv1h")]
+[node name="Segment16" parent="." unique_id=1071059288 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment17" parent="." unique_id=1070071733 instance=ExtResource("2_eyv1h")]
+[node name="Segment17" parent="." unique_id=1427467636 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment18" parent="." unique_id=1007472000 instance=ExtResource("2_eyv1h")]
+[node name="Segment18" parent="." unique_id=1825675546 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment19" parent="." unique_id=1706918425 instance=ExtResource("2_eyv1h")]
+[node name="Segment19" parent="." unique_id=1683665174 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment20" parent="." unique_id=749766560 instance=ExtResource("2_eyv1h")]
+[node name="Segment20" parent="." unique_id=1252261750 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment21" parent="." unique_id=338515220 instance=ExtResource("2_eyv1h")]
+[node name="Segment21" parent="." unique_id=1442330430 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment22" parent="." unique_id=1739348962 instance=ExtResource("2_eyv1h")]
+[node name="Segment22" parent="." unique_id=1194028313 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment23" parent="." unique_id=1475642849 instance=ExtResource("2_eyv1h")]
+[node name="Segment23" parent="." unique_id=163557632 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment24" parent="." unique_id=686061416 instance=ExtResource("2_eyv1h")]
+[node name="Segment24" parent="." unique_id=354386596 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment25" parent="." unique_id=1735781792 instance=ExtResource("2_eyv1h")]
+[node name="Segment25" parent="." unique_id=1271640388 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment26" parent="." unique_id=1126660849 instance=ExtResource("2_eyv1h")]
+[node name="Segment26" parent="." unique_id=1509295527 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment27" parent="." unique_id=1082339046 instance=ExtResource("2_eyv1h")]
+[node name="Segment27" parent="." unique_id=1263174584 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment28" parent="." unique_id=1313720199 instance=ExtResource("2_eyv1h")]
+[node name="Segment28" parent="." unique_id=635076231 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment29" parent="." unique_id=283073094 instance=ExtResource("2_eyv1h")]
+[node name="Segment29" parent="." unique_id=1608950695 instance=ExtResource("2_eyv1h")]
+z_index = 1
 scale = Vector2(8, 8)
 
-[node name="Segment30" parent="." unique_id=1698643888 instance=ExtResource("2_eyv1h")]
+[node name="Head" parent="." unique_id=875666592 instance=ExtResource("1_3b4n8")]
+z_index = 2
 scale = Vector2(8, 8)
