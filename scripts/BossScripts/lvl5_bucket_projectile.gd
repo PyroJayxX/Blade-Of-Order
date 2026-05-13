@@ -1,12 +1,11 @@
 extends Area2D
 
-@export var speed: float = 4000.0
-@export var damage: int = 5
-@export var spin_speed: float = 50.0 # Constant spin in the air
+@export var speed: float = 900.0
+@export var damage: int = 10
+@export var lifetime: float = 4.0 
 
-var _direction: Vector2 = Vector2.ZERO
-var _is_launched: bool = false
-var _is_destroyed: bool = false
+var _direction: Vector2 = Vector2.RIGHT
+var _is_destroyed: bool = false 
 var _player_ref: Node2D = null
 var _projectile_radius: float = 1.0
 
@@ -16,45 +15,41 @@ var _projectile_radius: float = 1.0
 func _ready() -> void:
 	if not body_entered.is_connected(_on_body_entered):
 		body_entered.connect(_on_body_entered)
+	
+	if sprite != null:
+		sprite.play("default") 
 		
-	sprite.play("default")
+	# Setup the radius for the custom math check
 	_projectile_radius = _estimate_projectile_radius()
 
-func launch(target_pos: Vector2) -> void:
-	_direction = (target_pos - global_position).normalized()
-	rotation = _direction.angle()
-	_is_launched = true
-	
-	# Self-destruct after 4 seconds
-	await get_tree().create_timer(4.0).timeout
+func launch(dir: Vector2) -> void:
+	_direction = dir.normalized()
+	rotation = _direction.angle() + PI
+		
+	await get_tree().create_timer(lifetime).timeout
 	if is_inside_tree() and not _is_destroyed:
-		_destroy_projectile()
+		queue_free()
 
 func _physics_process(delta: float) -> void:
-	# Stop everything if it's already dead
 	if _is_destroyed: return
 	
-	# 1. CONSTANT SPIN: Happens immediately, whether launched or not!
-	sprite.rotation += spin_speed * delta 
+	# Fly forward
+	global_position += _direction * speed * delta
 	
-	# 2. MOVEMENT: Only happens after the hover time finishes
-	if _is_launched:
-		global_position += _direction * speed * delta
-		
-	# 3. SWORD CHECK: Letting the player break them while they hover is great game design!
+	# Check the custom math polygon to see if the sword hit us!
 	_try_pop_from_player_slash()
 
+# --- PLAYER HIT SIGNAL ---
 func _on_body_entered(body: Node2D) -> void:
 	if _is_destroyed or not _is_player(body):
 		return
 	
 	if body.has_method("take_damage"):
 		body.call("take_damage", damage)
-	
-	# Disappear instantly if it hits the player body
-	_is_destroyed = true
-	queue_free()
+		
+	queue_free() 
 
+# --- CUSTOM SWORD MATH CHECK ---
 func _try_pop_from_player_slash() -> void:
 	if not is_inside_tree() or _is_destroyed:
 		return
@@ -79,16 +74,15 @@ func _try_pop_from_player_slash() -> void:
 func _destroy_projectile() -> void:
 	_is_destroyed = true
 	
-	# Play the pop animation
-	sprite.rotation = 0 # Reset rotation so the pop looks clean
-	sprite.play("pop")
-	
-	# Wait for the animation to finish, then delete
+	if sprite != null:
+		sprite.rotation = 0 
+		sprite.play("pop") 
+		
 	await sprite.animation_finished
 	if is_inside_tree():
 		queue_free()
 
-# --- HELPER MATH FUNCTIONS (From Level 1) ---
+# --- HELPER MATH FUNCTIONS ---
 
 func _is_player(body: Node2D) -> bool:
 	if body == null:

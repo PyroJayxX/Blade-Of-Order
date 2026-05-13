@@ -26,15 +26,21 @@ enum BossState {
 @export var max_health: int = 150 
 @export var attack_damage: int = 10 
 
-# PROJECTILE VARIABLES
+# PROJECTILE VARIABLES (Orbital Strike)
 @export var projectile_scene: PackedScene 
 @export var attack2_cooldown: float = 4.0
 @export var attack2_trigger_dist: float = 600.0 
-@export var projectile_arc_radius: float = 800.0  # Spawns high above player
+@export var projectile_arc_radius: float = 800.0  
 @export var projectile_spread_angle: float = 100.0 
-@export var projectile_hover_time: float = 1.0    # Time spent hanging in the air
+@export var projectile_hover_time: float = 1.0    
 @export var projectile_fire_delay: float = 0.1
 @export var horizontal_stretch: float = 1.7
+
+# LASER WAVE VARIABLES (New Attack!)
+@export var wave_projectile_scene: PackedScene 
+@export var laser_cooldown: float = 5.0   # How often the boss uses the laser
+@export var laser_duration: float = 2.0   # How long the laser stream lasts
+@export var laser_fire_rate: float = 0.15 # How fast the waves shoot out
 
 const HUD_PATH: NodePath = ^"HUD"
 
@@ -47,6 +53,7 @@ var _is_defeated: bool = false
 var _combat_enabled: bool = true
 var _attack1_timer: float = 0.0
 var _attack2_timer: float = 4.0
+var _laser_timer: float = 6.0 # Starts a bit higher so it doesn't fire at the exact same time as Attack 2
 var _floor_y_level: float = 0.0 
 
 # --- NODE REFERENCES ---
@@ -77,9 +84,10 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
-	# Decrement both timers
+	# Decrement all timers
 	if _attack1_timer > 0.0: _attack1_timer -= delta
 	if _attack2_timer > 0.0: _attack2_timer -= delta
+	if _laser_timer > 0.0: _laser_timer -= delta
 
 	var dist_x = abs(global_position.x - _target.global_position.x)
 
@@ -92,14 +100,18 @@ func _physics_process(delta: float) -> void:
 			_maintain_horizontal_spacing(dist_x)
 			velocity.y = (_home_y - global_position.y) * 10
 			
-			# Trigger Smash Attack
+			# 1. Trigger Smash Attack
 			if dist_x <= attack_range and _attack1_timer <= 0.0:
 				_floor_y_level = _target.global_position.y
 				_set_state(BossState.DROP)
 			
-			# Trigger Projectile Attack (Runs asynchronously while chasing!)
+			# 2. Trigger Projectile Attack (Async)
 			elif dist_x > attack2_trigger_dist and _attack2_timer <= 0.0:
 				_run_attack2_sequence()
+				
+			# 3. Trigger Laser Attack (Async)
+			elif _laser_timer <= 0.0:
+				_fire_wave_laser()
 				
 		BossState.DROP:
 			velocity.x = 0
@@ -176,7 +188,6 @@ func _run_attack2_sequence() -> void:
 	
 	# PHASE 2: FIRE THEM ONE BY ONE
 	for i in range(spawned_projectiles.size()):
-		# Stop firing if boss dies or is stunned
 		if _is_defeated or _state == BossState.STUNNED:
 			for unlaunched_p in spawned_projectiles:
 				if is_instance_valid(unlaunched_p) and not unlaunched_p._is_launched:
@@ -187,8 +198,41 @@ func _run_attack2_sequence() -> void:
 		if is_instance_valid(p):
 			p.launch(_target.global_position)
 			
-		# Wait before firing the next one
 		await get_tree().create_timer(projectile_fire_delay).timeout
+
+# --- ATTACK 3: RAPID-FIRE WAVE LASER ---
+func _fire_wave_laser() -> void:
+	if wave_projectile_scene == null:
+		print("ERROR: Wave Projectile Scene missing in Inspector!")
+		_laser_timer = laser_cooldown # Reset so it doesn't spam errors
+		return
+		
+	# Immediately reset the cooldown timer
+	_laser_timer = laser_cooldown
+	var time_passed: float = 0.0
+	
+	# Keep firing until the duration runs out
+	while time_passed < laser_duration:
+		# Stop firing if the boss dies or gets stunned!
+		if _is_defeated or _state == BossState.STUNNED:
+			break 
+			
+		var wave = wave_projectile_scene.instantiate()
+		get_tree().current_scene.add_child(wave)
+		
+		# Spawn the wave right at the boss's center
+		wave.global_position = global_position
+		
+		# Calculate the exact angle to the player's current position
+		if _target and is_instance_valid(_target):
+			var dir_to_player = (_target.global_position - global_position).normalized()
+			
+			if wave.has_method("launch"):
+				wave.launch(dir_to_player)
+			
+		# Wait a tiny fraction of a second, then fire the next one
+		await get_tree().create_timer(laser_fire_rate).timeout
+		time_passed += laser_fire_rate
 
 # --- STATE MACHINE EXECUTION ---
 func _set_state(new_state: BossState) -> void:
