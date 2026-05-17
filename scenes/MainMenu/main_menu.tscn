@@ -133,6 +133,7 @@ scale = Vector2(0.34, 0.34)
 script = null
 
 [node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("11_lgwnu")]
+visible = false
 position = Vector2(-6879, 637)
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/play_btn" to="." method="_on_play_btn_pressed"]

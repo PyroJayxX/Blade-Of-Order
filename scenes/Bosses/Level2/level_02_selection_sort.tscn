@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bg7332gw4alkj"]
 
 [ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/Game/arena.tscn" id="1_h4n5n"]
+[ext_resource type="Texture2D" uid="uid://ccdrhws6q4k48" path="res://assets/background/bg4.png" id="1_nc6hf"]
 [ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/Game/touchControls.tscn" id="2_3ahh8"]
 [ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/Player/player_new.tscn" id="3_dtodq"]
 [ext_resource type="Script" uid="uid://bx0igiwp84c3p" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="4_nc6hf"]
@@ -30,11 +31,16 @@ fill_to = Vector2(1.39, 0)
 [node name="SelectionSort" type="Node2D" unique_id=663554583]
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1150585068]
+visible = false
 offset_left = -1030.0
 offset_top = -1028.0
 offset_right = 14721.0
 offset_bottom = 943.0
 texture = SubResource("GradientTexture2D_u50gt")
+
+[node name="BackgroundImage" type="Sprite2D" parent="." unique_id=1822310908]
+position = Vector2(6987, -841)
+texture = ExtResource("1_nc6hf")
 
 [node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("1_h4n5n")]
 position = Vector2(-594, 622)

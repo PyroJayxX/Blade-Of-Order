@@ -66,11 +66,13 @@ position = Vector2(-594, 622)
 position = Vector2(675, 494)
 scale = Vector2(0.34, 0.34)
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1125834486]
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1125834486 node_paths=PackedStringArray("vignette_node")]
 position = Vector2(75.00005, -535.29407)
 zoom = Vector2(0.53, 0.53)
 position_smoothing_speed = 4.5
 script = ExtResource("5_sngdg")
+red_flash_opacity = 0.6
+vignette_node = NodePath("../DamageVignette")
 
 [node name="DamageVignette" type="TextureRect" parent="Player" unique_id=578096925]
 texture_filter = 2
