@@ -60,6 +60,34 @@ func _ready() -> void:
 	_direction = 1
 	_resolve_target()
 	_sync_boss_hud_health()
+
+	# Give the Cutscene instance one frame to finish its own _ready() setup.
+	await get_tree().process_frame
+
+	# If a Cutscene node exists in the level scene, play it before enabling combat
+	var cutscene: Node = null
+	if get_tree().current_scene != null:
+		cutscene = get_tree().current_scene.get_node_or_null("Cutscene")
+	if cutscene == null and get_tree().current_scene != null:
+		cutscene = get_tree().current_scene.find_child("Cutscene", true, false)
+	if cutscene != null:
+		print("[lvl3_shell] Found Cutscene node:", cutscene)
+		print("[lvl3_shell] script:", cutscene.get_script())
+		print("[lvl3_shell] has play():", cutscene.has_method("play"))
+		print("[lvl3_shell] has signal cutscene_finished:", cutscene.has_signal("cutscene_finished"))
+		if cutscene.has_method("play"):
+			_combat_enabled = false
+			print("[lvl3_shell] calling play() on Cutscene")
+			cutscene.call("play")
+			print("[lvl3_shell] play() called — awaiting finish signal")
+			await cutscene.cutscene_finished
+			print("[lvl3_shell] cutscene_finished signal received")
+			_combat_enabled = true
+		else:
+			print("[lvl3_shell] Cutscene node found but has no play() method")
+	else:
+		print("[lvl3_shell] No Cutscene node found in current_scene")
+
 	_set_state(BossState.CHASE)
 
 func _physics_process(delta: float) -> void:

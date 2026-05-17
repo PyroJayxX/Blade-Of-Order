@@ -73,11 +73,13 @@ func _show_vs_intro() -> void:
 
 
 func _show_level_start_cutscene() -> void:
-	# 1. Instantiate the scene 
-	var cutscene = CUTSCENE_SCREEN.instantiate()
-	
-	# 2. Add it to the screen and play it
-	add_child(cutscene)
+	# Prefer a Cutscene node placed in the scene (inspector) — otherwise instantiate the prefab
+	var cutscene: Node = get_node_or_null("Cutscene")
+	var instantiated: bool = false
+	if cutscene == null:
+		cutscene = CUTSCENE_SCREEN.instantiate()
+		add_child(cutscene)
+		instantiated = true
 
 	# Disable only the boss combat so the cutscene UI/animations still run
 	_set_boss_combat_enabled(false)
@@ -86,6 +88,7 @@ func _show_level_start_cutscene() -> void:
 	# 3. Wait until it's done
 	await cutscene.cutscene_finished
 	_set_boss_combat_enabled(true)
+	# If we instantiated a temporary cutscene, it's already queue_freed by the script; nothing to do
 
 
 func pause_level(is_paused: bool) -> void:

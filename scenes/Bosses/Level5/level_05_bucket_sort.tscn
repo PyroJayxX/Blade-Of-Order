@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://b6pps0560ow8d"]
 
-[ext_resource type="Script" path="res://scripts/LevelScripts/level5.gd" id="1_7qad3"]
+[ext_resource type="Script" uid="uid://lnl1wyj1rcbm" path="res://scripts/LevelScripts/level5.gd" id="1_7qad3"]
 [ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/Game/arena.tscn" id="1_i7kgr"]
 [ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/Game/touchControls.tscn" id="2_yvess"]
 [ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/Player/player_new.tscn" id="3_kdtey"]
 [ext_resource type="Script" uid="uid://bx0igiwp84c3p" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="4_xrhxm"]
 [ext_resource type="PackedScene" uid="uid://ctapwu3uviyqg" path="res://scenes/Game/hud.tscn" id="5_ndleo"]
+[ext_resource type="PackedScene" uid="uid://b00csgqkimwnf" path="res://scenes/App/cutscene.tscn" id="6_0v417"]
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="6_8wb4u"]
 [ext_resource type="PackedScene" path="res://scenes/puzzles/bucket_sort.tscn" id="6_wp4kt"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="7_0v417"]
@@ -80,6 +81,11 @@ grow_vertical = 2
 scale = Vector2(3.6901062, 3.5308971)
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_yvess")
+
+[node name="Cutscene" parent="." unique_id=1237687727 instance=ExtResource("6_0v417")]
+layer = 200
+visible = false
+pages = Array[String](["You awake in a refinery where energy is spilling. A massive spilling bucket is devouring everything in its path.. Strike the maw of the Bucket Boss to funnel the spilled power back into its rightful place."])
 
 [node name="BucketSortPuzzle" parent="." unique_id=1903240147 instance=ExtResource("6_wp4kt")]
 layer = 101
