@@ -7,12 +7,14 @@
 [ext_resource type="PackedScene" uid="uid://ctapwu3uviyqg" path="res://scenes/Game/hud.tscn" id="4_vyrcm"]
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="5_023rx"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="6_8nvh1"]
-[ext_resource type="PackedScene" uid="uid://dn1osp8xlnwlu" path="res://scenes/puzzles/radix_sort.tscn" id="7_dvama"]
+[ext_resource type="Script" uid="uid://djg71lk02jgv" path="res://scripts/BossScripts/lvl6_radix.gd" id="7_8nvh1"]
+[ext_resource type="PackedScene" path="res://scenes/puzzles/radix_sort.tscn" id="7_dvama"]
 [ext_resource type="PackedScene" uid="uid://b00csgqkimwnf" path="res://scenes/App/cutscene.tscn" id="8_hu6eu"]
 [ext_resource type="Script" uid="uid://duu7rove1ish3" path="res://scripts/LevelScripts/level6.gd" id="8_level6"]
 [ext_resource type="Script" uid="uid://bx0igiwp84c3p" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="9_dynamic_camera"]
 [ext_resource type="Script" uid="uid://cesq8ibnflfga" path="res://scripts/PuzzleScripts/radix_sort_puzzle.gd" id="9_x37sr"]
 [ext_resource type="PackedScene" uid="uid://bq8r8ec3jd8ix" path="res://scenes/Bosses/Level6/Radix/lvl6_radix.tscn" id="10_023rx"]
+[ext_resource type="PackedScene" uid="uid://c8qdi56k6sn7a" path="res://scenes/Game/pause_screen.tscn" id="10_s3nx8"]
 
 [sub_resource type="Gradient" id="Gradient_u5sy4"]
 offsets = PackedFloat32Array(0.27108434, 1)
@@ -91,11 +93,16 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_hu6eu")
 
 [node name="RadixBoss" parent="." unique_id=962015265 instance=ExtResource("10_023rx")]
+position = Vector2(7910, 5408)
+script = ExtResource("7_8nvh1")
 
 [node name="Cutscene" parent="." unique_id=1237687727 instance=ExtResource("8_hu6eu")]
 layer = 200
 visible = false
 pages = Array[String](["You awake at the Core as a massive, hyper-fast static worm tears through the mainframe, devouring the system's logic to fuel its growth. ", "This is the final hurdle; stabilize the corruption so you can finally restore the Order and let your Blade go to rest. "])
+
+[node name="PauseScreen" parent="." unique_id=1994793378 instance=ExtResource("10_s3nx8")]
+layer = 200
 
 [node name="RadixSort" parent="." unique_id=1428021277 instance=ExtResource("7_dvama")]
 layer = 101

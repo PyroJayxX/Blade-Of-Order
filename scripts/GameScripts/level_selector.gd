@@ -1,6 +1,5 @@
 extends Control
 
-# NOTE: Drag and drop your nodes here like we discussed if the paths are different!
 @onready var grid_container = $Overlay/GridContainer
 @onready var play_button = $Overlay/PlayButton 
 @onready var back_button = $Overlay/BackButton
@@ -11,6 +10,8 @@ const SPLASH_TEXTURE_BUCKET = preload("res://assets/boss_splash/BucketSort_Splas
 const SPLASH_TEXTURE_HEAP = preload("res://assets/boss_splash/HeapSort_Splash.png")
 const SPLASH_TEXTURE_SHELL = preload("res://assets/boss_splash/ShellSort_Splash.png")
 const SPLASH_TEXTURE_SELECTION = preload("res://assets/boss_splash/SelectionSort_Splash.png")
+const SPLASH_TEXTURE_RADIX = preload("res://assets/boss_splash/RadixSort_Splash.png")
+const SPLASH_TEXTURE_LOCKED = preload("res://assets/boss_splash/Locked_Level.png")
 
 var level_data: Array[Resource] = []
 var currently_selected_level_id = -1
@@ -46,11 +47,14 @@ func generate_level_grid():
 			unlocked = bool(config.call("is_level_unlocked", data_id))
 		var is_locked: bool = (not unlocked) or data_scene_path.is_empty()
 		var splash_texture: Texture2D = SPLASH_TEXTURE_BUBBLE
-		if data_id == 5:
-			splash_texture = SPLASH_TEXTURE_BUCKET
-		elif data_id == 4:
-			splash_texture = SPLASH_TEXTURE_HEAP
-		tile.setup(data_id, data_name, splash_texture, is_locked, splash_texture)
+		match data_id:
+			1: splash_texture = SPLASH_TEXTURE_BUBBLE
+			2: splash_texture = SPLASH_TEXTURE_SELECTION
+			3: splash_texture = SPLASH_TEXTURE_SHELL
+			4: splash_texture = SPLASH_TEXTURE_HEAP
+			5: splash_texture = SPLASH_TEXTURE_BUCKET
+			6: splash_texture = SPLASH_TEXTURE_RADIX
+		tile.setup(data_id, data_name, splash_texture, is_locked, SPLASH_TEXTURE_LOCKED)
 		tile.tile_selected.connect(_on_level_tile_selected)
 		
 		

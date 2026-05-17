@@ -1,15 +1,16 @@
 [gd_resource type="Resource" script_class="LevelDefinition" format=3 uid="uid://bxhlwyajt1loj"]
 
-[ext_resource type="Texture2D" uid="uid://btqiiev7n2xix" path="res://assets/boss_splash/HeapSort_Splash.png" id="1_8yld6"]
 [ext_resource type="Script" uid="uid://c18lfy1s5vebn" path="res://scripts/flow/level_definition.gd" id="1_jm88h"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g61bg"]
+load_path = "res://.godot/imported/HeapSort_Splash.png-3a5bddc13e5413b9b32531ece8a2bf56.ctex"
 
 [resource]
 script = ExtResource("1_jm88h")
 level_id = 4
 display_name = "Heap Sort"
+preview_image = SubResource("CompressedTexture2D_g61bg")
 scene_path = "res://scenes/Bosses/Level4/level_04_heap_sort.tscn"
-unlock_level_required = 0
-preview_image = ExtResource("1_8yld6")
 boss_type = "heap"
 puzzle_type = "heap_sort"
 timer_rules = "default"

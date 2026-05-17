@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bp3jr1xy4vaga"]
 
 [ext_resource type="FontFile" uid="uid://dmfiak0cq6xa0" path="res://fonts/LiberationMono-Bold.ttf" id="1_rcdm7"]
-[ext_resource type="Script" uid="uid://bteyeyj31id2i" path="res://scripts/GameScripts/heap_sort_puzzle.gd" id="1_vaxfw"]
+[ext_resource type="Script" uid="uid://bteyeyj31id2i" path="res://scripts/PuzzleScripts/heap_sort_puzzle.gd" id="1_vaxfw"]
 [ext_resource type="Texture2D" uid="uid://dqtf34c6njaw5" path="res://assets/puzzle_sprites/Skull.png" id="2_vaxfw"]
 [ext_resource type="FontFile" uid="uid://bop2b21o5j7w8" path="res://fonts/Inconsolata-Regular.ttf" id="3_xg4mo"]
 [ext_resource type="PackedScene" uid="uid://brn3ow27db1c1" path="res://scenes/PuzzleComponents/drop_zone.tscn" id="4_i1qwq"]
@@ -103,12 +103,14 @@ anchor_right = 0.99600005
 anchor_bottom = 1.0
 offset_top = 90.0
 offset_right = 12.799927
+draw_focus_border = true
+scroll_vertical = 555
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 scroll_hint_mode = 1
 
 [node name="ScrollContent" type="Control" parent="Overlay/ScrollContainer" unique_id=2053638027]
-custom_minimum_size = Vector2(0, 910)
+custom_minimum_size = Vector2(0, 1100)
 layout_mode = 2
 mouse_filter = 2
 
@@ -140,19 +142,22 @@ text = " 1 | void heapSort(int arr[], int n) {
 16 |     int right = 2 * i + 2;
 17 | 
 18 |     if (left < n && arr[left] > arr[largest])
-19 |         largest = left;
+19 |         
 20 | 
 21 |     if (right < n && arr[right] > arr[largest])
 22 |         largest = right;
 23 | 
-24 |     if (largest != i) {
+24 |     
 25 |         int temp = arr[i];
 26 |         arr[i] = arr[largest];
 27 |         arr[largest] = temp;
 28 |         heapify(arr, n, largest);
 29 |     }
 30 | }
-31 | "
+31 | 
+32 | 
+33 | "
+fit_content = true
 scroll_active = false
 
 [node name="DropZones" type="Node2D" parent="Overlay/ScrollContainer/ScrollContent" unique_id=1095971786]
@@ -185,6 +190,25 @@ expected_id = "3"
 
 [node name="DropBox" type="Sprite2D" parent="Overlay/ScrollContainer/ScrollContent/DropZones/DropZone3" unique_id=2127442925]
 position = Vector2(2.5, 1)
+scale = Vector2(2.0117188, 24)
+texture = SubResource("GradientTexture1D_fa7b2")
+
+[node name="DropZone4" parent="Overlay/ScrollContainer/ScrollContent/DropZones" unique_id=826101502 instance=ExtResource("4_i1qwq")]
+position = Vector2(-135, 762)
+scale = Vector2(0.8, 1)
+expected_id = "4"
+
+[node name="DropBox" type="Sprite2D" parent="Overlay/ScrollContainer/ScrollContent/DropZones/DropZone4" unique_id=1766148132]
+position = Vector2(2.5, 1)
+scale = Vector2(2.0117188, 24)
+texture = SubResource("GradientTexture1D_fa7b2")
+
+[node name="DropZone5" parent="Overlay/ScrollContainer/ScrollContent/DropZones" unique_id=354072189 instance=ExtResource("4_i1qwq")]
+position = Vector2(-190, 918)
+scale = Vector2(0.8, 1)
+expected_id = "5"
+
+[node name="DropBox" type="Sprite2D" parent="Overlay/ScrollContainer/ScrollContent/DropZones/DropZone5" unique_id=1568831430]
 scale = Vector2(2.0117188, 24)
 texture = SubResource("GradientTexture1D_fa7b2")
 
@@ -261,3 +285,52 @@ theme_override_fonts/normal_font = ExtResource("3_xg4mo")
 theme_override_font_sizes/normal_font_size = 28
 bbcode_enabled = true
 text = "[center]2 * i + 1;[/center]"
+
+[node name="PuzzlePiece4" parent="FlyingPieces" unique_id=1111018207 instance=ExtResource("5_6fae0")]
+position = Vector2(269, 228)
+piece_id = "4"
+
+[node name="BlockBG" type="Panel" parent="FlyingPieces/PuzzlePiece4" unique_id=1395206761]
+offset_left = -203.0
+offset_top = -15.0
+offset_right = 203.0
+offset_bottom = 11.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uu32f")
+
+[node name="Block4" type="RichTextLabel" parent="FlyingPieces/PuzzlePiece4" unique_id=883991105]
+offset_left = -208.0
+offset_top = -20.0
+offset_right = 208.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0.9239334, 0.83635265, 1)
+theme_override_fonts/normal_font = ExtResource("3_xg4mo")
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "[center]largest = left;[/center]
+"
+
+[node name="PuzzlePiece5" parent="FlyingPieces" unique_id=1495696103 instance=ExtResource("5_6fae0")]
+position = Vector2(1039, 294)
+piece_id = "5"
+
+[node name="BlockBG" type="Panel" parent="FlyingPieces/PuzzlePiece5" unique_id=520473645]
+offset_left = -203.0
+offset_top = -15.0
+offset_right = 203.0
+offset_bottom = 11.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uu32f")
+
+[node name="Block5" type="RichTextLabel" parent="FlyingPieces/PuzzlePiece5" unique_id=738486198]
+offset_left = -208.0
+offset_top = -20.0
+offset_right = 208.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0.9239334, 0.83635265, 1)
+theme_override_fonts/normal_font = ExtResource("3_xg4mo")
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "[center]if (largest != i) {[/center]"
