@@ -1,15 +1,14 @@
-[gd_resource type="Resource" script_class="LevelDefinition" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="LevelDefinition" format=3 uid="uid://c70dqqp2lvvcs"]
 
-[ext_resource type="Script" path="res://scripts/flow/level_definition.gd" id="1_ibobs"]
-[ext_resource type="Texture2D" path="res://assets/boss_splash/BubbleSort_Splash_NOBG.png" id="2_radix_preview"]
+[ext_resource type="Script" uid="uid://c18lfy1s5vebn" path="res://scripts/flow/level_definition.gd" id="1_ibobs"]
+[ext_resource type="Texture2D" uid="uid://dg5v02dpov8j3" path="res://assets/boss_splash/RadixSort_Splash.png" id="1_vmc6h"]
 
 [resource]
 script = ExtResource("1_ibobs")
 level_id = 6
 display_name = "Radix Sort"
-preview_image = ExtResource("2_radix_preview")
-scene_path = "res://scenes/Bosses/Level6/level_06_radix_sort.tscn"
-unlock_level_required = 0
+preview_image = ExtResource("1_vmc6h")
+scene_path = "uid://bfp3iuuho0l2b"
 boss_type = "radix"
 puzzle_type = "radix_sort"
 timer_rules = "default"

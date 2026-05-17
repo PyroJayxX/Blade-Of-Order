@@ -1,13 +1,15 @@
 [gd_resource type="Resource" script_class="LevelDefinition" format=3 uid="uid://d21lv6bbbd4r5"]
 
-[ext_resource type="Texture2D" uid="uid://bgaawgqi4juns" path="res://assets/boss_splash/BucketSort_Splash.png" id="1_squx8"]
 [ext_resource type="Script" uid="uid://c18lfy1s5vebn" path="res://scripts/flow/level_definition.gd" id="1_vqwqy"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7xiu0"]
+load_path = "res://.godot/imported/BucketSort_Splash.png-43a199c714e25dc2c4372ac7abfd5ea1.ctex"
 
 [resource]
 script = ExtResource("1_vqwqy")
 level_id = 5
 display_name = "Bucket Sort"
-preview_image = ExtResource("1_squx8")
+preview_image = SubResource("CompressedTexture2D_7xiu0")
 scene_path = "uid://b6pps0560ow8d"
 boss_type = "bucket"
 puzzle_type = "bucket_sort"

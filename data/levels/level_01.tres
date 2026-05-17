@@ -1,12 +1,14 @@
 [gd_resource type="Resource" script_class="LevelDefinition" format=3 uid="uid://2oai7150i7yo"]
 
 [ext_resource type="Script" uid="uid://c18lfy1s5vebn" path="res://scripts/flow/level_definition.gd" id="1_gf5td"]
-[ext_resource type="Texture2D" uid="uid://xsxjn5p4r8s1" path="res://assets/boss_splash/BubbleSort_Splash.png" id="2_0d3xm"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nppek"]
+load_path = "res://.godot/imported/BubbleSort_Splash.png-dfe35abd2e76f75dceb625c9f207dc5c.ctex"
 
 [resource]
 script = ExtResource("1_gf5td")
 display_name = "Bubble Sort"
-preview_image = ExtResource("2_0d3xm")
+preview_image = SubResource("CompressedTexture2D_nppek")
 scene_path = "res://scenes/Bosses/Level1/level_01_bubble_sort.tscn"
 boss_type = "bubble"
 puzzle_type = "bubble_sort"

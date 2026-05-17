@@ -9,6 +9,78 @@ border_color = Color(0.16759703, 0.82772696, 0.7885211, 0.56078434)
 shadow_color = Color(0.16470589, 0.6784314, 0.654902, 0.039215688)
 shadow_size = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ya7lg"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0.9254902, 0.8352941, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5i0c"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.09803922, 0.34509805, 0.32941177, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hc5ys"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.019607844, 0.8666667, 0.78431374, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ubw4x"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.09803922, 0.23529412, 0.22352941, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x7r2c"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.09803922, 0.23529412, 0.22352941, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rn5pm"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0.9254902, 0.8352941, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [node name="Levelselector" type="Control" unique_id=1211046810]
 layout_mode = 3
 anchors_preset = 15
@@ -74,10 +146,19 @@ columns = 3
 [node name="PlayButton" type="Button" parent="Overlay" unique_id=671322526]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 0
-offset_left = 543.0
-offset_top = 607.0
-offset_right = 693.0
-offset_bottom = 657.0
+offset_left = 550.0
+offset_top = 602.0
+offset_right = 706.0
+offset_bottom = 654.0
+theme_override_colors/font_color = Color(0.07450981, 0.13333334, 0.14117648, 1)
+theme_override_colors/font_focus_color = Color(0.07450981, 0.13333334, 0.14117648, 1)
+theme_override_colors/font_pressed_color = Color(0.07450981, 0.13333334, 0.14117648, 1)
+theme_override_colors/font_hover_color = Color(0.28000116, 0.42146572, 0.44037357, 1)
+theme_override_colors/font_disabled_color = Color(0.09803922, 0.34509805, 0.32941177, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_ya7lg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_v5i0c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hc5ys")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ubw4x")
 disabled = true
 text = "PLAY"
 
@@ -92,5 +173,7 @@ offset_right = -18.0
 offset_bottom = 69.0
 grow_horizontal = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_x7r2c")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rn5pm")
 text = "X"

@@ -1,13 +1,15 @@
 [gd_resource type="Resource" script_class="LevelDefinition" format=3 uid="uid://cy114h5spjtcw"]
 
 [ext_resource type="Script" uid="uid://c18lfy1s5vebn" path="res://scripts/flow/level_definition.gd" id="1_lokck"]
-[ext_resource type="Texture2D" uid="uid://bmc6mqwds0qx6" path="res://assets/boss_splash/ShellSort_Splash.png" id="1_q8pf3"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vr7sb"]
+load_path = "res://.godot/imported/ShellSort_Splash.png-842414cf7e8ea8974f22bf0cbc0319f7.ctex"
 
 [resource]
 script = ExtResource("1_lokck")
 level_id = 3
 display_name = "Shell Sort"
-preview_image = ExtResource("1_q8pf3")
+preview_image = SubResource("CompressedTexture2D_vr7sb")
 scene_path = "res://scenes/Bosses/Level3/level_03_shell_sort.tscn"
 boss_type = "shell"
 puzzle_type = "shell_sort"
