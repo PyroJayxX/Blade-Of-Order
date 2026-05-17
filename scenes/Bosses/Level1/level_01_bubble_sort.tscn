@@ -346,7 +346,6 @@ vignette_node = NodePath("../CanvasLayer/DamageVignette")
 [node name="CanvasLayer" type="CanvasLayer" parent="Player" unique_id=1470430862]
 
 [node name="DamageVignette" type="TextureRect" parent="Player/CanvasLayer" unique_id=184371931]
-visible = false
 texture_filter = 2
 anchors_preset = 15
 anchor_right = 1.0
