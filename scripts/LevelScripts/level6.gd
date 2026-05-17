@@ -1,5 +1,6 @@
 extends Node2D
 
+const CUTSCENE_SCREEN: PackedScene = preload("res://scenes/App/cutscene.tscn")
 const VS_SCREEN: PackedScene = preload("res://scenes/Game/vs_screen.tscn")
 const RADIX_BOSS_PORTRAIT: Texture2D = preload("res://assets/boss_splash/BubbleSort_Splash_NOBG.png")
 
@@ -51,6 +52,7 @@ func _ready() -> void:
 	_set_player_controls_enabled(false)
 	_set_boss_combat_enabled(false)
 	await _show_vs_intro()
+	await _show_level_start_cutscene()
 	start_level()
 
 
@@ -68,6 +70,25 @@ func _show_vs_intro() -> void:
 	vs.next_scene_path = ""
 	add_child(vs)
 	await vs.intro_finished
+
+
+func _show_level_start_cutscene() -> void:
+	# Prefer a Cutscene node placed in the scene (inspector) — otherwise instantiate the prefab
+	var cutscene: Node = get_node_or_null("Cutscene")
+	var instantiated: bool = false
+	if cutscene == null:
+		cutscene = CUTSCENE_SCREEN.instantiate()
+		add_child(cutscene)
+		instantiated = true
+
+	# Disable only the boss combat so the cutscene UI/animations still run
+	_set_boss_combat_enabled(false)
+	cutscene.play()
+
+	# 3. Wait until it's done
+	await cutscene.cutscene_finished
+	_set_boss_combat_enabled(true)
+	# If we instantiated a temporary cutscene, it's already queue_freed by the script; nothing to do
 
 
 func pause_level(is_paused: bool) -> void:

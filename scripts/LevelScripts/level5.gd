@@ -1,6 +1,7 @@
 extends Node2D
 
 const VS_SCREEN: PackedScene = preload("res://scenes/Game/vs_screen.tscn")
+const CUTSCENE_SCREEN: PackedScene = preload("res://scenes/App/cutscene.tscn")
 const PLAYER_PORTRAIT: Texture2D = preload("res://assets/player_sprites/player 1.png")
 const BUCKET_BOSS_PORTRAIT: Texture2D = preload("res://assets/boss_splash/BucketSort_Splash_NOBG.png")
 
@@ -9,7 +10,7 @@ const BUCKET_BOSS_PORTRAIT: Texture2D = preload("res://assets/boss_splash/Bucket
 @onready var _player: Node2D = $Player
 @onready var _hud: CanvasLayer = $HUD
 @onready var _level_cleared: CanvasLayer = $LevelCleared
-@onready var _game_over: CanvasLayer = $GameOverd
+@onready var _game_over: CanvasLayer = $GameOver
 
 var _initial_player_position: Vector2 = Vector2.ZERO
 var _initial_boss_position: Vector2 = Vector2.ZERO
@@ -41,7 +42,23 @@ func _ready() -> void:
 	_set_player_controls_enabled(false)
 	_set_boss_combat_enabled(false)
 	await _show_vs_intro()
+	await _show_level_start_cutscene()
 	start_level()
+
+
+func _show_level_start_cutscene() -> void:
+	var cutscene: Node = get_node_or_null("Cutscene")
+	var instantiated: bool = false
+	if cutscene == null:
+		cutscene = CUTSCENE_SCREEN.instantiate()
+		add_child(cutscene)
+		instantiated = true
+
+	_set_boss_combat_enabled(false)
+	cutscene.play()
+
+	await cutscene.cutscene_finished
+	_set_boss_combat_enabled(true)
 
 func start_level() -> void:
 	_set_player_controls_enabled(true)
