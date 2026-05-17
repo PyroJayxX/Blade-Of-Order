@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c63mrpidm8ab6" path="res://assets/player_sprites/dashh.png" id="2_b288l"]
 [ext_resource type="Texture2D" uid="uid://jsamke7lkdp" path="res://assets/player_sprites/sprite sheet.png" id="2_wm45n"]
 [ext_resource type="Texture2D" uid="uid://vf2dy8ogasis" path="res://assets/player_sprites/sheet 2.png" id="3_u2pge"]
-[ext_resource type="Shader" uid="uid://dccinbm05joqs" path="res://scenes/Player/player_hit.tres" id="3_y5as4"]
+[ext_resource type="Shader" uid="uid://dpu7wf02835oe" path="res://scenes/Player/player_hit.tres" id="3_y5as4"]
 [ext_resource type="Texture2D" uid="uid://c5de1ey3lo5m3" path="res://assets/player_sprites/slash1.png" id="5_d2bp7"]
 [ext_resource type="Texture2D" uid="uid://bu6v4rx30si4f" path="res://assets/player_sprites/jump slashes.png" id="5_femgl"]
 [ext_resource type="Texture2D" uid="uid://c603e6ue5ku00" path="res://assets/player_sprites/slash3.png" id="5_mra3b"]
@@ -893,6 +893,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=1430617140]
+position = Vector2(1, 0)
 collision_mask = 3
 script = ExtResource("1_wm45n")
 

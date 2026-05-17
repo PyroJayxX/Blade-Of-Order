@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="5_023rx"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="6_8nvh1"]
 [ext_resource type="Script" uid="uid://djg71lk02jgv" path="res://scripts/BossScripts/lvl6_radix.gd" id="7_8nvh1"]
-[ext_resource type="PackedScene" uid="uid://dn1osp8xlnwlu" path="res://scenes/puzzles/radix_sort.tscn" id="7_dvama"]
+[ext_resource type="PackedScene" path="res://scenes/puzzles/radix_sort.tscn" id="7_dvama"]
 [ext_resource type="PackedScene" uid="uid://b00csgqkimwnf" path="res://scenes/App/cutscene.tscn" id="8_hu6eu"]
 [ext_resource type="Script" uid="uid://duu7rove1ish3" path="res://scripts/LevelScripts/level6.gd" id="8_level6"]
 [ext_resource type="Script" uid="uid://bx0igiwp84c3p" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="9_dynamic_camera"]
@@ -92,7 +92,7 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_hu6eu")
 
 [node name="RadixBoss" parent="." unique_id=962015265 instance=ExtResource("10_023rx")]
-position = Vector2(15597, 9715)
+position = Vector2(7910, 5408)
 script = ExtResource("7_8nvh1")
 
 [node name="Cutscene" parent="." unique_id=1237687727 instance=ExtResource("8_hu6eu")]
