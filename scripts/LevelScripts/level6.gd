@@ -78,10 +78,13 @@ func _show_level_start_cutscene() -> void:
 	
 	# 2. Add it to the screen and play it
 	add_child(cutscene)
+	
+	get_tree().paused = true
 	cutscene.play()
 	
 	# 3. Wait until it's done
 	await cutscene.cutscene_finished
+	get_tree().paused = false
 
 
 func pause_level(is_paused: bool) -> void:
