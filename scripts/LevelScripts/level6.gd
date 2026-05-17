@@ -1,5 +1,6 @@
 extends Node2D
 
+const CUTSCENE_SCREEN: PackedScene = preload("res://scenes/App/cutscene.tscn")
 const VS_SCREEN: PackedScene = preload("res://scenes/Game/vs_screen.tscn")
 const RADIX_BOSS_PORTRAIT: Texture2D = preload("res://assets/boss_splash/BubbleSort_Splash_NOBG.png")
 
@@ -51,6 +52,7 @@ func _ready() -> void:
 	_set_player_controls_enabled(false)
 	_set_boss_combat_enabled(false)
 	await _show_vs_intro()
+	await _show_level_start_cutscene()
 	start_level()
 
 
@@ -68,6 +70,18 @@ func _show_vs_intro() -> void:
 	vs.next_scene_path = ""
 	add_child(vs)
 	await vs.intro_finished
+
+
+func _show_level_start_cutscene() -> void:
+	# 1. Instantiate the scene (it loads with your Inspector text intact)
+	var cutscene = CUTSCENE_SCREEN.instantiate()
+	
+	# 2. Add it to the screen and play it
+	add_child(cutscene)
+	cutscene.play()
+	
+	# 3. Wait until it's done
+	await cutscene.cutscene_finished
 
 
 func pause_level(is_paused: bool) -> void:
