@@ -11,7 +11,6 @@ const SPLASH_TEXTURE_BUCKET = preload("res://assets/boss_splash/BucketSort_Splas
 const SPLASH_TEXTURE_HEAP = preload("res://assets/boss_splash/HeapSort_Splash.png")
 const SPLASH_TEXTURE_SHELL = preload("res://assets/boss_splash/ShellSort_Splash.png")
 const SPLASH_TEXTURE_SELECTION = preload("res://assets/boss_splash/SelectionSort_Splash.png")
-const SPLASH_TEXTURE_BUCKET = preload("res://assets/boss_splash/BucketSort_Splash.png")
 
 var level_data: Array[Resource] = []
 var currently_selected_level_id = -1

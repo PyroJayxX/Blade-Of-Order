@@ -11,6 +11,8 @@ height = 174.0
 scale = Vector2(0.6078144, 0.6078144)
 script = ExtResource("1_raj3r")
 mode = 4
+speed = 800.0
+lifetime = 5.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1405287317]
 texture = ExtResource("2_62anp")

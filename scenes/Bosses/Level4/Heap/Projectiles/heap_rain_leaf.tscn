@@ -10,6 +10,8 @@ radius = 104.00484
 scale = Vector2(0.40580732, 0.40580732)
 script = ExtResource("1_o70t4")
 mode = 1
+speed = 650.0
+damage = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1397535283]
 position = Vector2(79.18817, -111.47469)

@@ -167,8 +167,6 @@ func _try_pop_from_player_slash() -> void:
 		return
 	_hit = true
 	AudioController.play_boss_hit_bubble()
-	if mode == ProjectileMode.HOMING or mode == ProjectileMode.STRAIGHT:
-		queue_free()
 
 # ── Player detection ──────────────────────────────────────────────────────────
 

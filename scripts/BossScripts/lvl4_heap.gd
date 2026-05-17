@@ -24,7 +24,7 @@ enum AttackType {
 @export var player: Node2D
 
 # ── Health ───────────────────────────────────────────────────────────────────
-@export var max_health: int = 400
+@export var max_health: int = 500
 
 # ── Face textures ─────────────────────────────────────────────────────────────
 @export var face_normal: Texture2D = preload("res://assets/bosses/heap_boss/body_no_hands.png")
@@ -72,8 +72,8 @@ enum AttackType {
 # ── Attack 6 — Spore Burst (rage) ───────────────────────────────────────────
 @export var spore_burst_duration: float = 6.0
 @export var spore_shot_interval: float = 0.18
-@export var spore_spread_deg: float = 45.0
-@export var spore_waves: int = 3
+@export var spore_spread_deg: float = 100.0
+@export var spore_waves: int = 10
 
 # ── Hand tweening ────────────────────────────────────────────────────────────
 @export var hand_tween_duration: float = 0.4
@@ -120,6 +120,11 @@ func _ready() -> void:
 	_reset_cooldowns()
 	_sync_hud_health()
 	_set_state(BossState.IDLE)
+	anim_player.animation_finished.connect(_on_animation_finished)
+
+func _on_animation_finished(anim_name: StringName) -> void:
+	if anim_name != "idle" and not _is_defeated:
+		anim_player.play("idle")
 
 func _physics_process(delta: float) -> void:
 	if not _combat_enabled:
@@ -197,8 +202,8 @@ func _update_face() -> void:
 
 func _state_name(s: BossState) -> String:
 	match s:
-		BossState.IDLE: return "IDLE"
-		BossState.HURT: return "HURT"
+		BossState.IDLE: return "idle"
+		BossState.HURT: return "hurt"
 		BossState.STUNNED: return "STUNNED"
 		BossState.ATTACKING: return "ATTACKING"
 		BossState.RAGE: return "RAGE"
@@ -255,10 +260,8 @@ func execute_homing_leaf() -> void:
 		_attack_running = false
 		return
 
-	var raise_tween: Tween = create_tween().set_parallel(true)
-	raise_tween.tween_property(hand_l, "position", _hand_l_rest + Vector2(-30, -60), 0.25)
-	raise_tween.tween_property(hand_r, "position", _hand_r_rest + Vector2(30, -60), 0.25)
-	await raise_tween.finished
+	anim_player.play("attack_homing")
+	await anim_player.animation_finished
 
 	for i in range(maxi(homing_count, 1)):
 		if _is_defeated:
@@ -280,9 +283,8 @@ func execute_leaf_volley() -> void:
 	var active_hand: Node2D = hand_r if player_is_right else hand_l
 	var offset: Vector2 = Vector2(40, -50) if player_is_right else Vector2(-40, -50)
 
-	var raise_tween: Tween = create_tween()
-	raise_tween.tween_property(active_hand, "position", active_hand.position + offset, 0.3)
-	await raise_tween.finished
+	anim_player.play("attack_volley")
+	await anim_player.animation_finished
 
 	var base_dir: Vector2 = global_position.direction_to(_target.global_position)
 	var base_angle: float = base_dir.angle()
@@ -313,10 +315,8 @@ func execute_rain_of_leaves() -> void:
 		_attack_running = false
 		return
 
-	var raise_tween: Tween = create_tween().set_parallel(true)
-	raise_tween.tween_property(hand_l, "position", _hand_l_rest + Vector2(-20, -80), 0.35)
-	raise_tween.tween_property(hand_r, "position", _hand_r_rest + Vector2(20, -80), 0.35)
-	await raise_tween.finished
+	anim_player.play("attack_rain")
+	await anim_player.animation_finished
 
 	var viewport_rect: Rect2 = get_viewport_rect()
 	var top_y: float = global_position.y - viewport_rect.size.y * 0.5 - 500.0
@@ -339,39 +339,30 @@ func execute_ground_spike() -> void:
 		_attack_running = false
 		return
 
-	var press_tween: Tween = create_tween().set_parallel(true)
-	press_tween.tween_property(hand_l, "position", _hand_l_rest + Vector2(0, 40), 0.2)
-	press_tween.tween_property(hand_r, "position", _hand_r_rest + Vector2(0, 40), 0.2)
-	await press_tween.finished
-	await get_tree().create_timer(0.15).timeout
+	anim_player.play("attack_spike")
+	await anim_player.animation_finished
 
-	var spike_positions: Array = []
 	for i in range(maxi(spike_sweep_count, 1)):
-		spike_positions.append(Vector2(
-			_target.global_position.x + randf_range(-300.0, 300.0),
-			800
-		))
-
-	for i in range(spike_positions.size()):
 		if _is_defeated:
 			break
 
-		# Spawn warning
+		var spike_x: float = _target.global_position.x + randf_range(-80.0, 80.0)
+		var spawn_pos: Vector2 = Vector2(spike_x, 800)
+
 		var warning: Node = null
 		if spike_warning_scene != null:
 			warning = spike_warning_scene.instantiate()
-			warning.global_position = Vector2(spike_positions[i].x, ground_y)
+			warning.global_position = spawn_pos
 			_get_level_root().add_child(warning)
 
-		# Wait 1.5s then spawn spike and remove warning
-		var captured_pos = spike_positions[i]
 		var captured_warning = warning
-		get_tree().create_timer(1.5).timeout.connect(func():
+		var captured_pos = spawn_pos
+		get_tree().create_timer(0.8).timeout.connect(func():
 			if _is_defeated:
 				if is_instance_valid(captured_warning):
 					captured_warning.queue_free()
 				return
-			_spawn_projectile(ground_spike_scene, captured_pos, Vector2.UP, {})
+			_spawn_projectile(ground_spike_scene, captured_pos, Vector2.UP, {"lifetime_override": 1.5})
 			if is_instance_valid(captured_warning):
 				captured_warning.queue_free()
 		)
@@ -391,11 +382,8 @@ func execute_leaf_wall() -> void:
 	var player_is_right: bool = _target.global_position.x > global_position.x
 	var travel_dir: Vector2 = Vector2.RIGHT if player_is_right else Vector2.LEFT
 
-	var active_hand: Node2D = hand_l if player_is_right else hand_r
-	var push_offset: Vector2 = Vector2(60, -20) if player_is_right else Vector2(-60, -20)
-	var push_tween: Tween = create_tween()
-	push_tween.tween_property(active_hand, "position", active_hand.position + push_offset, 0.3)
-	await push_tween.finished
+	anim_player.play("attack_wall")
+	await anim_player.animation_finished
 
 	var spawn_pos: Vector2 = Vector2(global_position.x, ground_y)
 	_spawn_projectile(leaf_wall_scene, spawn_pos, travel_dir, {"speed_override": wall_speed, "ground_snap_y": 400.0})
@@ -410,10 +398,8 @@ func execute_spore_burst() -> void:
 		_attack_running = false
 		return
 
-	var flare_tween: Tween = create_tween().set_parallel(true)
-	flare_tween.tween_property(hand_l, "position", _hand_l_rest + Vector2(-70, -30), 0.2)
-	flare_tween.tween_property(hand_r, "position", _hand_r_rest + Vector2(70, -30), 0.2)
-	await flare_tween.finished
+	anim_player.play("attack_spore")
+	await anim_player.animation_finished
 
 	var elapsed: float = 0.0
 	var step: float = maxf(spore_shot_interval, 0.01)
@@ -497,7 +483,7 @@ func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
 		anim_player.play("hurt")
 
 	# Check rage threshold
-	if not _rage_triggered and _current_health <= int(max_health * 0.25):
+	if not _rage_triggered and _current_health <= 100:
 		_rage_triggered = true
 		_trigger_rage()
 		return
