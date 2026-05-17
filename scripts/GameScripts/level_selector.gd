@@ -11,6 +11,7 @@ const SPLASH_TEXTURE_HEAP = preload("res://assets/boss_splash/HeapSort_Splash.pn
 const SPLASH_TEXTURE_SHELL = preload("res://assets/boss_splash/ShellSort_Splash.png")
 const SPLASH_TEXTURE_SELECTION = preload("res://assets/boss_splash/SelectionSort_Splash.png")
 const SPLASH_TEXTURE_RADIX = preload("res://assets/boss_splash/RadixSort_Splash.png")
+const SPLASH_TEXTURE_LOCKED = preload("res://assets/boss_splash/Locked_Level.png")
 
 var level_data: Array[Resource] = []
 var currently_selected_level_id = -1
@@ -53,7 +54,7 @@ func generate_level_grid():
 			4: splash_texture = SPLASH_TEXTURE_HEAP
 			5: splash_texture = SPLASH_TEXTURE_BUCKET
 			6: splash_texture = SPLASH_TEXTURE_RADIX
-		tile.setup(data_id, data_name, splash_texture, is_locked, splash_texture)
+		tile.setup(data_id, data_name, splash_texture, is_locked, SPLASH_TEXTURE_LOCKED)
 		tile.tile_selected.connect(_on_level_tile_selected)
 		
 		

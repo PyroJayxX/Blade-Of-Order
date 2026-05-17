@@ -1,7 +1,7 @@
 extends Node2D
 
 const CUTSCENE_SCREEN: PackedScene = preload("res://scenes/App/cutscene.tscn")
-const VS_SCREEN: PackedScene = preload("res://scenes/Game/vs_screen.tscn")
+const VS_SCREEN: PackedScene = preload("res://scenes/Game/vs_screen.tscn")	
 const RADIX_BOSS_PORTRAIT: Texture2D = preload("res://assets/boss_splash/RadixSort_Splash_NOBG.png")
 
 @onready var _radix_sort: CanvasLayer = $RadixSort

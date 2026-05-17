@@ -384,3 +384,5 @@ func set_combat_enabled(enabled: bool) -> void:
 		velocity = Vector2.ZERO
 		is_dashing = false
 		state = "idle"
+	else:
+		state = "attacking"
