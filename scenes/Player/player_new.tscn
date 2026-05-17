@@ -893,7 +893,6 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=1430617140]
-position = Vector2(1, 0)
 collision_mask = 3
 script = ExtResource("1_wm45n")
 

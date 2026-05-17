@@ -53,6 +53,7 @@ var _combat_enabled: bool = true # global combat gate for pause/cutscene control
 var _special_attack_cooldown_timer: float = 0.0 # timer before next special attack
 @onready var anim_player: AnimationPlayer = $AnimationPlayer # animation player for state visuals
 @onready var eyes_pivot: Node2D = $EyesPivot # node used to move eyes toward target
+@onready var hit_flash_player: AnimationPlayer = $HitFlash # hit effect animation boss
 
 func _process(_delta: float) -> void:
 	if not _combat_enabled:
@@ -286,6 +287,11 @@ func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
 		return
 
 	var safe_amount: int = maxi(amount, 0)
+	
+	if safe_amount > 0:
+		hit_flash_player.stop() # forces the animation to restart if hit rapidly
+		hit_flash_player.play("hit_animation")
+	
 	_current_health = clampi(_current_health - safe_amount, 0, max_health)
 	_sync_boss_hud_health()
 	print("Boss HP -> ", _current_health, "/", max_health)
