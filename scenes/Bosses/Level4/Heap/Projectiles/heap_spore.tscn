@@ -8,9 +8,10 @@ radius = 65.0
 height = 184.0
 
 [node name="HeapSpore_tscn" type="Area2D" unique_id=1264690391]
-position = Vector2(8, -3)
 scale = Vector2(0.35368124, 0.35368124)
 script = ExtResource("1_5l8hs")
+speed = 600.0
+damage = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1502414585]
 texture = ExtResource("2_ix63g")

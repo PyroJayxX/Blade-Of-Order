@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bpqk512aubwb"]
 
 [ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/Game/arena.tscn" id="1_603lc"]
-[ext_resource type="Script" uid="uid://t2afda25e1l7" path="res://scripts/LevelScripts/level4.gd" id="1_phf3p"]
+[ext_resource type="Script" path="res://scripts/LevelScripts/level4.gd" id="1_phf3p"]
 [ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/Game/touchControls.tscn" id="2_phf3p"]
 [ext_resource type="Texture2D" uid="uid://i4wxv8a2ova5" path="res://assets/background/bg3.png" id="2_tygc3"]
 [ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/Player/player_new.tscn" id="3_bhejy"]
@@ -9,8 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://ctapwu3uviyqg" path="res://scenes/Game/hud.tscn" id="5_tygc3"]
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="6_2ujx4"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="7_gtlv4"]
+[ext_resource type="PackedScene" uid="uid://b00csgqkimwnf" path="res://scenes/App/cutscene.tscn" id="7_tygc3"]
 [ext_resource type="PackedScene" uid="uid://cg6n0tiemkag6" path="res://scenes/Bosses/Level4/Heap/lvl4_heap.tscn" id="9_uay2n"]
-[ext_resource type="PackedScene" uid="uid://bp3jr1xy4vaga" path="res://scenes/puzzles/heap_sort.tscn" id="10_tygc3"]
+[ext_resource type="PackedScene" uid="uid://bp3jr1xy4vaga" path="res://scenes/Puzzles/heap_sort.tscn" id="10_tygc3"]
 
 [sub_resource type="Gradient" id="Gradient_jxgif"]
 offsets = PackedFloat32Array(0.27108434, 1)
@@ -94,6 +95,11 @@ grow_vertical = 2
 scale = Vector2(3.6901062, 3.5308971)
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_tygc3")
+
+[node name="Cutscene" parent="." unique_id=1237687727 instance=ExtResource("7_tygc3")]
+layer = 200
+visible = false
+pages = Array[String](["You awake beneath a towering tree of data. The Heap Boss is a living hierarchy where the roots are crushed by the wrong values.", "The balance is inverted. Strike the branches and use the Blade to topple the tree so the Spire can be rebuilt."])
 
 [node name="HeapSortPuzzle" parent="." unique_id=1897790252 instance=ExtResource("10_tygc3")]
 layer = 20

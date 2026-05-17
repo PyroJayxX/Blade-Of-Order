@@ -1,15 +1,14 @@
-[gd_resource type="Resource" script_class="LevelDefinition" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="LevelDefinition" format=3 uid="uid://d21lv6bbbd4r5"]
 
-[ext_resource type="Script" path="res://scripts/flow/level_definition.gd" id="1_vqwqy"]
-[ext_resource type="Texture2D" path="res://assets/boss_splash/BubbleSort_Splash_NOBG.png" id="2_preview"]
+[ext_resource type="Texture2D" uid="uid://bgaawgqi4juns" path="res://assets/boss_splash/BucketSort_Splash.png" id="1_squx8"]
+[ext_resource type="Script" uid="uid://c18lfy1s5vebn" path="res://scripts/flow/level_definition.gd" id="1_vqwqy"]
 
 [resource]
 script = ExtResource("1_vqwqy")
 level_id = 5
 display_name = "Bucket Sort"
-preview_image = ExtResource("2_preview")
-scene_path = "res://scenes/Bosses/Level5/level_05_bucket_sort.tscn"
-unlock_level_required = 0
+preview_image = ExtResource("1_squx8")
+scene_path = "uid://b6pps0560ow8d"
 boss_type = "bucket"
 puzzle_type = "bucket_sort"
 timer_rules = "default"

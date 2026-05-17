@@ -10,6 +10,8 @@ size = Vector2(100, 310)
 scale = Vector2(0.66245055, 0.66245055)
 script = ExtResource("1_kp7kp")
 mode = 2
+damage = 15
+lifetime = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1373998833]
 position = Vector2(22, -167)

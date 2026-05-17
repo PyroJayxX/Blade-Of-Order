@@ -6,7 +6,6 @@ const MOVE_SPEED = 1000.0
 const CHARGE_SPEED = 2500.0
 const SEGMENT_DISTANCE = 200.0
 const DASH_MAX_DISTANCE = 3000.0
-const HISTORY_STEP = 4.0
 const MAX_HEALTH = 100
 const HEAD_DAMAGE = 5
 const SEGMENT_DAMAGE = 2
@@ -25,7 +24,7 @@ var dash_target_angle: float = 0.0
 var dash_start_pos: Vector2 = Vector2.ZERO
 
 var position_history: Array[Vector2] = []
-var _history_accumulator: float = 0.0
+var rotation_history: Array[Vector2] = []
 var _last_history_pos: Vector2 = Vector2.ZERO
 var _current_health: int = MAX_HEALTH
 var _is_defeated: bool = false
@@ -33,6 +32,7 @@ var _boss_damaged_player_time: float = 0.0
 var _player_damaged_boss_time: float = 0.0
 var _nodes_last_overlap: Dictionary = {}
 var _prev_dashing: bool = false
+var _combat_enabled: bool = true
 
 
 func _ready() -> void:
@@ -63,16 +63,13 @@ func _ready() -> void:
 
 	_prefill_history()
 
-	# Set initial dash toward player
 	if player:
 		dash_target_angle = (player.global_position - global_position).angle()
 		dash_start_pos = global_position
 		rotation = dash_target_angle
-	
-	# Sync health to HUD
+
 	_sync_boss_hud_health()
 
-	# initialize overlap tracking
 	_nodes_last_overlap.clear()
 	_nodes_last_overlap[self] = false
 	for s in segments:
@@ -103,11 +100,14 @@ func _collect_manual_segments() -> void:
 
 
 func _prefill_history() -> void:
-	var needed := int(segments.size() * SEGMENT_DISTANCE / HISTORY_STEP) + 2
-	var behind_dir = -Vector2.RIGHT.rotated(global_rotation)
+	var needed := 2000
+	var behind_dir: Vector2 = -Vector2.RIGHT.rotated(global_rotation)
+	var forward_dir: Vector2 = Vector2.RIGHT.rotated(global_rotation)
 	position_history.clear()
+	rotation_history.clear()
 	for i in range(needed):
-		position_history.append(global_position + behind_dir * HISTORY_STEP * i)
+		position_history.append(global_position + behind_dir * float(i))
+		rotation_history.append(forward_dir)
 	_last_history_pos = global_position
 
 
@@ -115,7 +115,11 @@ func _process(delta: float) -> void:
 	if not player or not is_instance_valid(player):
 		return
 
-	# store previous dash state to detect dash start
+	# Honor external combat gating (e.g., cutscenes)
+	if not _combat_enabled:
+		_prev_dashing = is_dashing
+		return
+
 	_prev_dashing = is_dashing
 
 	if _is_defeated:
@@ -124,91 +128,84 @@ func _process(delta: float) -> void:
 	match state:
 		"attacking":
 			if not is_dashing:
-				# Smoothly curve toward player at full speed
-				var aim = (player.global_position - global_position).angle()
-				var diff = wrapf(aim - rotation, -PI, PI)
+				var aim: float = (player.global_position - global_position).angle()
+				var diff: float = wrapf(aim - rotation, -PI, PI)
 				rotation += clamp(diff, -turn_speed * delta, turn_speed * delta)
+				rotation = wrapf(rotation, -PI, PI)
 				velocity = Vector2.RIGHT.rotated(rotation) * CHARGE_SPEED
 				global_position += velocity * delta
 
-				# Once lined up, lock and dash
 				if abs(diff) < 0.1:
 					dash_target_angle = rotation
 					dash_start_pos = global_position
 					is_dashing = true
 			else:
-				# Perfectly straight dash
 				velocity = Vector2.RIGHT.rotated(dash_target_angle) * CHARGE_SPEED
 				global_position += velocity * delta
+				rotation = wrapf(dash_target_angle, -PI, PI)
 
-				var traveled = global_position.distance_to(dash_start_pos)
+				var traveled: float = global_position.distance_to(dash_start_pos)
 				if traveled >= DASH_MAX_DISTANCE:
 					is_dashing = false
 
 	_record_history()
 	_update_segments_from_history()
-	
-	# Update collision damage tracking
+
 	_boss_damaged_player_time += delta
 	_player_damaged_boss_time += delta
-	
-	# Check for collisions and apply damage
+
 	_check_collisions_with_player()
 
-	# If a dash just started this frame, apply an immediate damage snapshot
 	if is_dashing and not _prev_dashing:
 		_apply_instant_damage_to_player()
 
 
 func _record_history() -> void:
-	var moved := global_position.distance_to(_last_history_pos)
-	_history_accumulator += moved
-	_last_history_pos = global_position
+	position_history.push_front(global_position)
+	rotation_history.push_front(Vector2.RIGHT.rotated(rotation))
 
-	while _history_accumulator >= HISTORY_STEP:
-		_history_accumulator -= HISTORY_STEP
-		position_history.push_front(global_position)
-
-	var max_entries := int(segments.size() * SEGMENT_DISTANCE / HISTORY_STEP) + 64
+	var max_entries := 2000
 	while position_history.size() > max_entries:
 		position_history.pop_back()
+	while rotation_history.size() > max_entries:
+		rotation_history.pop_back()
+
+	_last_history_pos = global_position
 
 
 func _update_segments_from_history() -> void:
 	for i in range(segments.size()):
-		var s = segments[i]
+		var s: Node2D = segments[i]
 		if not is_instance_valid(s):
 			continue
 
-		var target_index := int((i + 1) * SEGMENT_DISTANCE / HISTORY_STEP)
-		target_index = mini(target_index, position_history.size() - 1)
-		var new_pos: Vector2 = position_history[target_index]
-		s.global_position = new_pos
+		var target_distance: float = float(i + 1) * SEGMENT_DISTANCE
+		var accumulated: float = 0.0
 
-		var ahead_index := int(i * SEGMENT_DISTANCE / HISTORY_STEP)
-		ahead_index = mini(ahead_index, position_history.size() - 1)
-		var ahead_pos: Vector2 = position_history[ahead_index]
-		if new_pos.distance_squared_to(ahead_pos) > 0.01:
-			s.rotation = (ahead_pos - new_pos).angle()
+		for j in range(1, position_history.size()):
+			var step: float = position_history[j - 1].distance_to(position_history[j])
+			accumulated += step
+			if accumulated >= target_distance:
+				s.global_position = position_history[j]
+				if j < rotation_history.size():
+					s.rotation = rotation_history[j].angle()
+				break
 
 
 func _check_collisions_with_player() -> void:
 	if not player or not is_instance_valid(player):
 		return
 
-	# Edge-triggered overlap detection: only apply damage when a node newly begins overlapping
-	var total_damage := 0
-	# Head check
-	var head_overlapping := _nodes_overlap(self, player)
+	var total_damage: int = 0
+	var head_overlapping: bool = _nodes_overlap(self, player)
 	if head_overlapping and not _nodes_last_overlap.get(self, false):
 		total_damage += HEAD_DAMAGE
 	_nodes_last_overlap[self] = head_overlapping
 
-	# Body segments
 	for segment in segments:
 		if not is_instance_valid(segment):
 			continue
-		var seg_overlapping := _nodes_overlap(segment, player)
+		var seg_overlapping: bool = _nodes_overlap(segment, player)
 		if seg_overlapping and not _nodes_last_overlap.get(segment, false):
 			total_damage += SEGMENT_DAMAGE
 		_nodes_last_overlap[segment] = seg_overlapping
@@ -218,14 +215,11 @@ func _check_collisions_with_player() -> void:
 
 
 func _apply_instant_damage_to_player() -> void:
-	# Snapshot current overlaps and apply damage equal to number of overlapping nodes
 	if not player or not is_instance_valid(player):
 		return
-	var total_damage := 0
-	# head
+	var total_damage: int = 0
 	if _nodes_overlap(self, player):
 		total_damage += HEAD_DAMAGE
-	# segments
 	for segment in segments:
 		if not is_instance_valid(segment):
 			continue
@@ -239,12 +233,12 @@ func _apply_instant_damage_to_player() -> void:
 func take_damage(amount: int = PLAYER_DAMAGE_PER_HIT, causes_stun: bool = false) -> void:
 	if _is_defeated:
 		return
-	
+
 	var safe_amount: int = maxi(amount, 0)
 	_current_health = clampi(_current_health - safe_amount, 0, MAX_HEALTH)
 	_sync_boss_hud_health()
 	print("Boss HP -> ", _current_health, "/", MAX_HEALTH)
-	
+
 	if _current_health <= 0:
 		_is_defeated = true
 		state = "idle"
@@ -254,34 +248,27 @@ func take_damage(amount: int = PLAYER_DAMAGE_PER_HIT, causes_stun: bool = false)
 		print("Boss defeated!")
 
 	if causes_stun:
-		# simple visual/state hook for stun-capable attacks
-		# currently just stop movement briefly
 		velocity = Vector2.ZERO
 
 
 func apply_slash_hits(world_polygon: PackedVector2Array) -> void:
-	# Called by player when a slash polygon is active. Determine which nodes intersect
-	# and apply damage per node: head = HEAD_DAMAGE, body = 2
 	if _is_defeated:
 		return
 
 	var damage_accum: int = 0
 
-	# check head (point-in-polygon or distance to edges)
 	var head_center: Vector2 = global_position
 	if world_polygon.size() >= 3 and Geometry2D.is_point_in_polygon(head_center, world_polygon):
 		damage_accum += HEAD_DAMAGE
 	else:
-		# fallback: edge distance vs estimated radius
-		var head_radius := _estimate_body_radius(self)
+		var head_radius: float = _estimate_body_radius(self)
 		for i in range(world_polygon.size()):
-			var a = world_polygon[i]
-			var b = world_polygon[(i + 1) % world_polygon.size()]
+			var a: Vector2 = world_polygon[i]
+			var b: Vector2 = world_polygon[(i + 1) % world_polygon.size()]
 			if _distance_point_to_segment(head_center, a, b) <= head_radius:
 				damage_accum += HEAD_DAMAGE
 				break
 
-	# check segments
 	for s in segments:
 		if not is_instance_valid(s):
 			continue
@@ -289,10 +276,10 @@ func apply_slash_hits(world_polygon: PackedVector2Array) -> void:
 		if world_polygon.size() >= 3 and Geometry2D.is_point_in_polygon(seg_center, world_polygon):
 			damage_accum += PLAYER_SEGMENT_DAMAGE
 			continue
-		var seg_radius := _estimate_body_radius(s)
+		var seg_radius: float = _estimate_body_radius(s)
 		for i in range(world_polygon.size()):
-			var a = world_polygon[i]
-			var b = world_polygon[(i + 1) % world_polygon.size()]
+			var a: Vector2 = world_polygon[i]
+			var b: Vector2 = world_polygon[(i + 1) % world_polygon.size()]
 			if _distance_point_to_segment(seg_center, a, b) <= seg_radius:
 				damage_accum += PLAYER_SEGMENT_DAMAGE
 				break
@@ -389,3 +376,11 @@ func _sync_boss_hud_health() -> void:
 	var hud: Node = current_scene.find_child("HUD", true, false)
 	if hud != null and hud.has_method("set_boss_health"):
 		hud.call("set_boss_health", _current_health, MAX_HEALTH)
+
+
+func set_combat_enabled(enabled: bool) -> void:
+	_combat_enabled = enabled
+	if not _combat_enabled:
+		velocity = Vector2.ZERO
+		is_dashing = false
+		state = "idle"

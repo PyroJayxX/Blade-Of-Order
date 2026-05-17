@@ -10,6 +10,8 @@ height = 192.0
 [node name="HeapVolleyLeaf" type="Area2D" unique_id=1280721790]
 scale = Vector2(0.625744, 0.97633654)
 script = ExtResource("1_otlh7")
+speed = 700.0
+damage = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=436822400]
 texture = ExtResource("2_c62cq")
