@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbb45xwhbmine"
-path="res://.godot/imported/Left.png-fc6f12ab522efc0f3f29099995a974e0.ctex"
+uid="uid://evnnbvrdatg6"
+path="res://.godot/imported/base-hurt.png-7f83fab838a804ef55cb82084e357312.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/touchControls/Left.png"
-dest_files=["res://.godot/imported/Left.png-fc6f12ab522efc0f3f29099995a974e0.ctex"]
+source_file="res://assets/bosses/selection_boss/base-hurt.png"
+dest_files=["res://.godot/imported/base-hurt.png-7f83fab838a804ef55cb82084e357312.ctex"]
 
 [params]
 

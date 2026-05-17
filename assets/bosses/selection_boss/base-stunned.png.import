@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://di4fcqiwcvjw8"
-path="res://.godot/imported/Dodge.png-1446ed2c5331282e5ce99b90668892e6.ctex"
+uid="uid://dfx0ibkgdttjc"
+path="res://.godot/imported/base-stunned.png-39dde204f405b01fcf0a698c58c232bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/touchControls/Dodge.png"
-dest_files=["res://.godot/imported/Dodge.png-1446ed2c5331282e5ce99b90668892e6.ctex"]
+source_file="res://assets/bosses/selection_boss/base-stunned.png"
+dest_files=["res://.godot/imported/base-stunned.png-39dde204f405b01fcf0a698c58c232bd.ctex"]
 
 [params]
 
