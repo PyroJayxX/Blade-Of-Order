@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://7rkgjpqq2unb" path="res://scenes/Bosses/Level3/Shell/lvl3_shell.tscn" id="5_qk581"]
 [ext_resource type="Script" uid="uid://bp6i8c0sd8bdv" path="res://scripts/BossScripts/lvl3_shell.gd" id="6_jplhh"]
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="6_rbong"]
+[ext_resource type="PackedScene" uid="uid://b00csgqkimwnf" path="res://scenes/App/cutscene.tscn" id="7_swf52"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="7_udqt2"]
 
 [sub_resource type="Gradient" id="Gradient_1b34x"]
@@ -81,6 +82,11 @@ texture = SubResource("GradientTexture2D_swf52")
 [node name="Lvl3Shell" parent="." unique_id=87852550 instance=ExtResource("5_qk581")]
 position = Vector2(1282, 0)
 script = ExtResource("6_jplhh")
+
+[node name="Cutscene" parent="." unique_id=1237687727 instance=ExtResource("7_swf52")]
+layer = 200
+visible = false
+pages = Array[String](["You awake at the edge of the Shattered Bridge, where the path to the next sector is spread too thin to walk upon. The Shell Boss, an armored titan of interlocking plates, guards the mechanism that bridges these long-range gaps. ", "The titan thrives on distance, keeping the truth far out of reach. You must use the Blade to strike through its heavy shielding and force the distant ends of the world to meet in the middle."])
 
 [node name="HUD" parent="." unique_id=148605811 instance=ExtResource("5_g7rnl")]
 layer = 10

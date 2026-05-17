@@ -44,6 +44,27 @@ func _ready() -> void:
 	_vulnerable_timer = vulnerable_delay
 	_is_vulnerable = false
 	_resolve_target()
+
+	# If a Cutscene node exists in the level scene, play it before enabling combat
+	var cutscene: Node = null
+	# Try direct child first
+	if get_tree().current_scene != null:
+		cutscene = get_tree().current_scene.get_node_or_null("Cutscene")
+	# Fallback: search recursively in case it's nested or named differently
+	if cutscene == null and get_tree().current_scene != null:
+		cutscene = get_tree().current_scene.find_child("Cutscene", true, false)
+	if cutscene != null:
+		print("[lvl_2_selection] Found Cutscene node:", cutscene)
+		if cutscene.has_method("play"):
+			set_combat_enabled(false)
+			cutscene.call("play")
+			await cutscene.cutscene_finished
+			set_combat_enabled(true)
+		else:
+			print("[lvl_2_selection] Cutscene node found but has no play() method")
+	else:
+		print("[lvl_2_selection] No Cutscene node found in current_scene")
+
 	_set_state(BossState.CHASE)
 
 func _physics_process(delta: float) -> void:
