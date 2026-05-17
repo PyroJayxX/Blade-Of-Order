@@ -73,18 +73,19 @@ func _show_vs_intro() -> void:
 
 
 func _show_level_start_cutscene() -> void:
-	# 1. Instantiate the scene (it loads with your Inspector text intact)
+	# 1. Instantiate the scene 
 	var cutscene = CUTSCENE_SCREEN.instantiate()
 	
 	# 2. Add it to the screen and play it
 	add_child(cutscene)
-	
-	get_tree().paused = true
+
+	# Disable only the boss combat so the cutscene UI/animations still run
+	_set_boss_combat_enabled(false)
 	cutscene.play()
-	
+
 	# 3. Wait until it's done
 	await cutscene.cutscene_finished
-	get_tree().paused = false
+	_set_boss_combat_enabled(true)
 
 
 func pause_level(is_paused: bool) -> void:

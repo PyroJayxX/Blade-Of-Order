@@ -10,8 +10,8 @@ var _current_page: int = -1
 var _accept_taps: bool = false # Keep taps locked until play() finishes fading in
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
-@onready var dialogue_text: RichTextLabel = $DialogueBox/DialogueText
-@onready var continue_hint: Label = $DialogueBox/ContinueHint
+@onready var dialogue_text: RichTextLabel = $DialogueBox/MarginContainer/DialogueText
+@onready var continue_hint: Label = $DialogueBox/MarginContainer/ContinueHint
 @onready var skip_button: Button = $SkipButton
 @onready var bg_overlay: ColorRect = $BGOverlay
 @onready var dialogue_box: PanelContainer = $DialogueBox

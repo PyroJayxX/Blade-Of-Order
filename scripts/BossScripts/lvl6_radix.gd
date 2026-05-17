@@ -32,6 +32,7 @@ var _boss_damaged_player_time: float = 0.0
 var _player_damaged_boss_time: float = 0.0
 var _nodes_last_overlap: Dictionary = {}
 var _prev_dashing: bool = false
+var _combat_enabled: bool = true
 
 
 func _ready() -> void:
@@ -112,6 +113,11 @@ func _prefill_history() -> void:
 
 func _process(delta: float) -> void:
 	if not player or not is_instance_valid(player):
+		return
+
+	# Honor external combat gating (e.g., cutscenes)
+	if not _combat_enabled:
+		_prev_dashing = is_dashing
 		return
 
 	_prev_dashing = is_dashing
@@ -370,3 +376,11 @@ func _sync_boss_hud_health() -> void:
 	var hud: Node = current_scene.find_child("HUD", true, false)
 	if hud != null and hud.has_method("set_boss_health"):
 		hud.call("set_boss_health", _current_health, MAX_HEALTH)
+
+
+func set_combat_enabled(enabled: bool) -> void:
+	_combat_enabled = enabled
+	if not _combat_enabled:
+		velocity = Vector2.ZERO
+		is_dashing = false
+		state = "idle"
