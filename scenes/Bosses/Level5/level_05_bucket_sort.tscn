@@ -5,11 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://c7nccprpvcdk5" path="res://assets/background/bg5.png" id="1_yvess"]
 [ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/Game/touchControls.tscn" id="2_yvess"]
 [ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/Player/player_new.tscn" id="3_kdtey"]
+[ext_resource type="Texture2D" uid="uid://dn5qppajr2fvq" path="res://assets/platform/platform-3.png" id="4_1u0sw"]
 [ext_resource type="Script" uid="uid://bx0igiwp84c3p" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="4_xrhxm"]
 [ext_resource type="PackedScene" uid="uid://ctapwu3uviyqg" path="res://scenes/Game/hud.tscn" id="5_ndleo"]
 [ext_resource type="PackedScene" uid="uid://b00csgqkimwnf" path="res://scenes/App/cutscene.tscn" id="6_0v417"]
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="6_8wb4u"]
-[ext_resource type="PackedScene" path="res://scenes/puzzles/bucket_sort.tscn" id="6_wp4kt"]
+[ext_resource type="PackedScene" uid="uid://gsoljar2todh" path="res://scenes/puzzles/bucket_sort.tscn" id="6_wp4kt"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="7_0v417"]
 [ext_resource type="PackedScene" uid="uid://b1xwduace6uac" path="res://scenes/Bosses/Level5/Bucket/lvl5_bucket.tscn" id="8_3532l"]
 [ext_resource type="PackedScene" uid="uid://ceo8rdm65xgqx" path="res://scenes/Bosses/Level5/Bucket/bucket_projectile2.tscn" id="11_n3mml"]
@@ -47,6 +48,22 @@ texture = ExtResource("1_yvess")
 
 [node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("1_i7kgr")]
 position = Vector2(-594, 622)
+
+[node name="Platform3" type="Sprite2D" parent="." unique_id=906483994]
+position = Vector2(1329, 725)
+texture = ExtResource("4_1u0sw")
+
+[node name="Platform3" type="Sprite2D" parent="Platform3" unique_id=888708160]
+position = Vector2(3963, 0)
+texture = ExtResource("4_1u0sw")
+
+[node name="Platform3" type="Sprite2D" parent="Platform3/Platform3" unique_id=976144756]
+position = Vector2(3963, 0)
+texture = ExtResource("4_1u0sw")
+
+[node name="Platform3" type="Sprite2D" parent="Platform3/Platform3/Platform3" unique_id=882548570]
+position = Vector2(3963, 0)
+texture = ExtResource("4_1u0sw")
 
 [node name="Control" type="Control" parent="." unique_id=132858857]
 layout_mode = 3

@@ -3,14 +3,38 @@
 [ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/Game/arena.tscn" id="1_3rqrc"]
 [ext_resource type="Texture2D" uid="uid://s6ssf385havy" path="res://assets/background/bg2.png" id="1_swf52"]
 [ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/Game/touchControls.tscn" id="2_qk581"]
+[ext_resource type="Texture2D" uid="uid://chupg5tbl0cmf" path="res://assets/platform/platform1-rock8.png" id="3_1nh5c"]
 [ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/Player/player_new.tscn" id="3_jplhh"]
 [ext_resource type="Script" uid="uid://bx0igiwp84c3p" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="4_swf52"]
+[ext_resource type="Texture2D" uid="uid://dchirmph7n2yy" path="res://assets/platform/platform-brokenpillar.png" id="4_wbojo"]
+[ext_resource type="Texture2D" uid="uid://cevbb323msax3" path="res://assets/platform/platform-coral1.png" id="5_euar7"]
 [ext_resource type="PackedScene" uid="uid://ctapwu3uviyqg" path="res://scenes/Game/hud.tscn" id="5_g7rnl"]
 [ext_resource type="PackedScene" uid="uid://7rkgjpqq2unb" path="res://scenes/Bosses/Level3/Shell/lvl3_shell.tscn" id="5_qk581"]
 [ext_resource type="Script" uid="uid://bp6i8c0sd8bdv" path="res://scripts/BossScripts/lvl3_shell.gd" id="6_jplhh"]
+[ext_resource type="Texture2D" uid="uid://doxfueddj7woe" path="res://assets/platform/platform1-seaweed3.png" id="6_lkd2h"]
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="6_rbong"]
 [ext_resource type="PackedScene" uid="uid://b00csgqkimwnf" path="res://scenes/App/cutscene.tscn" id="7_swf52"]
+[ext_resource type="Texture2D" uid="uid://bb63bjy4atkoy" path="res://assets/platform/platform1-rock6.png" id="7_uba3p"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="7_udqt2"]
+[ext_resource type="Texture2D" uid="uid://cyyk7y866r2bv" path="res://assets/platform/platform1-seaweed4.png" id="8_kfoeq"]
+[ext_resource type="Texture2D" uid="uid://cy63jsvvxsv43" path="res://assets/platform/platform-coral3.png" id="9_7llcc"]
+[ext_resource type="Texture2D" uid="uid://c31teir1nq5qw" path="res://assets/platform/platform1-rock7.png" id="10_mihpl"]
+[ext_resource type="Texture2D" uid="uid://dgxelxhu0iq1x" path="res://assets/platform/platform1-rock1.png" id="11_b0dj2"]
+[ext_resource type="Texture2D" uid="uid://cr7jo056woq6s" path="res://assets/platform/platform1-seaweed7.png" id="12_agdhh"]
+[ext_resource type="Texture2D" uid="uid://dhjgybg0q5qsy" path="res://assets/platform/platform1-rock2.png" id="13_f2pbl"]
+[ext_resource type="Texture2D" uid="uid://bcqfsc38seyji" path="res://assets/platform/platform-leaves3.png" id="14_yjjm8"]
+[ext_resource type="Texture2D" uid="uid://c7opdl2lfwfub" path="res://assets/platform/platform-leaves2.png" id="15_fyhjf"]
+[ext_resource type="Texture2D" uid="uid://bmf30cng2rit1" path="res://assets/platform/platform-bigrock.png" id="16_v7jsx"]
+[ext_resource type="Texture2D" uid="uid://chp11lpu5jaeo" path="res://assets/platform/platform1-seaweed2.png" id="17_2tygh"]
+[ext_resource type="Texture2D" uid="uid://ctcrtdk6p4atn" path="res://assets/platform/platform-leaves1.png" id="18_inhug"]
+[ext_resource type="Texture2D" uid="uid://bbfsd53jno0dv" path="res://assets/platform/platform-coral2.png" id="19_w8sf6"]
+[ext_resource type="Texture2D" uid="uid://ddgxukxtvb73r" path="res://assets/platform/platform1-seaweed6.png" id="20_csaoo"]
+[ext_resource type="Texture2D" uid="uid://cyy3271fhii5y" path="res://assets/platform/platform1-rock5.png" id="21_3wqs1"]
+[ext_resource type="Texture2D" uid="uid://dc2kvj87r8hg4" path="res://assets/platform/platform1-rock4.png" id="22_5qvih"]
+[ext_resource type="Texture2D" uid="uid://hojk48ehh5ct" path="res://assets/platform/platform1-rock3.png" id="23_2dui0"]
+[ext_resource type="Texture2D" uid="uid://drp52gnx8b5wi" path="res://assets/platform/platform1-seaweed.png" id="24_hgtiu"]
+[ext_resource type="Texture2D" uid="uid://u800l5gcsjdp" path="res://assets/platform/platform1-seaweed5.png" id="25_mv4iq"]
+[ext_resource type="Texture2D" uid="uid://dakwonvcoigpd" path="res://assets/platform/platform-1.png" id="26_1ly3o"]
 
 [sub_resource type="Gradient" id="Gradient_1b34x"]
 offsets = PackedFloat32Array(0.27108434, 1)
@@ -45,6 +69,227 @@ texture = ExtResource("1_swf52")
 
 [node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("1_3rqrc")]
 position = Vector2(-594, 622)
+
+[node name="Platform" type="Node2D" parent="Arena" unique_id=1722764026]
+position = Vector2(438, -621)
+
+[node name="PlatformAssets" type="Node2D" parent="Arena/Platform" unique_id=1645144565]
+position = Vector2(-594, 622)
+
+[node name="Platform1Rock8" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=250777678]
+position = Vector2(161, -4.9999924)
+scale = Vector2(0.22246094, 0.22246094)
+texture = ExtResource("3_1nh5c")
+
+[node name="PlatformBrokenpillar" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1882967763]
+position = Vector2(350, -84)
+scale = Vector2(0.55395055, 0.55395055)
+texture = ExtResource("4_wbojo")
+
+[node name="PlatformCoral1" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1537757939]
+position = Vector2(204, -41.000008)
+scale = Vector2(0.33101597, 0.33101597)
+texture = ExtResource("5_euar7")
+
+[node name="Platform1Seaweed3" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1027629997]
+position = Vector2(524, -19)
+scale = Vector2(0.19297776, 0.19297776)
+texture = ExtResource("6_lkd2h")
+
+[node name="Platform1Rock6" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1007570723]
+position = Vector2(471, -4)
+scale = Vector2(0.22022079, 0.22022079)
+texture = ExtResource("7_uba3p")
+
+[node name="Platform1Seaweed4" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=987418241]
+position = Vector2(2934.0002, -42)
+scale = Vector2(0.30541506, 0.30541506)
+texture = ExtResource("8_kfoeq")
+
+[node name="PlatformCoral3" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1122594577]
+position = Vector2(2834.0002, -26)
+scale = Vector2(0.21678156, 0.21678156)
+texture = ExtResource("9_7llcc")
+
+[node name="Platform1Seaweed5" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1450001878]
+position = Vector2(2883, -21)
+scale = Vector2(0.18987918, 0.18987918)
+texture = ExtResource("6_lkd2h")
+
+[node name="Platform1Rock7" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1312229504]
+position = Vector2(966, -4)
+scale = Vector2(0.20728989, 0.20728989)
+texture = ExtResource("10_mihpl")
+
+[node name="Platform1Rock1" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1706296585]
+position = Vector2(2223, 3)
+scale = Vector2(0.20797592, 0.20797592)
+texture = ExtResource("11_b0dj2")
+
+[node name="Platform1Seaweed7" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1529424681]
+position = Vector2(969.00006, -6.0000005)
+scale = Vector2(0.072551295, 0.072551295)
+texture = ExtResource("12_agdhh")
+
+[node name="Platform1Rock2" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1824347591]
+position = Vector2(13719, -19)
+scale = Vector2(0.5710644, 0.5710644)
+texture = ExtResource("13_f2pbl")
+
+[node name="PlatformLeaves3" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=980846150]
+position = Vector2(13918, -92)
+scale = Vector2(0.3853107, 0.3853107)
+texture = ExtResource("14_yjjm8")
+
+[node name="PlatformLeaves2" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=162437626]
+position = Vector2(14005.001, -61)
+scale = Vector2(0.5514743, 0.5514743)
+texture = ExtResource("15_fyhjf")
+
+[node name="PlatformBigrock" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1418354129]
+position = Vector2(13827.001, -73)
+scale = Vector2(0.56059766, 0.56059766)
+texture = ExtResource("16_v7jsx")
+
+[node name="Platform1Seaweed2" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1444490169]
+position = Vector2(1632, -15.999998)
+scale = Vector2(0.365, 0.365)
+texture = ExtResource("17_2tygh")
+
+[node name="PlatformLeaves1" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=891392138]
+position = Vector2(4473.0005, -49.000004)
+scale = Vector2(0.22489208, 0.22489208)
+texture = ExtResource("18_inhug")
+
+[node name="PlatformCoral2" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1628158527]
+position = Vector2(4381, -47)
+scale = Vector2(0.28529727, 0.28529727)
+texture = ExtResource("19_w8sf6")
+
+[node name="Platform1Seaweed6" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=192524832]
+position = Vector2(4330, -15.000004)
+scale = Vector2(0.167, 0.167)
+texture = ExtResource("20_csaoo")
+
+[node name="Platform1Rock5" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=738132655]
+position = Vector2(3695, -5.0000305)
+scale = Vector2(0.45361283, 0.45361283)
+texture = ExtResource("21_3wqs1")
+
+[node name="Platform1Rock4" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=676682826]
+position = Vector2(3725, -3)
+scale = Vector2(0.24250004, 0.24250004)
+texture = ExtResource("22_5qvih")
+
+[node name="Platform1Rock3" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=2061468339]
+position = Vector2(8026.573, -10)
+scale = Vector2(0.976, 0.976)
+texture = ExtResource("23_2dui0")
+
+[node name="Platform1Rock9" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1886178336]
+position = Vector2(3615.0002, -14)
+scale = Vector2(0.703, 0.703)
+texture = ExtResource("10_mihpl")
+
+[node name="Platform1Rock10" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=657935393]
+position = Vector2(7870.573, -36.99997)
+rotation = 0.07389529
+scale = Vector2(0.75917035, 0.75917035)
+texture = ExtResource("7_uba3p")
+
+[node name="Platform1Seaweed" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=75929246]
+position = Vector2(7987.573, -100)
+scale = Vector2(0.47166908, 0.47166908)
+texture = ExtResource("24_hgtiu")
+
+[node name="Platform1Seaweed8" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=2112325045]
+position = Vector2(5864, -11)
+scale = Vector2(0.184, 0.184)
+texture = ExtResource("12_agdhh")
+
+[node name="Platform1Rock11" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=644185713]
+position = Vector2(11037, -52.000008)
+scale = Vector2(0.5935894, 0.55939084)
+texture = ExtResource("3_1nh5c")
+
+[node name="Platform1Seaweed9" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1927587447]
+position = Vector2(10991, -35)
+scale = Vector2(0.4909937, 0.4909937)
+texture = ExtResource("8_kfoeq")
+
+[node name="PlatformCoral4" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=2072861228]
+position = Vector2(14887.999, -116)
+scale = Vector2(0.6043079, 0.6053175)
+texture = ExtResource("9_7llcc")
+
+[node name="Platform1Rock12" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=314974361]
+position = Vector2(14959.001, -94)
+scale = Vector2(1.023093, 0.8426019)
+texture = ExtResource("3_1nh5c")
+
+[node name="Platform1Rock13" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1961647126]
+position = Vector2(14783.999, -32.000004)
+scale = Vector2(0.6043079, 0.6053175)
+texture = ExtResource("7_uba3p")
+
+[node name="Platform1Rock14" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1601500227]
+position = Vector2(6653, -27)
+texture = ExtResource("10_mihpl")
+
+[node name="Platform1Seaweed10" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=408323416]
+position = Vector2(6613.9995, 4.0000153)
+scale = Vector2(0.172214, 0.172214)
+texture = ExtResource("6_lkd2h")
+
+[node name="Platform1Rock15" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1107909383]
+position = Vector2(9745, 19)
+texture = ExtResource("22_5qvih")
+
+[node name="Platform1Seaweed11" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=676507800]
+position = Vector2(9730, 28)
+scale = Vector2(0.598, 0.598)
+texture = ExtResource("24_hgtiu")
+
+[node name="Platform1Seaweed12" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=794195015]
+position = Vector2(11135.999, 11)
+scale = Vector2(0.43506232, 0.43506232)
+texture = ExtResource("25_mv4iq")
+
+[node name="Platform1Seaweed13" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1743860303]
+position = Vector2(13475.001, 2)
+scale = Vector2(0.262, 0.262)
+texture = ExtResource("12_agdhh")
+
+[node name="Platform1Rock16" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1742292423]
+position = Vector2(12980, -22)
+scale = Vector2(0.532, 0.532)
+texture = ExtResource("7_uba3p")
+
+[node name="Platform1Seaweed14" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1887603246]
+position = Vector2(14248, 61)
+scale = Vector2(0.595, 0.595)
+texture = ExtResource("6_lkd2h")
+
+[node name="Platform1Seaweed15" type="Sprite2D" parent="Arena/Platform/PlatformAssets" unique_id=1269925052]
+position = Vector2(14266, -2.0000005)
+scale = Vector2(0.433, 0.433)
+texture = ExtResource("6_lkd2h")
+
+[node name="Platform1" type="Sprite2D" parent="Arena/Platform" unique_id=106103238]
+position = Vector2(1395, 729)
+texture = ExtResource("26_1ly3o")
+
+[node name="Platform1" type="Sprite2D" parent="Arena/Platform/Platform1" unique_id=1669503234]
+position = Vector2(3996, 0)
+texture = ExtResource("26_1ly3o")
+
+[node name="Platform1" type="Sprite2D" parent="Arena/Platform/Platform1/Platform1" unique_id=1730158043]
+position = Vector2(3996, 0)
+texture = ExtResource("26_1ly3o")
+
+[node name="Platform1" type="Sprite2D" parent="Arena/Platform/Platform1/Platform1/Platform1" unique_id=1166739011]
+position = Vector2(3996, 0)
+texture = ExtResource("26_1ly3o")
 
 [node name="Control" type="Control" parent="." unique_id=82452555]
 layout_mode = 3
