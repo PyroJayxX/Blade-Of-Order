@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://blnki8rv5w5p3"]
+
+[ext_resource type="FontFile" uid="uid://cnu6t4palvls7" path="res://fonts/VerminVibesV-Zlg3.ttf" id="1_fh3ag"]
+
+[node name="Guide" type="CanvasLayer" unique_id=1250976307]
+unique_name_in_owner = true
+layer = 10
+
+[node name="OptionButton" type="OptionButton" parent="." unique_id=1912747862]
+offset_left = 32.0
+offset_top = 25.0
+offset_right = 171.0
+offset_bottom = 56.0
+item_count = 6
+popup/item_0/text = "Bubble Sort"
+popup/item_0/id = 0
+popup/item_1/text = "Selection Sort"
+popup/item_1/id = 1
+popup/item_2/text = "Shell Sort"
+popup/item_2/id = 2
+popup/item_3/text = "Heap Sort"
+popup/item_3/id = 3
+popup/item_4/text = "Bucket Sort"
+popup/item_4/id = 4
+popup/item_5/text = "Radix Sort"
+popup/item_5/id = 5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="OptionButton" unique_id=91782212]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 0
+offset_left = -33.0
+offset_top = 21.0
+offset_right = 1247.0
+offset_bottom = 121.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.41960785, 0.9529412, 1, 1)
+theme_override_fonts/normal_font = ExtResource("1_fh3ag")
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "[center] BUBBLE SORT [/center]"
