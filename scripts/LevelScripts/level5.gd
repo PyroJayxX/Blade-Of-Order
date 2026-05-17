@@ -9,7 +9,7 @@ const BUCKET_BOSS_PORTRAIT: Texture2D = preload("res://assets/boss_splash/Bucket
 @onready var _player: Node2D = $Player
 @onready var _hud: CanvasLayer = $HUD
 @onready var _level_cleared: CanvasLayer = $LevelCleared
-@onready var _game_over: CanvasLayer = $GameOverd
+@onready var _game_over: CanvasLayer = $GameOver
 
 var _initial_player_position: Vector2 = Vector2.ZERO
 var _initial_boss_position: Vector2 = Vector2.ZERO
