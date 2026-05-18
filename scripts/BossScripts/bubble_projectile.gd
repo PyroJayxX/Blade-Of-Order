@@ -9,7 +9,7 @@ var _projectile_radius: float = 1.0
 @onready var _collision_shape: CollisionShape2D = $CollisionShape2D
 
 var _is_popping: bool = false
-@onready var _anim_player: AnimationPlayer = $pop
+@onready var _anim_player: AnimationPlayer = $pop # pop animation
 @onready var hit_flash: AnimationPlayer = $HitFlash # hit effect 
 
 func _ready() -> void:
@@ -18,7 +18,7 @@ func _ready() -> void:
 
 	await get_tree().create_timer(10.0).timeout
 	if is_inside_tree() and not _is_popping:
-		pop() # Let's make it pop when it times out too!
+		pop() # pop when it comes out
 
 func _physics_process(delta: float) -> void:
 	if _is_popping:
@@ -36,11 +36,11 @@ func pop() -> void:
 	_collision_shape.set_deferred("disabled", true)
 	AudioController.play_boss_hit_bubble()
 	
-	# Safely play the hit flash if it exists
+	# play the hit flash if it exists
 	if hit_flash != null and hit_flash.has_animation("hit_animation"):
 		hit_flash.play("hit_animation")
 	
-	# Play the pop animation and wait for it to finish
+	# play the pop animation and wait for it to finish
 	if _anim_player != null and _anim_player.has_animation("pop"):
 		_anim_player.play("pop")
 		await _anim_player.animation_finished

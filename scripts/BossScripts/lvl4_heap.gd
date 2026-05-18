@@ -108,6 +108,7 @@ var _cooldowns: Dictionary = {}
 @onready var hand_l: Node2D = $Hands/HandL
 @onready var hand_r: Node2D = $Hands/HandR
 @onready var face_sprite: Sprite2D = $Body
+@onready var hit_flash_player: AnimationPlayer = $HitFlash # hit effect animation boss
 
 # ── Lifecycle ─────────────────────────────────────────────────────────────────
 
@@ -468,6 +469,12 @@ func _spawn_projectile(scene: PackedScene, spawn_pos: Vector2, dir: Vector2, pro
 func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
 	if _is_defeated:
 		return
+
+	var safe_amount: int = maxi(amount, 0)
+	
+	if safe_amount > 0:
+		hit_flash_player.stop() # forces the animation to restart if hit rapidly
+		hit_flash_player.play("hit_animation")
 
 	_current_health = clampi(_current_health - maxi(amount, 0), 0, max_health)
 	_sync_hud_health()

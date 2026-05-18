@@ -2,12 +2,17 @@
 
 [ext_resource type="Texture2D" uid="uid://bb1mxjcv5y5x" path="res://assets/bosses/bucket_boss/base.png" id="1_a4qyl"]
 [ext_resource type="Texture2D" uid="uid://dw7fg3i2h8cfy" path="res://assets/bosses/bucket_boss/bucket_smash.png" id="1_da0u5"]
-[ext_resource type="PackedScene" uid="uid://cxjkrm5j3ybek" path="res://scenes/bosses/Level5/Bucket/bucket_projectile1.tscn" id="2_qjsm5"]
+[ext_resource type="PackedScene" uid="uid://cxjkrm5j3ybek" path="res://scenes/Bosses/Level5/Bucket/bucket_projectile1.tscn" id="2_qjsm5"]
 [ext_resource type="Texture2D" uid="uid://c03js4wq8ebbt" path="res://assets/bosses/bucket_boss/stunned.png" id="3_0opv1"]
+[ext_resource type="Shader" uid="uid://c1ot87s1sfjfu" path="res://scenes/Bosses/Level1/Bubble/projectile_hit.tres" id="3_eyeni"]
 [ext_resource type="Script" uid="uid://q2vnjr4388c6" path="res://scripts/BossScripts/lvl5_bucket.gd" id="4_f26n7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f26n7"]
 size = Vector2(425, 619)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xksvo"]
+shader = ExtResource("3_eyeni")
+shader_parameter/hit_strength = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0opv1"]
 size = Vector2(523, 367)
@@ -468,6 +473,43 @@ _data = {
 &"stunned": SubResource("Animation_a2kbg")
 }
 
+[sub_resource type="Animation" id="Animation_q6bp7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bucket:material:shader_parameter/hit_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_0pc1f"]
+resource_name = "hit_animation"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bucket:material:shader_parameter/hit_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ubnb0"]
+_data = {
+&"RESET": SubResource("Animation_q6bp7"),
+&"hit_animation": SubResource("Animation_0pc1f")
+}
+
 [node name="Lvl5Bucket" type="CharacterBody2D" unique_id=1048804533]
 collision_layer = 3
 script = ExtResource("4_f26n7")
@@ -478,6 +520,7 @@ position = Vector2(-5.5, 153.5)
 shape = SubResource("RectangleShape2D_f26n7")
 
 [node name="Bucket" type="Sprite2D" parent="." unique_id=307914674]
+material = SubResource("ShaderMaterial_xksvo")
 texture = ExtResource("1_a4qyl")
 
 [node name="SmashAttack" type="Sprite2D" parent="." unique_id=464367480]
@@ -506,6 +549,9 @@ texture = ExtResource("3_0opv1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=926151173]
 libraries/ = SubResource("AnimationLibrary_lv0k5")
+
+[node name="HitFlash" type="AnimationPlayer" parent="." unique_id=2143117170]
+libraries/ = SubResource("AnimationLibrary_ubnb0")
 
 [connection signal="body_entered" from="SmashAttack/SmashHitbox" to="." method="_on_smash_hitbox_body_entered"]
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]

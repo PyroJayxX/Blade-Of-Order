@@ -59,6 +59,7 @@ var _floor_y_level: float = 0.0
 # --- NODE REFERENCES ---
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var smash_sprite: Sprite2D = $SmashAttack 
+@onready var hit_flash_player: AnimationPlayer = $HitFlash # hit effect animation boss
 
 func _ready() -> void:
 	_current_health = max_health
@@ -276,7 +277,13 @@ func _on_animation_finished(anim_name: String) -> void:
 # --- COMBAT & HEALTH LOGIC ---
 func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
 	if _is_defeated: return
+	
 	var safe_amount: int = maxi(amount, 0)
+	
+	if safe_amount > 0:
+		hit_flash_player.stop() # forces the animation to restart if hit rapidly
+		hit_flash_player.play("hit_animation")
+	
 	_current_health = clampi(_current_health - safe_amount, 0, max_health)
 	_sync_boss_hud_health()
 	print("Boss HP -> ", _current_health, "/", max_health)

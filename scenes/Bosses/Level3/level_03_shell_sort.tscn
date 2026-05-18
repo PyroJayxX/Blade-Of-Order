@@ -331,7 +331,7 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_swf52")
 
 [node name="Lvl3Shell" parent="." unique_id=87852550 instance=ExtResource("5_qk581")]
-position = Vector2(1282, 0)
+position = Vector2(3979, 0)
 script = ExtResource("6_jplhh")
 
 [node name="Cutscene" parent="." unique_id=1237687727 instance=ExtResource("7_swf52")]

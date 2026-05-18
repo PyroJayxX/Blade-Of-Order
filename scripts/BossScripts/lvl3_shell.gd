@@ -47,6 +47,7 @@ var _is_aoe_active: bool = false
 var _aoe_timer: float = 0.0
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
+@onready var hit_flash_player: AnimationPlayer = $HitFlash # hit effect animation boss
 
 func _ready() -> void:
 	_current_health = max_health
@@ -160,6 +161,11 @@ func take_damage(amount: int = 5, causes_stun: bool = false) -> void:
 	if _is_defeated: return
 
 	var safe_amount: int = maxi(amount, 0)
+	
+	if safe_amount > 0:
+		hit_flash_player.stop() # forces the animation to restart if hit rapidly
+		hit_flash_player.play("hit_animation")
+	
 	_current_health = clampi(_current_health - safe_amount, 0, max_health)
 	_sync_boss_hud_health()
 	
