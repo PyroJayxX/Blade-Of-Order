@@ -13,7 +13,6 @@ var _accept_taps: bool = false # Keep taps locked until play() finishes fading i
 @onready var dialogue_text: RichTextLabel = $DialogueBox/MarginContainer/DialogueText
 @onready var continue_hint: Label = $DialogueBox/MarginContainer/ContinueHint
 @onready var skip_button: Button = $SkipButton
-@onready var bg_overlay: ColorRect = $BGOverlay
 @onready var dialogue_box: PanelContainer = $DialogueBox
 
 func _ready() -> void:
@@ -37,7 +36,6 @@ func play() -> void:
 	visible = true
 	var tw = create_tween()
 	tw.set_parallel(true)
-	tw.tween_property(bg_overlay, "color:a", 0.7, 0.2)
 	tw.tween_property(dialogue_box, "modulate:a", 1.0, 0.2)
 	await tw.finished
 
@@ -112,7 +110,6 @@ func _finish() -> void:
 	
 	var tw = create_tween()
 	tw.set_parallel(true)
-	tw.tween_property(bg_overlay, "color:a", 0.0, 0.2)
 	tw.tween_property(dialogue_box, "modulate:a", 0.0, 0.2)
 	await tw.finished
 	
