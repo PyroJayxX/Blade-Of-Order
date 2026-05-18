@@ -14,7 +14,7 @@ const MAX_JUMPS = 2
 const DASH_SPEED = 2500.0 # higher -> travels faster
 const DASH_TIME = 0.4 # higher -> more distance
 const DASH_DECEL = 2000.0 # lower -> decelerate more/longer stop
-const DASH_COOLDOWN = 0.5
+const DASH_COOLDOWN = 0.80
 const DASH_POST_INVULN_TIME = 0.12 # dash invincible frames
 
 # COMBO CONST VARIABLES
