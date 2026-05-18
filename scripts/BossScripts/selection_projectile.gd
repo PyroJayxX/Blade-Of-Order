@@ -1,16 +1,10 @@
 extends Area2D
 
-@export var speed: float = 200.0          # Initial horizontal speed or thrust
-@export var max_fall_speed: float = 900.0  # Terminal velocity so it doesn't fall infinitely fast
-@export var fall_gravity: float = 980.0    # Renamed to avoid clashing with Area2D.gravity
-
+@export var speed: float = 1800.0          # Constant downward speed (adjusted for linear drop)
 @export var damage: int = 10
 var direction: Vector2 = Vector2.DOWN      # Defaulting direction to straight down
 var _player_ref: Node2D = null
 var _projectile_radius: float = 1.0
-
-# Tracks current downward velocity accumulation
-var _fall_velocity: float = 0.0
 
 @onready var _collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -30,21 +24,8 @@ func _physics_process(delta: float) -> void:
 	if _is_popping:
 		return
 	
-	# 1. Accumulate gravity velocity over time using our renamed variable
-	_fall_velocity += fall_gravity * delta
-	_fall_velocity = minf(_fall_velocity, max_fall_speed)
-	
-	# 2. Combine horizontal movement with our falling speed
-	var movement = Vector2.ZERO
-	movement.x = direction.x * speed * delta
-	movement.y = _fall_velocity * delta
-	
-	# 3. Apply the movement vector
-	global_position += movement
-	
-	# Dynamic rotational alignment (points the sprite towards its travel arc)
-	if movement.length_squared() > 0.001:
-		rotation = movement.angle()
+	# Linear constant movement down the screen without any acceleration
+	global_position += direction * speed * delta
 	
 	_try_pop_from_player_slash()
 
