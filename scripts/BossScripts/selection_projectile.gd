@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var speed: float = 1400.0          # Constant downward speed (adjusted for linear drop)
+@export var speed: float = 1300.0          # Constant downward speed (adjusted for linear drop)
 @export var damage: int = 10
 var direction: Vector2 = Vector2.DOWN      # Defaulting direction to straight down
 var _player_ref: Node2D = null
