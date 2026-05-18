@@ -1,17 +1,65 @@
 [gd_scene format=3 uid="uid://cwkgk07e1bbsr"]
 
+[ext_resource type="Script" uid="uid://b3etwcr4q6u22" path="res://scenes/Bosses/Level6/Radix/segment.gd" id="1_jp36k"]
 [ext_resource type="Texture2D" uid="uid://dh8xx7u6rh2yo" path="res://assets/bosses/radix_boss/MID.png" id="1_oq67p"]
+[ext_resource type="Shader" uid="uid://c1ot87s1sfjfu" path="res://scenes/Bosses/Level1/Bubble/projectile_hit.tres" id="1_r7w3u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3hn63"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jp36k"]
+shader = ExtResource("1_r7w3u")
+shader_parameter/hit_strength = 0.0
+
+[sub_resource type="Animation" id="Animation_w2y6i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/hit_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_2s3yf"]
+resource_name = "hit_animation_segment"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/hit_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aecey"]
+_data = {
+&"RESET": SubResource("Animation_w2y6i"),
+&"hit_animation_segment": SubResource("Animation_2s3yf")
+}
+
 [node name="Segment" type="CharacterBody2D" unique_id=749766560]
 z_index = 10
+script = ExtResource("1_jp36k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1195068213]
 scale = Vector2(2.6, 1.8)
 shape = SubResource("CircleShape2D_3hn63")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1992633567]
+material = SubResource("ShaderMaterial_jp36k")
 rotation = 3.1415927
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("1_oq67p")
+
+[node name="HitFlash" type="AnimationPlayer" parent="." unique_id=549581780]
+libraries/ = SubResource("AnimationLibrary_aecey")
