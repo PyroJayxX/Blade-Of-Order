@@ -17,6 +17,7 @@ source = 2
 [resource]
 mode = 1
 flags/light_only = false
+nodes/vertex/0/position = Vector2(400, 120)
 nodes/fragment/2/node = SubResource("VisualShaderNodeColorConstant_ca7ce")
 nodes/fragment/2/position = Vector2(-400, 340)
 nodes/fragment/3/node = SubResource("VisualShaderNodeFloatParameter_ob8pa")

@@ -38,8 +38,8 @@ enum BossState {
 
 # LASER WAVE VARIABLES (Wave Attack)
 @export var wave_projectile_scene: PackedScene 
-@export var laser_cooldown: float = 6.0   
-@export var laser_duration: float = 3.0   
+@export var laser_cooldown: float = 10.0   
+@export var laser_duration: float = 2.0   
 @export var laser_fire_rate: float = 0.07 
 
 const HUD_PATH: NodePath = ^"HUD"

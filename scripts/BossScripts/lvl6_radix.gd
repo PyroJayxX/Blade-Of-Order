@@ -4,7 +4,7 @@ signal boss_defeated
 
 const MOVE_SPEED = 1000.0
 const CHARGE_SPEED = 2500.0
-const SEGMENT_DISTANCE = 200.0
+const SEGMENT_DISTANCE = 300.0
 const DASH_MAX_DISTANCE = 3000.0
 const MAX_HEALTH = 100
 const HEAD_DAMAGE = 5
@@ -36,7 +36,6 @@ var _combat_enabled: bool = true
 
 @onready var head: Node2D = $Head
 @onready var segment: Node2D = $Segment
-
 
 func _ready() -> void:
 	parent_node = get_parent()
@@ -88,12 +87,15 @@ func _collect_manual_segments() -> void:
 		for c in get_parent().get_children():
 			if c.name.findn("Segment") >= 0 and not segments.has(c):
 				segments.append(c)
+	
+	head.z_index = 100
 
 	if segments.size() > 0:
 		var behind_dir = -Vector2.RIGHT.rotated(global_rotation)
 		for i in range(segments.size()):
+			segments[i].set_as_top_level(true)
 			segments[i].global_position = global_position + behind_dir * SEGMENT_DISTANCE * (i + 1)
-			segments[i].z_index = 100 + i
+			segments[i].z_index = 99 - i
 			if segments[i] is CharacterBody2D:
 				segments[i].collision_layer = 0
 				segments[i].collision_mask = 0
@@ -191,7 +193,7 @@ func _update_segments_from_history() -> void:
 			if accumulated >= target_distance:
 				s.global_position = position_history[j]
 				if j < rotation_history.size():
-					s.rotation = rotation_history[j].angle()
+					s.global_rotation = rotation_history[j].angle()
 				break
 
 
