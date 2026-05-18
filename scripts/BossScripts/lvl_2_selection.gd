@@ -3,7 +3,7 @@ extends CharacterBody2D
 signal boss_defeated
 
 enum BossState {
-	IDLE,
+	BASE,
 	CHASE,
 	HURT,
 	STUNNED
@@ -21,7 +21,7 @@ enum BossState {
 @export var lower_speed: float = 100.0 # speed at which boss lowers down
 @export var vulnerable_y_offset: float = 150.0 # how far down to lower during vulnerable state
 
-var _state: BossState = BossState.IDLE
+var _state: BossState = BossState.BASE
 var _target: Node2D # resolved player target
 var _home_y: float = 0.0 # baseline y position to maintain
 var _current_health: int = 100
@@ -130,7 +130,7 @@ func _physics_process(delta: float) -> void:
 	var target_pos: Vector2 = _target.global_position if _target != null and is_instance_valid(_target) else Vector2.ZERO
 
 	match _state:
-		BossState.IDLE:
+		BossState.BASE:
 			velocity = Vector2.ZERO
 			global_position.y = _home_y + hover_offset
 		BossState.HURT:
