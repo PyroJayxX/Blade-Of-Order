@@ -40,7 +40,7 @@ var _is_vulnerable: bool = false
 var _shell_replay_timer: float = 0.0
 var _direction: int = 1
 
-# Phase Control Variables
+# AOE attack
 var _phase_2_triggered: bool = false # 50% HP
 var _phase_3_triggered: bool = false # 20% HP
 var _is_aoe_active: bool = false
@@ -94,7 +94,7 @@ func _ready() -> void:
 
 	_set_state(BossState.CHASE)
 	
-	
+#----- Puzzle On/Off -----
 	if _shell_sort_puzzle != null:
 		_shell_sort_puzzle.visible = false
 	if _shell_sort_puzzle != null:
@@ -117,7 +117,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
-	# Handle the 3-second AOE timer logic
+	# AOE timer
 	if _is_aoe_active:
 		_aoe_timer -= delta
 		if _aoe_timer <= 0:
@@ -222,7 +222,7 @@ func _die() -> void:
 
 	boss_defeated.emit()
 
-	# SHOW PUZZLE HERE
+	#Puzzle Activate
 	if _shell_sort_puzzle != null:
 		_shell_sort_puzzle.visible = true
 
@@ -359,6 +359,11 @@ func set_combat_enabled(enabled: bool) -> void:
 func _on_puzzle_completed() -> void:
 	print("Puzzle Completed")
 	$LevelCleared.visible = true
+	   # Sync data to the LevelCleared UI
+	if $LevelCleared.has_method("show_results"):
+		var time = _shell_sort_puzzle.get("time_elapsed")
+		var mistakes = _shell_sort_puzzle.get("mistakes")
+		$LevelCleared.show_results(time, mistakes)
 
 	if _shell_sort_puzzle != null:
 		_shell_sort_puzzle.visible = false
@@ -367,6 +372,11 @@ func _on_puzzle_completed() -> void:
 func _on_puzzle_failed() -> void:
 	print("Puzzle Failed")
 	$GameOver.visible = true
+# Sync data to the GameOver UI
+	if $GameOver.has_method("show_results"):
+		var time = _shell_sort_puzzle.get("time_elapsed")
+		var mistakes = _shell_sort_puzzle.get("mistakes")
+		$GameOver.show_results(time, mistakes)
 
 	if _shell_sort_puzzle != null:
 		_shell_sort_puzzle.visible = false
