@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://cg6n0tiemkag6"]
 
-[ext_resource type="Texture2D" uid="uid://cwugarjxuicrr" path="res://assets/bosses/heap_boss/body_no_hands.png" id="1_03pbj"]
 [ext_resource type="Script" uid="uid://7hiqnayd2sxh" path="res://scripts/BossScripts/lvl4_heap.gd" id="1_l3nb5"]
 [ext_resource type="PackedScene" uid="uid://cwamcbrp5j01o" path="res://scenes/Bosses/Level4/Heap/Projectiles/heap_homing_leaf.tscn" id="2_42ceg"]
 [ext_resource type="Texture2D" uid="uid://dwqxw2wqevc15" path="res://assets/bosses/heap_boss/hand_left.png" id="2_kkkdm"]
@@ -16,6 +15,10 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bkdpl"]
 shader = ExtResource("9_j5wdq")
 shader_parameter/hit_strength = 0.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_42ceg"]
+resource_local_to_scene = true
+load_path = "res://.godot/imported/body_no_hands.png-94fc5151c3b958606846f9292a726663.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v0wwg"]
 shader = ExtResource("9_j5wdq")
@@ -910,10 +913,11 @@ spore_spread_deg = 60.0
 attack_sequence_cooldown = 1.5
 
 [node name="Body" type="Sprite2D" parent="." unique_id=195109962]
+show_behind_parent = true
 material = SubResource("ShaderMaterial_bkdpl")
 position = Vector2(-1.4996033, -7.6747437)
 scale = Vector2(0.75955534, 0.75955534)
-texture = ExtResource("1_03pbj")
+texture = SubResource("CompressedTexture2D_42ceg")
 
 [node name="Hands" type="Node2D" parent="." unique_id=22054854]
 position = Vector2(-239.99998, -272)
