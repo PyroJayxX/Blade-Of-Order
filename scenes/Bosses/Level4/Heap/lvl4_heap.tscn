@@ -11,6 +11,19 @@
 [ext_resource type="PackedScene" uid="uid://l1pqhx0utprb" path="res://scenes/Bosses/Level4/Heap/Projectiles/heap_leaf_wall.tscn" id="6_xqg7r"]
 [ext_resource type="PackedScene" uid="uid://ce1i8toqtw51q" path="res://scenes/Bosses/Level4/Heap/Projectiles/heap_spore.tscn" id="7_1771k"]
 [ext_resource type="PackedScene" uid="uid://bummfae4t6wx3" path="res://scenes/Bosses/Level4/Heap/Projectiles/spike_warning.tscn" id="8_42ceg"]
+[ext_resource type="Shader" uid="uid://c1ot87s1sfjfu" path="res://scenes/Bosses/Level1/Bubble/projectile_hit.tres" id="9_j5wdq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bkdpl"]
+shader = ExtResource("9_j5wdq")
+shader_parameter/hit_strength = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v0wwg"]
+shader = ExtResource("9_j5wdq")
+shader_parameter/hit_strength = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xqg7r"]
+shader = ExtResource("9_j5wdq")
+shader_parameter/hit_strength = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0t648"]
 size = Vector2(35.239296, 57.07337)
@@ -780,6 +793,91 @@ _data = {
 &"idle": SubResource("Animation_35f8u")
 }
 
+[sub_resource type="Animation" id="Animation_0a5tk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:material:shader_parameter/hit_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hands/HandL:material:shader_parameter/hit_strength")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hands/HandR:material:shader_parameter/hit_strength")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_5r7ot"]
+resource_name = "hit_animation"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:material:shader_parameter/hit_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hands/HandL:material:shader_parameter/hit_strength")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hands/HandR:material:shader_parameter/hit_strength")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7kf2g"]
+_data = {
+&"RESET": SubResource("Animation_0a5tk"),
+&"hit_animation": SubResource("Animation_5r7ot")
+}
+
 [node name="Lvl4Heap" type="CharacterBody2D" unique_id=2133724916]
 script = ExtResource("1_l3nb5")
 homing_leaf_scene = ExtResource("2_42ceg")
@@ -812,6 +910,7 @@ spore_spread_deg = 60.0
 attack_sequence_cooldown = 1.5
 
 [node name="Body" type="Sprite2D" parent="." unique_id=195109962]
+material = SubResource("ShaderMaterial_bkdpl")
 position = Vector2(-1.4996033, -7.6747437)
 scale = Vector2(0.75955534, 0.75955534)
 texture = ExtResource("1_03pbj")
@@ -821,11 +920,13 @@ position = Vector2(-239.99998, -272)
 scale = Vector2(0.75955534, 0.75955534)
 
 [node name="HandL" type="Sprite2D" parent="Hands" unique_id=2125269693]
+material = SubResource("ShaderMaterial_v0wwg")
 position = Vector2(314, 347.99997)
 scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("2_kkkdm")
 
 [node name="HandR" type="Sprite2D" parent="Hands" unique_id=805155052]
+material = SubResource("ShaderMaterial_xqg7r")
 position = Vector2(314, 347.99997)
 scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("3_b3oyy")
@@ -838,3 +939,6 @@ shape = SubResource("RectangleShape2D_0t648")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2042349312]
 libraries/ = SubResource("AnimationLibrary_bkdpl")
+
+[node name="HitFlash" type="AnimationPlayer" parent="." unique_id=1776697537]
+libraries/ = SubResource("AnimationLibrary_7kf2g")

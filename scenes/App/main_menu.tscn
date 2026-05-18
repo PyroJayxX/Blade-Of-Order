@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/Player/player_new.tscn" id="10_lgwnu"]
 [ext_resource type="Texture2D" uid="uid://dha0dnvfubb4a" path="res://assets/buttons/exit_btn_pressed.png" id="11_higeg"]
 [ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/Game/arena.tscn" id="11_lgwnu"]
+[ext_resource type="Texture2D" uid="uid://dn5qppajr2fvq" path="res://assets/platform/platform-3.png" id="14_gxgqo"]
 
 [sub_resource type="Gradient" id="Gradient_u5sy4"]
 offsets = PackedFloat32Array(0.27108434, 1)
@@ -134,6 +135,10 @@ script = null
 
 [node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("11_lgwnu")]
 position = Vector2(-6879, 637)
+
+[node name="Platform3" type="Sprite2D" parent="." unique_id=1584759724]
+position = Vector2(230, 744)
+texture = ExtResource("14_gxgqo")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/play_btn" to="." method="_on_play_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/exit_btn" to="." method="_on_exit_btn_pressed"]

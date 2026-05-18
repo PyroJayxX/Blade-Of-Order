@@ -1,11 +1,24 @@
 [gd_scene format=3 uid="uid://7rkgjpqq2unb"]
 
+[ext_resource type="Shader" uid="uid://c1ot87s1sfjfu" path="res://scenes/Bosses/Level1/Bubble/projectile_hit.tres" id="1_a1tc7"]
 [ext_resource type="Texture2D" uid="uid://dnyhpmxq33e6x" path="res://assets/bosses/shell_boss/shell_front_bot.png" id="1_cli4a"]
 [ext_resource type="Texture2D" uid="uid://cshgw4c57dtlb" path="res://assets/bosses/shell_boss/shell_front_top.png" id="2_xb1to"]
 [ext_resource type="Texture2D" uid="uid://b7jaik08c40m0" path="res://assets/bosses/shell_boss/eye_front.png" id="3_gsm5u"]
 [ext_resource type="Texture2D" uid="uid://cavqnpvh0y4qd" path="res://assets/bosses/shell_boss/shell_close_front.png" id="4_cjhbe"]
 [ext_resource type="Texture2D" uid="uid://b2magpkuaxwmn" path="res://assets/bosses/shell_boss/shell_close_side.png" id="5_r0lau"]
 [ext_resource type="Texture2D" uid="uid://c8y8e0lsyksj5" path="res://assets/bosses/shell_boss/shell_open_side.png" id="6_tuyt5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m3on7"]
+shader = ExtResource("1_a1tc7")
+shader_parameter/hit_strength = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s8ti2"]
+shader = ExtResource("1_a1tc7")
+shader_parameter/hit_strength = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1bnd3"]
+shader = ExtResource("1_a1tc7")
+shader_parameter/hit_strength = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cjhbe"]
 
@@ -197,6 +210,91 @@ _data = {
 &"stunned": SubResource("Animation_hxy82")
 }
 
+[sub_resource type="Animation" id="Animation_s8ti2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShellBossFront/ShellFrontBot:material:shader_parameter/hit_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShellBossFront/ShellFrontTop:material:shader_parameter/hit_strength")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ShellBossFront/EyeFront:material:shader_parameter/hit_strength")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_1bnd3"]
+resource_name = "hit_animation"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShellBossFront/ShellFrontBot:material:shader_parameter/hit_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShellBossFront/ShellFrontTop:material:shader_parameter/hit_strength")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ShellBossFront/EyeFront:material:shader_parameter/hit_strength")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xig23"]
+_data = {
+&"RESET": SubResource("Animation_s8ti2"),
+&"hit_animation": SubResource("Animation_1bnd3")
+}
+
 [node name="Lvl3Shell" type="CharacterBody2D" unique_id=87852550]
 
 [node name="ShellBossFront" type="Sprite2D" parent="." unique_id=946307893]
@@ -204,16 +302,19 @@ scale = Vector2(0.7961471, 0.7961471)
 
 [node name="ShellFrontBot" type="Sprite2D" parent="ShellBossFront" unique_id=2128332516]
 texture_filter = 1
+material = SubResource("ShaderMaterial_m3on7")
 position = Vector2(15, 23)
 texture = ExtResource("1_cli4a")
 
 [node name="ShellFrontTop" type="Sprite2D" parent="ShellBossFront" unique_id=485431625]
 texture_filter = 1
+material = SubResource("ShaderMaterial_s8ti2")
 position = Vector2(15, 23)
 texture = ExtResource("2_xb1to")
 
 [node name="EyeFront" type="Sprite2D" parent="ShellBossFront" unique_id=1283139084]
 texture_filter = 1
+material = SubResource("ShaderMaterial_1bnd3")
 position = Vector2(15, 23)
 texture = ExtResource("3_gsm5u")
 
@@ -261,3 +362,6 @@ autoplay = &"idle"
 visible = false
 scale = Vector2(6.758, 7.449)
 zoom = Vector2(0.455, 0.455)
+
+[node name="HitFlash" type="AnimationPlayer" parent="." unique_id=153019507]
+libraries/ = SubResource("AnimationLibrary_xig23")

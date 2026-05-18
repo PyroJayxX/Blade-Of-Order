@@ -1,6 +1,6 @@
 extends Node
 
-const MAIN_MENU_SCENE: String = "res://scenes/MainMenu/main_menu.tscn"
+const MAIN_MENU_SCENE: String = "res://scenes/App/main_menu.tscn"
 const LEVEL_SELECT_SCENE: String = "res://scenes/LevelSelect/level_selector.tscn"
 const LEADERBOARD_SCENE: String = "res://scenes/Game/leaderboard.tscn"
 

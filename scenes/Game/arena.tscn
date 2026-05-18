@@ -28,10 +28,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e05a3"]
 size = Vector2(15002, 85)
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_olpmc"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wl4x5"]
 size = Vector2(605, 7938)
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_olpmc"]
 
 [node name="Arena" type="Node2D" unique_id=1314484193]
 
@@ -42,6 +42,7 @@ position = Vector2(7501, 53.5)
 shape = SubResource("RectangleShape2D_e05a3")
 
 [node name="PlatformAssets" type="Node2D" parent="Floor" unique_id=22598505]
+visible = false
 
 [node name="Platform1Rock8" type="Sprite2D" parent="Floor/PlatformAssets" unique_id=586746625]
 position = Vector2(161, -4.9999924)
@@ -243,6 +244,7 @@ scale = Vector2(0.433, 0.433)
 texture = ExtResource("4_naajo")
 
 [node name="Platform1" type="Sprite2D" parent="Floor" unique_id=1838212736]
+visible = false
 position = Vector2(1989, 107)
 texture = ExtResource("1_e05a3")
 
@@ -258,6 +260,14 @@ texture = ExtResource("1_e05a3")
 position = Vector2(3996, 0)
 texture = ExtResource("1_e05a3")
 
+[node name="TextureRect" type="TextureRect" parent="Floor" unique_id=1235240840]
+modulate = Color(0, 0, 0, 1)
+offset_left = -7612.0
+offset_top = 271.0
+offset_right = 26087.0
+offset_bottom = 2449.0
+texture = SubResource("CanvasTexture_olpmc")
+
 [node name="Walls" type="StaticBody2D" parent="." unique_id=951774391]
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls" unique_id=492781000]
@@ -268,19 +278,18 @@ shape = SubResource("RectangleShape2D_wl4x5")
 position = Vector2(-312.5, -3383)
 shape = SubResource("RectangleShape2D_wl4x5")
 
+[node name="TextureRect2" type="TextureRect" parent="Walls" unique_id=67479637]
+modulate = Color(0, 0, 0, 1)
+offset_left = 15012.0
+offset_top = -7917.0
+offset_right = 27359.0
+offset_bottom = 545.0
+texture = SubResource("CanvasTexture_olpmc")
+
 [node name="TextureRect" type="TextureRect" parent="Walls" unique_id=1542807810]
 modulate = Color(0, 0, 0, 1)
-offset_left = -757.0
+offset_left = -8115.0
 offset_top = -7835.0
 offset_right = -9.0
 offset_bottom = 627.0
-texture = SubResource("CanvasTexture_olpmc")
-
-[node name="TextureRect" type="TextureRect" parent="Walls/TextureRect" unique_id=67479637]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 0
-offset_left = 15769.0
-offset_top = -82.0
-offset_right = 16517.0
-offset_bottom = 8380.0
 texture = SubResource("CanvasTexture_olpmc")

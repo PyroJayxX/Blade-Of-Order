@@ -8,18 +8,44 @@ var _projectile_radius: float = 1.0
 
 @onready var _collision_shape: CollisionShape2D = $CollisionShape2D
 
+var _is_popping: bool = false
+@onready var _anim_player: AnimationPlayer = $pop # pop animation
+@onready var hit_flash: AnimationPlayer = $HitFlash # hit effect 
+
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	_projectile_radius = _estimate_projectile_radius()
 
 	await get_tree().create_timer(10.0).timeout
-	if is_inside_tree():
-		queue_free()
+	if is_inside_tree() and not _is_popping:
+		pop() # pop when it comes out
 
 func _physics_process(delta: float) -> void:
+	if _is_popping:
+		return
+		
 	# Move the bubble forward every frame
 	position += direction * speed * delta
 	_try_pop_from_player_slash()
+
+func pop() -> void:
+	if _is_popping:
+		return
+	
+	_is_popping = true
+	_collision_shape.set_deferred("disabled", true)
+	AudioController.play_boss_hit_bubble()
+	
+	# play the hit flash if it exists
+	if hit_flash != null and hit_flash.has_animation("hit_animation"):
+		hit_flash.play("hit_animation")
+	
+	# play the pop animation and wait for it to finish
+	if _anim_player != null and _anim_player.has_animation("pop"):
+		_anim_player.play("pop")
+		await _anim_player.animation_finished
+	
+	queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
 	if not _is_player(body):
@@ -27,7 +53,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage"):
 		body.call("take_damage", damage)
 	AudioController.play_boss_hit_bubble()
-	queue_free()
+	pop()
 
 func _try_pop_from_player_slash() -> void:
 	if not is_inside_tree():
@@ -48,7 +74,7 @@ func _try_pop_from_player_slash() -> void:
 		return
 
 	AudioController.play_boss_hit_bubble()
-	queue_free()
+	pop()
 
 func _is_player(body: Node2D) -> bool:
 	if body == null:

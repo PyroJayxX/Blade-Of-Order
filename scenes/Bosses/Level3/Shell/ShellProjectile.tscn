@@ -2,17 +2,103 @@
 
 [ext_resource type="Script" uid="uid://dy8m1qycjr13b" path="res://scripts/BossScripts/shell_projectile.gd" id="1_2i2sy"]
 [ext_resource type="Texture2D" uid="uid://choka35egbhpm" path="res://assets/bosses/shell_boss/projectile5.png" id="1_cbpsf"]
+[ext_resource type="Shader" uid="uid://c1ot87s1sfjfu" path="res://scenes/Bosses/Level1/Bubble/projectile_hit.tres" id="2_blup5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2p7kf"]
+shader = ExtResource("2_blup5")
+shader_parameter/hit_strength = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2i2sy"]
 radius = 45.0
+
+[sub_resource type="Animation" id="Animation_hs5n0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/hit_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_f66yq"]
+resource_name = "hit_animation"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/hit_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4so6r"]
+_data = {
+&"RESET": SubResource("Animation_hs5n0"),
+&"hit_animation": SubResource("Animation_f66yq")
+}
+
+[sub_resource type="Animation" id="Animation_blup5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.2, 0.2)]
+}
+
+[sub_resource type="Animation" id="Animation_2p7kf"]
+resource_name = "pop"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.019825947, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.25, 0.25), Vector2(0.29, 0.29), Vector2(0.27, 0.27)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hs5n0"]
+_data = {
+&"RESET": SubResource("Animation_blup5"),
+&"pop": SubResource("Animation_2p7kf")
+}
 
 [node name="ShellProjectile" type="Area2D" unique_id=475620726]
 script = ExtResource("1_2i2sy")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2133639653]
-scale = Vector2(0.25, 0.25)
+material = SubResource("ShaderMaterial_2p7kf")
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_cbpsf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=493183910]
 position = Vector2(8, -4)
 shape = SubResource("CircleShape2D_2i2sy")
+
+[node name="HitFlash" type="AnimationPlayer" parent="." unique_id=370385666]
+libraries/ = SubResource("AnimationLibrary_4so6r")
+
+[node name="pop" type="AnimationPlayer" parent="." unique_id=1899945201]
+libraries/ = SubResource("AnimationLibrary_hs5n0")
