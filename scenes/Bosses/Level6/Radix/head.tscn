@@ -1,16 +1,64 @@
 [gd_scene format=3 uid="uid://p5wi0fbditkp"]
 
+[ext_resource type="Script" uid="uid://ch3qvds6ttgko" path="res://scenes/Bosses/Level6/Radix/head.gd" id="1_0ykrr"]
 [ext_resource type="Texture2D" uid="uid://bmgju2xcfnex8" path="res://assets/bosses/radix_boss/HEAD.png" id="1_2r0c4"]
+[ext_resource type="Shader" uid="uid://c1ot87s1sfjfu" path="res://scenes/Bosses/Level1/Bubble/projectile_hit.tres" id="1_q83n7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gjr4n"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ykrr"]
+shader = ExtResource("1_q83n7")
+shader_parameter/hit_strength = 0.0
+
+[sub_resource type="Animation" id="Animation_vnpuj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/hit_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_8atgj"]
+resource_name = "hit_animation_head"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/hit_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tdv31"]
+_data = {
+&"RESET": SubResource("Animation_vnpuj"),
+&"hit_animation_head": SubResource("Animation_8atgj")
+}
+
 [node name="Head" type="CharacterBody2D" unique_id=875666592]
+script = ExtResource("1_0ykrr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2023627667]
 scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_gjr4n")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2146703357]
+material = SubResource("ShaderMaterial_0ykrr")
 rotation = 3.1415927
 scale = Vector2(0.14, 0.14)
 texture = ExtResource("1_2r0c4")
+
+[node name="HitFlash" type="AnimationPlayer" parent="." unique_id=121342533]
+libraries/ = SubResource("AnimationLibrary_tdv31")

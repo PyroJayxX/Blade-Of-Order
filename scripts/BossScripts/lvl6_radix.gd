@@ -34,6 +34,9 @@ var _nodes_last_overlap: Dictionary = {}
 var _prev_dashing: bool = false
 var _combat_enabled: bool = true
 
+@onready var head: Node2D = $Head
+@onready var segment: Node2D = $Segment
+
 
 func _ready() -> void:
 	parent_node = get_parent()
@@ -235,6 +238,16 @@ func take_damage(amount: int = PLAYER_DAMAGE_PER_HIT, causes_stun: bool = false)
 		return
 
 	var safe_amount: int = maxi(amount, 0)
+	
+	if safe_amount > 0:
+		# 1. Flash the head
+		if head.has_method("play_hit_flash"):
+			head.play_hit_flash()
+		
+		# 2. Flash all the segments
+		if segment.has_method("play_hit_flash"):
+			segment.play_hit_flash()
+	
 	_current_health = clampi(_current_health - safe_amount, 0, MAX_HEALTH)
 	_sync_boss_hud_health()
 	print("Boss HP -> ", _current_health, "/", MAX_HEALTH)
