@@ -1,11 +1,11 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dlcbodct6wvlb"]
 
-[ext_resource type="Script" path="res://scripts/flow/root_flow.gd" id="1_8q8xb"]
+[ext_resource type="Script" uid="uid://d3hqd4jopbsug" path="res://scripts/flow/root_flow.gd" id="1_8q8xb"]
 [ext_resource type="PackedScene" path="res://scenes/App/transition_layer.tscn" id="2_0m0yd"]
 
-[node name="RootFlow" type="Node"]
+[node name="RootFlow" type="Node" unique_id=589449427]
 script = ExtResource("1_8q8xb")
 
-[node name="ContentRoot" type="Node" parent="."]
+[node name="ContentRoot" type="Node" parent="." unique_id=1069248399]
 
-[node name="TransitionLayer" parent="." instance=ExtResource("2_0m0yd")]
+[node name="TransitionLayer" parent="." unique_id=262143568 instance=ExtResource("2_0m0yd")]

@@ -2,13 +2,10 @@
 
 [ext_resource type="FontFile" uid="uid://cnu6t4palvls7" path="res://fonts/VerminVibesV-Zlg3.ttf" id="1_fh3ag"]
 [ext_resource type="Script" uid="uid://bi37ekgt4u5b5" path="res://scripts/guide.gd" id="1_lhva7"]
-[ext_resource type="Texture2D" uid="uid://cmpjxx76oulpw" path="res://assets/buttons/menu_btn.png" id="3_16578"]
-[ext_resource type="Texture2D" uid="uid://vub2l2cpe2b8" path="res://assets/buttons/menu_pressed.png" id="4_0ogc3"]
 
 [sub_resource type="Gradient" id="Gradient_u5sy4"]
-interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.5327869)
-colors = PackedColorArray(0, 0.27730417, 0.27730417, 0.3372549, 0, 0, 0, 0.15686275)
+colors = PackedColorArray(0, 1, 1, 0.3372549, 0, 0, 0, 0.15686275)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_fh3ag"]
 gradient = SubResource("Gradient_u5sy4")
@@ -29,29 +26,50 @@ mouse_filter = 2
 color = Color(0.09411765, 0.14901961, 0.16078432, 1)
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=695704606]
+visible = false
 offset_right = 1280.0
 offset_bottom = 722.0
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_fh3ag")
 
+[node name="OptionButton" type="OptionButton" parent="." unique_id=1912747862]
+offset_left = 480.0
+offset_top = 128.0
+offset_right = 752.0
+offset_bottom = 159.0
+alignment = 1
+item_count = 6
+popup/item_0/text = "Bubble Sort"
+popup/item_0/id = 0
+popup/item_1/text = "Selection Sort"
+popup/item_1/id = 1
+popup/item_2/text = "Shell Sort"
+popup/item_2/id = 2
+popup/item_3/text = "Heap Sort"
+popup/item_3/id = 3
+popup/item_4/text = "Bucket Sort"
+popup/item_4/id = 4
+popup/item_5/text = "Radix Sort"
+popup/item_5/id = 5
+
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=91782212]
 custom_minimum_size = Vector2(0, 100)
-offset_top = 65.0
+offset_top = 39.0
 offset_right = 1280.0
-offset_bottom = 165.0
+offset_bottom = 139.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0.41960785, 0.9529412, 1, 1)
 theme_override_fonts/normal_font = ExtResource("1_fh3ag")
-theme_override_font_sizes/normal_font_size = 60
+theme_override_font_sizes/normal_font_size = 80
 bbcode_enabled = true
 text = "[center] BUBBLE SORT [/center]"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=778107514]
 custom_minimum_size = Vector2(0, 100)
-offset_left = 65.0
+offset_left = 27.0
 offset_top = 182.0
-offset_right = 1226.0
-offset_bottom = 664.0
+offset_right = 1243.0
+offset_bottom = 723.0
 mouse_filter = 2
 bbcode_enabled = true
 text = "[b]How it works:[/b]
@@ -87,33 +105,3 @@ FUNC bubbleSort(AR):
 [b]Time Complexity:[/b] O(n²) average/worst, O(n) best
 [b]Space:[/b] O(1)
 [b]Reference:[/b] [url=https://www.geeksforgeeks.org/dsa/bubble-sort-algorithm/]GeeksForGeeks - Bubble Sort[/url]"
-
-[node name="OptionButton" type="OptionButton" parent="." unique_id=1912747862]
-offset_left = 485.0
-offset_top = 142.0
-offset_right = 757.0
-offset_bottom = 173.0
-alignment = 1
-item_count = 6
-popup/item_0/text = "Bubble Sort"
-popup/item_0/id = 0
-popup/item_1/text = "Selection Sort"
-popup/item_1/id = 1
-popup/item_2/text = "Shell Sort"
-popup/item_2/id = 2
-popup/item_3/text = "Heap Sort"
-popup/item_3/id = 3
-popup/item_4/text = "Bucket Sort"
-popup/item_4/id = 4
-popup/item_5/text = "Radix Sort"
-popup/item_5/id = 5
-
-[node name="Back" type="TextureButton" parent="." unique_id=2146298491]
-offset_left = 915.99994
-offset_top = 594.0
-offset_right = 3915.0
-offset_bottom = 1501.0
-scale = Vector2(0.08, 0.08)
-texture_normal = ExtResource("3_16578")
-texture_pressed = ExtResource("4_0ogc3")
-texture_hover = ExtResource("4_0ogc3")
