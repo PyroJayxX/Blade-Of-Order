@@ -20,6 +20,10 @@ const HUD_PATH: NodePath = ^"HUD"
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var hit_flash_player: AnimationPlayer = $HitFlash
 
+# --- NEW: AnimatedSprite2D Node Reference ---
+# Make sure the node name matches exactly what you have in your Scene tree layout
+@onready var animated_sprite = $AnimatedSprite2D
+
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
@@ -39,7 +43,7 @@ const JUMP_VELOCITY = -400.0
 # starting ground level the sky spawn point will be (in pixels)
 @export var sky_height_fallback: float = -400.0
 
-# ADJUSTED: Increased spacing from 100 to 160 so the kunais are more spread out
+# Adjusted horizontal spacing spread
 @export var horizontal_spacing: float = 160.0
 
 var rain_timer: Timer
@@ -164,6 +168,12 @@ func _on_rain_timer_timeout() -> void:
 		return
 
 	if kunai_scene and player:
+		# --- NEW: Trigger AnimatedSprite2D attack animation ---
+		if animated_sprite != null:
+			print("Test jason")
+			animated_sprite.play("base") # Restarts animation instantly if it's already playing
+			animated_sprite.play("kunai_attack") # Change "default" to your specific animation name if needed
+
 		var sky_y: float = 0.0
 		if spawn_zone:
 			sky_y = spawn_zone.get_global_rect().position.y
@@ -184,18 +194,14 @@ func _on_rain_timer_timeout() -> void:
 			
 		possible_spawn_points.shuffle()
 		
-		# --- NEW: Weighted Random Spawn System ---
-		# By putting more low numbers in this pool, 1, 2, and 3 have a much 
-		# higher probability of being selected than 4 or 5.
 		var spawn_weight_pool: Array[int] = [
-			1, 1, 1,   # 30% chance for 1 kunai
-			2, 2, 2,   # 30% chance for 2 kunais
-			3, 3,      # 20% chance for 3 kunais
-			4,         # 10% chance for 4 kunais
-			5          # 10% chance for 5 kunais
+			1, 1, 1,   
+			2, 2, 2,   
+			3, 3,      
+			4,         
+			5          
 		]
 		
-		# Pick a random element out of the weighted pool
 		var spawn_count: int = spawn_weight_pool.pick_random()
 		
 		for i in range(spawn_count):
