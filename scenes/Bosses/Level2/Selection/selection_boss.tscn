@@ -213,7 +213,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3niuv"]
-size = Vector2(1156, 811)
+size = Vector2(603, 811)
 
 [node name="Lvl2Selection" type="CharacterBody2D" unique_id=974633589]
 
@@ -227,5 +227,5 @@ animation = &"kunai_attack"
 libraries/ = SubResource("AnimationLibrary_hgefe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=867816986]
-position = Vector2(-4, -34.5)
+position = Vector2(36.5, -34.5)
 shape = SubResource("RectangleShape2D_3niuv")

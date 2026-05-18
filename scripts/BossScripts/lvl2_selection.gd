@@ -28,15 +28,19 @@ const JUMP_VELOCITY = -400.0
 @export var player: Node2D
 
 # --- MOVEMENT CONFIGURATION ---
-@export var hover_offset: Vector2 = Vector2(1200, -400) 
+@export var hover_offset: Vector2 = Vector2(1400, -500) 
 @export var follow_smoothness: float = 12.0           
 @export var attack_duration: float = 8.0              
-@export var recovery_delay: float = 1.0               
 @export var drop_gravity: float = 980.0               
+
+# --- FIXED: AUTOMATIC DOWN WINDOW ---
+# The total duration (in seconds) the boss stays grounded on the floor 
+# regardless of whether the player attacks him or not.
+@export var hit_vulnerability_window: float = 1.2
 
 # --- SPACING & WEIGHT CONFIGURATION ---
 @export var sky_height_fallback: float = -750.0
-@export var horizontal_spacing: float = 300.0
+@export var horizontal_spacing: float = 420.0
 
 @export var outer_slots_weight: int = 1   
 @export var inner_slots_weight: int = 2   
@@ -93,9 +97,10 @@ func _set_state(new_state: BossState) -> void:
 			state_timer.start(attack_duration) 
 			
 		BossState.VULNERABLE:
-			if anim_player != null: anim_player.play("idle")
+			if animated_sprite != null: animated_sprite.play("loading")
 			if rain_timer: rain_timer.stop()
-			state_timer.stop() 
+			# --- CHANGED: Vulnerability timer starts IMMEDIATELY upon entering state ---
+			state_timer.start(hit_vulnerability_window) 
 			
 		BossState.HURT:
 			if anim_player != null: anim_player.play("hurt")
@@ -140,9 +145,11 @@ func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
 		boss_defeated.emit()
 		return
 
-	# Immediately send him back to the sky when hit out of vulnerability
+	# --- CHANGED: Removed countdown starting mechanism from here ---
+	# Player hits no longer alter or trigger the recovery timing sequence.
 	if _state == BossState.VULNERABLE:
-		_set_state(BossState.ATTACKING)
+		if animated_sprite != null and animated_sprite.animation != "loading":
+			animated_sprite.play("loading")
 
 func _on_state_timer_timeout() -> void:
 	if _is_defeated:
@@ -150,7 +157,7 @@ func _on_state_timer_timeout() -> void:
 
 	if _state == BossState.ATTACKING:
 		_set_state(BossState.VULNERABLE)
-	elif _state == BossState.HURT or _state == BossState.STUNNED or _state == BossState.VULNERABLE:
+	elif _state == BossState.VULNERABLE:
 		_set_state(BossState.ATTACKING)
 
 func setup_timers() -> void:
@@ -221,8 +228,6 @@ func _on_rain_timer_timeout() -> void:
 			get_tree().current_scene.add_child(kunai)
 			kunai.global_position = spawn_pos
 			
-			# Neighbor elimination logic has been removed to allow adjacent spawns.
-			# We only erase the chosen index so it won't double stack on itself.
 			available_indices.erase(chosen_index)
 
 func _sync_boss_hud_health() -> void:
