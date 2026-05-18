@@ -18,7 +18,7 @@ enum BossState {
 @export var hover_speed: float = 2.0
 @export var vulnerable_delay: float = 10.0
 @export var vulnerable_duration: float = 5.0
-@export var lower_speed: float = 300.0
+@export var lower_speed: float = 800.0
 @export var vulnerable_y_offset: float = 150.0
 @export var shell_projectile_scene: PackedScene = preload("res://scenes/Bosses/Level3/Shell/ShellProjectile.tscn")
 @export var shell_attack_interval: float = 0.45
@@ -49,7 +49,6 @@ var _aoe_timer: float = 0.0
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var hit_flash_player: AnimationPlayer = $HitFlash # hit effect animation boss
 @onready var _shell_sort_puzzle: CanvasLayer = $ShellSort
-
 
 
 func _ready() -> void:
@@ -144,6 +143,9 @@ func _physics_process(delta: float) -> void:
 			_is_vulnerable = true
 			_vulnerable_duration_timer = vulnerable_duration
 			_shell_replay_timer = 0.0
+			
+			# FIX: Force the state back to CHASE so it can execute the vulnerable movement path
+			_set_state(BossState.CHASE)
 			print("Shell Boss is now vulnerable!")
 	else:
 		# Vulnerable phase behavior
@@ -152,8 +154,7 @@ func _physics_process(delta: float) -> void:
 			_is_vulnerable = false
 			_vulnerable_timer = vulnerable_delay
 			_shell_replay_timer = 0.0
-			if anim_player != null:
-				anim_player.play("idle")
+			_set_state(BossState.CHASE)
 			print("Shell Boss is now invulnerable again!")
 
 	_hover_timer += delta
@@ -204,8 +205,9 @@ func take_damage(amount: int = 10, causes_stun: bool = false) -> void:
 		_set_state(BossState.STUNNED)
 	else:
 		_set_state(BossState.HURT)
-		if anim_player != null:
-			await anim_player.animation_finished
+		# FIX: Replaced unreliable animation player yield with a stable duration timer 
+		# to stop animation interrupts from permanently breaking the chase state.
+		await get_tree().create_timer(0.2).timeout
 		if not _is_defeated:
 			_set_state(BossState.CHASE)
 
