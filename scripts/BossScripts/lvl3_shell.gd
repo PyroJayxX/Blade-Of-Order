@@ -13,12 +13,12 @@ enum BossState {
 @export var player: Node2D
 @export var chase_speed: float = 800.0
 @export var max_health: int = 100
-@export var right_offset: float = 1200.0
+@export var right_offset: float = 12000.0
 @export var hover_amplitude: float = 30.0
 @export var hover_speed: float = 2.0
-@export var vulnerable_delay: float = 20.0
+@export var vulnerable_delay: float = 10.0
 @export var vulnerable_duration: float = 5.0
-@export var lower_speed: float = 100.0
+@export var lower_speed: float = 300.0
 @export var vulnerable_y_offset: float = 150.0
 @export var shell_projectile_scene: PackedScene = preload("res://scenes/Bosses/Level3/Shell/ShellProjectile.tscn")
 @export var shell_attack_interval: float = 0.45
@@ -275,45 +275,73 @@ func _chase_target(_delta: float, hover_offset: float, target_pos: Vector2) -> v
 
 		# Determine where the player is looking to stay behind them
 		var player_facing: int = 1
-		if _target.has_method("get_facing_dir"):
-			player_facing = _target.get_facing_dir()
-		elif "facing_dir" in _target:
-			player_facing = _target.facing_dir
+		if _target != null and _target.has_method("get_facing_dir"):
+			player_facing = int(_target.get_facing_dir())
+		elif _target != null and "facing_dir" in _target:
+			player_facing = int(_target.facing_dir)
 		else:
-			player_facing = sign(to_player.x)
+			player_facing = 1 if to_player.x >= 0 else -1
+
+		if player_facing == 0:
+			player_facing = 1
 
 		var preferred_side: int = -player_facing
-		var boss_side: int = sign(global_position.x - target_pos.x)
+		var boss_side: int = 1 if (global_position.x - target_pos.x) >= 0 else -1
 
-		# Distance logic
-		var too_close: float = 350.0
-		var ideal_distance: float = 650.0
+		# Distance logic configuration
+		var too_close: float = 200.0  
+		var ideal_distance: float = 350.0
+		var too_far: float = 500.0 # Threshold player is out of reach
 		var move_dir: int = 0
 
-		# PRIORITY 1: ESCAPE IF TOO CLOSE
-		if distance < too_close:
-			move_dir = sign(global_position.x - target_pos.x)
+		# Calculate platform boundaries cushion
+		var near_left_edge: bool = (global_position.x <= world_min_x + 200.0)
+		var near_right_edge: bool = (global_position.x >= world_max_x - 200.0)
 
-		# PRIORITY 2: POSITION AWAY FROM PLAYER FACING
-		elif boss_side == player_facing:
-			move_dir = preferred_side
+		# --- PRIORITY 1: PLAYER IS TOO FAR (Aggressive Chase) ---
+		if distance > too_far:
+			# Disregard spacing rules and fly straight towards the player's X position
+			move_dir = 1 if to_player.x >= 0 else -1
 
-		# PRIORITY 3: NORMAL CHASE WITH BIAS
+		# --- PRIORITY 2: PANIC / FLEE (Player is too close) ---
+		elif distance < too_close:
+			# If pinned against a wall, force it to charge past the player to the open side
+			if near_left_edge:
+				move_dir = 1 
+			elif near_right_edge:
+				move_dir = -1 
+			else:
+				# Run directly away from the player's current position
+				move_dir = 1 if (global_position.x - target_pos.x) >= 0 else -1
+
+		# --- PRIORITY 3: EDGE OVERRIDE (Near wall, normal distance) ---
+		elif near_left_edge and preferred_side == -1:
+			move_dir = 1 # Turn around, go right
+		elif near_right_edge and preferred_side == 1:
+			move_dir = -1 # Turn around, go left
+
+		# --- PRIORITY 4: STANDARD POSITIONING ---
 		else:
-			if distance > ideal_distance:
-				move_dir = sign(to_player.x)
+			if boss_side == player_facing:
+				move_dir = preferred_side
+			elif distance > ideal_distance:
+				move_dir = 1 if to_player.x >= 0 else -1
 			else:
 				move_dir = preferred_side
 
+		# --- EMERGENCY MOTION SAFEGUARDS ---
+		if move_dir == 0:
+			move_dir = 1 if to_player.x >= 0 else -1
+
+		# Assign movement speed
 		velocity.x = move_dir * chase_speed
 		velocity.y = 0.0
 
-		# Boundary safety: Clamp X position
-	if global_position.x <= world_min_x and velocity.x < 0:
-		velocity.x = 0
-
-	if global_position.x >= world_max_x and velocity.x > 0:
-		velocity.x = 0
+		# Hard boundary clamp processing
+		if global_position.x <= world_min_x and velocity.x < 0:
+			velocity.x = 0
+		elif global_position.x >= world_max_x and velocity.x > 0:
+			velocity.x = 0
 
 	else:
 		# Vulnerable phase: Move directly toward the player slowly

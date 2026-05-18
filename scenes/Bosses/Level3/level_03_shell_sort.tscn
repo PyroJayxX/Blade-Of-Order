@@ -335,8 +335,9 @@ texture = SubResource("GradientTexture2D_swf52")
 visible = false
 
 [node name="Lvl3Shell" parent="." unique_id=87852550 instance=ExtResource("5_qk581")]
-position = Vector2(3979, 0)
+position = Vector2(3163, 0)
 script = ExtResource("6_jplhh")
+chase_speed = 1000.0
 
 [node name="ShellSort" parent="Lvl3Shell" unique_id=481415338 instance=ExtResource("32_wbojo")]
 visible = false
