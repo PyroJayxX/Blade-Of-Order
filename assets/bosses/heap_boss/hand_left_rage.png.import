@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cb0cxq6x40vly"
-path="res://.godot/imported/bubble_eye.png-0a28ee2cb1915ebdf16e7129f2dd174c.ctex"
+uid="uid://ctjd34jduiyq6"
+path="res://.godot/imported/hand_left_rage.png-0f588b927d1dfe70c8a4254395fda61d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/Bosses/Level1/Bubble/bubble_eye.png"
-dest_files=["res://.godot/imported/bubble_eye.png-0a28ee2cb1915ebdf16e7129f2dd174c.ctex"]
+source_file="res://assets/bosses/heap_boss/hand_left_rage.png"
+dest_files=["res://.godot/imported/hand_left_rage.png-0f588b927d1dfe70c8a4254395fda61d.ctex"]
 
 [params]
 
