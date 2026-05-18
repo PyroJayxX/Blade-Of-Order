@@ -61,6 +61,9 @@ func start_level() -> void:
 	_set_boss_combat_enabled(true)
 	if _hud != null and _hud.has_method("start_timer"):
 		_hud.call("start_timer")
+	# Make pause button visible for gameplay
+	if _hud != null and _hud.has_method("show_pause_button"):
+		_hud.call("show_pause_button", true)
 
 
 func _show_vs_intro() -> void:
@@ -163,6 +166,9 @@ func _on_player_died() -> void:
 	_game_over.visible = true
 	_set_player_controls_enabled(false)
 	_set_boss_combat_enabled(false)
+	# hide pause while on game over
+	if _hud != null and _hud.has_method("show_pause_button"):
+		_hud.call("show_pause_button", false)
 
 
 func _set_boss_combat_enabled(enabled: bool) -> void:
