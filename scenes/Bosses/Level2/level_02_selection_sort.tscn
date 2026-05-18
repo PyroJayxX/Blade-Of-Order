@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://c31teir1nq5qw" path="res://assets/platform/platform1-rock7.png" id="10_kh31d"]
 [ext_resource type="Texture2D" uid="uid://dgxelxhu0iq1x" path="res://assets/platform/platform1-rock1.png" id="11_5krgo"]
 [ext_resource type="Texture2D" uid="uid://dhjgybg0q5qsy" path="res://assets/platform/platform1-rock2.png" id="13_1gok0"]
+[ext_resource type="PackedScene" uid="uid://dp4u7cn387k65" path="res://scenes/puzzles/selection_sort.tscn" id="21_6p511"]
 [ext_resource type="Texture2D" uid="uid://cyy3271fhii5y" path="res://assets/platform/platform1-rock5.png" id="21_hx0mq"]
 [ext_resource type="Texture2D" uid="uid://dc2kvj87r8hg4" path="res://assets/platform/platform1-rock4.png" id="22_kjark"]
 [ext_resource type="Texture2D" uid="uid://hojk48ehh5ct" path="res://assets/platform/platform1-rock3.png" id="23_0735q"]
@@ -192,3 +193,6 @@ visible = false
 position = Vector2(3743, -151)
 platform_on_leave = 1
 script = ExtResource("9_dtodq")
+
+[node name="SelectionSort" parent="." unique_id=481989191 instance=ExtResource("21_6p511")]
+layer = 101
