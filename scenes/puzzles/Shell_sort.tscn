@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c8lntbvdt0x2e"]
 
 [ext_resource type="FontFile" uid="uid://dmfiak0cq6xa0" path="res://fonts/LiberationMono-Bold.ttf" id="1_6m8qv"]
+[ext_resource type="Script" uid="uid://civ0t0cg66w0t" path="res://scripts/PuzzleScripts/shell_sort_puzzle.gd" id="1_e7wev"]
 [ext_resource type="Texture2D" uid="uid://dqtf34c6njaw5" path="res://assets/puzzle_sprites/Skull.png" id="2_e7wev"]
 [ext_resource type="FontFile" uid="uid://bop2b21o5j7w8" path="res://fonts/Inconsolata-Regular.ttf" id="3_8e3s4"]
 [ext_resource type="PackedScene" uid="uid://brn3ow27db1c1" path="res://scenes/PuzzleComponents/drop_zone.tscn" id="4_0qjdd"]
@@ -26,6 +27,8 @@ shadow_color = Color(0.043137256, 0.5294118, 0.4862745, 0.3372549)
 shadow_size = 2
 
 [node name="ShellSort" type="CanvasLayer" unique_id=481415338]
+layer = 202
+script = ExtResource("1_e7wev")
 
 [node name="PuzzleManager" type="Node" parent="." unique_id=181226868]
 
