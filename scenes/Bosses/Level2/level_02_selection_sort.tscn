@@ -196,3 +196,4 @@ script = ExtResource("9_dtodq")
 
 [node name="SelectionSort" parent="." unique_id=481989191 instance=ExtResource("21_6p511")]
 layer = 101
+visible = false

@@ -16,8 +16,8 @@ enum BossState {
 @export var right_offset: float = 1200.0 # distance to the right of player
 @export var hover_amplitude: float = 30.0 # height of hover bobbing
 @export var hover_speed: float = 2.0 # speed of hover animation
-@export var vulnerable_delay: float = 20.0 # seconds before boss becomes vulnerable
-@export var vulnerable_duration: float = 5.0 # duration of vulnerable state in seconds
+@export var vulnerable_delay: float = 5.0 # seconds before boss becomes vulnerable
+@export var vulnerable_duration: float = 2.0 # duration of vulnerable state in seconds
 @export var lower_speed: float = 100.0 # speed at which boss lowers down
 @export var vulnerable_y_offset: float = 150.0 # how far down to lower during vulnerable state
 
