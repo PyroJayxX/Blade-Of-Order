@@ -1,9 +1,28 @@
 extends CharacterBody2D
 
+signal boss_defeated
+
+enum BossState {
+	IDLE,
+	CHASE,
+	HURT,
+	STUNNED,
+	SHOOTING
+}
+
+@export var max_health: int = 100
+var _current_health: int = 100
+var _state: BossState = BossState.IDLE
+var _is_defeated: bool = false
+
+const HUD_PATH: NodePath = ^"HUD"
+
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
+@onready var hit_flash_player: AnimationPlayer = $HitFlash
+
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
-# --- Kunai Rain System Properties ---
 @export var kunai_scene: PackedScene
 @export var player: Node2D
 
@@ -27,50 +46,132 @@ var rain_timer: Timer
 
 func _ready() -> void:
 	print("Boss Initialized")
+	_current_health = max_health
+	_is_defeated = false
+	_set_state(BossState.CHASE)
+	_sync_boss_hud_health()
 	setup_rain_timer()
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	if _is_defeated:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	match _state:
+		BossState.IDLE, BossState.HURT, BossState.STUNNED:
+			velocity = Vector2.ZERO
+		BossState.CHASE:
+			# Add the gravity.
+			if not is_on_floor():
+				velocity += get_gravity() * delta
 
-	# Get the input direction and handle the movement/deceleration.
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+			# Handle jump.
+			if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+				velocity.y = JUMP_VELOCITY
+
+			# Get the input direction and handle the movement/deceleration.
+			var direction := Input.get_axis("ui_left", "ui_right")
+			if direction:
+				velocity.x = direction * SPEED
+			else:
+				velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
 
-# Dynamic background timer setup
+func _set_state(new_state: BossState) -> void:
+	if _state == new_state:
+		return
+	_state = new_state
+	print("Kunai Boss state -> ", _state_to_text(_state))
+
+	if anim_player != null:
+		match _state:
+			BossState.IDLE:
+				anim_player.play("idle")
+			BossState.CHASE:
+				anim_player.play("chase")
+			BossState.HURT:
+				anim_player.play("hurt")
+			BossState.STUNNED:
+				anim_player.play("stunned")
+
+func _state_to_text(state: BossState) -> String:
+	match state:
+		BossState.IDLE: return "IDLE"
+		BossState.CHASE: return "CHASE"
+		BossState.HURT: return "HURT"
+		BossState.STUNNED: return "STUNNED"
+		BossState.SHOOTING: return "SHOOTING"
+		_: return "UNKNOWN"
+
+func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
+	if _is_defeated:
+		return
+
+	var safe_amount: int = maxi(amount, 0)
+	
+	if safe_amount > 0 and hit_flash_player != null:
+		hit_flash_player.stop() 
+		hit_flash_player.play("hit_animation")
+	
+	_current_health = clampi(_current_health - safe_amount, 0, max_health)
+	_sync_boss_hud_health()
+	print("Boss HP -> ", _current_health, "/", max_health)
+
+	if _current_health <= 0:
+		AudioController.play_boss_stunned()
+		_is_defeated = true
+		if rain_timer:
+			rain_timer.stop()
+		velocity = Vector2.ZERO
+		_set_state(BossState.IDLE)
+		boss_defeated.emit()
+		return
+
+	if causes_stun:
+		_set_state(BossState.STUNNED)
+	else:
+		_set_state(BossState.HURT)
+		if anim_player != null:
+			await anim_player.animation_finished
+		if not _is_defeated:
+			_set_state(BossState.CHASE)
+
+func _sync_boss_hud_health() -> void:
+	var current_scene: Node = get_tree().current_scene
+	if current_scene == null:
+		return
+	var hud: Node = current_scene.find_child("HUD", true, false)
+	if hud == null:
+		hud = current_scene.get_node_or_null(HUD_PATH)
+	if hud != null and hud.has_method("set_boss_health"):
+		hud.call("set_boss_health", _current_health, max_health)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and event.keycode == KEY_H:
+		take_damage(10, false)
+
 func setup_rain_timer() -> void:
 	rain_timer = Timer.new()
 	rain_timer.wait_time = spawn_cooldown
 	rain_timer.autostart = true
-	
-	# Connect the timeout signal to our spawning loop
 	rain_timer.timeout.connect(_on_rain_timer_timeout)
-	
 	add_child(rain_timer)
 
-# Spawns up to 5 equally spaced kunais randomly above the player
 func _on_rain_timer_timeout() -> void:
+	# FIXED: Only cancel the spawn if the boss is completely defeated.
+	# This lets the rain fall even while the boss is in the HURT or STUNNED state.
+	if _is_defeated:
+		return
+
 	if kunai_scene and player:
-		
-		# Determine the vertical (Y) "sky" position
 		var sky_y: float = 0.0
 		if spawn_zone:
 			sky_y = spawn_zone.get_global_rect().position.y
 		else:
 			sky_y = sky_height_fallback
 
-		# Calculate the 5 equally spaced horizontal positions centered on the player
-		# [Far Left, Left, Center, Right, Far Right]
 		var positions_x: Array[float] = [
 			player.global_position.x - (horizontal_spacing * 2.0),
 			player.global_position.x - horizontal_spacing,
@@ -79,24 +180,15 @@ func _on_rain_timer_timeout() -> void:
 			player.global_position.x + (horizontal_spacing * 2.0)
 		]
 		
-		# Build the full Vector2 spawn points array
 		var possible_spawn_points: Array[Vector2] = []
 		for x_pos in positions_x:
 			possible_spawn_points.append(Vector2(x_pos, sky_y))
 			
-		# Shuffle the points array so the position assignment is completely randomized
 		possible_spawn_points.shuffle()
-		
-		# Randomly decide how many kunais will spawn this turn (from 1 to 5)
 		var spawn_count: int = randi_range(1, 5)
 		
-		# Loop through and spawn only the randomly selected count of projectiles
 		for i in range(spawn_count):
 			var spawn_pos = possible_spawn_points[i]
 			var kunai = kunai_scene.instantiate() as Node2D
-			
-			# 1. Add it to the main root scene so it uses clean global coordinates
 			get_tree().current_scene.add_child(kunai)
-			
-			# 2. Set the global position AFTER adding it to the tree
 			kunai.global_position = spawn_pos
