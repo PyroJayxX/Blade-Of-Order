@@ -20,8 +20,7 @@ const HUD_PATH: NodePath = ^"HUD"
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var hit_flash_player: AnimationPlayer = $HitFlash
 
-# --- NEW: AnimatedSprite2D Node Reference ---
-# Make sure the node name matches exactly what you have in your Scene tree layout
+# --- AnimatedSprite2D Node Reference ---
 @onready var animated_sprite = $AnimatedSprite2D
 
 const SPEED = 300.0
@@ -39,12 +38,17 @@ const JUMP_VELOCITY = -400.0
 # Spawns every 0.5 seconds
 @export var spawn_cooldown: float = 0.5 
 
-# If you don't use a ReferenceRect, this is how high above the player's 
-# starting ground level the sky spawn point will be (in pixels)
-@export var sky_height_fallback: float = -400.0
+# This serves as the dynamic offset gap directly above the player's head (in pixels)
+@export var sky_height_fallback: float = -750.0
 
-# Adjusted horizontal spacing spread
-@export var horizontal_spacing: float = 160.0
+# The horizontal spread dynamically updates based on your export variable
+@export var horizontal_spacing: float = 300.0
+
+# --- NEW: Spawn Weights for Slot Positions ---
+# Higher numbers mean that slot has a higher priority chance to spawn a kunai.
+@export var outer_slots_weight: int = 1   # Weight for slots 0 and 4 (Far Left / Far Right)
+@export var inner_slots_weight: int = 2   # Weight for slots 1 and 3 (Mid Left / Mid Right)
+@export var center_slot_weight: int = 5   # Weight for slot 2 (Directly over player)
 
 var rain_timer: Timer
 
@@ -168,44 +172,66 @@ func _on_rain_timer_timeout() -> void:
 		return
 
 	if kunai_scene and player:
-		# --- NEW: Trigger AnimatedSprite2D attack animation ---
 		if animated_sprite != null:
-			print("Test jason")
-			animated_sprite.play("base") # Restarts animation instantly if it's already playing
-			animated_sprite.play("kunai_attack") # Change "default" to your specific animation name if needed
+			animated_sprite.play("base") 
+			animated_sprite.play("kunai_attack") 
 
-		var sky_y: float = 0.0
-		if spawn_zone:
-			sky_y = spawn_zone.get_global_rect().position.y
-		else:
-			sky_y = sky_height_fallback
+		# Dynamic vertical position relative to the player
+		var sky_y: float = player.global_position.y + sky_height_fallback
 
 		var positions_x: Array[float] = [
-			player.global_position.x - (horizontal_spacing * 2.0),
-			player.global_position.x - horizontal_spacing,
-			player.global_position.x,
-			player.global_position.x + horizontal_spacing,
-			player.global_position.x + (horizontal_spacing * 2.0)
+			player.global_position.x - (horizontal_spacing * 2.0), # Index 0
+			player.global_position.x - horizontal_spacing,         # Index 1
+			player.global_position.x,                             # Index 2 (Center)
+			player.global_position.x + horizontal_spacing,         # Index 3
+			player.global_position.x + (horizontal_spacing * 2.0)  # Index 4
 		]
 		
-		var possible_spawn_points: Array[Vector2] = []
-		for x_pos in positions_x:
-			possible_spawn_points.append(Vector2(x_pos, sky_y))
-			
-		possible_spawn_points.shuffle()
+		var available_indices: Array[int] = [0, 1, 2, 3, 4]
 		
+		# --- Highly Defensive Weighted Random Spawn Pool ---
 		var spawn_weight_pool: Array[int] = [
-			1, 1, 1,   
-			2, 2, 2,   
-			3, 3,      
-			4,         
-			5          
+			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  # 12 entries (~43% chance)
+			2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,      # 11 entries (~39% chance)
+			3, 3, 3,                             # 3 entries  (~11% chance)
+			4,                                   # 1 entry    (~3.5% chance)
+			5                                    # 1 entry    (~3.5% chance)
 		]
 		
 		var spawn_count: int = spawn_weight_pool.pick_random()
 		
+		# Spawning Loop with Neighbor-Elimination and Weighted Center Tracking
 		for i in range(spawn_count):
-			var spawn_pos = possible_spawn_points[i]
+			if available_indices.is_empty():
+				break 
+				
+			# --- CHANGED: Build a temporary weighted pool based on *currently available* indices ---
+			var weighted_index_pool: Array[int] = []
+			for idx in available_indices:
+				var weight: int = outer_slots_weight
+				if idx == 2:
+					weight = center_slot_weight
+				elif idx == 1 or idx == 3:
+					weight = inner_slots_weight
+					
+				# Add the index multiple times to the pool depending on its weight
+				for w in range(weight):
+					weighted_index_pool.append(idx)
+			
+			# Fallback guard if somehow empty
+			if weighted_index_pool.is_empty():
+				break
+				
+			# Pick from our weighted layout
+			var chosen_index: int = weighted_index_pool.pick_random()
+			
+			var spawn_pos = Vector2(positions_x[chosen_index], sky_y)
 			var kunai = kunai_scene.instantiate() as Node2D
 			get_tree().current_scene.add_child(kunai)
 			kunai.global_position = spawn_pos
+			
+			var indices_to_remove: Array[int] = [chosen_index, chosen_index - 1, chosen_index + 1]
+			
+			for index in indices_to_remove:
+				if available_indices.has(index):
+					available_indices.erase(index)
