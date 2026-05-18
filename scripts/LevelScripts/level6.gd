@@ -17,6 +17,10 @@ var _last_elapsed_seconds: float = 0.0
 var _last_mistakes_made: int = 0
 var _last_result: String = "running"
 
+# Add these variables to your ShellSort logic
+var time_elapsed: float = 0.0
+var mistakes: int = 0
+
 
 func _ready() -> void:
 	AudioController.play_boss_music()
