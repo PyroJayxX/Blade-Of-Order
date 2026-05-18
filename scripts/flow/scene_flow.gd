@@ -3,6 +3,7 @@ extends Node
 const MAIN_MENU_SCENE: String = "res://scenes/App/main_menu.tscn"
 const LEVEL_SELECT_SCENE: String = "res://scenes/LevelSelect/level_selector.tscn"
 const LEADERBOARD_SCENE: String = "res://scenes/Game/leaderboard.tscn"
+const GUIDE_SCENE: String = "res://scenes/App/guide.tscn"
 
 var _root_flow: Node
 var _content_root: Node
@@ -29,6 +30,9 @@ func goto_level_select() -> void:
 func goto_leaderboard(context: Dictionary = {}) -> void:
 	_leaderboard_context = context.duplicate(true)
 	load_scene(LEADERBOARD_SCENE)
+
+func goto_guide() -> void:
+	load_scene(GUIDE_SCENE)
 
 func consume_leaderboard_context() -> Dictionary:
 	var payload: Dictionary = _leaderboard_context.duplicate(true)
