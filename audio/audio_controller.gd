@@ -63,10 +63,26 @@ func play_boss_hit_bubble():
 	$boss_hit_bubble.play()
 
 func play_player_slash_1():
+	$player_slash_1.pitch_scale = randf_range(0.8, 1.1)
 	$player_slash_1.play()
+	
+func play_player_slash_2():
+	$player_slash_2.pitch_scale = randf_range(0.8, 1.1)
+	$player_slash_2.play()
+	
+func play_player_slash_3():
+	$player_slash_3.pitch_scale = randf_range(0.8, 1.1)
+	$player_slash_3.play()
 
 func play_player_dash():
+	$player_slash_2.pitch_scale = randf_range(0.9, 1.1)
 	$player_dash.play()
 
 func play_player_run():
 	$player_run.play()
+
+func play_player_jump_1():
+	$jump_1.play()
+	
+func play_player_jump_2():
+	$jump_2.play()
