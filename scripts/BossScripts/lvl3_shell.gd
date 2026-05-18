@@ -48,6 +48,9 @@ var _aoe_timer: float = 0.0
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var hit_flash_player: AnimationPlayer = $HitFlash # hit effect animation boss
+@onready var _shell_sort_puzzle: CanvasLayer = $ShellSort
+
+
 
 func _ready() -> void:
 	_current_health = max_health
@@ -61,7 +64,7 @@ func _ready() -> void:
 	_direction = 1
 	_resolve_target()
 	_sync_boss_hud_health()
-
+	
 	# Give the Cutscene instance one frame to finish its own _ready() setup.
 	await get_tree().process_frame
 
@@ -90,6 +93,17 @@ func _ready() -> void:
 		print("[lvl3_shell] No Cutscene node found in current_scene")
 
 	_set_state(BossState.CHASE)
+	
+	
+	if _shell_sort_puzzle != null:
+		_shell_sort_puzzle.visible = false
+	if _shell_sort_puzzle != null:
+		if _shell_sort_puzzle.has_signal("puzzle_completed"):
+			_shell_sort_puzzle.puzzle_completed.connect(_on_puzzle_completed)
+
+		if _shell_sort_puzzle.has_signal("puzzle_failed"):
+			_shell_sort_puzzle.puzzle_failed.connect(_on_puzzle_failed)
+
 
 func _physics_process(delta: float) -> void:
 	if _is_defeated or not _combat_enabled:
@@ -157,7 +171,7 @@ func _physics_process(delta: float) -> void:
 
 # --- HEALTH AND PHASES ---
 
-func take_damage(amount: int = 5, causes_stun: bool = false) -> void:
+func take_damage(amount: int = 10, causes_stun: bool = false) -> void:
 	if _is_defeated: return
 
 	var safe_amount: int = maxi(amount, 0)
@@ -199,9 +213,18 @@ func _die() -> void:
 	_is_defeated = true
 	velocity = Vector2.ZERO
 	_set_state(BossState.STUNNED)
-	if has_node("ShellBossFront"): $ShellBossFront.visible = false
-	if has_node("ShellBossStunned"): $ShellBossStunned.visible = true
+
+	if has_node("ShellBossFront"):
+		$ShellBossFront.visible = false
+
+	if has_node("ShellBossStunned"):
+		$ShellBossStunned.visible = true
+
 	boss_defeated.emit()
+
+	# SHOW PUZZLE HERE
+	if _shell_sort_puzzle != null:
+		_shell_sort_puzzle.visible = true
 
 # --- SPAWNING LOGIC ---
 
@@ -286,13 +309,17 @@ func _chase_target(_delta: float, hover_offset: float, target_pos: Vector2) -> v
 		velocity.y = 0.0
 
 		# Boundary safety: Clamp X position
-		global_position.x = clamp(global_position.x, world_min_x, world_max_x)
+	if global_position.x <= world_min_x and velocity.x < 0:
+		velocity.x = 0
+
+	if global_position.x >= world_max_x and velocity.x > 0:
+		velocity.x = 0
 
 	else:
 		# Vulnerable phase: Move directly toward the player slowly
 		var move_dir: Vector2 = to_player.normalized()
 		velocity = move_dir * lower_speed
-		global_position.y += hover_offset
+		global_position.y = _home_y + hover_offset
 
 func _resolve_target() -> void:
 	if player != null and is_instance_valid(player):
@@ -327,3 +354,19 @@ func reset_for_retry(spawn_position: Vector2) -> void:
 func set_combat_enabled(enabled: bool) -> void:
 	_combat_enabled = enabled
 	if not _combat_enabled: _set_state(BossState.IDLE)
+
+
+func _on_puzzle_completed() -> void:
+	print("Puzzle Completed")
+	$LevelCleared.visible = true
+
+	if _shell_sort_puzzle != null:
+		_shell_sort_puzzle.visible = false
+
+
+func _on_puzzle_failed() -> void:
+	print("Puzzle Failed")
+	$GameOver.visible = true
+
+	if _shell_sort_puzzle != null:
+		_shell_sort_puzzle.visible = false

@@ -35,7 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://drp52gnx8b5wi" path="res://assets/platform/platform1-seaweed.png" id="24_hgtiu"]
 [ext_resource type="Texture2D" uid="uid://u800l5gcsjdp" path="res://assets/platform/platform1-seaweed5.png" id="25_mv4iq"]
 [ext_resource type="Texture2D" uid="uid://dakwonvcoigpd" path="res://assets/platform/platform-1.png" id="26_1ly3o"]
-[ext_resource type="PackedScene" uid="uid://c8lntbvdt0x2e" path="res://scenes/puzzles/Shell_sort.tscn" id="32_wbojo"]
+[ext_resource type="PackedScene" uid="uid://c8lntbvdt0x2e" path="res://scenes/puzzles/shell_sort.tscn" id="32_wbojo"]
 
 [sub_resource type="Gradient" id="Gradient_1b34x"]
 offsets = PackedFloat32Array(0.27108434, 1)
@@ -331,12 +331,20 @@ scale = Vector2(3.6901062, 3.5308971)
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_swf52")
 
+[node name="GameOver" parent="Player" unique_id=346392607 instance=ExtResource("7_udqt2")]
+visible = false
+
 [node name="Lvl3Shell" parent="." unique_id=87852550 instance=ExtResource("5_qk581")]
 position = Vector2(3979, 0)
 script = ExtResource("6_jplhh")
 
-[node name="ShellSort" parent="." unique_id=481415338 instance=ExtResource("32_wbojo")]
-layer = 101
+[node name="ShellSort" parent="Lvl3Shell" unique_id=481415338 instance=ExtResource("32_wbojo")]
+visible = false
+
+[node name="GameOver" parent="Lvl3Shell" unique_id=1945158234 instance=ExtResource("7_udqt2")]
+visible = false
+
+[node name="LevelCleared" parent="Lvl3Shell" unique_id=957970479 instance=ExtResource("6_rbong")]
 visible = false
 
 [node name="Cutscene" parent="." unique_id=1237687727 instance=ExtResource("7_swf52")]
@@ -346,9 +354,3 @@ pages = Array[String](["You awake at the edge of the Shattered Bridge, where the
 
 [node name="HUD" parent="." unique_id=148605811 instance=ExtResource("5_g7rnl")]
 layer = 10
-
-[node name="LevelCleared" parent="." unique_id=957970479 instance=ExtResource("6_rbong")]
-visible = false
-
-[node name="GameOver" parent="." unique_id=346392607 instance=ExtResource("7_udqt2")]
-visible = false
