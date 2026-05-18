@@ -65,7 +65,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"pop",
-"speed": 15.0
+"speed": 100.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xqgia"]
@@ -78,6 +78,7 @@ script = ExtResource("1_xqgia")
 position = Vector2(-1.5258789e-05, -0.99998474)
 scale = Vector2(0.23013115, 0.23013116)
 sprite_frames = SubResource("SpriteFrames_pronx")
+animation = &"pop"
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=651305772]

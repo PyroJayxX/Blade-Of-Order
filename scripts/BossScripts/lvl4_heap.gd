@@ -24,12 +24,17 @@ enum AttackType {
 @export var player: Node2D
 
 # ── Health ───────────────────────────────────────────────────────────────────
-@export var max_health: int = 500
+@export var max_health: int = 250
 
 # ── Face textures ─────────────────────────────────────────────────────────────
 @export var face_normal: Texture2D = preload("res://assets/bosses/heap_boss/body_no_hands.png")
 @export var face_hurt: Texture2D = preload("res://assets/bosses/heap_boss/hurt.png")
 @export var face_stunned: Texture2D = preload("res://assets/bosses/heap_boss/stunned.png")
+@export var face_rage: Texture2D = preload("res://assets/bosses/heap_boss/anger.png")
+@export var face_rage1: Texture2D = preload("res://assets/bosses/heap_boss/anger1.png")
+@export var hand_l_rage: Texture2D = preload("res://assets/bosses/heap_boss/hand_left_rage.png")
+@export var hand_r_rage: Texture2D = preload("res://assets/bosses/heap_boss/hand_right_rage.png")
+
 
 # ── Projectile scenes ────────────────────────────────────────────────────────
 @export var homing_leaf_scene: PackedScene
@@ -194,6 +199,13 @@ func _update_face() -> void:
 	if _is_defeated:
 		if face_stunned:
 			face_sprite.texture = face_stunned
+			hand_l.visible = false
+			hand_r.visible = false
+	elif _state == BossState.RAGE:
+		if face_rage:
+			face_sprite.texture = face_rage1
+			hand_l.texture = hand_l_rage
+			hand_r.texture = hand_r_rage
 	elif _is_hurt:
 		if face_hurt:
 			face_sprite.texture = face_hurt
@@ -490,9 +502,10 @@ func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
 		anim_player.play("hurt")
 
 	# Check rage threshold
-	if not _rage_triggered and _current_health <= 100:
+	if not _rage_triggered and _current_health <= 50:
 		_rage_triggered = true
 		_trigger_rage()
+		
 		return
 
 	if _current_health <= 0:
@@ -503,7 +516,7 @@ func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
 func _trigger_rage() -> void:
 	print("Heap entered RAGE phase!")
 	_attack_running = false
-	_set_cooldown(AttackType.SPORE_BURST)
+	_cooldowns[AttackType.SPORE_BURST] = 0.0
 	_set_state(BossState.RAGE)
 
 func _defeat() -> void:

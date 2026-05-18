@@ -12,8 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://cmlnvfj6ps3j7" path="res://scenes/Game/level_cleared.tscn" id="6_8wb4u"]
 [ext_resource type="PackedScene" uid="uid://gsoljar2todh" path="res://scenes/puzzles/bucket_sort.tscn" id="6_wp4kt"]
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="7_0v417"]
-[ext_resource type="PackedScene" uid="uid://b1xwduace6uac" path="res://scenes/Bosses/Level5/Bucket/lvl5_bucket.tscn" id="8_3532l"]
-[ext_resource type="PackedScene" uid="uid://ceo8rdm65xgqx" path="res://scenes/Bosses/Level5/Bucket/bucket_projectile2.tscn" id="11_n3mml"]
+[ext_resource type="PackedScene" uid="uid://b1xwduace6uac" path="res://scenes/bosses/Level5/Bucket/lvl5_bucket.tscn" id="8_3532l"]
+[ext_resource type="PackedScene" uid="uid://ceo8rdm65xgqx" path="res://scenes/bosses/Level5/Bucket/bucket_projectile2.tscn" id="11_n3mml"]
 
 [sub_resource type="Gradient" id="Gradient_1u0sw"]
 offsets = PackedFloat32Array(0.27108434, 1)
