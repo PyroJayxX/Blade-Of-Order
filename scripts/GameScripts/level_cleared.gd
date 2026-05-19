@@ -13,6 +13,7 @@ var _last_score: int = 0
 func show_results(time_taken: float, mistakes_made: int) -> void:
 	var final_score: int = calculate_final_score(time_taken, mistakes_made)
 	_last_score = final_score
+	_store_local_personal_best()
 	var total_seconds: int = maxi(int(round(time_taken)), 0)
 	var minutes: int = int(floor(float(total_seconds) / 60.0))
 	var seconds: int = total_seconds % 60
@@ -26,6 +27,7 @@ func calculate_final_score(time_taken: float, mistakes_made: int) -> int:
 	return int(max(raw_score, float(min_score)))
 
 func _on_quit_pressed() -> void:
+	_store_pending_submission()
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
 		flow.call("goto_main_menu")
@@ -37,10 +39,8 @@ func _on_quit_pressed() -> void:
 		push_warning("SceneFlow not found and main menu scene missing; cannot navigate to menu.")
 
 func _on_next_pressed() -> void:
+	_store_pending_submission()
 	var flow: Node = get_node_or_null("/root/SceneFlow")
-	var player_data: Node = get_node_or_null("/root/PlayerData")
-	if player_data != null and flow != null:
-		player_data.call("set_pending_submission", _last_score, int(flow.call("get_active_level_id")))
 	if flow != null:
 		flow.call("goto_level_select")
 		return
@@ -49,3 +49,22 @@ func _on_next_pressed() -> void:
 		get_tree().change_scene_to_file(selector_path)
 	else:
 		push_warning("SceneFlow not found and level selector missing; cannot navigate to level select.")
+
+func _store_pending_submission() -> void:
+	var flow: Node = get_node_or_null("/root/SceneFlow")
+	var player_data: Node = get_node_or_null("/root/PlayerData")
+	if player_data != null and flow != null:
+		player_data.call("set_pending_submission", _last_score, int(flow.call("get_active_level_id")))
+
+func _store_local_personal_best() -> void:
+	if _last_score <= 0:
+		return
+	var player_data: Node = get_node_or_null("/root/PlayerData")
+	var flow: Node = get_node_or_null("/root/SceneFlow")
+	if player_data == null or flow == null:
+		return
+	var level_id: int = int(flow.call("get_active_level_id"))
+	if level_id <= 0:
+		return
+	var boss_key: String = "level_%d" % level_id
+	player_data.call("try_submit_score_for_boss", boss_key, _last_score)
