@@ -960,10 +960,8 @@ shape = SubResource("RectangleShape2D_dsvhw")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=850400138]
 material = SubResource("ShaderMaterial_jjwkl")
 sprite_frames = SubResource("SpriteFrames_nirif")
-animation = &"slash_3"
+animation = &"run"
 autoplay = "idle"
-frame = 7
-frame_progress = 1.0
 
 [node name="SlashCollision1" type="Area2D" parent="." unique_id=2010047765]
 position = Vector2(273, 230)

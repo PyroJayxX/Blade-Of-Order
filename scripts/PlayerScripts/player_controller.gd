@@ -84,6 +84,7 @@ func _ready() -> void:
 	_set_slash_collision_enabled(false)
 	_update_slash_collision_transform()
 	_sync_player_hud_health()
+	animated_sprite.frame_changed.connect(_on_sprite_frame_changed)
 
 # play animation helper function so there is no animation overlap
 func play_anim(name: String, force_restart: bool = false):
@@ -94,6 +95,15 @@ func play_anim(name: String, force_restart: bool = false):
 	if force_restart:
 		animated_sprite.frame = 0
 		animated_sprite.play(name) 
+
+func _on_sprite_frame_changed() -> void:
+	# Only play footsteps if we are running and on the ground
+	if animated_sprite.animation == "run" and is_on_floor():
+		
+		# Change '1' and '4' to whatever frames in your run animation 
+		# show the character's foot actually touching the ground!
+		if animated_sprite.frame == 0 or animated_sprite.frame == 4:
+			AudioController.play_footstep()
 
 func start_dash(direction):
 	is_dashing = true
@@ -228,9 +238,12 @@ func _physics_process(delta: float) -> void:
 			if is_on_floor():
 				velocity.y = JUMP_VELOCITY
 				_jumps_used = 0
+				AudioController.play_player_jump_1()
 			else:
 				velocity.y = JUMP_VELOCITY
 				_jumps_used += 1
+				AudioController.play_player_jump_2()
+				
 			play_anim("jump", true)
 
 	var direction := Input.get_axis("moveLeft", "moveRight")
@@ -272,8 +285,16 @@ func _physics_process(delta: float) -> void:
 			play_anim("run")
 		else:
 			play_anim("idle")
+			
+	var was_on_floor: bool = is_on_floor()
+	var fall_speed: float = velocity.y
 
 	move_and_slide()
+	
+	if not was_on_floor and is_on_floor():
+		if fall_speed > 150.0:  # sound of hitting ground plays if there is significant height
+			AudioController.play_ground_hit()
+
 	_process_slash_hits()
 
 func take_damage(amount: int = 1) -> void:
