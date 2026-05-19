@@ -10,9 +10,9 @@
 [ext_resource type="AudioStream" uid="uid://7yx2mxji08m2" path="res://audio/sfx/slashv2_2.wav" id="8_2fxmg"]
 [ext_resource type="AudioStream" uid="uid://brm8citwe8d86" path="res://audio/sfx/slashv2_3.wav" id="9_pmoot"]
 [ext_resource type="AudioStream" uid="uid://bd464tsj1gg4g" path="res://audio/sfx/dash.mp3" id="9_y6d7d"]
-[ext_resource type="AudioStream" uid="uid://dkc6aijo08gwo" path="res://audio/sfx/run.mp3" id="10_2fxmg"]
 [ext_resource type="AudioStream" uid="uid://b511j1kjpmtfl" path="res://audio/sfx/jump_1.wav" id="12_lqbp3"]
 [ext_resource type="AudioStream" uid="uid://cv7hjw6850pe6" path="res://audio/sfx/jump_2.wav" id="13_txnoe"]
+[ext_resource type="AudioStream" uid="uid://bu5tgo77tpv68" path="res://audio/sfx/ground-hit.wav" id="14_txnoe"]
 [ext_resource type="AudioStream" uid="uid://dgu62hskqc13x" path="res://audio/sfx/boss_hit.mp3" id="14_txnoe"]
 
 [node name="audio_controller" type="Node2D" unique_id=1390589828]
@@ -20,7 +20,7 @@ script = ExtResource("1_dr783")
 
 [node name="main_menu_music" type="AudioStreamPlayer" parent="." unique_id=293644593]
 stream = ExtResource("1_e6jji")
-volume_db = -25.0
+volume_db = -30.0
 autoplay = true
 
 [node name="main_menu_button_press" type="AudioStreamPlayer" parent="." unique_id=1187421236]
@@ -31,7 +31,7 @@ mix_target = 2
 
 [node name="boss_music" type="AudioStreamPlayer" parent="." unique_id=225095980]
 stream = ExtResource("4_aufy8")
-volume_db = -20.0
+volume_db = -30.0
 pitch_scale = 0.8
 
 [node name="boss_stunned" type="AudioStreamPlayer" parent="." unique_id=898486715]
@@ -59,7 +59,6 @@ stream = ExtResource("9_y6d7d")
 volume_db = -20.0
 
 [node name="player_run" type="AudioStreamPlayer" parent="." unique_id=334092567]
-stream = ExtResource("10_2fxmg")
 
 [node name="jump_1" type="AudioStreamPlayer" parent="." unique_id=165667221]
 stream = ExtResource("12_lqbp3")
@@ -67,5 +66,10 @@ stream = ExtResource("12_lqbp3")
 [node name="jump_2" type="AudioStreamPlayer" parent="." unique_id=1881885887]
 stream = ExtResource("13_txnoe")
 
+[node name="ground_hit" type="AudioStreamPlayer" parent="." unique_id=496864214]
+stream = ExtResource("14_txnoe")
+
+[node name="FootstepPlayer" type="AudioStreamPlayer" parent="." unique_id=560922710]
+volume_db = -20.0
 [node name="boss_hit" type="AudioStreamPlayer" parent="." unique_id=1140500745]
 stream = ExtResource("14_txnoe")

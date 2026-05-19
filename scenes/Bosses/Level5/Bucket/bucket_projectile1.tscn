@@ -65,7 +65,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"pop",
-"speed": 100.0
+"speed": 120.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xqgia"]
@@ -80,6 +80,8 @@ scale = Vector2(0.23013115, 0.23013116)
 sprite_frames = SubResource("SpriteFrames_pronx")
 animation = &"pop"
 autoplay = "default"
+frame = 6
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=651305772]
 position = Vector2(12.5, -11.5)

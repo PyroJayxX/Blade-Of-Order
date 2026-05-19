@@ -5,8 +5,20 @@ extends Node2D
 const MAIN_MENU_MUSIC_PATH: String = "res://audio/sfx/main menu music.mp3"
 const BOSS_MUSIC_PATH: String = "res://audio/sfx/boss music.mp3"
 
+
+var footstep_sounds: Array[AudioStream] = [
+	preload("res://audio/sfx/run1.wav"),
+	preload("res://audio/sfx/run2.wav"),
+	preload("res://audio/sfx/run3.wav"),
+	preload("res://audio/sfx/run4.wav"),
+	preload("res://audio/sfx/run5.wav"),
+	preload("res://audio/sfx/run6.wav"),
+	preload("res://audio/sfx/run7.wav"),
+]
+
 @onready var _main_menu_music: AudioStreamPlayer = $main_menu_music
 @onready var _boss_music: AudioStreamPlayer = $boss_music
+@onready var footstep_player: AudioStreamPlayer = $FootstepPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -62,6 +74,16 @@ func play_boss_stunned():
 func play_boss_hit_bubble():
 	$boss_hit_bubble.play()
 
+func play_footstep() -> void:
+	# pick random footstep sfx from array
+	footstep_player.stream = footstep_sounds.pick_random()
+	
+	# randomize the pitch slightly 
+	footstep_player.pitch_scale = randf_range(0.85, 1.1)
+	footstep_player.volume_db = randf_range(-25.0, -17.0)
+	
+	footstep_player.play()
+
 func play_player_slash_1():
 	$player_slash_1.pitch_scale = randf_range(0.8, 1.1)
 	$player_slash_1.play()
@@ -87,6 +109,9 @@ func play_player_jump_1():
 func play_player_jump_2():
 	$jump_2.play()
 
+func play_ground_hit():
+	$ground_hit.play()
+	
 func play_player_slash_hit() -> void:
 	$boss_hit.play()
 
