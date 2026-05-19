@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://gsoljar2todh"]
 
-[ext_resource type="Script" uid="uid://cdcuchr2je2xr" path="res://scripts/GameScripts/bubble_sort_puzzle.gd" id="1_pte6v"]
+[ext_resource type="Script" uid="uid://cdcuchr2je2xr" path="res://scripts/PuzzleScripts/bubble_sort_puzzle.gd" id="1_pte6v"]
 [ext_resource type="FontFile" uid="uid://dmfiak0cq6xa0" path="res://fonts/LiberationMono-Bold.ttf" id="1_qtcq6"]
 [ext_resource type="Texture2D" uid="uid://dqtf34c6njaw5" path="res://assets/puzzle_sprites/Skull.png" id="2_pte6v"]
 [ext_resource type="FontFile" uid="uid://bop2b21o5j7w8" path="res://fonts/Inconsolata-Regular.ttf" id="3_tmsnq"]

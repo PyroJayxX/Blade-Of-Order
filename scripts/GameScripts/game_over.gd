@@ -17,7 +17,7 @@ func _on_menu_button_pressed() -> void:
 		flow.call("goto_main_menu")
 		return
 	# Fallback: change to main menu scene directly
-	var menu_path := "res://scenes/MainMenu/main_menu.tscn"
+	var menu_path := "res://scenes/App/main_menu.tscn"
 	if ResourceLoader.exists(menu_path):
 		get_tree().change_scene_to_file(menu_path)
 	else:

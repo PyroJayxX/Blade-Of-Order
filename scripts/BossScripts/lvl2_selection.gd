@@ -18,7 +18,6 @@ var _is_defeated: bool = false
 const HUD_PATH: NodePath = ^"HUD"
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
-@onready var hit_flash_player: AnimationPlayer = $HitFlash
 @onready var animated_sprite = $AnimatedSprite2D
 
 const SPEED = 300.0
@@ -92,7 +91,6 @@ func _set_state(new_state: BossState) -> void:
 
 	match _state:
 		BossState.ATTACKING:
-			if anim_player != null: anim_player.play("chase") 
 			if rain_timer: rain_timer.start()
 			state_timer.start(attack_duration) 
 			
@@ -108,7 +106,6 @@ func _set_state(new_state: BossState) -> void:
 			state_timer.stop()
 
 		BossState.STUNNED:
-			if anim_player != null: anim_player.play("stunned")
 			if rain_timer: rain_timer.stop()
 			state_timer.stop()
 
@@ -126,10 +123,6 @@ func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
 		return
 
 	var safe_amount: int = maxi(amount, 0)
-	
-	if safe_amount > 0 and hit_flash_player != null:
-		hit_flash_player.stop() 
-		hit_flash_player.play("hit_animation")
 	
 	_current_health = clampi(_current_health - safe_amount, 0, max_health)
 	_sync_boss_hud_health()
