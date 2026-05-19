@@ -36,7 +36,8 @@ const JUMP_VELOCITY = -400.0
 # --- FIXED: AUTOMATIC DOWN WINDOW ---
 # The total duration (in seconds) the boss stays grounded on the floor 
 # regardless of whether the player attacks him or not.
-@export var hit_vulnerability_window: float = 4.5
+@export var hit_vulnerability_window: float = 4
+
 
 # --- SPACING & WEIGHT CONFIGURATION ---
 @export var sky_height_fallback: float = -750.0
@@ -155,7 +156,7 @@ func _set_state(new_state: BossState) -> void:
 				var escape_dir = -1 if is_boss_left else 1
 				
 				# massive velocity burst
-				velocity.x = escape_dir * 1750.0 
+				velocity.x = escape_dir * 1500.0 
 				velocity.y = -500.0 
 				
 				# instantly warp 20px up and away so wall/ceiling colliders dont cancel the jump
