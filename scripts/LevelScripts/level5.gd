@@ -5,9 +5,9 @@ const CUTSCENE_SCREEN: PackedScene = preload("res://scenes/App/cutscene.tscn")
 const BUCKET_BOSS_PORTRAIT: Texture2D = preload("res://assets/boss_splash/BucketSort_Splash_NOBG.png")
 
 @onready var _bucket_sort: CanvasLayer = $BucketSortPuzzle
-@onready var _bucket_boss: Node = $Lvl5Bucket           # was $BucketBoss
+@onready var _bucket_boss: Node = $Lvl5Bucket            # was $BucketBoss
 @onready var _player: Node2D = $Player
-@onready var _hud: CanvasLayer = $HUD
+@onready var _hud: CanvasLayer = $HUD	
 @onready var _level_cleared: CanvasLayer = $LevelCleared
 @onready var _game_over: CanvasLayer = $GameOver
 
@@ -77,6 +77,7 @@ func pause_level(is_paused: bool) -> void:
 	get_tree().paused = is_paused
 
 func restart_level() -> void:
+	_stop_level_music() # NEW: Silence music on level restart
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
 		flow.call("restart_active_level")
@@ -101,6 +102,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func _on_puzzle_failed() -> void:
+	_stop_level_music() # NEW: Silence music on puzzle fail
 	_capture_result_snapshot("failed")
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
@@ -116,6 +118,7 @@ func _on_puzzle_failed() -> void:
 	_set_boss_combat_enabled(false)
 
 func _on_puzzle_completed() -> void:
+	_stop_level_music() # NEW: Silence music on victory
 	_capture_result_snapshot("cleared")
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
@@ -133,6 +136,7 @@ func _on_puzzle_completed() -> void:
 		_hud.call("stop_timer")
 
 func _on_player_died() -> void:
+	_stop_level_music() # NEW: Silence music on death
 	_capture_result_snapshot("failed")
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
@@ -151,6 +155,12 @@ func _on_boss_defeated() -> void:
 	_bucket_sort.visible = true
 	if _bucket_boss.has_method("on_stun_started_mock"):
 		_bucket_boss.call("on_stun_started_mock")
+
+# --- NEW HELPER FUNCTION ---
+func _stop_level_music() -> void:
+	# Calls the new stop function we added to your AudioController singleton
+	if AudioController != null and AudioController.has_method("stop_all_music"):
+		AudioController.stop_all_music()
 
 func _set_boss_combat_enabled(enabled: bool) -> void:
 	if _bucket_boss != null and _bucket_boss.has_method("set_combat_enabled"):

@@ -89,3 +89,8 @@ func play_player_jump_2():
 
 func play_player_slash_hit() -> void:
 	$boss_hit.play()
+
+func stop_all_music() -> void:
+	for child in get_children():
+		if child is AudioStreamPlayer or child is AudioStreamPlayer2D:
+			child.stop()
