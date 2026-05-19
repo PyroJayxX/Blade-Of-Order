@@ -189,8 +189,8 @@ func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
 
 	var safe_amount: int = maxi(amount, 0)
 	
-	if safe_amount > 0 and hit_flash_player != null:
-		hit_flash_player.stop() 
+	if safe_amount > 0:
+		hit_flash_player.stop() # forces the animation to restart if hit rapidly
 		hit_flash_player.play("hit_animation")
 	
 	_current_health = clampi(_current_health - safe_amount, 0, max_health)

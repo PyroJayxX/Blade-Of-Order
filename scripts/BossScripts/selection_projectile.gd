@@ -9,7 +9,6 @@ var _projectile_radius: float = 1.0
 @onready var _collision_shape: CollisionShape2D = $CollisionShape2D
 
 var _is_popping: bool = false
-@onready var _anim_player: AnimationPlayer = $pop # pop animation
 @onready var hit_flash: AnimationPlayer = $HitFlash # hit effect 
 
 func _ready() -> void:
@@ -35,16 +34,10 @@ func pop() -> void:
 	
 	_is_popping = true
 	_collision_shape.set_deferred("disabled", true)
-	AudioController.play_boss_hit_bubble()
 	
 	# play the hit flash if it exists
 	if hit_flash != null and hit_flash.has_animation("hit_animation"):
 		hit_flash.play("hit_animation")
-	
-	# play the pop animation and wait for it to finish
-	if _anim_player != null and _anim_player.has_animation("pop"):
-		_anim_player.play("pop")
-		await _anim_player.animation_finished
 	
 	queue_free()
 

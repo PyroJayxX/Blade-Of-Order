@@ -343,6 +343,43 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3niuv"]
 size = Vector2(491.598, 988.6888)
 
+[sub_resource type="Animation" id="Animation_t4vbb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BaseLoading:material:shader_parameter/hit_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_hh0j1"]
+resource_name = "hit_animation"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BaseLoading:material:shader_parameter/hit_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dheff"]
+_data = {
+&"RESET": SubResource("Animation_t4vbb"),
+&"hit_animation": SubResource("Animation_hh0j1")
+}
+
 [node name="Lvl2Selection" type="CharacterBody2D" unique_id=974633589]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=526954018]
@@ -374,3 +411,6 @@ visible = false
 position = Vector2(-111.881256, -298.375)
 scale = Vector2(1.4281715, 23.757309)
 polygon = PackedVector2Array(-11.986473, -2.6360302, 311.5041, 14.958554, 165.16312, 15.42157, 226.78036, 25.144894, 181.26764, 26.996956, 109.14744, 18.32594, -3.5841217, 24.976524)
+
+[node name="HitFlash" type="AnimationPlayer" parent="." unique_id=1199156859]
+libraries/ = SubResource("AnimationLibrary_dheff")
