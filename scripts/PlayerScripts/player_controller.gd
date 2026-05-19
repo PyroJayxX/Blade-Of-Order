@@ -394,12 +394,14 @@ func _process_slash_hits() -> void:
 		if boss.has_method("apply_slash_hits"):
 			boss.call("apply_slash_hits", poly)
 			_slash_has_hit = true
+			AudioController.play_player_slash_hit()
 		else:
 			# Fallback for bosses that don't implement apply_slash_hits:
 			# only apply fallback damage when the slash actually overlaps the boss
 			if _is_boss_overlapping_slash(boss) and boss.has_method("take_damage"):
 				boss.call("take_damage", 5)
 				_slash_has_hit = true
+				AudioController.play_player_slash_hit()
 
 func _get_boss_ref() -> Node2D:
 	if _boss_ref != null and is_instance_valid(_boss_ref):

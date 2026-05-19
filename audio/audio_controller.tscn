@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://b511j1kjpmtfl" path="res://audio/sfx/jump_1.wav" id="12_lqbp3"]
 [ext_resource type="AudioStream" uid="uid://cv7hjw6850pe6" path="res://audio/sfx/jump_2.wav" id="13_txnoe"]
 [ext_resource type="AudioStream" uid="uid://bu5tgo77tpv68" path="res://audio/sfx/ground-hit.wav" id="14_txnoe"]
+[ext_resource type="AudioStream" uid="uid://dgu62hskqc13x" path="res://audio/sfx/boss_hit.mp3" id="14_txnoe"]
 
 [node name="audio_controller" type="Node2D" unique_id=1390589828]
 script = ExtResource("1_dr783")
@@ -24,7 +25,9 @@ autoplay = true
 
 [node name="main_menu_button_press" type="AudioStreamPlayer" parent="." unique_id=1187421236]
 stream = ExtResource("2_dr783")
-volume_db = 5.0
+volume_db = 3.0
+pitch_scale = 0.74
+mix_target = 2
 
 [node name="boss_music" type="AudioStreamPlayer" parent="." unique_id=225095980]
 stream = ExtResource("4_aufy8")
@@ -68,3 +71,5 @@ stream = ExtResource("14_txnoe")
 
 [node name="FootstepPlayer" type="AudioStreamPlayer" parent="." unique_id=560922710]
 volume_db = -20.0
+[node name="boss_hit" type="AudioStreamPlayer" parent="." unique_id=1140500745]
+stream = ExtResource("14_txnoe")

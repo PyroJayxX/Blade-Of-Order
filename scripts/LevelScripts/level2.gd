@@ -77,6 +77,7 @@ func pause_level(is_paused: bool) -> void:
 	get_tree().paused = is_paused
 
 func restart_level() -> void:
+	_stop_level_music()
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
 		flow.call("restart_active_level")
@@ -101,6 +102,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func _on_puzzle_failed() -> void:
+	_stop_level_music()
 	_capture_result_snapshot("failed")
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
@@ -116,6 +118,7 @@ func _on_puzzle_failed() -> void:
 	_set_boss_combat_enabled(false)
 
 func _on_puzzle_completed() -> void:
+	_stop_level_music()
 	_capture_result_snapshot("cleared")
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
@@ -133,6 +136,7 @@ func _on_puzzle_completed() -> void:
 		_hud.call("stop_timer")
 
 func _on_player_died() -> void:
+	_stop_level_music()
 	_capture_result_snapshot("failed")
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
@@ -168,3 +172,7 @@ func _capture_result_snapshot(result: String) -> void:
 		_last_elapsed_seconds = float(_hud.call("get_elapsed_seconds"))
 	if _selection_sort_puzzle != null and _selection_sort_puzzle.has_method("get_mistake_count"):
 		_last_mistakes_made = int(_selection_sort_puzzle.call("get_mistake_count"))
+		
+func _stop_level_music() -> void:
+	if AudioController != null and AudioController.has_method("stop_all_music"):
+		AudioController.stop_all_music()

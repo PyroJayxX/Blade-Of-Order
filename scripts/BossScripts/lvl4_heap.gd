@@ -277,6 +277,7 @@ func execute_homing_leaf() -> void:
 	await anim_player.animation_finished
 
 	for i in range(maxi(homing_count, 1)):
+		$ProjectileSFX1.play()
 		if _is_defeated:
 			break
 		_spawn_projectile(homing_leaf_scene, global_position, Vector2.ZERO, {"homing": true})
@@ -306,6 +307,7 @@ func execute_leaf_volley() -> void:
 	var waves: int = randi_range(2, 3)
 
 	for w in range(waves):
+		$ProjectileSFX2.play()
 		if _is_defeated:
 			break
 		for i in range(count):
@@ -332,7 +334,7 @@ func execute_rain_of_leaves() -> void:
 	await anim_player.animation_finished
 
 	var viewport_rect: Rect2 = get_viewport_rect()
-	var top_y: float = global_position.y - viewport_rect.size.y * 0.5 - 500.0
+	var top_y: float = global_position.y - viewport_rect.size.y * 0.5 - 1000
 
 	for i in range(maxi(rain_count, 1)):
 		if _is_defeated:
@@ -340,6 +342,7 @@ func execute_rain_of_leaves() -> void:
 		var x_offset: float = randf_range(-rain_x_variance, rain_x_variance)
 		var spawn_pos: Vector2 = Vector2(_target.global_position.x + x_offset, top_y)
 		_spawn_projectile(rain_leaf_scene, spawn_pos, Vector2.DOWN, {})
+		$ProjectileSFX3.play()
 		await get_tree().create_timer(rain_interval).timeout
 
 	_tween_hands_to_rest()
@@ -376,6 +379,7 @@ func execute_ground_spike() -> void:
 					captured_warning.queue_free()
 				return
 			_spawn_projectile(ground_spike_scene, captured_pos, Vector2.UP, {"lifetime_override": 1.5})
+			$ProjectileSFX4.play()
 			if is_instance_valid(captured_warning):
 				captured_warning.queue_free()
 		)
@@ -400,7 +404,8 @@ func execute_leaf_wall() -> void:
 
 	var spawn_pos: Vector2 = Vector2(global_position.x, ground_y)
 	_spawn_projectile(leaf_wall_scene, spawn_pos, travel_dir, {"speed_override": wall_speed, "ground_snap_y": 400.0})
-
+	$ProjectileSFX5.play()
+	
 	_tween_hands_to_rest()
 	_attack_running = false
 
@@ -418,6 +423,7 @@ func execute_spore_burst() -> void:
 	var step: float = maxf(spore_shot_interval, 0.01)
 
 	while elapsed < maxf(spore_burst_duration, 0.1):
+		$ProjectileSFX6.play()
 		if not is_inside_tree() or _is_defeated:
 			break
 
@@ -515,6 +521,7 @@ func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
 
 func _trigger_rage() -> void:
 	print("Heap entered RAGE phase!")
+	$RageSFX.play()
 	_attack_running = false
 	_cooldowns[AttackType.SPORE_BURST] = 0.0
 	_set_state(BossState.RAGE)
@@ -587,7 +594,7 @@ func _set_cooldown(type: AttackType) -> void:
 		AttackType.RAIN_OF_LEAVES: _cooldowns[type] = rain_cooldown
 		AttackType.GROUND_SPIKE:   _cooldowns[type] = spike_cooldown
 		AttackType.LEAF_WALL:      _cooldowns[type] = wall_cooldown
-		AttackType.SPORE_BURST:    _cooldowns[type] = spore_burst_duration + 2.0
+		AttackType.SPORE_BURST:    _cooldowns[type] = spore_burst_duration + 5.0
 
 # ── Target resolution ─────────────────────────────────────────────────────────
 
