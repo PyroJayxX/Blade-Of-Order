@@ -296,6 +296,7 @@ func take_damage(amount: int = 1) -> void:
 	if _current_health <= 0 and not _death_emitted:
 		_death_emitted = true
 		player_died.emit()
+		$GameOver.visible = true
 
 func get_current_health() -> int:
 	return _current_health

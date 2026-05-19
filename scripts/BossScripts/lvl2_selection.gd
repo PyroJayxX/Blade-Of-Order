@@ -36,11 +36,11 @@ const JUMP_VELOCITY = -400.0
 # --- FIXED: AUTOMATIC DOWN WINDOW ---
 # The total duration (in seconds) the boss stays grounded on the floor 
 # regardless of whether the player attacks him or not.
-@export var hit_vulnerability_window: float = 1.2
+@export var hit_vulnerability_window: float = 2.2
 
 # --- SPACING & WEIGHT CONFIGURATION ---
 @export var sky_height_fallback: float = -750.0
-@export var horizontal_spacing: float = 420.0
+@export var horizontal_spacing: float = 460.0
 
 @export var outer_slots_weight: int = 1   
 @export var inner_slots_weight: int = 2   
