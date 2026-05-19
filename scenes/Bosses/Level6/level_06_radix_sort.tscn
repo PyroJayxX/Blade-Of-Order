@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="6_8nvh1"]
 [ext_resource type="Texture2D" uid="uid://dgxelxhu0iq1x" path="res://assets/platform/platform1-rock1.png" id="6_wwxny"]
 [ext_resource type="Script" uid="uid://djg71lk02jgv" path="res://scripts/BossScripts/lvl6_radix.gd" id="7_8nvh1"]
-[ext_resource type="PackedScene" uid="uid://b1vxoyqgra1li" path="res://scenes/puzzles/radix_sort.tscn" id="7_dvama"]
+[ext_resource type="PackedScene" uid="uid://b1vxoyqgra1li" path="res://scenes/Puzzles/radix_sort.tscn" id="7_dvama"]
 [ext_resource type="Texture2D" uid="uid://dhjgybg0q5qsy" path="res://assets/platform/platform1-rock2.png" id="7_ox5of"]
 [ext_resource type="Texture2D" uid="uid://hojk48ehh5ct" path="res://assets/platform/platform1-rock3.png" id="8_35ctn"]
 [ext_resource type="PackedScene" uid="uid://b00csgqkimwnf" path="res://scenes/App/cutscene.tscn" id="8_hu6eu"]
