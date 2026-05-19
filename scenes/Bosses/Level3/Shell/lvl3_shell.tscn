@@ -349,9 +349,8 @@ visible = false
 texture = ExtResource("6_tuyt5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=408948847]
-visible = false
 position = Vector2(2, -18)
-scale = Vector2(37.595, 31.965)
+scale = Vector2(28.893116, 22.492746)
 shape = SubResource("CircleShape2D_cjhbe")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=378354249]
