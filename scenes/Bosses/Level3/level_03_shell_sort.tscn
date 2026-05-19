@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://mgdgaukkl8xv"]
 
-[ext_resource type="Script" uid="uid://d8vq3mhgpnk1" path="res://scripts/LevelScripts/level3.gd" id="1_level3"]
 [ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/Game/arena.tscn" id="1_3rqrc"]
+[ext_resource type="Script" uid="uid://d0ojkx05cr60q" path="res://scripts/LevelScripts/level3.gd" id="1_level3"]
 [ext_resource type="Texture2D" uid="uid://s6ssf385havy" path="res://assets/background/bg2.png" id="1_swf52"]
 [ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/Game/touchControls.tscn" id="2_qk581"]
 [ext_resource type="Texture2D" uid="uid://chupg5tbl0cmf" path="res://assets/platform/platform1-rock8.png" id="3_1nh5c"]
