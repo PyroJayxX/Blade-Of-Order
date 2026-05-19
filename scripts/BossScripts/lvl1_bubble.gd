@@ -17,12 +17,12 @@ enum BossState {
 @export var keep_y_position: bool = true # whether movement should lock to home y
 @export var contact_buffer: float = 80.0 # extra spacing added to body radius distance
 @export var retreat_speed_multiplier: float = 0.6 # retreat speed as a fraction of chase speed
-@export var attack_2_cooldown: float = 2.0 # cooldown between attack_2 uses in seconds
-@export var attack_2_waves: int = 16 # number of star-burst waves for attack_2
+@export var attack_2_cooldown: float = 5.0 # cooldown between attack_2 uses in seconds
+@export var attack_2_waves: int = 8 # number of star-burst waves for attack_2
 @export var attack_2_projectiles_per_wave: int = 8 # bullets per attack_2 wave
 @export var attack_2_wave_interval: float = 0.22 # delay between attack_2 waves in seconds
-@export var attack_3_cooldown: float = 2.0 # cooldown between attack_3 uses in seconds
-@export var attack_3_duration: float = 7.0 # total attack_3 stream duration in seconds
+@export var attack_3_cooldown: float = 5.0 # cooldown between attack_3 uses in seconds
+@export var attack_3_duration: float = 5.0 # total attack_3 stream duration in seconds
 @export var attack_3_shot_interval: float = 0.03 # delay between attack_3 shots in seconds
 @export var attack_3_start_angle_deg: float = 0.0 # starting angle for attack_3 stream in degrees
 @export var attack_3_angle_step_deg: float = 15.0 # angle increment per attack_3 shot in degrees
