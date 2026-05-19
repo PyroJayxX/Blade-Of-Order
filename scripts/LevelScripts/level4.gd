@@ -2,7 +2,7 @@ extends Node2D
 
 const VS_SCREEN: PackedScene = preload("res://scenes/Game/vs_screen.tscn")
 const CUTSCENE_SCREEN: PackedScene = preload("res://scenes/App/cutscene.tscn")
-\const HEAP_BOSS_PORTRAIT: Texture2D = preload("res://assets/boss_splash/HeapSort_Splash_NOBG.png")
+const HEAP_BOSS_PORTRAIT: Texture2D = preload("res://assets/boss_splash/HeapSort_Splash_NOBG.png")
 
 @onready var _heap_sort_puzzle: CanvasLayer = $HeapSortPuzzle
 @onready var _heap_boss: Node = $HeapBoss
