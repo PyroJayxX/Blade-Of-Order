@@ -29,12 +29,18 @@ var _notification_tween: Tween = null
 var _selected_level_id: int = 0 # 0 means global/no filter
 
 func _ready() -> void:
-	_name_action_button.pressed.connect(_on_name_action_button_pressed)
-	_confirm_name_button.pressed.connect(_on_confirm_name_button_pressed)
-	_cancel_name_button.pressed.connect(_on_cancel_name_button_pressed)
-	_notification_timer.timeout.connect(_on_notification_timer_timeout)
-	_boss_filter_option.item_selected.connect(_on_boss_filter_selected)
-	_close_button.pressed.connect(_on_close_button_pressed)
+	if _name_action_button != null and not _name_action_button.pressed.is_connected(_on_name_action_button_pressed):
+		_name_action_button.pressed.connect(_on_name_action_button_pressed)
+	if _confirm_name_button != null and not _confirm_name_button.pressed.is_connected(_on_confirm_name_button_pressed):
+		_confirm_name_button.pressed.connect(_on_confirm_name_button_pressed)
+	if _cancel_name_button != null and not _cancel_name_button.pressed.is_connected(_on_cancel_name_button_pressed):
+		_cancel_name_button.pressed.connect(_on_cancel_name_button_pressed)
+	if _notification_timer != null and not _notification_timer.timeout.is_connected(_on_notification_timer_timeout):
+		_notification_timer.timeout.connect(_on_notification_timer_timeout)
+	if _boss_filter_option != null and not _boss_filter_option.item_selected.is_connected(_on_boss_filter_selected):
+		_boss_filter_option.item_selected.connect(_on_boss_filter_selected)
+	if _close_button != null and not _close_button.pressed.is_connected(_on_close_button_pressed):
+		_close_button.pressed.connect(_on_close_button_pressed)
 	_name_dialog.visible = false
 	_best_notification_label.visible = false
 	_best_notification_label.modulate.a = 0.0

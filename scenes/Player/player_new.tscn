@@ -922,9 +922,8 @@ shape = SubResource("RectangleShape2D_dsvhw")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=850400138]
 material = SubResource("ShaderMaterial_jjwkl")
 sprite_frames = SubResource("SpriteFrames_nirif")
-animation = &"idle"
+animation = &"dash"
 autoplay = "idle"
-frame_progress = 0.55019647
 
 [node name="SlashCollision1" type="Area2D" parent="." unique_id=2010047765]
 position = Vector2(273, 230)

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelDefinition" format=3 uid="uid://bxhlwyajt1loj"]
+[gd_resource type="Resource" script_class="LevelDefinition" format=3 uid="uid://bivhyxyhm5s26"]
 
 [ext_resource type="Script" uid="uid://c18lfy1s5vebn" path="res://scripts/flow/level_definition.gd" id="1_jm88h"]
 

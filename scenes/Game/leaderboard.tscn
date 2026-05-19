@@ -6,14 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://bvs24313jv7y" path="res://assets/buttons/exit_btn.png" id="4_t4eqt"]
 [ext_resource type="Texture2D" uid="uid://dha0dnvfubb4a" path="res://assets/buttons/exit_btn_pressed.png" id="5_lme1y"]
 
-[sub_resource type="Gradient" id="Gradient_bg"]
-offsets = PackedFloat32Array(0.27108434, 1)
-colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_nujf3"]
-gradient = SubResource("Gradient_bg")
-fill_to = Vector2(0, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tyoqt"]
 bg_color = Color(0.047058824, 0.05882353, 0.09019608, 0.94)
 border_color = Color(0, 0, 0, 0)
@@ -24,31 +16,27 @@ corner_radius_bottom_left = 24
 shadow_color = Color(0, 0, 0, 0.45)
 shadow_size = 14
 
+[sub_resource type="Gradient" id="Gradient_bg"]
+interpolation_color_space = 2
+colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nujf3"]
+gradient = SubResource("Gradient_bg")
+fill_to = Vector2(0, 1)
+
 [node name="Leaderboard" type="CanvasLayer" unique_id=101961168]
 script = ExtResource("1_84e3n")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=2141115119]
+[node name="Panel" type="CenterContainer" parent="." unique_id=1334269411]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-texture = SubResource("GradientTexture2D_nujf3")
-
-[node name="Panel" type="Panel" parent="." unique_id=1386717537]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_tyoqt")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel" unique_id=904939638]
 custom_minimum_size = Vector2(1280, 720)
-layout_mode = 0
-offset_right = 1280.0
-offset_bottom = 720.0
+layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer" unique_id=1000932178]
 custom_minimum_size = Vector2(1280, 720)
@@ -159,18 +147,8 @@ texture_hover = ExtResource("5_lme1y")
 stretch_mode = 5
 
 [node name="NameDialog" type="PanelContainer" parent="Panel" unique_id=767468829]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -150.0
-offset_right = 250.0
-offset_bottom = 11.0
-grow_horizontal = 2
-grow_vertical = 2
+visible = false
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tyoqt")
 
 [node name="VBox" type="VBoxContainer" parent="Panel/NameDialog" unique_id=1636003240]
@@ -213,3 +191,20 @@ layout_mode = 2
 [node name="NotificationTimer" type="Timer" parent="." unique_id=549194307]
 wait_time = 2.5
 one_shot = true
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=974154230]
+custom_minimum_size = Vector2(1280, 720)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_nujf3")
+
+[connection signal="pressed" from="Panel/ScrollContainer/VBoxContainer/NameRow/NameActionButton" to="." method="_on_name_action_button_pressed"]
+[connection signal="pressed" from="Panel/NameDialog/VBox/Buttons/ConfirmNameButton" to="." method="_on_confirm_name_button_pressed"]
+[connection signal="pressed" from="Panel/NameDialog/VBox/Buttons/CancelNameButton" to="." method="_on_cancel_name_button_pressed"]
+[connection signal="timeout" from="NotificationTimer" to="." method="_on_notification_timer_timeout"]
+[connection signal="item_selected" from="Panel/ScrollContainer/VBoxContainer/BossFilterRow/BossFilterOption" to="." method="_on_boss_filter_selected"]
+[connection signal="pressed" from="Panel/ScrollContainer/VBoxContainer/Buttons/CloseButton" to="." method="_on_close_button_pressed"]

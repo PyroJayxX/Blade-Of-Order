@@ -39,8 +39,7 @@ corner_radius_bottom_left = 20
 [node name="HUD" type="CanvasLayer" unique_id=148605811]
 script = ExtResource("1_hud")
 
-[node name="Root" type="Control" parent="." unique_id=669818091]
-layout_mode = 3
+[node name="Root" type="HBoxContainer" parent="." unique_id=1727667760]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -48,73 +47,57 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TopRow" type="Control" parent="Root" unique_id=209127207]
-anchors_preset = 0
-offset_left = 22.0
-offset_top = 36.0
-offset_right = 1258.0
-offset_bottom = 670.0
-
-[node name="PlayerPanel" type="Control" parent="Root/TopRow" unique_id=28552465]
+[node name="PlayerPanel" type="Control" parent="Root" unique_id=28552465]
 custom_minimum_size = Vector2(360, 0)
-anchors_preset = 0
-offset_right = 442.0
-offset_bottom = 634.0
+layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayerLabel" type="Label" parent="Root/TopRow/PlayerPanel" unique_id=236731150]
+[node name="PlayerLabel" type="Label" parent="Root/PlayerPanel" unique_id=236731150]
 layout_mode = 0
-offset_left = 143.0
-offset_top = 15.0
-offset_right = 535.0
-offset_bottom = 38.0
+offset_left = 175.83545
+offset_top = 47.83544
+offset_right = 567.83545
+offset_bottom = 70.83544
 theme_override_colors/font_color = Color(0.95, 0.98, 1, 1)
 text = "PLAYER"
 
-[node name="PlayerBar" type="ProgressBar" parent="Root/TopRow/PlayerPanel" unique_id=1763737140]
+[node name="PlayerBar" type="ProgressBar" parent="Root/PlayerPanel" unique_id=1763737140]
 custom_minimum_size = Vector2(360, 34)
 layout_mode = 0
-offset_left = 143.0
-offset_top = 43.0
-offset_right = 535.0
-offset_bottom = 77.0
+offset_left = 175.83545
+offset_top = 75.83544
+offset_right = 567.83545
+offset_bottom = 109.83544
 scale = Vector2(0.76, 0.76)
 theme_override_styles/background = SubResource("StyleBoxFlat_0mwgc")
 theme_override_styles/fill = SubResource("StyleBoxFlat_bo48s")
 value = 100.0
 show_percentage = false
 
-[node name="PlayerValue" type="Label" parent="Root/TopRow/PlayerPanel" unique_id=1249860962]
+[node name="PlayerValue" type="Label" parent="Root/PlayerPanel" unique_id=1249860962]
 layout_mode = 0
-offset_left = 143.0
-offset_top = 72.0
-offset_right = 535.0001
-offset_bottom = 95.0
+offset_left = 175.83545
+offset_top = 104.83544
+offset_right = 567.8356
+offset_bottom = 127.83544
 theme_override_colors/font_color = Color(0.95, 0.98, 1, 1)
 text = "100/100"
 
-[node name="Player" type="Sprite2D" parent="Root/TopRow/PlayerPanel" unique_id=1934508694]
-position = Vector2(59, 49)
+[node name="Player" type="Sprite2D" parent="Root/PlayerPanel" unique_id=1934508694]
+position = Vector2(91.83544, 81.83544)
 scale = Vector2(0.047223628, 0.047223628)
 texture = ExtResource("2_ncuca")
 
-[node name="Spacer" type="Control" parent="Root/TopRow" unique_id=1620862275]
-anchors_preset = 0
-offset_left = 422.0
-offset_right = 814.0
-offset_bottom = 634.0
+[node name="Spacer" type="VBoxContainer" parent="Root" unique_id=868351280]
+layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TimerLabel" type="Label" parent="Root/TopRow/Spacer" unique_id=1155319074]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -195.0
-offset_top = 36.0
-offset_right = 197.0
-offset_bottom = 72.0
-grow_horizontal = 2
+[node name="Control" type="Control" parent="Root/Spacer" unique_id=743654263]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="TimerLabel" type="Label" parent="Root/Spacer" unique_id=1155319074]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.98, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
 theme_override_constants/shadow_outline_size = 2
@@ -123,36 +106,29 @@ text = "Time: 00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Pause" type="Button" parent="Root/TopRow/Spacer" unique_id=727410831]
+[node name="Pause" type="Button" parent="Root/Spacer" unique_id=727410831]
 process_mode = 3
-layout_mode = 0
-offset_left = 181.0
-offset_top = 59.0
-offset_right = 211.0
-offset_bottom = 122.0
+layout_mode = 2
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxLine_ncuca")
 text = "ıı"
 
-[node name="BossPanel" type="Control" parent="Root/TopRow" unique_id=1567236027]
+[node name="BossPanel" type="Control" parent="Root" unique_id=1567236027]
 custom_minimum_size = Vector2(420, 0)
-anchors_preset = 0
-offset_left = 797.0
-offset_right = 1239.0
-offset_bottom = 634.0
+layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BossLabel" type="Label" parent="Root/TopRow/BossPanel" unique_id=1071218740]
+[node name="BossLabel" type="Label" parent="Root/BossPanel" unique_id=1071218740]
 layout_mode = 0
-offset_left = -2.0
-offset_top = 15.0
-offset_right = 418.0
-offset_bottom = 38.0
+offset_left = -6.1645584
+offset_top = 44.83544
+offset_right = 413.83545
+offset_bottom = 67.83544
 theme_override_colors/font_color = Color(0.95, 0.98, 1, 1)
 text = "BOSS"
 horizontal_alignment = 2
 
-[node name="BossBar" type="ProgressBar" parent="Root/TopRow/BossPanel" unique_id=924566724]
+[node name="BossBar" type="ProgressBar" parent="Root/BossPanel" unique_id=924566724]
 custom_minimum_size = Vector2(420, 34)
 layout_mode = 1
 anchors_preset = -1
@@ -160,28 +136,30 @@ anchor_left = 0.99500006
 anchor_top = 0.046000004
 anchor_right = 0.99500006
 anchor_bottom = 0.046000004
-offset_left = -440.79004
-offset_top = 13.835999
-offset_right = -20.79004
-offset_bottom = 47.836
+offset_left = -444.9546
+offset_top = 43.67144
+offset_right = -24.95459
+offset_bottom = 77.67144
 scale = Vector2(1.022, 0.8)
 theme_override_styles/background = SubResource("StyleBoxFlat_hqnrr")
 theme_override_styles/fill = SubResource("StyleBoxFlat_8qguk")
 value = 100.0
 show_percentage = false
 
-[node name="BossValue" type="Label" parent="Root/TopRow/BossPanel" unique_id=445092677]
+[node name="BossValue" type="Label" parent="Root/BossPanel" unique_id=445092677]
 layout_mode = 0
-offset_left = -2.0
-offset_top = 72.0
-offset_right = 418.0
-offset_bottom = 95.0
+offset_left = -6.1645584
+offset_top = 101.83544
+offset_right = 413.83545
+offset_bottom = 124.83544
 theme_override_colors/font_color = Color(0.95, 0.98, 1, 1)
 text = "100/100"
 horizontal_alignment = 2
 
-[node name="PauseScreen" parent="Root" unique_id=1994793378 instance=ExtResource("3_2dhxk")]
+[node name="PauseScreen" parent="." unique_id=1994793378 instance=ExtResource("3_2dhxk")]
 process_mode = 2
 layer = 20
 visible = false
 script = ExtResource("4_pause_screen")
+
+[connection signal="pressed" from="Root/Spacer/Pause" to="." method="_on_pause_button_pressed"]
