@@ -2,7 +2,6 @@ extends Node2D
 
 const VS_SCREEN: PackedScene = preload("res://scenes/Game/vs_screen.tscn")
 const CUTSCENE_SCREEN: PackedScene = preload("res://scenes/App/cutscene.tscn")
-const PLAYER_PORTRAIT: Texture2D = preload("res://assets/player_sprites/player 1.png")
 const BUBBLE_BOSS_PORTRAIT: Texture2D = preload("res://assets/boss_splash/BubbleSort_Splash_NOBG.png")
 
 @onready var _bubble_sort_puzzle: CanvasLayer = $BubbleSortPuzzle

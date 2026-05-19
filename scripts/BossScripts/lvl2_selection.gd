@@ -17,6 +17,7 @@ var _is_defeated: bool = false
 
 const HUD_PATH: NodePath = ^"HUD"
 
+@onready var hit_flash_player: AnimationPlayer = $HitFlash
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var animated_sprite = $AnimatedSprite2D
 
