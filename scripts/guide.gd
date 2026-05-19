@@ -2,7 +2,7 @@ extends CanvasLayer
 
 @onready var option_button: OptionButton = $OptionButton
 @onready var title_label: RichTextLabel = $RichTextLabel
-@onready var content_label: RichTextLabel = $RichTextLabel2
+@onready var content_label: RichTextLabel = $ScrollContainer/RichTextLabel2
 @onready var back_button: TextureButton = get_node_or_null("Back")
 
 # --- Your original untouched titles (inherits 100% of your inspector font/color changes) ---
@@ -160,12 +160,12 @@ Heap Sort utilizes a structural [b]max-heap[/b] where the parent nodes stay larg
     [color=#f1fa8c]LET[/color] largest = i
     [color=#f1fa8c]LET[/color] left = 2*i + 1
     [color=#f1fa8c]LET[/color] right = 2*i + 2
-    [color=#ff79c6]IF[/color] left < n [color=#ff79c6]AND[/color] AR[left] > AR[largest]:
+    [color=#ff79c6]IF[/color] left < n [color=#ff79c6]AND[/color] AR[lb]left[rb] is greater than AR[lb]largest[rb]:
         largest = left
-    [color=#ff79c6]IF[/color] right < n [color=#ff79c6]AND[/color] AR[right] > AR[largest]:
+    [color=#ff79c6]IF[/color] right < n [color=#ff79c6]AND[/color] AR[lb]right[rb] is greater than AR[lb]largest[rb]:
         largest = right
     [color=#ff79c6]IF[/color] largest != i:
-        [color=#50fa7b]SWAP[/color](AR[i], AR[largest])
+        [color=#50fa7b]SWAP[/color](AR[lb]i[rb], AR[lb]largest[rb])
         [color=#50fa7b]heapify[/color](AR, n, largest)
 [color=#a0a0a0]Reference:[/color] [url=https://www.geeksforgeeks.org/dsa/heap-sort/]GeeksForGeeks - Heap Sort[/url]",
 

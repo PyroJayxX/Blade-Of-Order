@@ -27,9 +27,14 @@ color = Color(0, 0, 0, 0.82500005)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1120830936]
 custom_minimum_size = Vector2(0, 100)
-offset_top = 247.0
-offset_right = 1280.0
-offset_bottom = 347.0
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -107.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme_override_colors/default_color = Color(0.41960785, 0.9529412, 1, 1)
 theme_override_fonts/normal_font = ExtResource("1_cbjoc")
@@ -47,10 +52,14 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_06atd")
 
 [node name="Buttons" type="HBoxContainer" parent="." unique_id=682976080]
-offset_left = 240.0
-offset_top = 382.0
-offset_right = 1030.0
-offset_bottom = 462.0
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 27.0
+offset_bottom = 107.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 20
 alignment = 1
 

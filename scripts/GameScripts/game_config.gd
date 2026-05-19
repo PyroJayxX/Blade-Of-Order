@@ -2,6 +2,14 @@ extends Node
 
 const LEVEL_DATA_DIR: String = "res://data/levels"
 const PROGRESSION_SAVE_PATH: String = "user://progression.cfg"
+const LEVEL_DEFINITIONS: Array[Resource] = [
+	preload("res://data/levels/level_01.tres"),
+	preload("res://data/levels/level_02.tres"),
+	preload("res://data/levels/level_03.tres"),
+	preload("res://data/levels/level_04.tres"),
+	preload("res://data/levels/level_05.tres"),
+	preload("res://data/levels/level_06.tres"),
+]
 
 var _level_definitions: Array[Resource] = []
 var _highest_unlocked_level: int = 1
@@ -37,18 +45,12 @@ func mark_level_completed(level_id: int) -> void:
 
 func _load_level_definitions() -> void:
 	_level_definitions.clear()
-	if not DirAccess.dir_exists_absolute(LEVEL_DATA_DIR):
-		push_warning("Level data directory missing: %s" % LEVEL_DATA_DIR)
-		return
-
-	var files: PackedStringArray = DirAccess.get_files_at(LEVEL_DATA_DIR)
-	for file_name in files:
-		if not file_name.ends_with(".tres"):
-			continue
-		var path: String = "%s/%s" % [LEVEL_DATA_DIR, file_name]
-		var resource: Resource = load(path)
+	for resource: Resource in LEVEL_DEFINITIONS:
 		if resource != null and resource.get("level_id") != null:
 			_level_definitions.append(resource)
+
+	if _level_definitions.is_empty():
+		push_warning("No level definitions were loaded from the built-in resource list.")
 
 	_level_definitions.sort_custom(func(a: Resource, b: Resource) -> bool: return int(a.get("level_id")) < int(b.get("level_id")))
 

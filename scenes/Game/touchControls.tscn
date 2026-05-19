@@ -10,32 +10,47 @@
 [node name="TouchControls" type="CanvasLayer" unique_id=1019859329]
 script = ExtResource("1_6jjp2")
 
-[node name="Left" type="TouchScreenButton" parent="." unique_id=1218380171]
-position = Vector2(126, 550)
-scale = Vector2(0.036689278, 0.036689278)
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=447165196]
+custom_minimum_size = Vector2(980, 720)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer" unique_id=1854946263]
+layout_mode = 2
+
+[node name="Left" type="TouchScreenButton" parent="CenterContainer/HBoxContainer" unique_id=1218380171]
+position = Vector2(-640, 144)
+scale = Vector2(0.05, 0.05)
 texture_normal = ExtResource("1_w4sk7")
 action = "moveLeft"
 
-[node name="Right" type="TouchScreenButton" parent="." unique_id=510147450]
-position = Vector2(256, 550)
-scale = Vector2(0.036689285, 0.036689285)
+[node name="Right" type="TouchScreenButton" parent="CenterContainer/HBoxContainer" unique_id=510147450]
+position = Vector2(-455.99997, 144)
+scale = Vector2(0.05, 0.05)
 texture_normal = ExtResource("2_6jjp2")
 action = "moveRight"
 
-[node name="Slash" type="TouchScreenButton" parent="." unique_id=1872927727]
-position = Vector2(1057.0001, 552)
-scale = Vector2(0.03668926, 0.03668926)
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer" unique_id=234097502]
+layout_mode = 2
+
+[node name="Slash" type="TouchScreenButton" parent="CenterContainer/HBoxContainer2" unique_id=1872927727]
+position = Vector2(488.99997, 144)
+scale = Vector2(0.05, 0.05)
 texture_normal = ExtResource("3_0u434")
 action = "slash"
 
-[node name="Dash" type="TouchScreenButton" parent="." unique_id=632857424]
-position = Vector2(902, 552)
-scale = Vector2(0.036689267, 0.036689267)
+[node name="Dash" type="TouchScreenButton" parent="CenterContainer/HBoxContainer2" unique_id=632857424]
+position = Vector2(255.99997, 144)
+scale = Vector2(0.05, 0.05)
 texture_normal = ExtResource("4_gc2f5")
 action = "dash"
 
-[node name="Jump" type="TouchScreenButton" parent="." unique_id=241412203]
-position = Vector2(982, 443.99997)
-scale = Vector2(0.03668922, 0.03668922)
+[node name="Jump" type="TouchScreenButton" parent="CenterContainer/HBoxContainer2" unique_id=241412203]
+position = Vector2(376.99997, 1.8189894e-12)
+scale = Vector2(0.05, 0.05)
 texture_normal = ExtResource("5_16dv8")
 action = "jump"
