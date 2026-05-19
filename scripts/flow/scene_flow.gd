@@ -20,11 +20,14 @@ func register_root(root_flow: Node, content_root: Node, transition_layer: Canvas
 	_transition_layer = transition_layer
 
 func goto_main_menu() -> void:
+	push_warning("SceneFlow.goto_main_menu called (previous_active=%d current_scene_path=%s)" % [_active_level_id, _current_scene_path])
 	_active_level_id = -1
+	_is_loading_scene = false
 	load_scene(MAIN_MENU_SCENE)
 
 func goto_level_select() -> void:
 	_active_level_id = -1
+	_is_loading_scene = false
 	load_scene(LEVEL_SELECT_SCENE)
 
 func goto_leaderboard(context: Dictionary = {}) -> void:
@@ -48,12 +51,13 @@ func play_level(level_id: int) -> bool:
 	var scene_path_value: String = ""
 	if definition != null:
 		scene_path_value = String(definition.get("scene_path"))
-	push_warning("SceneFlow.play_level: level_id=%d definition_found=%s scene_path='%s'" % [level_id, str(definition != null), scene_path_value])
+	push_warning("SceneFlow.play_level: level_id=%d previous_active=%d definition_found=%s scene_path='%s'" % [level_id, _active_level_id, str(definition != null), scene_path_value])
 	if definition == null or scene_path_value.is_empty():
 		push_warning("Cannot play level %d: missing level definition or scene path." % level_id)
 		return false
 	_active_level_id = level_id
-	load_scene(scene_path_value)
+	_is_loading_scene = false
+	load_scene(scene_path_value, true)
 	return true
 
 func restart_active_level() -> void:
@@ -75,11 +79,10 @@ func on_level_cleared(payload: Dictionary = {}) -> void:
 func on_level_failed(_payload: Dictionary = {}) -> void:
 	pass
 
-func load_scene(scene_path: String) -> void:
+func load_scene(scene_path: String, force_reload: bool = false) -> void:
 	if _is_loading_scene:
+		push_warning("SceneFlow.load_scene: ignored because another load is in progress")
 		return
-	# If SceneFlow root hasn't been registered (e.g., running outside the expected root flow),
-	# fall back to a direct scene change instead of failing.
 	if _content_root == null:
 		if ResourceLoader.exists(scene_path):
 			get_tree().change_scene_to_file(scene_path)
@@ -89,13 +92,16 @@ func load_scene(scene_path: String) -> void:
 	if scene_path.is_empty():
 		push_warning("SceneFlow received an empty scene path.")
 		return
-	# Ignore duplicate requests for the scene already mounted in the content root.
-	if scene_path == _current_scene_path and _current_scene != null and is_instance_valid(_current_scene):
+	if not force_reload and scene_path == _current_scene_path and _current_scene != null and is_instance_valid(_current_scene):
+		push_warning("SceneFlow.load_scene: request for '%s' ignored (already mounted)" % scene_path)
 		return
+
+	push_warning("SceneFlow.load_scene: loading '%s' (current='%s', force=%s)" % [scene_path, _current_scene_path, str(force_reload)])
 
 	_is_loading_scene = true
 
 	if _transition_layer != null and _transition_layer.has_method("fade_out"):
+		push_warning("SceneFlow.load_scene: invoking transition.fade_out()")
 		await _transition_layer.fade_out()
 
 	var packed: PackedScene = load(scene_path) as PackedScene
@@ -118,6 +124,7 @@ func load_scene(scene_path: String) -> void:
 	_current_scene_path = scene_path
 
 	if _transition_layer != null and _transition_layer.has_method("fade_in"):
+		push_warning("SceneFlow.load_scene: invoking transition.fade_in()")
 		await _transition_layer.fade_in()
 
 	_is_loading_scene = false
