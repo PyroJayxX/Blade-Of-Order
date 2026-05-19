@@ -60,7 +60,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.2, 0.2)]
+"values": [Vector2(0.27368218, 0.27368218)]
 }
 
 [sub_resource type="Animation" id="Animation_2p7kf"]
@@ -76,7 +76,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.019825947, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(0.25, 0.25), Vector2(0.29, 0.29), Vector2(0.27, 0.27)]
+"values": [Vector2(0.234, 0.234), Vector2(0.292, 0.292), Vector2(0.27368218, 0.27368218)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hs5n0"]
@@ -90,11 +90,12 @@ script = ExtResource("1_2i2sy")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2133639653]
 material = SubResource("ShaderMaterial_2p7kf")
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.27368218, 0.27368218)
 texture = ExtResource("1_cbpsf")
+offset = Vector2(-31.67421, 18.269367)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=493183910]
-position = Vector2(8, -4)
+scale = Vector2(0.91502655, 0.91502655)
 shape = SubResource("CircleShape2D_2i2sy")
 
 [node name="HitFlash" type="AnimationPlayer" parent="." unique_id=370385666]

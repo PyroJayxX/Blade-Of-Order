@@ -518,6 +518,7 @@ wave_projectile_scene = ExtResource("2_qjsm5")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=816528804]
 position = Vector2(-5.5, 153.5)
+scale = Vector2(0.8005332, 0.8005332)
 shape = SubResource("RectangleShape2D_f26n7")
 
 [node name="Bucket" type="Sprite2D" parent="." unique_id=307914674]
