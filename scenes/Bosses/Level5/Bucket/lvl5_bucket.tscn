@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://bb1mxjcv5y5x" path="res://assets/bosses/bucket_boss/base.png" id="1_a4qyl"]
 [ext_resource type="Texture2D" uid="uid://dw7fg3i2h8cfy" path="res://assets/bosses/bucket_boss/bucket_smash.png" id="1_da0u5"]
-[ext_resource type="PackedScene" uid="uid://cxjkrm5j3ybek" path="res://scenes/bosses/Level5/Bucket/bucket_projectile1.tscn" id="2_qjsm5"]
+[ext_resource type="PackedScene" uid="uid://cxjkrm5j3ybek" path="res://scenes/Bosses/Level5/Bucket/bucket_projectile1.tscn" id="2_qjsm5"]
 [ext_resource type="Texture2D" uid="uid://c03js4wq8ebbt" path="res://assets/bosses/bucket_boss/stunned.png" id="3_0opv1"]
-[ext_resource type="Shader" uid="uid://c1ot87s1sfjfu" path="res://scenes/bosses/Level1/Bubble/projectile_hit.tres" id="3_eyeni"]
+[ext_resource type="Shader" uid="uid://c1ot87s1sfjfu" path="res://scenes/Bosses/Level1/Bubble/projectile_hit.tres" id="3_eyeni"]
 [ext_resource type="Script" uid="uid://q2vnjr4388c6" path="res://scripts/BossScripts/lvl5_bucket.gd" id="4_f26n7"]
 [ext_resource type="AudioStream" uid="uid://bcx3evpfig185" path="res://audio/sfx/bucket_smash.mp3" id="7_ce4nt"]
 
@@ -518,6 +518,7 @@ wave_projectile_scene = ExtResource("2_qjsm5")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=816528804]
 position = Vector2(-5.5, 153.5)
+scale = Vector2(0.8005332, 0.8005332)
 shape = SubResource("RectangleShape2D_f26n7")
 
 [node name="Bucket" type="Sprite2D" parent="." unique_id=307914674]

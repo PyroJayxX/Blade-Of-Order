@@ -1,9 +1,14 @@
 [gd_scene format=3 uid="uid://lexycqi8v6v2"]
 
+[ext_resource type="Shader" uid="uid://c1ot87s1sfjfu" path="res://scenes/Bosses/Level1/Bubble/projectile_hit.tres" id="1_81f8g"]
 [ext_resource type="Texture2D" uid="uid://85wdd37xecj0" path="res://assets/bosses/selection_boss/base.png" id="1_hgefe"]
 [ext_resource type="Texture2D" uid="uid://0so0t5722x7c" path="res://assets/bosses/selection_boss/kunai_attack.png" id="2_hgefe"]
 [ext_resource type="Texture2D" uid="uid://brkwiuc6sga1x" path="res://assets/bosses/selection_boss/smash.png" id="3_jlg68"]
 [ext_resource type="Texture2D" uid="uid://drc2y0f1k8o46" path="res://assets/bosses/selection_boss/base_loading.png" id="3_p0vlh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0eo7u"]
+shader = ExtResource("1_81f8g")
+shader_parameter/hit_strength = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6mbv3"]
 atlas = ExtResource("1_hgefe")
@@ -126,106 +131,246 @@ animations = [{
 "speed": 20.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t4vbb"]
+shader = ExtResource("1_81f8g")
+shader_parameter/hit_strength = 0.0
+
 [sub_resource type="Animation" id="Animation_dwnao"]
 length = 4.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/white_amount")
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/hit_strength")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [1.0]
+"values": [0.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/path = NodePath("AnimatedSprite2D:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"kunai_attack"]
+"update": 0,
+"values": [Vector2(1.1, 1.1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:scale")
+tracks/2/path = NodePath("AnimatedSprite2D:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BaseLoading:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_eqre8"]
-resource_name = "transition"
-length = 4.0
+[sub_resource type="Animation" id="Animation_81f8g"]
+resource_name = "base"
 step = 0.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/white_amount")
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.20246083, 0.40245593, 0.60939604, 0.8007485, 1.0061398, 1.2019715, 1.4019728, 1.4934051, 1.6033447, 1.7034198, 1.802113, 1.9004843, 2.003062, 2.103137, 2.2005014, 2.2919338, 2.4018734, 2.5019484, 2.6006417, 2.699013, 2.8015907, 2.9016657, 2.9984846, 3.0499928, 3.1030705, 3.1523328, 3.1990035, 3.2520065, 3.3037713, 3.3523107, 3.4018164, 3.4526827, 3.5047483, 3.5507355, 3.6012907, 3.6504416, 3.702718, 3.753032, 3.8010716, 3.8502226),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/path = NodePath("BaseLoading:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 3.490656, 3.504964),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"base", &"base", &"loading"]
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:scale")
+tracks/2/path = NodePath("AnimatedSprite2D:material:shader_parameter/hit_strength")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.20330779, 0.4020936, 0.60924566, 0.8028187, 1.0016046, 1.2021905, 1.3957636, 1.5008193, 1.6035998, 1.7095556, 1.7983105, 1.9001685, 2.0061245, 2.0948792, 2.1976597, 2.3036156, 2.3923705, 2.5012639, 2.6072197, 2.6959746, 2.798755, 2.9047108, 2.9934657, 3.0514188, 3.1003215, 3.1605499, 3.1981268, 3.2470295, 3.307258, 3.3529851, 3.401888, 3.4621162, 3.505806, 3.5547087, 3.614937, 3.6504765, 3.6993792, 3.7596076, 3.8012598),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1.1, 1.1), Vector2(1, 1)]
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_eqre8"]
+resource_name = "transition"
+length = 0.5
+step = 0.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.04055339, 0.08543382, 0.12760985, 0.20548387, 0.25901833, 0.3157981, 0.34877917, 0.392037, 0.412037, 0.4439363, 0.46393633, 0.4839363),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.1, 1.1), Vector2(0.935, 0.935), Vector2(0.935, 0.935), Vector2(1.075, 1.075), Vector2(1.075, 1.075), Vector2(1.1, 1.1), Vector2(1.1, 1.1), Vector2(0.935, 0.935), Vector2(0.935, 0.935), Vector2(1.075, 1.075), Vector2(1.075, 1.075), Vector2(1.1, 1.1), Vector2(1.1, 1.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2844947),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BaseLoading:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.28444558),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BaseLoading:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.00022801757, 0.04078141, 0.08566186, 0.12783787, 0.20571187, 0.25924632, 0.31602612, 0.34900722, 0.39226505, 0.41226503, 0.4441643, 0.46416435, 0.48416433),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.1, 1.1), Vector2(0.935, 0.935), Vector2(0.935, 0.935), Vector2(1.075, 1.075), Vector2(1.075, 1.075), Vector2(1.1, 1.1), Vector2(1.1, 1.1), Vector2(0.935, 0.935), Vector2(0.935, 0.935), Vector2(1.075, 1.075), Vector2(1.075, 1.075), Vector2(1.1, 1.1), Vector2(1.1, 1.1)]
+}
+
+[sub_resource type="Animation" id="Animation_0eo7u"]
+resource_name = "transition_2"
+length = 0.5
+step = 0.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.28, 0.3, 0.32, 0.34, 0.36, 0.38),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.935, 0.935), Vector2(0.935, 0.935), Vector2(1.075, 1.075), Vector2(1.075, 1.075), Vector2(1.1, 1.1), Vector2(1.1, 1.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2844947),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BaseLoading:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.28444558),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BaseLoading:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.00054088235, 0.020540893, 0.040540874, 0.10110679, 0.14274196, 0.1768048, 0.2222261, 0.2633204, 0.31955925, 0.36876667, 0.41797417, 0.43797415, 0.45797414),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.1, 1.1), Vector2(0.935, 0.935), Vector2(0.935, 0.935), Vector2(1.075, 1.075), Vector2(1.075, 1.075), Vector2(1.1, 1.1), Vector2(1.1, 1.1), Vector2(0.935, 0.935), Vector2(0.935, 0.935), Vector2(1.075, 1.075), Vector2(1.075, 1.075), Vector2(1.1, 1.1), Vector2(1.1, 1.1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hgefe"]
 _data = {
 &"RESET": SubResource("Animation_dwnao"),
-&"transition": SubResource("Animation_eqre8")
+&"base": SubResource("Animation_81f8g"),
+&"transition": SubResource("Animation_eqre8"),
+&"transition_back": SubResource("Animation_0eo7u")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3niuv"]
-size = Vector2(603, 811)
+size = Vector2(491.598, 988.6888)
 
 [node name="Lvl2Selection" type="CharacterBody2D" unique_id=974633589]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=526954018]
 texture_filter = 1
+material = SubResource("ShaderMaterial_0eo7u")
 position = Vector2(32, 51)
+scale = Vector2(1.1, 1.1)
 sprite_frames = SubResource("SpriteFrames_6mbv3")
-animation = &"kunai_attack"
+animation = &"base"
+
+[node name="BaseLoading" type="Sprite2D" parent="." unique_id=826771129]
+visible = false
+material = SubResource("ShaderMaterial_t4vbb")
+position = Vector2(69, 38)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("3_p0vlh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1156941435]
 libraries/ = SubResource("AnimationLibrary_hgefe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=867816986]
-position = Vector2(36.5, -34.5)
+visible = false
+position = Vector2(78, -32.000027)
+scale = Vector2(0.7282372, 0.7282372)
 shape = SubResource("RectangleShape2D_3niuv")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=268027614]
+visible = false
+position = Vector2(-111.881256, -298.375)
+scale = Vector2(1.4281715, 23.757309)
+polygon = PackedVector2Array(-11.986473, -2.6360302, 311.5041, 14.958554, 165.16312, 15.42157, 226.78036, 25.144894, 181.26764, 26.996956, 109.14744, 18.32594, -3.5841217, 24.976524)
