@@ -26,17 +26,17 @@ enum BossState {
 @export var max_health: int = 150 
 @export var attack_damage: int = 10 
 
-# PROJECTILE VARIABLES (Orbital Strike)
+# PROJECTILE 2 VARIABLES
 @export var projectile_scene: PackedScene 
 @export var attack2_cooldown: float = 5.0
 @export var attack2_trigger_dist: float = 600.0 
 @export var projectile_arc_radius: float = 800.0  
 @export var projectile_spread_angle: float = 100.0 
 @export var projectile_hover_time: float = 1.0    
-@export var projectile_fire_delay: float = 0.1
+@export var projectile_fire_delay: float = 0.4
 @export var horizontal_stretch: float = 1.7
 
-# LASER WAVE VARIABLES (Wave Attack)
+# PROJECTILE 1 VARIABLES
 @export var wave_projectile_scene: PackedScene 
 @export var laser_cooldown: float = 10.0   
 @export var laser_duration: float = 2.0   
@@ -120,6 +120,10 @@ func _physics_process(delta: float) -> void:
 			
 			if is_on_floor() or global_position.y >= (_floor_y_level - 10):
 				velocity.y = 0
+				
+				if has_node("SmashAudio"):
+					$SmashAudio.play()
+					
 				_set_state(BossState.ATTACK1)
 
 		BossState.ATTACK1:
