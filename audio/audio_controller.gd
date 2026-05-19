@@ -86,3 +86,6 @@ func play_player_jump_1():
 	
 func play_player_jump_2():
 	$jump_2.play()
+
+func play_player_slash_hit() -> void:
+	$boss_hit.play()
