@@ -243,3 +243,27 @@ func _sync_boss_hud_health() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_H:
 		take_damage(10, false)
+
+func set_combat_enabled(enabled: bool) -> void:
+	# If combat is disabled, stop active attacks
+	if not enabled:
+		if rain_timer:
+			rain_timer.stop()
+		if state_timer:
+			state_timer.stop()
+		velocity = Vector2.ZERO
+	else:
+		if _state == BossState.ATTACKING:
+			if rain_timer:
+				rain_timer.start()
+			if state_timer:
+				state_timer.start(attack_duration)
+
+
+func on_stun_started_mock() -> void:
+	_set_state(BossState.STUNNED)
+	print("Stun puzzle opened.")
+
+func on_stun_modal_closed_mock() -> void:
+	if _state == BossState.STUNNED:
+		_set_state(BossState.ATTACKING)

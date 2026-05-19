@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dij6lvdmqq3gb"
-path="res://.godot/imported/SelecionSort_Splash_NOBG.png-dea00febc7438fc692f000b285e8be82.ctex"
+uid="uid://b1qxairqjc78e"
+path="res://.godot/imported/resume_pressed.png-45ebf655e2f79cabc91c0d0e3b75f882.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/boss_splash/SelecionSort_Splash_NOBG.png"
-dest_files=["res://.godot/imported/SelecionSort_Splash_NOBG.png-dea00febc7438fc692f000b285e8be82.ctex"]
+source_file="res://assets/buttons/resume_pressed.png"
+dest_files=["res://.godot/imported/resume_pressed.png-45ebf655e2f79cabc91c0d0e3b75f882.ctex"]
 
 [params]
 

@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://mgdgaukkl8xv"]
 
+[ext_resource type="Script" uid="uid://d8vq3mhgpnk1" path="res://scripts/LevelScripts/level3.gd" id="1_level3"]
 [ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/Game/arena.tscn" id="1_3rqrc"]
 [ext_resource type="Texture2D" uid="uid://s6ssf385havy" path="res://assets/background/bg2.png" id="1_swf52"]
 [ext_resource type="PackedScene" uid="uid://d21scx72jcmc3" path="res://scenes/Game/touchControls.tscn" id="2_qk581"]
@@ -55,6 +56,7 @@ fill_from = Vector2(0.52991456, 0.5)
 fill_to = Vector2(1.39, 0)
 
 [node name="ShellSort" type="Node2D" unique_id=755972509]
+script = ExtResource("1_level3")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=271760543]
 visible = false

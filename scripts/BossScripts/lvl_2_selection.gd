@@ -201,8 +201,6 @@ func _set_state(new_state: BossState) -> void:
 
 	if anim_player != null:
 		match _state:
-			BossState.IDLE:
-				anim_player.play("idle")
 			BossState.CHASE:
 				anim_player.play("chase")
 			BossState.HURT:
@@ -212,8 +210,6 @@ func _set_state(new_state: BossState) -> void:
 
 func _state_to_text(state: BossState) -> String:
 	match state:
-		BossState.IDLE:
-			return "IDLE"
 		BossState.CHASE:
 			return "CHASE"
 		BossState.HURT:
@@ -234,7 +230,7 @@ func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
 	if _current_health <= 0:
 		_is_defeated = true
 		velocity = Vector2.ZERO
-		_set_state(BossState.IDLE)
+		_set_state(BossState.STUNNED)
 		boss_defeated.emit()
 		return
 
@@ -265,7 +261,7 @@ func set_combat_enabled(enabled: bool) -> void:
 	_combat_enabled = enabled
 	if not _combat_enabled:
 		velocity = Vector2.ZERO
-		_set_state(BossState.IDLE)
+		_set_state(BossState.STUNNED)
 		_vulnerable_timer = vulnerable_delay
 		_is_vulnerable = false
 		_vulnerable_duration_timer = 0.0

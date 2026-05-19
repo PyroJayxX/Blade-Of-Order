@@ -9,12 +9,16 @@ const PLAYER_VALUE_PATH: NodePath = ^"Root/TopRow/PlayerPanel/PlayerValue"
 const BOSS_BAR_PATH: NodePath = ^"Root/TopRow/BossPanel/BossBar"
 const BOSS_VALUE_PATH: NodePath = ^"Root/TopRow/BossPanel/BossValue"
 const TIMER_LABEL_PATH: NodePath = ^"Root/TopRow/Spacer/TimerLabel"
+const PAUSE_BUTTON_PATH: NodePath = ^"Root/TopRow/Spacer/Pause"
+const PAUSE_SCREEN_PATH: NodePath = ^"Root/PauseScreen"
 
 var _player_bar: ProgressBar
 var _player_value_label: Label
 var _boss_bar: ProgressBar
 var _boss_value_label: Label
 var _timer_label: Label
+var _pause_button: Button
+var _pause_screen: CanvasLayer
 var _elapsed_seconds: int = 0
 var _timer_accumulator: float = 0.0
 var _timer_running: bool = true
@@ -22,6 +26,10 @@ var _timer_running: bool = true
 func _ready() -> void:
 	layer = 5
 	_resolve_ui_nodes()
+	if _pause_screen != null:
+		_pause_screen.visible = false
+	if _pause_button != null and not _pause_button.pressed.is_connected(_on_pause_button_pressed):
+		_pause_button.pressed.connect(_on_pause_button_pressed)
 	_elapsed_seconds = 0
 	_timer_accumulator = 0.0
 	_timer_running = true
@@ -57,6 +65,10 @@ func _resolve_ui_nodes() -> void:
 		_boss_value_label = get_node_or_null(BOSS_VALUE_PATH) as Label
 	if _timer_label == null:
 		_timer_label = get_node_or_null(TIMER_LABEL_PATH) as Label
+	if _pause_button == null:
+		_pause_button = get_node_or_null(PAUSE_BUTTON_PATH) as Button
+	if _pause_screen == null:
+		_pause_screen = get_node_or_null(PAUSE_SCREEN_PATH) as CanvasLayer
 
 func _apply_health(bar: ProgressBar, value_label: Label, current: int, max_value: int, label_prefix: String) -> void:
 	if bar == null or value_label == null:
@@ -85,3 +97,24 @@ func stop_timer() -> void:
 
 func start_timer() -> void:
 	_timer_running = true
+
+
+func show_pause_button(should_show: bool) -> void:
+	_resolve_ui_nodes()
+	if _pause_button != null:
+		_pause_button.visible = should_show
+
+
+func show_pause_screen(should_show: bool) -> void:
+	_resolve_ui_nodes()
+	if _pause_screen != null:
+		_pause_screen.visible = should_show
+
+
+func _on_pause_button_pressed() -> void:
+	var level_root: Node = get_parent()
+	if level_root != null and level_root.has_method("pause_level"):
+		level_root.call("pause_level", true)
+	else:
+		get_tree().paused = true
+	show_pause_screen(true)
