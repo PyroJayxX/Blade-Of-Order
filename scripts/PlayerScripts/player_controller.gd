@@ -84,7 +84,11 @@ func _ready() -> void:
 	_set_slash_collision_enabled(false)
 	_update_slash_collision_transform()
 	_sync_player_hud_health()
-	animated_sprite.frame_changed.connect(_on_sprite_frame_changed)
+	
+	animated_sprite.frame_changed.connect(_on_sprite_frame_changed) # for running sfx
+	
+	if hit_flash_player.has_animation("RESET"): # for hit animation reset
+		hit_flash_player.play("RESET")
 
 # play animation helper function so there is no animation overlap
 func play_anim(name: String, force_restart: bool = false):
