@@ -43,11 +43,7 @@ func _ready() -> void:
 		push_error("No parent node found!")
 		return
 
-	var player_nodes = get_tree().get_nodes_in_group("player")
-	if player_nodes.size() > 0:
-		player = player_nodes[0] as Node2D
-	else:
-		push_warning("Player not found in 'player' group!")
+	_resolve_player()
 
 	_collect_manual_segments()
 	if segments.size() == 0:
@@ -118,6 +114,8 @@ func _prefill_history() -> void:
 
 func _process(delta: float) -> void:
 	if not player or not is_instance_valid(player):
+		_resolve_player()
+	if not player or not is_instance_valid(player):
 		return
 
 	# Honor external combat gating (e.g., cutscenes)
@@ -163,6 +161,17 @@ func _process(delta: float) -> void:
 
 	if is_dashing and not _prev_dashing:
 		_apply_instant_damage_to_player()
+
+
+func _resolve_player() -> void:
+	var player_node: Node = get_tree().get_first_node_in_group("player")
+	if player_node is Node2D and is_instance_valid(player_node):
+		player = player_node as Node2D
+		dash_target_angle = (player.global_position - global_position).angle()
+		rotation = dash_target_angle
+		dash_start_pos = global_position
+		return
+	push_warning("Player not found in 'player' group!")
 
 
 func _record_history() -> void:
