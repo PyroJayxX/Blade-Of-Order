@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c63mrpidm8ab6"
-path="res://.godot/imported/dashh.png-57e7867a66c2666cf493adf005ee3500.ctex"
+uid="uid://c6icbl6q5ad5d"
+path="res://.godot/imported/jumpslash3_3.png-84025c1c3b2dc4ec79af872d1033d646.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player_sprites/dashh.png"
-dest_files=["res://.godot/imported/dashh.png-57e7867a66c2666cf493adf005ee3500.ctex"]
+source_file="res://assets/player_sprites/jumpslash3_3.png"
+dest_files=["res://.godot/imported/jumpslash3_3.png-84025c1c3b2dc4ec79af872d1033d646.ctex"]
 
 [params]
 
@@ -36,5 +36,5 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=4096
+process/size_limit=0
 detect_3d/compress_to=1
