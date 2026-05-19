@@ -32,7 +32,7 @@ func _on_quit_pressed() -> void:
 	if flow != null:
 		flow.call("goto_main_menu")
 		return
-	var menu_path := "res://scenes/MainMenu/main_menu.tscn"
+	var menu_path := "res://scenes/App/main_menu.tscn"
 	if ResourceLoader.exists(menu_path):
 		get_tree().change_scene_to_file(menu_path)
 	else:

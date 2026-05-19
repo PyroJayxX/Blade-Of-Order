@@ -22,17 +22,10 @@ colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
 gradient = SubResource("Gradient_gxgqo")
 fill_to = Vector2(0, 1)
 
-[node name="MainMenu" type="Control" unique_id=1834903873]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MainMenu" type="CanvasLayer" unique_id=1850763932]
 script = ExtResource("1_oa1go")
 
 [node name="placeholder_bg" type="ColorRect" parent="." unique_id=1734849051]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -43,7 +36,6 @@ color = Color(0, 0, 0, 1)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1205428567]
 custom_minimum_size = Vector2(0, 100)
-layout_mode = 0
 offset_top = 138.0
 offset_right = 1280.0
 offset_bottom = 238.0
@@ -55,7 +47,6 @@ bbcode_enabled = true
 text = "[center] BLADE OF ORDER [/center]"
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1171145806]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -121,7 +112,6 @@ ignore_texture_size = true
 stretch_mode = 5
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=797033237]
-layout_mode = 0
 offset_top = 29.0
 offset_right = 1280.0
 offset_bottom = 751.0
