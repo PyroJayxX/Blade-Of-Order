@@ -17,8 +17,8 @@ var _is_defeated: bool = false
 
 const HUD_PATH: NodePath = ^"HUD"
 
-@onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var hit_flash_player: AnimationPlayer = $HitFlash
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var animated_sprite = $AnimatedSprite2D
 
 const SPEED = 300.0
@@ -169,7 +169,6 @@ func _set_state(new_state: BossState) -> void:
 			state_timer.stop()
 
 		BossState.STUNNED:
-			if anim_player != null: anim_player.play("stunned")
 			if rain_timer: rain_timer.stop()
 			state_timer.stop()
 			

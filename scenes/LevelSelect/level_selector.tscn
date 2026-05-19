@@ -5,9 +5,6 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qq53c"]
 bg_color = Color(0.06666667, 0.105882354, 0.11372549, 0.54901963)
-border_color = Color(0.16759703, 0.82772696, 0.7885211, 0.56078434)
-shadow_color = Color(0.16470589, 0.6784314, 0.654902, 0.039215688)
-shadow_size = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ya7lg"]
 content_margin_left = 4.0
@@ -90,6 +87,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ya7lg")
 
+[node name="Overlay2" type="Panel" parent="." unique_id=440886578]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_qq53c")
+
 [node name="Overlay" type="Panel" parent="." unique_id=794363499]
 layout_mode = 1
 anchors_preset = 8
@@ -123,6 +130,8 @@ anchor_bottom = 0.24700001
 offset_top = 3.980999
 offset_right = 1190.0
 offset_bottom = 41.981
+grow_horizontal = 2
+grow_vertical = 2
 rotation = -0.0008601075
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0.9239334, 0.83635265, 1)

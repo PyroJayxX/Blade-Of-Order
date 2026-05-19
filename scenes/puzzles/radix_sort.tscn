@@ -1,6 +1,7 @@
-[gd_scene format=3 uid="uid://dn1osp8xlnwlu"]
+[gd_scene format=3 uid="uid://b1vxoyqgra1li"]
 
 [ext_resource type="FontFile" uid="uid://dmfiak0cq6xa0" path="res://fonts/LiberationMono-Bold.ttf" id="1_gfpbb"]
+[ext_resource type="Script" uid="uid://duu7rove1ish3" path="res://scripts/LevelScripts/level6.gd" id="1_o81ja"]
 [ext_resource type="Texture2D" uid="uid://dqtf34c6njaw5" path="res://assets/puzzle_sprites/Skull.png" id="2_o81ja"]
 [ext_resource type="FontFile" uid="uid://bop2b21o5j7w8" path="res://fonts/Inconsolata-Regular.ttf" id="3_tr17l"]
 [ext_resource type="PackedScene" uid="uid://brn3ow27db1c1" path="res://scenes/PuzzleComponents/drop_zone.tscn" id="4_xwam7"]
@@ -26,6 +27,7 @@ shadow_color = Color(0.043137256, 0.5294118, 0.4862745, 0.3372549)
 shadow_size = 2
 
 [node name="RadixSort" type="CanvasLayer" unique_id=1428021277]
+script = ExtResource("1_o81ja")
 
 [node name="PuzzleManager" type="Node" parent="." unique_id=1937174610]
 

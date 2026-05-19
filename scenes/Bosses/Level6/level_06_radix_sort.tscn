@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bmwn8h0crb74a" path="res://scenes/Game/game_over.tscn" id="6_8nvh1"]
 [ext_resource type="Texture2D" uid="uid://dgxelxhu0iq1x" path="res://assets/platform/platform1-rock1.png" id="6_wwxny"]
 [ext_resource type="Script" uid="uid://djg71lk02jgv" path="res://scripts/BossScripts/lvl6_radix.gd" id="7_8nvh1"]
-[ext_resource type="PackedScene" uid="uid://dn1osp8xlnwlu" path="res://scenes/puzzles/radix_sort.tscn" id="7_dvama"]
+[ext_resource type="PackedScene" uid="uid://b1vxoyqgra1li" path="res://scenes/puzzles/radix_sort.tscn" id="7_dvama"]
 [ext_resource type="Texture2D" uid="uid://dhjgybg0q5qsy" path="res://assets/platform/platform1-rock2.png" id="7_ox5of"]
 [ext_resource type="Texture2D" uid="uid://hojk48ehh5ct" path="res://assets/platform/platform1-rock3.png" id="8_35ctn"]
 [ext_resource type="PackedScene" uid="uid://b00csgqkimwnf" path="res://scenes/App/cutscene.tscn" id="8_hu6eu"]
@@ -196,7 +196,7 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_hu6eu")
 
 [node name="RadixBoss" parent="." unique_id=962015265 instance=ExtResource("10_023rx")]
-position = Vector2(7910, 5408)
+position = Vector2(8584, 5183)
 script = ExtResource("7_8nvh1")
 
 [node name="Cutscene" parent="." unique_id=1237687727 instance=ExtResource("8_hu6eu")]
@@ -207,6 +207,7 @@ pages = Array[String](["You awake at the Core as a massive, hyper-fast static wo
 [node name="RadixSort" parent="." unique_id=1428021277 instance=ExtResource("7_dvama")]
 layer = 101
 script = ExtResource("9_x37sr")
+max_mistakes = 4
 
 [node name="HUD" parent="." unique_id=148605811 instance=ExtResource("4_vyrcm")]
 layer = 10

@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://bvs24313jv7y" path="res://assets/buttons/exit_btn.png" id="10_35key"]
 [ext_resource type="PackedScene" uid="uid://b42h1dfx8llmy" path="res://scenes/Player/player_new.tscn" id="10_lgwnu"]
 [ext_resource type="Texture2D" uid="uid://dha0dnvfubb4a" path="res://assets/buttons/exit_btn_pressed.png" id="11_higeg"]
-[ext_resource type="PackedScene" uid="uid://c36k8eqcaixfv" path="res://scenes/Game/arena.tscn" id="11_lgwnu"]
 [ext_resource type="Texture2D" uid="uid://dn5qppajr2fvq" path="res://assets/platform/platform-3.png" id="14_gxgqo"]
 
 [sub_resource type="Gradient" id="Gradient_gxgqo"]
@@ -22,17 +21,10 @@ colors = PackedColorArray(0, 0, 0, 0.15686275, 0, 1, 1, 0.3372549)
 gradient = SubResource("Gradient_gxgqo")
 fill_to = Vector2(0, 1)
 
-[node name="MainMenu" type="Control" unique_id=1834903873]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MainMenu" type="CanvasLayer" unique_id=1850763932]
 script = ExtResource("1_oa1go")
 
 [node name="placeholder_bg" type="ColorRect" parent="." unique_id=1734849051]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -41,21 +33,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1205428567]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 0
-offset_top = 138.0
-offset_right = 1280.0
-offset_bottom = 238.0
-mouse_filter = 2
-theme_override_colors/default_color = Color(0.41960785, 0.9529412, 1, 1)
-theme_override_fonts/normal_font = ExtResource("2_5dd4i")
-theme_override_font_sizes/normal_font_size = 80
-bbcode_enabled = true
-text = "[center] BLADE OF ORDER [/center]"
-
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1171145806]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -68,6 +46,16 @@ layout_mode = 2
 theme_override_constants/separation = 5
 alignment = 1
 
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer" unique_id=1205428567]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.41960785, 0.9529412, 1, 1)
+theme_override_fonts/normal_font = ExtResource("2_5dd4i")
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "[center] BLADE OF ORDER [/center]"
+
 [node name="temp_logo" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=562739532]
 visible = false
 custom_minimum_size = Vector2(300, 150)
@@ -75,10 +63,6 @@ layout_mode = 2
 texture = ExtResource("2_tbmy8")
 expand_mode = 1
 stretch_mode = 5
-
-[node name="Control" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1156467472]
-custom_minimum_size = Vector2(50, 150)
-layout_mode = 2
 
 [node name="play_btn" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=1654960614]
 custom_minimum_size = Vector2(250, 80)
@@ -121,10 +105,13 @@ ignore_texture_size = true
 stretch_mode = 5
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=797033237]
-layout_mode = 0
-offset_top = 29.0
-offset_right = 1280.0
-offset_bottom = 751.0
+anchors_preset = -1
+anchor_right = 0.998
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 0.5599365
+offset_bottom = -31.0
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_flqon")
 
@@ -133,12 +120,11 @@ position = Vector2(258, 469)
 scale = Vector2(0.34, 0.34)
 script = null
 
-[node name="Arena" parent="." unique_id=1314484193 instance=ExtResource("11_lgwnu")]
-position = Vector2(-6879, 637)
-
 [node name="Platform3" type="Sprite2D" parent="." unique_id=1584759724]
 position = Vector2(230, 744)
 texture = ExtResource("14_gxgqo")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/play_btn" to="." method="_on_play_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/leaderboard_btn" to="." method="_on_leaderboard_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/tutorial_btn" to="." method="_on_tutorial_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/exit_btn" to="." method="_on_exit_btn_pressed"]

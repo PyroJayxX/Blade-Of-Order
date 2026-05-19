@@ -27,31 +27,72 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.09411765, 0.14901961, 0.16078432, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=695704606]
-offset_right = 1280.0
-offset_bottom = 722.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_fh3ag")
+metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=91782212]
 custom_minimum_size = Vector2(0, 100)
-offset_top = 65.0
-offset_right = 1280.0
-offset_bottom = 165.0
+anchors_preset = -1
+anchor_top = 0.090277776
+anchor_right = 1.0
+anchor_bottom = 0.22916667
 mouse_filter = 2
 theme_override_colors/default_color = Color(0.41960785, 0.9529412, 1, 1)
 theme_override_fonts/normal_font = ExtResource("1_fh3ag")
 theme_override_font_sizes/normal_font_size = 60
 bbcode_enabled = true
 text = "[center] BUBBLE SORT [/center]"
+metadata/_edit_use_anchors_ = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=778107514]
-custom_minimum_size = Vector2(0, 100)
-offset_left = 65.0
-offset_top = 182.0
-offset_right = 1226.0
-offset_bottom = 664.0
+[node name="OptionButton" type="OptionButton" parent="." unique_id=1912747862]
+anchors_preset = -1
+anchor_left = 0.37890625
+anchor_top = 0.19722222
+anchor_right = 0.5914062
+anchor_bottom = 0.24027778
+alignment = 1
+item_count = 6
+popup/item_0/text = "Bubble Sort"
+popup/item_0/id = 0
+popup/item_1/text = "Selection Sort"
+popup/item_1/id = 1
+popup/item_2/text = "Shell Sort"
+popup/item_2/id = 2
+popup/item_3/text = "Heap Sort"
+popup/item_3/id = 3
+popup/item_4/text = "Bucket Sort"
+popup/item_4/id = 4
+popup/item_5/text = "Radix Sort"
+popup/item_5/id = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1004278937]
+anchors_preset = -1
+anchor_left = 0.15859374
+anchor_top = 0.26527777
+anchor_right = 0.8617188
+anchor_bottom = 0.91944444
+offset_left = -14.0
+offset_right = -14.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+scroll_hint_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="ScrollContainer" unique_id=778107514]
+custom_minimum_size = Vector2(900, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
 mouse_filter = 2
 bbcode_enabled = true
 text = "[b]How it works:[/b]
@@ -87,33 +128,20 @@ FUNC bubbleSort(AR):
 [b]Time Complexity:[/b] O(n²) average/worst, O(n) best
 [b]Space:[/b] O(1)
 [b]Reference:[/b] [url=https://www.geeksforgeeks.org/dsa/bubble-sort-algorithm/]GeeksForGeeks - Bubble Sort[/url]"
-
-[node name="OptionButton" type="OptionButton" parent="." unique_id=1912747862]
-offset_left = 485.0
-offset_top = 142.0
-offset_right = 757.0
-offset_bottom = 173.0
-alignment = 1
-item_count = 6
-popup/item_0/text = "Bubble Sort"
-popup/item_0/id = 0
-popup/item_1/text = "Selection Sort"
-popup/item_1/id = 1
-popup/item_2/text = "Shell Sort"
-popup/item_2/id = 2
-popup/item_3/text = "Heap Sort"
-popup/item_3/id = 3
-popup/item_4/text = "Bucket Sort"
-popup/item_4/id = 4
-popup/item_5/text = "Radix Sort"
-popup/item_5/id = 5
+fit_content = true
+metadata/_edit_use_anchors_ = true
 
 [node name="Back" type="TextureButton" parent="." unique_id=2146298491]
-offset_left = 915.99994
-offset_top = 594.0
-offset_right = 3915.0
-offset_bottom = 1501.0
+anchors_preset = -1
+anchor_left = 0.7156249
+anchor_top = 0.825
+anchor_right = 0.90306246
+anchor_bottom = 0.9257778
+offset_left = 6.1035156e-05
+offset_right = 2759.08
+offset_bottom = 834.44
 scale = Vector2(0.08, 0.08)
 texture_normal = ExtResource("3_16578")
 texture_pressed = ExtResource("4_0ogc3")
 texture_hover = ExtResource("4_0ogc3")
+metadata/_edit_use_anchors_ = true

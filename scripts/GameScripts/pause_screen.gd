@@ -29,7 +29,7 @@ func _on_menu_pressed() -> void:
 	if flow != null and flow.has_method("goto_main_menu"):
 		flow.call("goto_main_menu")
 		return
-	var menu_path: String = "res://scenes/MainMenu/main_menu.tscn"
+	var menu_path: String = "res://scenes/App/main_menu.tscn"
 	if ResourceLoader.exists(menu_path):
 		tree.change_scene_to_file(menu_path)
 	else:

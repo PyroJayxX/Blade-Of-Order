@@ -81,7 +81,6 @@ Jump={
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
-pointing/emulate_mouse_from_touch=false
 
 [layer_names]
 
@@ -93,5 +92,7 @@ pointing/emulate_mouse_from_touch=false
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
 viewport/hdr_2d=true
 environment/defaults/default_clear_color=Color(0.0784314, 0.0784314, 0.0980392, 1)

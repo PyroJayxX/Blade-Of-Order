@@ -60,8 +60,6 @@ func _try_pop_from_player_slash() -> void:
 	var player: Node2D = _get_player_ref()
 	if player == null:
 		return
-	if not bool(player.get("is_attacking")):
-		return
 	if not player.has_method("_get_slash_world_polygon"):
 		return
 

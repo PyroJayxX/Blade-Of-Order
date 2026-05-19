@@ -29,12 +29,18 @@ var _notification_tween: Tween = null
 var _selected_level_id: int = 0 # 0 means global/no filter
 
 func _ready() -> void:
-	_name_action_button.pressed.connect(_on_name_action_button_pressed)
-	_confirm_name_button.pressed.connect(_on_confirm_name_button_pressed)
-	_cancel_name_button.pressed.connect(_on_cancel_name_button_pressed)
-	_notification_timer.timeout.connect(_on_notification_timer_timeout)
-	_boss_filter_option.item_selected.connect(_on_boss_filter_selected)
-	_close_button.pressed.connect(_on_close_button_pressed)
+	if _name_action_button != null and not _name_action_button.pressed.is_connected(_on_name_action_button_pressed):
+		_name_action_button.pressed.connect(_on_name_action_button_pressed)
+	if _confirm_name_button != null and not _confirm_name_button.pressed.is_connected(_on_confirm_name_button_pressed):
+		_confirm_name_button.pressed.connect(_on_confirm_name_button_pressed)
+	if _cancel_name_button != null and not _cancel_name_button.pressed.is_connected(_on_cancel_name_button_pressed):
+		_cancel_name_button.pressed.connect(_on_cancel_name_button_pressed)
+	if _notification_timer != null and not _notification_timer.timeout.is_connected(_on_notification_timer_timeout):
+		_notification_timer.timeout.connect(_on_notification_timer_timeout)
+	if _boss_filter_option != null and not _boss_filter_option.item_selected.is_connected(_on_boss_filter_selected):
+		_boss_filter_option.item_selected.connect(_on_boss_filter_selected)
+	if _close_button != null and not _close_button.pressed.is_connected(_on_close_button_pressed):
+		_close_button.pressed.connect(_on_close_button_pressed)
 	_name_dialog.visible = false
 	_best_notification_label.visible = false
 	_best_notification_label.modulate.a = 0.0
@@ -116,9 +122,13 @@ func submit_score(player_name: String, score: int, refresh_on_success: bool = tr
 		_name_status_label.text = "Supabase autoload is missing."
 		return false
 
-	# Single-row-per-username sync: update if row exists and score is better, else insert.
+	# Per-level sync: update if the username already has a row for this selected level
+	# and the score is better, otherwise insert a new row.
 	var has_level_filter: bool = _selected_level_id > 0
-	var lookup_query: SupabaseQuery = SupabaseQuery.new().from(TABLE_NAME).select().eq("player_name", safe_name).range(0, 0)
+	var lookup_query: SupabaseQuery = SupabaseQuery.new().from(TABLE_NAME).select().eq("player_name", safe_name)
+	if has_level_filter:
+		lookup_query = lookup_query.eq("level", String.num_int64(_selected_level_id))
+	lookup_query = lookup_query.range(0, 0)
 	var lookup_result: Dictionary = await _run_database_query(db, lookup_query, &"selected")
 
 	if not bool(lookup_result.get("success", false)):
@@ -138,6 +148,8 @@ func submit_score(player_name: String, score: int, refresh_on_success: bool = tr
 		if has_level_filter:
 			update_fields["level"] = _selected_level_id
 		var update_query: SupabaseQuery = SupabaseQuery.new().from(TABLE_NAME).update(update_fields).eq("player_name", safe_name)
+		if has_level_filter:
+			update_query = update_query.eq("level", String.num_int64(_selected_level_id))
 		var update_result: Dictionary = await _run_database_query(db, update_query, &"updated")
 		if not bool(update_result.get("success", false)):
 			_name_status_label.text = "Submit failed: %s" % _extract_error_from_payload(update_result.get("payload"))
