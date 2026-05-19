@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b1vxoyqgra1li"]
 
 [ext_resource type="FontFile" uid="uid://dmfiak0cq6xa0" path="res://fonts/LiberationMono-Bold.ttf" id="1_gfpbb"]
-[ext_resource type="Script" uid="uid://duu7rove1ish3" path="res://scripts/LevelScripts/level6.gd" id="1_o81ja"]
+[ext_resource type="Script" uid="uid://cesq8ibnflfga" path="res://scripts/PuzzleScripts/radix_sort_puzzle.gd" id="1_o81ja"]
 [ext_resource type="Texture2D" uid="uid://dqtf34c6njaw5" path="res://assets/puzzle_sprites/Skull.png" id="2_o81ja"]
 [ext_resource type="FontFile" uid="uid://bop2b21o5j7w8" path="res://fonts/Inconsolata-Regular.ttf" id="3_tr17l"]
 [ext_resource type="PackedScene" uid="uid://brn3ow27db1c1" path="res://scenes/PuzzleComponents/drop_zone.tscn" id="4_xwam7"]
