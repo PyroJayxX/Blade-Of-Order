@@ -104,7 +104,6 @@ anchor_bottom = 1.0
 offset_top = 90.0
 offset_right = 12.799927
 draw_focus_border = true
-scroll_vertical = 555
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 scroll_hint_mode = 1
@@ -164,73 +163,76 @@ scroll_active = false
 position = Vector2(548, -162)
 
 [node name="DropZone" parent="Overlay/ScrollContainer/ScrollContent/DropZones" unique_id=559763923 instance=ExtResource("4_i1qwq")]
-position = Vector2(-48, 261)
+position = Vector2(-176, 272)
 scale = Vector2(0.9, 1)
 expected_id = "1"
 
 [node name="DropBox" type="Sprite2D" parent="Overlay/ScrollContainer/ScrollContent/DropZones/DropZone" unique_id=1015394579]
-position = Vector2(3.3333359, 3)
-scale = Vector2(2.4, 24)
+position = Vector2(-1.1111202, 1.0000005)
+scale = Vector2(1.2684028, 36.5)
 texture = SubResource("GradientTexture1D_fa7b2")
 
 [node name="DropZone2" parent="Overlay/ScrollContainer/ScrollContent/DropZones" unique_id=412286284 instance=ExtResource("4_i1qwq")]
-position = Vector2(-94, 419)
+position = Vector2(-188, 419)
 scale = Vector2(1.05, 1)
 expected_id = "2"
 
 [node name="DropBox" type="Sprite2D" parent="Overlay/ScrollContainer/ScrollContent/DropZones/DropZone2" unique_id=90083716]
-position = Vector2(0, 1)
-scale = Vector2(1.5401785, 24)
+position = Vector2(-1.9047775, 0.99999666)
+scale = Vector2(0.80729175, 31.999992)
 texture = SubResource("GradientTexture1D_fa7b2")
 
 [node name="DropZone3" parent="Overlay/ScrollContainer/ScrollContent/DropZones" unique_id=199769715 instance=ExtResource("4_i1qwq")]
-position = Vector2(-28, 635)
+position = Vector2(-159, 637)
 scale = Vector2(0.8, 1)
 expected_id = "3"
 
 [node name="DropBox" type="Sprite2D" parent="Overlay/ScrollContainer/ScrollContent/DropZones/DropZone3" unique_id=2127442925]
-position = Vector2(2.5, 1)
-scale = Vector2(2.0117188, 24)
+position = Vector2(-1.25, 1)
+scale = Vector2(0.74218744, 33)
 texture = SubResource("GradientTexture1D_fa7b2")
 
 [node name="DropZone4" parent="Overlay/ScrollContainer/ScrollContent/DropZones" unique_id=826101502 instance=ExtResource("4_i1qwq")]
-position = Vector2(-135, 762)
+position = Vector2(-223, 772)
 scale = Vector2(0.8, 1)
 expected_id = "4"
 
 [node name="DropBox" type="Sprite2D" parent="Overlay/ScrollContainer/ScrollContent/DropZones/DropZone4" unique_id=1766148132]
-position = Vector2(2.5, 1)
-scale = Vector2(2.0117188, 24)
+position = Vector2(1.2500153, 2)
+scale = Vector2(1.1425782, 45)
 texture = SubResource("GradientTexture1D_fa7b2")
 
 [node name="DropZone5" parent="Overlay/ScrollContainer/ScrollContent/DropZones" unique_id=354072189 instance=ExtResource("4_i1qwq")]
-position = Vector2(-190, 918)
+position = Vector2(-260, 913)
 scale = Vector2(0.8, 1)
 expected_id = "5"
 
 [node name="DropBox" type="Sprite2D" parent="Overlay/ScrollContainer/ScrollContent/DropZones/DropZone5" unique_id=1568831430]
-scale = Vector2(2.0117188, 24)
+position = Vector2(2.5000153, -1.0000114)
+scale = Vector2(1.4208984, 36.000008)
 texture = SubResource("GradientTexture1D_fa7b2")
+offset = Vector2(2.1993103, -1.9073486e-06)
 
 [node name="FlyingPieces" type="Node2D" parent="." unique_id=1432743691]
 
 [node name="PuzzlePiece" parent="FlyingPieces" unique_id=947852651 instance=ExtResource("5_6fae0")]
-position = Vector2(939, 147)
+position = Vector2(1011, 161)
 piece_id = "1"
 
 [node name="BlockBG" type="Panel" parent="FlyingPieces/PuzzlePiece" unique_id=1153297949]
-offset_left = -266.0
-offset_top = -15.0
-offset_right = 266.0
-offset_bottom = 11.0
+offset_left = -146.0
+offset_top = -17.0
+offset_right = 240.08759
+offset_bottom = 11.680145
+scale = Vector2(0.7407647, 1.1854883)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uu32f")
 
 [node name="Block1" type="RichTextLabel" parent="FlyingPieces/PuzzlePiece" unique_id=1244673049]
-offset_left = -268.0
-offset_top = -20.0
-offset_right = 266.0
-offset_bottom = 20.0
+offset_left = -144.0
+offset_top = -18.0
+offset_right = 135.0
+offset_bottom = 22.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0.9239334, 0.83635265, 1)
 theme_override_fonts/normal_font = ExtResource("3_xg4mo")
@@ -239,22 +241,22 @@ bbcode_enabled = true
 text = "[center]heapify(arr, n, i);[/center]"
 
 [node name="PuzzlePiece2" parent="FlyingPieces" unique_id=1116927851 instance=ExtResource("5_6fae0")]
-position = Vector2(879, 409)
+position = Vector2(940, 346)
 piece_id = "2"
 
 [node name="BlockBG" type="Panel" parent="FlyingPieces/PuzzlePiece2" unique_id=2002014995]
-offset_left = -204.0
-offset_top = -15.0
-offset_right = 205.0
-offset_bottom = 11.0
+offset_left = -112.0
+offset_top = -19.0
+offset_right = 106.0
+offset_bottom = 17.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uu32f")
 
 [node name="Block2" type="RichTextLabel" parent="FlyingPieces/PuzzlePiece2" unique_id=623450878]
-offset_left = -207.0
-offset_top = -20.0
-offset_right = 207.0
-offset_bottom = 20.0
+offset_left = -105.0
+offset_top = -19.0
+offset_right = 119.0
+offset_bottom = 18.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0.9239334, 0.83635265, 1)
 theme_override_fonts/normal_font = ExtResource("3_xg4mo")
@@ -263,22 +265,22 @@ bbcode_enabled = true
 text = "[center]arr[lb]i[rb] = temp;[/center]"
 
 [node name="PuzzlePiece3" parent="FlyingPieces" unique_id=831249426 instance=ExtResource("5_6fae0")]
-position = Vector2(484, 553)
+position = Vector2(901, 461)
 piece_id = "3"
 
 [node name="BlockBG" type="Panel" parent="FlyingPieces/PuzzlePiece3" unique_id=933370185]
-offset_left = -203.0
-offset_top = -15.0
-offset_right = 203.0
-offset_bottom = 11.0
+offset_left = -76.0
+offset_top = -18.0
+offset_right = 78.0
+offset_bottom = 21.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uu32f")
 
 [node name="Block3" type="RichTextLabel" parent="FlyingPieces/PuzzlePiece3" unique_id=1143880181]
-offset_left = -208.0
-offset_top = -20.0
-offset_right = 208.0
-offset_bottom = 20.0
+offset_left = -78.0
+offset_top = -15.0
+offset_right = 88.0
+offset_bottom = 18.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0.9239334, 0.83635265, 1)
 theme_override_fonts/normal_font = ExtResource("3_xg4mo")
@@ -287,21 +289,21 @@ bbcode_enabled = true
 text = "[center]2 * i + 1;[/center]"
 
 [node name="PuzzlePiece4" parent="FlyingPieces" unique_id=1111018207 instance=ExtResource("5_6fae0")]
-position = Vector2(269, 228)
+position = Vector2(717, 309)
 piece_id = "4"
 
 [node name="BlockBG" type="Panel" parent="FlyingPieces/PuzzlePiece4" unique_id=1395206761]
-offset_left = -203.0
-offset_top = -15.0
-offset_right = 203.0
-offset_bottom = 11.0
+offset_left = -126.0
+offset_top = -17.0
+offset_right = 97.0
+offset_bottom = 16.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uu32f")
 
 [node name="Block4" type="RichTextLabel" parent="FlyingPieces/PuzzlePiece4" unique_id=883991105]
-offset_left = -208.0
-offset_top = -20.0
-offset_right = 208.0
+offset_left = -128.0
+offset_top = -17.0
+offset_right = 100.0
 offset_bottom = 20.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0.9239334, 0.83635265, 1)
@@ -312,22 +314,22 @@ text = "[center]largest = left;[/center]
 "
 
 [node name="PuzzlePiece5" parent="FlyingPieces" unique_id=1495696103 instance=ExtResource("5_6fae0")]
-position = Vector2(1039, 294)
+position = Vector2(858, 579)
 piece_id = "5"
 
 [node name="BlockBG" type="Panel" parent="FlyingPieces/PuzzlePiece5" unique_id=520473645]
-offset_left = -203.0
-offset_top = -15.0
-offset_right = 203.0
-offset_bottom = 11.0
+offset_left = -144.0
+offset_top = -17.0
+offset_right = 137.0
+offset_bottom = 16.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uu32f")
 
 [node name="Block5" type="RichTextLabel" parent="FlyingPieces/PuzzlePiece5" unique_id=738486198]
-offset_left = -208.0
-offset_top = -20.0
-offset_right = 208.0
-offset_bottom = 20.0
+offset_left = -149.0
+offset_top = -19.0
+offset_right = 141.0
+offset_bottom = 19.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0.9239334, 0.83635265, 1)
 theme_override_fonts/normal_font = ExtResource("3_xg4mo")
