@@ -35,7 +35,7 @@ animations = [{
 "speed": 100.0
 }, {
 "frames": [{
-"duration": 15.0,
+"duration": 5.0,
 "texture": SubResource("AtlasTexture_idaqn")
 }, {
 "duration": 1.0,
@@ -52,7 +52,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"pop",
-"speed": 100.0
+"speed": 120.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_faln8"]
@@ -64,7 +64,10 @@ script = ExtResource("1_oc3q2")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1140765970]
 scale = Vector2(0.475, 0.475)
 sprite_frames = SubResource("SpriteFrames_krgn7")
+animation = &"pop"
 autoplay = "default"
+frame = 4
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=619347435]
 rotation = -3.1415927

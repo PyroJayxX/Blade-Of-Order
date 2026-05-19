@@ -32,7 +32,12 @@ func launch(dir: Vector2) -> void:
 		queue_free()
 
 func _physics_process(delta: float) -> void:
-	if _is_destroyed: return
+	if _is_destroyed:
+		# Smoothly slow the projectile down while it pops
+		# 6000.0 is the braking friction. Increase it to stop faster, decrease it to slide further.
+		speed = move_toward(speed, 0.0, 6000.0 * delta) 
+		global_position += _direction * speed * delta
+		return # Return here so it doesn't try to detect slash hits again while popping
 	
 	# Fly forward
 	global_position += _direction * speed * delta
