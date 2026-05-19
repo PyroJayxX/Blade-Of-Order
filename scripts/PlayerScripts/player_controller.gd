@@ -33,6 +33,8 @@ var _combo_step: int = 0
 var _queued_next_attack: bool = false
 var _combo_timer: float = 0.0
 
+var _air_attacks_used: int = 0  # air attack combo counter for reset
+
 var _slash_bases := {} # slash collision dict per slash
 
 # MOVEMENT
@@ -119,6 +121,11 @@ func start_dash(direction):
 func start_attack():
 	if is_attacking:
 		return
+		
+	if not is_on_floor(): # this limits air attacks to 3 only !!!!
+		if _air_attacks_used >= MAX_COMBO_STEPS:
+			return 
+		_air_attacks_used += 1
 		
 	is_attacking = true
 	_slash_has_hit = false
@@ -208,6 +215,8 @@ func _physics_process(delta: float) -> void:
 			velocity += current_gravity * FALL_MULTIPLIER * delta
 		else:
 			velocity += current_gravity * LOW_JUMP_MULTIPLIER * delta
+	else:
+		_air_attacks_used = 0 # reset when on floor
 
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor() or _jumps_used < MAX_JUMPS - 1:
@@ -499,6 +508,7 @@ func reset_for_retry(spawn_position: Vector2) -> void:
 	_queued_next_attack = false
 	_combo_step = 0
 	_combo_timer = 0.0
+	_air_attacks_used = 0
 	_jumps_used = 0
 	_dash_invuln_timer = 0.0
 	_dash_cooldown_timer = 0.0
