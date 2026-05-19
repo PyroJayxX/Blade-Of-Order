@@ -3,7 +3,7 @@ extends CharacterBody2D
 signal boss_defeated
 
 enum BossState {
-	IDLE,
+	BASE,
 	CHASE,
 	HURT,
 	STUNNED
@@ -16,12 +16,12 @@ enum BossState {
 @export var right_offset: float = 1200.0 # distance to the right of player
 @export var hover_amplitude: float = 30.0 # height of hover bobbing
 @export var hover_speed: float = 2.0 # speed of hover animation
-@export var vulnerable_delay: float = 20.0 # seconds before boss becomes vulnerable
-@export var vulnerable_duration: float = 5.0 # duration of vulnerable state in seconds
+@export var vulnerable_delay: float = 5.0 # seconds before boss becomes vulnerable
+@export var vulnerable_duration: float = 2.0 # duration of vulnerable state in seconds
 @export var lower_speed: float = 100.0 # speed at which boss lowers down
 @export var vulnerable_y_offset: float = 150.0 # how far down to lower during vulnerable state
 
-var _state: BossState = BossState.IDLE
+var _state: BossState = BossState.BASE
 var _target: Node2D # resolved player target
 var _home_y: float = 0.0 # baseline y position to maintain
 var _current_health: int = 100
@@ -130,7 +130,7 @@ func _physics_process(delta: float) -> void:
 	var target_pos: Vector2 = _target.global_position if _target != null and is_instance_valid(_target) else Vector2.ZERO
 
 	match _state:
-		BossState.IDLE:
+		BossState.BASE:
 			velocity = Vector2.ZERO
 			global_position.y = _home_y + hover_offset
 		BossState.HURT:
@@ -201,8 +201,6 @@ func _set_state(new_state: BossState) -> void:
 
 	if anim_player != null:
 		match _state:
-			BossState.IDLE:
-				anim_player.play("idle")
 			BossState.CHASE:
 				anim_player.play("chase")
 			BossState.HURT:
@@ -212,8 +210,6 @@ func _set_state(new_state: BossState) -> void:
 
 func _state_to_text(state: BossState) -> String:
 	match state:
-		BossState.IDLE:
-			return "IDLE"
 		BossState.CHASE:
 			return "CHASE"
 		BossState.HURT:
@@ -234,7 +230,7 @@ func take_damage(amount: int = 1, causes_stun: bool = false) -> void:
 	if _current_health <= 0:
 		_is_defeated = true
 		velocity = Vector2.ZERO
-		_set_state(BossState.IDLE)
+		_set_state(BossState.STUNNED)
 		boss_defeated.emit()
 		return
 
@@ -265,7 +261,7 @@ func set_combat_enabled(enabled: bool) -> void:
 	_combat_enabled = enabled
 	if not _combat_enabled:
 		velocity = Vector2.ZERO
-		_set_state(BossState.IDLE)
+		_set_state(BossState.STUNNED)
 		_vulnerable_timer = vulnerable_delay
 		_is_vulnerable = false
 		_vulnerable_duration_timer = 0.0

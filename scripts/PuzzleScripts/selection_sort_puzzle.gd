@@ -1,5 +1,5 @@
 extends CanvasLayer
-class_name ShellSortPuzzleController
+class_name SelectionSortPuzzleController
 
 signal puzzle_completed
 signal puzzle_failed
@@ -9,8 +9,6 @@ signal puzzle_failed
 var total_pieces: int = 0
 var solved_pieces: int = 0
 var mistake_count: int = 0
-var time_elapsed: float = 0.0
-var mistakes: int = 0
 
 @onready var _pieces_root: Node2D = $FlyingPieces
 @onready var _skull_1: Node2D = $Overlay/Skull_1
@@ -60,7 +58,3 @@ func _on_visibility_changed() -> void:
 
 func get_mistake_count() -> int:
 	return mistake_count
-
-func _process(delta: float) -> void:
-	if visible: # Only count time while the puzzle is active
-		time_elapsed += delta

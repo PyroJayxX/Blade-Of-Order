@@ -1,64 +1,63 @@
 extends Area2D
 
-@export var speed: float = 4000.0
-@export var damage: int = 5
-@export var spin_speed: float = 50.0 # Constant spin in the air
-
-var _direction: Vector2 = Vector2.ZERO
-var _is_launched: bool = false
-var _is_destroyed: bool = false
+@export var speed: float = 1300.0          # Constant downward speed (adjusted for linear drop)
+@export var damage: int = 10
+var direction: Vector2 = Vector2.DOWN      # Defaulting direction to straight down
 var _player_ref: Node2D = null
 var _projectile_radius: float = 1.0
 
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var _collision_shape: CollisionShape2D = $CollisionShape2D
 
+var _is_popping: bool = false
+@onready var _anim_player: AnimationPlayer = $pop # pop animation
+@onready var hit_flash: AnimationPlayer = $HitFlash # hit effect 
+
 func _ready() -> void:
-	if not body_entered.is_connected(_on_body_entered):
-		body_entered.connect(_on_body_entered)
-		
-	sprite.play("default")
+	body_entered.connect(_on_body_entered)
 	_projectile_radius = _estimate_projectile_radius()
 
-func launch(target_pos: Vector2) -> void:
-	_direction = (target_pos - global_position).normalized()
-	rotation = _direction.angle()
-	_is_launched = true
-	
-	if has_node("FireAudio"):
-		$FireAudio.play()
-	
-	await get_tree().create_timer(4.0).timeout
-	if is_inside_tree() and not _is_destroyed:
-		_destroy_projectile()
+	await get_tree().create_timer(10.0).timeout
+	if is_inside_tree() and not _is_popping:
+		pop() # pop when it comes out
 
 func _physics_process(delta: float) -> void:
-	# Stop everything if it's already dead
-	if _is_destroyed: return
-	
-	# 1. CONSTANT SPIN: Happens immediately, whether launched or not!
-	sprite.rotation += spin_speed * delta 
-	
-	# 2. MOVEMENT: Only happens after the hover time finishes
-	if _is_launched:
-		global_position += _direction * speed * delta
-		
-	# 3. SWORD CHECK: Letting the player break them while they hover is great game design!
-	_try_pop_from_player_slash()
-
-func _on_body_entered(body: Node2D) -> void:
-	if _is_destroyed or not _is_player(body):
+	if _is_popping:
 		return
 	
-	if body.has_method("take_damage"):
-		body.call("take_damage", damage)
+	# Linear constant movement down the screen without any acceleration
+	global_position += direction * speed * delta
 	
-	# Disappear instantly if it hits the player body
-	_is_destroyed = true
+	_try_pop_from_player_slash()
+
+func pop() -> void:
+	if _is_popping:
+		return
+	
+	_is_popping = true
+	_collision_shape.set_deferred("disabled", true)
+	AudioController.play_boss_hit_bubble()
+	
+	# play the hit flash if it exists
+	if hit_flash != null and hit_flash.has_animation("hit_animation"):
+		hit_flash.play("hit_animation")
+	
+	# play the pop animation and wait for it to finish
+	if _anim_player != null and _anim_player.has_animation("pop"):
+		_anim_player.play("pop")
+		await _anim_player.animation_finished
+	
 	queue_free()
 
+func _on_body_entered(body: Node2D) -> void:
+	if not _is_player(body):
+		return
+	if body.has_method("take_damage"):
+		body.call("take_damage", damage)
+	AudioController.play_boss_hit_bubble()
+	pop()
+	
 func _try_pop_from_player_slash() -> void:
-	if not is_inside_tree() or _is_destroyed:
+	if not is_inside_tree():
 		return
 
 	var player: Node2D = _get_player_ref()
@@ -75,22 +74,8 @@ func _try_pop_from_player_slash() -> void:
 	if not _is_circle_overlapping_polygon(global_position, _projectile_radius, slash_world_polygon):
 		return
 
-	# If the math checks out, trigger the pop animation!
-	_destroy_projectile()
-
-func _destroy_projectile() -> void:
-	_is_destroyed = true
-	
-	# Play the pop animation
-	sprite.rotation = 0 # Reset rotation so the pop looks clean
-	sprite.play("pop")
-	
-	# Wait for the animation to finish, then delete
-	await sprite.animation_finished
-	if is_inside_tree():
-		queue_free()
-
-# --- HELPER MATH FUNCTIONS (From Level 1) ---
+	AudioController.play_boss_hit_bubble()
+	pop()
 
 func _is_player(body: Node2D) -> bool:
 	if body == null:

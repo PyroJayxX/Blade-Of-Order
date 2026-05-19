@@ -17,6 +17,10 @@ var _last_elapsed_seconds: float = 0.0
 var _last_mistakes_made: int = 0
 var _last_result: String = "running"
 
+# Add these variables to your ShellSort logic
+var time_elapsed: float = 0.0
+var mistakes: int = 0
+
 
 func _ready() -> void:
 	AudioController.play_boss_music()
@@ -61,6 +65,9 @@ func start_level() -> void:
 	_set_boss_combat_enabled(true)
 	if _hud != null and _hud.has_method("start_timer"):
 		_hud.call("start_timer")
+	# Make pause button visible for gameplay
+	if _hud != null and _hud.has_method("show_pause_button"):
+		_hud.call("show_pause_button", true)
 
 
 func _show_vs_intro() -> void:
@@ -163,6 +170,9 @@ func _on_player_died() -> void:
 	_game_over.visible = true
 	_set_player_controls_enabled(false)
 	_set_boss_combat_enabled(false)
+	# hide pause while on game over
+	if _hud != null and _hud.has_method("show_pause_button"):
+		_hud.call("show_pause_button", false)
 
 
 func _set_boss_combat_enabled(enabled: bool) -> void:

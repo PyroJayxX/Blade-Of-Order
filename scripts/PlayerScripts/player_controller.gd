@@ -14,7 +14,7 @@ const MAX_JUMPS = 2
 const DASH_SPEED = 2500.0 # higher -> travels faster
 const DASH_TIME = 0.4 # higher -> more distance
 const DASH_DECEL = 2000.0 # lower -> decelerate more/longer stop
-const DASH_COOLDOWN = 0.80
+const DASH_COOLDOWN = 0.5
 const DASH_POST_INVULN_TIME = 0.12 # dash invincible frames
 
 # COMBO CONST VARIABLES
@@ -161,15 +161,7 @@ func start_attack():
 	# enable hitboxes for slash
 	_set_slash_collision_enabled(true)
 	
-	match _combo_step:
-		1:
-			AudioController.play_player_slash_1()
-		2:
-			AudioController.play_player_slash_2()
-		3:
-			AudioController.play_player_slash_3()
-		_: 
-			AudioController.play_player_slash_1()
+	AudioController.play_player_slash_1()
 	
 	# play correct animation
 	var anim_name = anim_prefix + str(_combo_step)
@@ -227,22 +219,19 @@ func _physics_process(delta: float) -> void:
 		_air_attacks_used = 0 # reset when on floor
 
 	if Input.is_action_just_pressed("jump"):
-			if is_on_floor() or _jumps_used < MAX_JUMPS - 1:
-				# these lines cancel attacks when clicking jump
-				is_attacking = false
-				_queued_next_attack = false
-				_set_slash_collision_enabled(false) 
-				
-				if is_on_floor():
-					velocity.y = JUMP_VELOCITY
-					_jumps_used = 0
-					AudioController.play_player_jump_1() 
-				else:
-					velocity.y = JUMP_VELOCITY
-					_jumps_used += 1
-					AudioController.play_player_jump_2() 
-					
-				play_anim("jump", true)
+		if is_on_floor() or _jumps_used < MAX_JUMPS - 1:
+			# these lines cancel attacks when clicking jump
+			is_attacking = false
+			_queued_next_attack = false
+			_set_slash_collision_enabled(false) 
+			
+			if is_on_floor():
+				velocity.y = JUMP_VELOCITY
+				_jumps_used = 0
+			else:
+				velocity.y = JUMP_VELOCITY
+				_jumps_used += 1
+			play_anim("jump", true)
 
 	var direction := Input.get_axis("moveLeft", "moveRight")
 

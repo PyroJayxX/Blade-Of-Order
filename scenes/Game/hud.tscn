@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://j8h6r37cj7ho" path="res://scripts/GameScripts/hud.gd" id="1_hud"]
 [ext_resource type="Texture2D" uid="uid://crr6d0n355gyy" path="res://assets/player_sprites/player.png" id="2_ncuca"]
+[ext_resource type="PackedScene" uid="uid://c8qdi56k6sn7a" path="res://scenes/Game/pause_screen.tscn" id="3_2dhxk"]
+[ext_resource type="Script" uid="uid://buoibd6cnyt4a" path="res://scripts/GameScripts/pause_screen.gd" id="4_pause_screen"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mwgc"]
 bg_color = Color(0, 0, 0, 0.21568628)
@@ -16,6 +18,9 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ncuca"]
+color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqnrr"]
 bg_color = Color(0, 0, 0, 0.21568628)
@@ -105,10 +110,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -196.0
-offset_top = 23.0
-offset_right = 196.0
-offset_bottom = 59.0
+offset_left = -195.0
+offset_top = 36.0
+offset_right = 197.0
+offset_bottom = 72.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.95, 0.98, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
@@ -117,6 +122,17 @@ theme_override_font_sizes/font_size = 18
 text = "Time: 00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Pause" type="Button" parent="Root/TopRow/Spacer" unique_id=727410831]
+process_mode = 3
+layout_mode = 0
+offset_left = 181.0
+offset_top = 59.0
+offset_right = 211.0
+offset_bottom = 122.0
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxLine_ncuca")
+text = "ıı"
 
 [node name="BossPanel" type="Control" parent="Root/TopRow" unique_id=1567236027]
 custom_minimum_size = Vector2(420, 0)
@@ -163,3 +179,9 @@ offset_bottom = 95.0
 theme_override_colors/font_color = Color(0.95, 0.98, 1, 1)
 text = "100/100"
 horizontal_alignment = 2
+
+[node name="PauseScreen" parent="Root" unique_id=1994793378 instance=ExtResource("3_2dhxk")]
+process_mode = 2
+layer = 20
+visible = false
+script = ExtResource("4_pause_screen")
