@@ -25,7 +25,9 @@ func launch(target_pos: Vector2) -> void:
 	rotation = _direction.angle()
 	_is_launched = true
 	
-	# Self-destruct after 4 seconds
+	if has_node("FireAudio"):
+		$FireAudio.play()
+	
 	await get_tree().create_timer(4.0).timeout
 	if is_inside_tree() and not _is_destroyed:
 		_destroy_projectile()

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c4wg07k1ev8fp" path="res://scripts/BossScripts/lvl5_bucket_projectile.gd" id="1_oc3q2"]
 [ext_resource type="Texture2D" uid="uid://dp5telw6e368w" path="res://assets/bosses/bucket_boss/projectile_2.png" id="1_w1vd5"]
+[ext_resource type="AudioStream" uid="uid://dvmao18ryho3t" path="res://audio/sfx/bucket_projectile.mp3" id="3_js7en"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_idaqn"]
 atlas = ExtResource("1_w1vd5")
@@ -63,14 +64,14 @@ script = ExtResource("1_oc3q2")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1140765970]
 scale = Vector2(0.475, 0.475)
 sprite_frames = SubResource("SpriteFrames_krgn7")
-animation = &"pop"
 autoplay = "default"
-frame = 4
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=619347435]
 rotation = -3.1415927
 scale = Vector2(22.505, 22.505)
 shape = SubResource("CircleShape2D_faln8")
+
+[node name="FireAudio" type="AudioStreamPlayer2D" parent="." unique_id=1954041853]
+stream = ExtResource("3_js7en")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
