@@ -26,9 +26,18 @@ func _ready() -> void:
 
 # Load all config settings from ProjectSettings
 func load_config() -> void:
+	var loaded_from_project_settings: bool = false
+	for key in config.keys():
+		var setting_name: String = "%s/%s" % [ENVIRONMENT_VARIABLES, key]
+		if ProjectSettings.has_setting(setting_name):
+			var setting_value: String = String(ProjectSettings.get_setting(setting_name, ""))
+			if not setting_value.is_empty():
+				config[key] = setting_value
+				loaded_from_project_settings = true
+
 	if config.supabaseKey != "" and config.supabaseUrl != "":
 		pass
-	else:    
+	else:
 		var env = ConfigFile.new()
 		var err = env.load("res://addons/supabase/.env")
 		if err == OK:
@@ -39,7 +48,10 @@ func load_config() -> void:
 				else:
 					config[key] = value
 		else:
-			printerr("Unable to read .env file at path 'res://.env'")
+			printerr("Unable to read .env file at path 'res://addons/supabase/.env'")
+
+	if config.supabaseKey == "" or config.supabaseUrl == "":
+		printerr("Supabase config is missing. Set [supabase/config] in project.godot or include addons/supabase/.env in the export.")
 	header.append("apikey: %s"%[config.supabaseKey])
 
 func load_nodes() -> void:
