@@ -5,6 +5,7 @@
 [ext_resource type="FontFile" uid="uid://bop2b21o5j7w8" path="res://fonts/Inconsolata-Regular.ttf" id="3_wf3br"]
 [ext_resource type="PackedScene" uid="uid://brn3ow27db1c1" path="res://scenes/PuzzleComponents/drop_zone.tscn" id="4_t4jec"]
 [ext_resource type="PackedScene" uid="uid://cjxaxnefegp2h" path="res://scenes/PuzzleComponents/piece.tscn" id="5_xxy0w"]
+[ext_resource type="Script" path="res://scripts/PuzzleScripts/selection_sort_puzzle.gd" id="6_h1gk0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f8a1t"]
 bg_color = Color(0.06666667, 0.105882354, 0.11372549, 0.54901963)
@@ -26,6 +27,7 @@ shadow_color = Color(0.043137256, 0.5294118, 0.4862745, 0.3372549)
 shadow_size = 2
 
 [node name="SelectionSort" type="CanvasLayer" unique_id=481989191]
+script = ExtResource("6_h1gk0")
 
 [node name="PuzzleManager" type="Node" parent="." unique_id=1209073383]
 

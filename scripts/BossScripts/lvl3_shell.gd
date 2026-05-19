@@ -63,33 +63,6 @@ func _ready() -> void:
 	_direction = 1
 	_resolve_target()
 	_sync_boss_hud_health()
-	
-	# Give the Cutscene instance one frame to finish its own _ready() setup.
-	await get_tree().process_frame
-
-	# If a Cutscene node exists in the level scene, play it before enabling combat
-	var cutscene: Node = null
-	if get_tree().current_scene != null:
-		cutscene = get_tree().current_scene.get_node_or_null("Cutscene")
-	if cutscene == null and get_tree().current_scene != null:
-		cutscene = get_tree().current_scene.find_child("Cutscene", true, false)
-	if cutscene != null:
-		print("[lvl3_shell] Found Cutscene node:", cutscene)
-		print("[lvl3_shell] script:", cutscene.get_script())
-		print("[lvl3_shell] has play():", cutscene.has_method("play"))
-		print("[lvl3_shell] has signal cutscene_finished:", cutscene.has_signal("cutscene_finished"))
-		if cutscene.has_method("play"):
-			_combat_enabled = false
-			print("[lvl3_shell] calling play() on Cutscene")
-			cutscene.call("play")
-			print("[lvl3_shell] play() called — awaiting finish signal")
-			await cutscene.cutscene_finished
-			print("[lvl3_shell] cutscene_finished signal received")
-			_combat_enabled = true
-		else:
-			print("[lvl3_shell] Cutscene node found but has no play() method")
-	else:
-		print("[lvl3_shell] No Cutscene node found in current_scene")
 
 	_set_state(BossState.CHASE)
 	
@@ -382,8 +355,10 @@ func reset_for_retry(spawn_position: Vector2) -> void:
 	_sync_boss_hud_health()
 
 func set_combat_enabled(enabled: bool) -> void:
-	_combat_enabled = enabled
-	if not _combat_enabled: _set_state(BossState.IDLE)
+	if enabled: 
+		_combat_enabled = enabled
+	else:
+		_combat_enabled = false
 
 
 func _on_puzzle_completed() -> void:
@@ -410,3 +385,12 @@ func _on_puzzle_failed() -> void:
 
 	if _shell_sort_puzzle != null:
 		_shell_sort_puzzle.visible = false
+
+func on_stun_started_mock() -> void:
+	_set_state(BossState.STUNNED)
+	print("Stun puzzle opened.")
+
+func on_stun_modal_closed_mock() -> void:
+	if _state == BossState.STUNNED:
+		_set_state(BossState.CHASE)
+	print("Stun puzzle closed.")
