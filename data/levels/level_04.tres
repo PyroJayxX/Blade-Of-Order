@@ -14,3 +14,4 @@ scene_path = "res://scenes/Bosses/Level4/level_04_heap_sort.tscn"
 boss_type = "heap"
 puzzle_type = "heap_sort"
 timer_rules = "default"
+unlock_level_required = 4

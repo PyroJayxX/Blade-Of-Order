@@ -12,3 +12,4 @@ scene_path = "res://scenes/Bosses/Level6/level_06_radix_sort.tscn"
 boss_type = "radix"
 puzzle_type = "radix_sort"
 timer_rules = "default"
+unlock_level_required = 6

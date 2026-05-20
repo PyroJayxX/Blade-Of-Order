@@ -16,8 +16,9 @@ const SPLASH_TEXTURE_LOCKED = preload("res://assets/boss_splash/Locked_Level.png
 var level_data: Array[Resource] = []
 var currently_selected_level_id = -1
 var currently_selected_tile = null
+var _highest_unlocked_level: int = 1
 
-func _ready():
+func _ready() -> void:
 	AudioController.play_button()
 	var config: Node = get_node_or_null("/root/GameConfig")
 	if config != null:
@@ -25,6 +26,7 @@ func _ready():
 	play_button.disabled = true
 	play_button.pressed.connect(_on_play_button_pressed)
 	back_button.pressed.connect(_on_back_button_pressed)
+	await _refresh_unlock_state()
 	generate_level_grid()
 
 func generate_level_grid():
@@ -42,10 +44,7 @@ func generate_level_grid():
 		var data_id: int = int(data.get("level_id"))
 		var data_name: String = String(data.get("display_name"))
 		var data_scene_path: String = String(data.get("scene_path"))
-		var unlocked: bool = false
-		if config != null:
-			unlocked = bool(config.call("is_level_unlocked", data_id))
-		var is_locked: bool = (not unlocked) or data_scene_path.is_empty()
+		var is_locked: bool = (data_id > _highest_unlocked_level) or data_scene_path.is_empty()
 		var splash_texture: Texture2D = SPLASH_TEXTURE_BUBBLE
 		match data_id:
 			1: splash_texture = SPLASH_TEXTURE_BUBBLE
@@ -88,3 +87,74 @@ func _on_back_button_pressed() -> void:
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
 		flow.call("goto_main_menu")
+
+
+func _refresh_unlock_state() -> void:
+	_highest_unlocked_level = 1
+	var player_data: Node = get_node_or_null("/root/PlayerData")
+	if player_data == null:
+		return
+
+	var player_name: String = String(player_data.get("player_name")).strip_edges()
+	if player_name.is_empty():
+		return
+
+	var db: SupabaseDatabase = _get_database()
+	if db == null:
+		return
+
+	var query: SupabaseQuery = SupabaseQuery.new().from("leaderboard").select(PackedStringArray(["level", "score"]))
+	query = query.eq("player_name", player_name).order("level", SupabaseQuery.Directions.Ascending).range(0, 99)
+
+	var result: Dictionary = await _run_database_query(db, query)
+	if not bool(result.get("success", false)):
+		return
+
+	var completed_levels: Dictionary = {}
+	for row: Variant in _normalize_rows(result.get("payload")):
+		if not (row is Dictionary):
+			continue
+		var level_id: int = int((row as Dictionary).get("level", 0))
+		var score: int = int((row as Dictionary).get("score", 0))
+		if level_id > 0 and score > 0:
+			completed_levels[level_id] = true
+
+	while completed_levels.has(_highest_unlocked_level):
+		_highest_unlocked_level += 1
+
+
+func _get_database() -> SupabaseDatabase:
+	if not has_node("/root/Supabase"):
+		return null
+	var supabase: Node = get_node_or_null("/root/Supabase")
+	if supabase == null or not ("database" in supabase):
+		return null
+	return supabase.database as SupabaseDatabase
+
+
+func _run_database_query(db: SupabaseDatabase, query: SupabaseQuery) -> Dictionary:
+	var task: DatabaseTask = db.query(query)
+	await task.completed
+
+	if task.error != null:
+		return {
+			"success": false,
+			"payload": task.error,
+		}
+
+	return {
+		"success": true,
+		"payload": task.data,
+	}
+
+
+func _normalize_rows(payload: Variant) -> Array:
+	if payload == null:
+		return []
+	if payload is Array:
+		return payload
+	if payload is Dictionary:
+		var maybe_data: Variant = (payload as Dictionary).get("data", null)
+		if maybe_data is Array:
+			return maybe_data
+	return []

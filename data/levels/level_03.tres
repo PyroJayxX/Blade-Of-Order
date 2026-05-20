@@ -14,3 +14,4 @@ scene_path = "res://scenes/Bosses/Level3/level_03_shell_sort.tscn"
 boss_type = "shell"
 puzzle_type = "shell_sort"
 timer_rules = "default"
+unlock_level_required = 3

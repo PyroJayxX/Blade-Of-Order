@@ -31,8 +31,12 @@ func get_highest_unlocked_level() -> int:
 	return _highest_unlocked_level
 
 func is_level_unlocked(level_id: int) -> bool:
-	# Development mode: keep every level unlocked so the selector can be tested freely.
-	return get_level_definition(level_id) != null
+	var definition: Resource = get_level_definition(level_id)
+	if definition == null:
+		return false
+	if level_id <= 1:
+		return true
+	return _highest_unlocked_level >= int(definition.get("unlock_level_required"))
 
 func mark_level_completed(level_id: int) -> void:
 	var max_level_id: int = _get_max_level_id()
