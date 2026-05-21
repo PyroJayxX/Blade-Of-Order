@@ -19,7 +19,6 @@
 [ext_resource type="Script" uid="uid://duu7rove1ish3" path="res://scripts/LevelScripts/level6.gd" id="8_level6"]
 [ext_resource type="Script" uid="uid://bx0igiwp84c3p" path="res://scripts/PlayerScripts/dynamic_camera.gd" id="9_dynamic_camera"]
 [ext_resource type="Texture2D" uid="uid://dc2kvj87r8hg4" path="res://assets/platform/platform1-rock4.png" id="9_htqgp"]
-[ext_resource type="Script" uid="uid://cesq8ibnflfga" path="res://scripts/PuzzleScripts/radix_sort_puzzle.gd" id="9_x37sr"]
 [ext_resource type="PackedScene" uid="uid://bq8r8ec3jd8ix" path="res://scenes/Bosses/Level6/Radix/lvl6_radix.tscn" id="10_023rx"]
 [ext_resource type="Texture2D" uid="uid://b5ngae7war4dw" path="res://assets/platform/spoke.png" id="10_xavco"]
 [ext_resource type="Texture2D" uid="uid://dcei3qvbxln5m" path="res://assets/platform/spikes 2.png" id="11_0exb5"]
@@ -206,8 +205,6 @@ pages = Array[String](["You awake at the Core as a massive, hyper-fast static wo
 
 [node name="RadixSort" parent="." unique_id=1428021277 instance=ExtResource("7_dvama")]
 layer = 101
-script = ExtResource("9_x37sr")
-max_mistakes = 4
 
 [node name="HUD" parent="." unique_id=148605811 instance=ExtResource("4_vyrcm")]
 layer = 10

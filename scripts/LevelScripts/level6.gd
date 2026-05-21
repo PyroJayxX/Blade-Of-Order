@@ -123,6 +123,7 @@ func _on_boss_defeated() -> void:
 
 
 func _on_puzzle_completed() -> void:
+	_stop_level_music() # NEW: Silence music on victory
 	_capture_result_snapshot("cleared")
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
@@ -141,6 +142,7 @@ func _on_puzzle_completed() -> void:
 
 
 func _on_puzzle_failed() -> void:
+	_stop_level_music() # NEW: Silence music on victory
 	_capture_result_snapshot("failed")
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
@@ -155,6 +157,11 @@ func _on_puzzle_failed() -> void:
 	_set_player_controls_enabled(false)
 	_set_boss_combat_enabled(false)
 
+# --- NEW HELPER FUNCTION ---
+func _stop_level_music() -> void:
+	# Calls the new stop function we added to your AudioController singleton
+	if AudioController != null and AudioController.has_method("stop_all_music"):
+		AudioController.stop_all_music()
 
 func _on_player_died() -> void:
 	_capture_result_snapshot("failed")

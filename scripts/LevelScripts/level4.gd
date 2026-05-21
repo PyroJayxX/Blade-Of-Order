@@ -101,6 +101,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func _on_puzzle_failed() -> void:
+	_stop_level_music() # NEW: Silence music on victory
 	_capture_result_snapshot("failed")
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
@@ -116,6 +117,7 @@ func _on_puzzle_failed() -> void:
 	_set_boss_combat_enabled(false)
 
 func _on_puzzle_completed() -> void:
+	_stop_level_music() # NEW: Silence music on victory	
 	_capture_result_snapshot("cleared")
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
@@ -133,6 +135,7 @@ func _on_puzzle_completed() -> void:
 		_hud.call("stop_timer")
 
 func _on_player_died() -> void:
+	_stop_level_music() # NEW: Silence music on victory
 	_capture_result_snapshot("failed")
 	var flow: Node = get_node_or_null("/root/SceneFlow")
 	if flow != null:
@@ -148,9 +151,16 @@ func _on_player_died() -> void:
 	_set_boss_combat_enabled(false)
 
 func _on_boss_defeated() -> void:
+	_stop_level_music() # NEW: Silence music on victory
 	_heap_sort_puzzle.visible = true
 	if _heap_boss.has_method("on_stun_started_mock"):
 		_heap_boss.call("on_stun_started_mock")
+		
+# --- NEW HELPER FUNCTION ---
+func _stop_level_music() -> void:
+	# Calls the new stop function we added to your AudioController singleton
+	if AudioController != null and AudioController.has_method("stop_all_music"):
+		AudioController.stop_all_music()
 
 func _set_boss_combat_enabled(enabled: bool) -> void:
 	if _heap_boss != null and _heap_boss.has_method("set_combat_enabled"):

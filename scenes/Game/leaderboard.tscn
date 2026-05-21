@@ -203,8 +203,8 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_nujf3")
 
 [connection signal="pressed" from="Panel/ScrollContainer/VBoxContainer/NameRow/NameActionButton" to="." method="_on_name_action_button_pressed"]
+[connection signal="item_selected" from="Panel/ScrollContainer/VBoxContainer/BossFilterRow/BossFilterOption" to="." method="_on_boss_filter_selected"]
+[connection signal="pressed" from="Panel/ScrollContainer/VBoxContainer/Buttons/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="Panel/NameDialog/VBox/Buttons/ConfirmNameButton" to="." method="_on_confirm_name_button_pressed"]
 [connection signal="pressed" from="Panel/NameDialog/VBox/Buttons/CancelNameButton" to="." method="_on_cancel_name_button_pressed"]
 [connection signal="timeout" from="NotificationTimer" to="." method="_on_notification_timer_timeout"]
-[connection signal="item_selected" from="Panel/ScrollContainer/VBoxContainer/BossFilterRow/BossFilterOption" to="." method="_on_boss_filter_selected"]
-[connection signal="pressed" from="Panel/ScrollContainer/VBoxContainer/Buttons/CloseButton" to="." method="_on_close_button_pressed"]
